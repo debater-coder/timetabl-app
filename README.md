@@ -1,1 +1,1 @@
-# timetabl-app
+# Timetabl
