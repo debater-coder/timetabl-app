@@ -23,3 +23,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     </ChakraProvider>
   </React.StrictMode>
 );
+
+// Init service worker
+if ("serviceWorker" in navigator) {
+  // noinspection JSIgnoredPromiseFromCall
+  navigator.serviceWorker.register("/sw.js");
+}
