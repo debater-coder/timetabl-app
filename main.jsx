@@ -26,9 +26,10 @@ ReactDOM.createRoot(document.getElementById("root")).render(
 );
 
 if ("serviceWorker" in navigator) {
-  const wb = new Workbox("/sw.js", {
-    type: import.meta.env.DEV ? "module" : "classic",
+  window.addEventListener("load", () => {
+    // It's important to use type: 'modlue' here in dev.
+    navigator.serviceWorker.register("/sw.js", {
+      type: import.meta.env.DEV ? "module" : "classic",
+    });
   });
-
-  wb.register();
 }
