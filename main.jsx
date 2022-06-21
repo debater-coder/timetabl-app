@@ -23,3 +23,12 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     </ChakraProvider>
   </React.StrictMode>
 );
+
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    // It's important to use type: 'modlue' here in dev.
+    navigator.serviceWorker.register("/sw.js", {
+      type: import.meta.env.DEV ? "module" : "classic",
+    });
+  });
+}

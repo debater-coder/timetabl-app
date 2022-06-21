@@ -30,6 +30,7 @@
     "react-router-dom": "^6.3.0"
   },
   "devDependencies": {
+    "@rollup/plugin-replace": "^4.0.0",
     "prettier": "2.6.2",
     "rollup-plugin-workbox": "^6.2.0",
     "vite": "^2.9.12",
