@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { ChakraProvider, ColorModeScript } from "@chakra-ui/react";
+import { Workbox } from "workbox-window";
 
 import App from "./components/App";
 import theme from "./components/App/theme";
@@ -25,10 +26,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
 );
 
 if ("serviceWorker" in navigator) {
-  window.addEventListener("load", () => {
-    // It's important to use type: 'modlue' here in dev.
-    navigator.serviceWorker.register("/sw.js", {
-      type: import.meta.env.DEV ? "module" : "classic",
-    });
+  const wb = new Workbox("/sw.js", {
+    type: import.meta.env.DEV ? "module" : "classic",
   });
+
+  wb.register();
 }
