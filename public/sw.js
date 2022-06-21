@@ -10,9 +10,11 @@ self.addEventListener("activate", (event) => {
 
 self.addEventListener("fetch", function (event) {
   console.log("WORKER: fetch event in progress.");
-
-  // Ignore GET requests
-  if (event.request.method !== "GET") {
+  // Ignore certain requests
+  if (
+    event.request.method !== "GET" ||
+    !event.request.url.startsWith(self.registration.scope)
+  ) {
     console.log(
       "WORKER: fetch event ignored.",
       event.request.method,
