@@ -1,8 +1,10 @@
-import { registerRoute, Route } from "workbox-routing";
-import { StaleWhileRevalidate } from "workbox-strategies";
+import { precacheAndRoute } from "workbox-precaching";
 
-const shellRoute = new Route(({ request, sameOrigin }) => {
-  return sameOrigin && request.method === "GET";
-}, new StaleWhileRevalidate());
+console.log("Your custom service worker code");
 
-registerRoute(shellRoute);
+if (typeof is_vite_preview === "undefined") {
+  precacheAndRoute(self.__WB_MANIFEST);
+  console.log("precache!");
+} else {
+  console.log("skipping precache in dev");
+}
