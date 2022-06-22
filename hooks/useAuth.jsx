@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import contextualise from "../utils/contextualise";
 import config from "../config.js";
 
 let useAuth = () => {
   /**
-   * HOOKS
+   * STATE
    */
   const [loggedIn, setLoggedIn] = useState(false);
 
@@ -80,6 +80,41 @@ let useAuth = () => {
       "&code_challenge_method=S256";
   };
 
+  /**
+   * OAUTH REDIRECT HANDLING
+   */
+  useEffect(() => {
+    // Get query
+    let query = Object.fromEntries(
+      new URLSearchParams(window.location.search).entries()
+    );
+
+    // Clear query
+    window.history.replaceState({}, null, "/");
+    try {
+      // Error check
+      if (query.error) {
+        throw new Error(query.error + "\n\n" + query.error_description);
+      }
+
+      // If the server returned an authorization code, attempt to exchange it for an access token
+      if (query.code) {
+        // Verify state matches what we set at the beginning
+        if (localStorage.getItem("pkce_state") !== query.state) {
+          throw new Error(
+            "Invalid state! If you are seeing this message it may mean that the authorisation server is FAKE"
+          );
+        }
+
+        // Exchange code for access token
+        console.log("code: " + query.code);
+      }
+    } finally {
+      // Clean these up since we don't need them anymore
+      localStorage.removeItem("pkce_state");
+      localStorage.removeItem("pkce_code_verifier");
+    }
+  }, []);
   /**
    * RETURNS
    */

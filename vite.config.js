@@ -12,6 +12,7 @@ export default {
     }),
     replace({
       is_vite_preview: true, // this is used to conditionally call Workbox's precacheAndRoute function
+      preventAssignment: true,
     }),
   ],
 };
