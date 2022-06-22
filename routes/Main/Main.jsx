@@ -1,12 +1,12 @@
 import React from "react";
 import { Link as RouterLink } from "react-router-dom";
-import { Button, Heading, Link } from "@chakra-ui/react";
+import { Button, Flex, Heading, Link } from "@chakra-ui/react";
 
 export default () => (
-  <div>
-    <Heading>Main</Heading>
-    <Button colorScheme={"blue"} to={"/"} as={RouterLink}>
-      Logout
+  <Flex align={"center"} width={"full"} direction={"column"}>
+    <Heading mb={3}>Main</Heading>
+    <Button to={"/"} as={RouterLink} colorScheme={"blue"}>
+      Login
     </Button>
-  </div>
+  </Flex>
 );
