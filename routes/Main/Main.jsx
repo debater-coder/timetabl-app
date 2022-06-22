@@ -6,7 +6,7 @@ export default () => (
   <Flex align={"center"} width={"full"} direction={"column"}>
     <Heading mb={3}>Main</Heading>
     <Button to={"/"} as={RouterLink} colorScheme={"blue"}>
-      Login
+      Logout
     </Button>
   </Flex>
 );
