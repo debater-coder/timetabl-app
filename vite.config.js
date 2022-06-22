@@ -7,6 +7,7 @@ export default {
       swSrc: "sw.js",
       swDest: "dist/sw.js",
       globDirectory: "dist",
+      globPatterns: ["**/*.js", "**/*.css", "**/*.svg", "**/*.html"],
       mode: "production", // this inlines the module imports when using yarn build
     }),
     replace({
