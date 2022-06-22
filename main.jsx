@@ -9,24 +9,30 @@ import theme from "./components/App/theme";
 import Landing from "./routes/Landing";
 import Main from "./routes/Main";
 import registerSW from "./registerSW";
+import { Compose, withProps } from "./utils/contextualise";
+import { AuthProvider } from "./hooks/useAuth";
 
 const { ToastContainer, toast } = createStandaloneToast();
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
-    <ChakraProvider theme={theme}>
-      <ColorModeScript initialColorMode={theme.config.initialColorMode} />
-      <BrowserRouter>
-        <Routes>
-          <Route path={"/"} element={<App />}>
-            <Route index element={<Landing />} />
-            <Route path={"app"} element={<Main />} />
-          </Route>
-        </Routes>
-        <ToastContainer />
-      </BrowserRouter>
-    </ChakraProvider>
-  </React.StrictMode>
+  <Compose
+    components={[
+      React.StrictMode,
+      withProps(ChakraProvider, { theme }),
+      AuthProvider,
+    ]}
+  >
+    <ColorModeScript initialColorMode={theme.config.initialColorMode} />
+    <BrowserRouter>
+      <Routes>
+        <Route path={"/"} element={<App />}>
+          <Route index element={<Landing />} />
+          <Route path={"app"} element={<Main />} />
+        </Route>
+      </Routes>
+      <ToastContainer />
+    </BrowserRouter>
+  </Compose>
 );
 
 registerSW(toast);
