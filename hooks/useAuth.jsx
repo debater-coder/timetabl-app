@@ -80,8 +80,12 @@ let useAuth = () => {
       "&code_challenge_method=S256";
   };
 
+  const logout = () => {
+    localStorage.setItem("loggedIn", "false");
+    setLoggedIn(false);
+  };
   /**
-   * OAUTH REDIRECT HANDLING
+   * COMPONENT_DID_MOUNT
    */
   useEffect(() => {
     // Get query
@@ -90,7 +94,9 @@ let useAuth = () => {
     );
 
     // Clear query
-    window.history.replaceState({}, null, "/");
+    window.history.replaceState({}, null, location.pathname);
+
+    // Oauth Redirect Handling
     try {
       // Error check
       if (query.error) {
@@ -122,6 +128,12 @@ let useAuth = () => {
             redirect_uri: config.redirect_uri,
             code_verifier: localStorage.getItem("pkce_code_verifier"),
           }),
+        }).then((r) => {
+          if (!r.ok) {
+            throw new Error(String(r.status) + r.statusText);
+          }
+          setLoggedIn(true);
+          localStorage.setItem("loggedIn", "true");
         });
       }
     } finally {
@@ -129,11 +141,16 @@ let useAuth = () => {
       localStorage.removeItem("pkce_state");
       localStorage.removeItem("pkce_code_verifier");
     }
+
+    // Log in if already logged in
+    if (localStorage.getItem("loggedIn") === "true") {
+      setLoggedIn(true);
+    }
   }, []);
   /**
    * RETURNS
    */
-  return { loggedIn, login };
+  return { loggedIn, login, logout };
 };
 
 let [useAuthGlobal, AuthProvider] = contextualise(useAuth);
