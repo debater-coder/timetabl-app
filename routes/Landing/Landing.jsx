@@ -15,7 +15,9 @@ export default () => {
 
   return (
     <Flex align={"center"} width={"full"} direction={"column"}>
-      <Heading mb={3}>Landing</Heading>
+      <Heading mb={3}>
+        Login To Timetabl! (Exclamation marks are exciting!)
+      </Heading>
       <Button onClick={login} colorScheme={"blue"}>
         Login
       </Button>
