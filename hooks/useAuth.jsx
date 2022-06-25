@@ -7,6 +7,7 @@ let useAuth = () => {
    * STATE
    */
   const [loggedIn, setLoggedIn] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   /**
    * PKCE HELPERS
@@ -112,11 +113,11 @@ let useAuth = () => {
           );
         }
 
+        // Optimistically login but set loading to true
+        setLoggedIn(true);
+        setLoading(true);
+
         // Exchange code for access token
-        console.log("code: " + query.code);
-        console.log(
-          "code verifier:" + localStorage.getItem("pkce_code_verifier")
-        );
         fetch("/api/token", {
           method: "POST",
           headers: {
@@ -128,13 +129,17 @@ let useAuth = () => {
             redirect_uri: config.redirect_uri,
             code_verifier: localStorage.getItem("pkce_code_verifier"),
           }),
-        }).then((r) => {
-          if (!r.ok) {
-            throw new Error(String(r.status) + r.statusText);
-          }
-          setLoggedIn(true);
-          localStorage.setItem("loggedIn", "true");
-        });
+        })
+          .then((r) => {
+            if (!r.ok) {
+              throw new Error(String(r.status) + r.statusText);
+            }
+
+            // Persist logged in state and stop loading
+            localStorage.setItem("loggedIn", "true");
+            setLoading(false);
+          })
+          .catch(() => setLoggedIn(false));
       }
     } finally {
       // Clean these up since we don't need them anymore
@@ -150,7 +155,7 @@ let useAuth = () => {
   /**
    * RETURNS
    */
-  return { loggedIn, login, logout };
+  return { loggedIn, login, logout, loading };
 };
 
 let [useAuthGlobal, AuthProvider] = contextualise(useAuth);
