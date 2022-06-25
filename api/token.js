@@ -26,15 +26,24 @@ export default function handler(request, response) {
       .then((data) => {
         response.setHeader("Set-Cookie", [
           cookie.serialize("access_token", data["access_token"], {
-            priority: "high",
-            secure: true,
             httpOnly: true,
+            path: "/",
+            sameSite: "lax",
+            secure: true,
             maxAge: 60 * 60,
           }),
-          cookie.serialize("refresh_token", data["refresh_token"], {
-            priority: "high",
-            secure: true,
+          cookie.serialize("code_verifier", request.body.code_verifier, {
             httpOnly: true,
+            path: "/",
+            sameSite: "lax",
+            secure: true,
+            maxAge: 90 * 24 * 60 * 60,
+          }),
+          cookie.serialize("refresh_token", data["refresh_token"], {
+            httpOnly: true,
+            path: "/",
+            sameSite: "lax",
+            secure: true,
             maxAge: 90 * 24 * 60 * 60,
           }),
         ]);
