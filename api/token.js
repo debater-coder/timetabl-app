@@ -2,6 +2,7 @@ const fetch = require("node-fetch");
 const cookie = require("cookie");
 
 export default function handler(request, response) {
+  const error = "";
   try {
     fetch("https://student.sbhs.net.au/api/token", {
       method: "POST",
@@ -40,9 +41,9 @@ export default function handler(request, response) {
         response.status(200).send();
       })
       .catch((reason) => {
-        response.status(500).send(reason);
+        response.status(500).send("Bad response from server.");
       });
   } catch (reason) {
-    response.status(400).send(reason);
+    response.status(400).send("");
   }
 }
