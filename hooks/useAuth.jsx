@@ -108,6 +108,21 @@ let useAuth = () => {
 
         // Exchange code for access token
         console.log("code: " + query.code);
+        console.log(
+          "code verifier:" + localStorage.getItem("pkce_code_verifier")
+        );
+        fetch("/api/token", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json;charset=utf-8",
+          },
+          body: JSON.stringify({
+            code: query.code,
+            client_id: config.client_id,
+            redirect_uri: config.redirect_uri,
+            code_verifier: localStorage.getItem("pkce_code_verifier"),
+          }),
+        });
       }
     } finally {
       // Clean these up since we don't need them anymore
