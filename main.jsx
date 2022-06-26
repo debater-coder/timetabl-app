@@ -12,7 +12,7 @@ import registerSW from "./registerSW";
 import { Compose, withProps } from "./utils/contextualise";
 import { AuthProvider } from "./hooks/useAuth";
 
-const { ToastContainer, toast } = createStandaloneToast();
+const { ToastContainer, toast } = createStandaloneToast({ theme });
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <Compose
