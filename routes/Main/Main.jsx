@@ -16,7 +16,7 @@ export default () => {
   return (
     <Flex align={"center"} width={"full"} direction={"column"}>
       <Skeleton mt={10} rounded={10} isLoaded={!loading}>
-        G'day, human! You are now logged in.
+        G'day, user! You are now logged in.
       </Skeleton>
     </Flex>
   );
