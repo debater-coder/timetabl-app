@@ -7,7 +7,7 @@ const promptForUpdate = (toast) => {
     toast({
       duration: 9000,
       render: () => (
-        <Alert status="info" variant={"solid"} rounded={5}>
+        <Alert status="info" rounded={5}>
           <AlertTitle> A new version is available! </AlertTitle>
           <Button onClick={() => resolve(true)}> Reload </Button>
         </Alert>
