@@ -1,11 +1,13 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Flex, Skeleton } from "@chakra-ui/react";
+import { Button, Flex, Skeleton } from "@chakra-ui/react";
 import { useAuth } from "../../hooks/useAuth";
+import { useToast } from "@chakra-ui/react";
 
 export default () => {
-  const { loggedIn, logout, loading } = useAuth();
+  const { loggedIn, loading } = useAuth();
   const navigate = useNavigate();
+  const toast = useToast();
 
   useEffect(() => {
     if (!loggedIn) {

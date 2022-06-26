@@ -30,8 +30,8 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           <Route path={"app"} element={<Main />} />
         </Route>
       </Routes>
-      <ToastContainer />
     </BrowserRouter>
+    <ToastContainer />
   </Compose>
 );
 
