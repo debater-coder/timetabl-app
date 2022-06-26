@@ -1,5 +1,6 @@
 import { Workbox } from "workbox-window";
 import { Alert, AlertTitle, Button } from "@chakra-ui/react";
+import React from "react";
 
 const promptForUpdate = (toast) => {
   return new Promise((resolve) => {
