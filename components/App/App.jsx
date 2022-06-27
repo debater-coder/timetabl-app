@@ -5,7 +5,7 @@ import { Flex } from "@chakra-ui/react";
 
 export default () => {
   return (
-    <Flex direction={"column"}>
+    <Flex direction={"column"} width={"100vw"} height={"100vh"}>
       <Nav />
       <Outlet />
     </Flex>

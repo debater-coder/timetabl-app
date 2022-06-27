@@ -64,16 +64,7 @@ export default () => {
   const { loggedIn, logout } = useAuth();
 
   return (
-    <Flex
-      as="nav"
-      align="center"
-      wrap="wrap"
-      w="100%"
-      h="70%"
-      mb={8}
-      p={4}
-      bg={"transparent"}
-    >
+    <Flex as="nav" align="center" wrap="wrap" w="100%" h="80px" p={4}>
       <TimetablLogo color={logoColor} />
       <Spacer />
       <Flex>
