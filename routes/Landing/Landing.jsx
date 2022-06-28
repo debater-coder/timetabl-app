@@ -4,11 +4,11 @@ import { useAuth } from "../../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 
 export default () => {
-  const { login, loggedIn } = useAuth();
+  const { login, loggedIn, shouldRedirect } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (loggedIn) {
+    if (loggedIn && shouldRedirect) {
       navigate("/app");
     }
   }, [loggedIn]);

@@ -1,19 +1,16 @@
 import React, { useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-import { Flex, Skeleton, useBreakpointValue } from "@chakra-ui/react";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import { Flex, useBreakpointValue } from "@chakra-ui/react";
 import { useAuth } from "../../hooks/useAuth";
-import SidebarButton from "../../components/Sidebar/SidebarButton";
-
-import { Calendar, House, Megaphone } from "phosphor-react";
 import Sidebar from "../../components/Sidebar";
 
 export default () => {
-  const { loggedIn, loading } = useAuth();
+  const { loggedIn, shouldRedirect } = useAuth();
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
   useEffect(() => {
-    if (!loggedIn) {
+    if (!loggedIn && shouldRedirect) {
       navigate("/");
     }
   }, [loggedIn]);
@@ -42,9 +39,7 @@ export default () => {
         width={"full"}
         height={"full"}
       >
-        <Skeleton mt={10} rounded={10} isLoaded={!loading}>
-          G'day, user! You are now logged in.
-        </Skeleton>
+        <Outlet />
       </Flex>
     </Flex>
   );

@@ -4,12 +4,13 @@ import {
   IconButton,
   Image,
   Spacer,
+  Tooltip,
   useColorMode,
   useColorModeValue,
 } from "@chakra-ui/react";
-import { FaGithub, FaMoon, FaSun, MdLogout } from "react-icons/all";
+import { FaGithub, FaMoon, FaSun, MdLogout, MdSettings } from "react-icons/all";
 import { Link as RouterLink } from "react-router-dom";
-import React from "react";
+import React, { forwardRef } from "react";
 import { useAuth } from "../../hooks/useAuth";
 
 const TimetablLogo = ({ color }) => (
@@ -31,6 +32,7 @@ const TimetablLogo = ({ color }) => (
 const GithubBTN = ({ iconColor }) => (
   <a href="https://github.com/debater-coder/timetabl-app">
     <IconButton
+      mr={1}
       color={iconColor}
       icon={<FaGithub />}
       aria-label="Github Repository"
@@ -47,12 +49,28 @@ const DarkModeBTN = ({ toggleColorMode, iconColor, icon }) => (
   />
 );
 const LogoutBTN = ({ logout, iconColor }) => (
-  <IconButton
-    onClick={logout}
-    aria-label={"Logout"}
-    color={iconColor}
-    icon={<MdLogout />}
-  />
+  <Tooltip label={"Logout"}>
+    <IconButton
+      mr={1}
+      onClick={logout}
+      aria-label={"Logout"}
+      color={iconColor}
+      icon={<MdLogout />}
+    />
+  </Tooltip>
+);
+
+const SettingsBTN = ({ iconColor }) => (
+  <Tooltip label={"Settings"}>
+    <RouterLink to={"/app/settings"}>
+      <IconButton
+        aria-label={"settings"}
+        mr={1}
+        icon={<MdSettings />}
+        color={iconColor}
+      />
+    </RouterLink>
+  </Tooltip>
 );
 
 export default () => {
@@ -68,15 +86,20 @@ export default () => {
       <TimetablLogo color={logoColor} />
       <Spacer />
       <Flex>
-        <DarkModeBTN
-          iconColor={iconColor}
-          icon={colorModeIcon}
-          toggleColorMode={toggleColorMode}
-        />
         {loggedIn ? (
-          <LogoutBTN logout={logout} />
+          <>
+            <SettingsBTN iconColor={iconColor} />
+            <LogoutBTN logout={logout} iconColor={iconColor} />
+          </>
         ) : (
-          <GithubBTN iconColor={iconColor} />
+          <>
+            <DarkModeBTN
+              iconColor={iconColor}
+              icon={colorModeIcon}
+              toggleColorMode={toggleColorMode}
+            />
+            <GithubBTN iconColor={iconColor} />
+          </>
         )}
       </Flex>
     </Flex>

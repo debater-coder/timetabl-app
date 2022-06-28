@@ -8,6 +8,7 @@ let useAuth = () => {
    */
   const [loggedIn, setLoggedIn] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [shouldRedirect, setShouldRedirect] = useState(false);
 
   /**
    * PKCE HELPERS
@@ -115,6 +116,7 @@ let useAuth = () => {
 
         // Optimistically login but set loading to true
         setLoggedIn(true);
+        setShouldRedirect(true);
         setLoading(true);
 
         // Exchange code for access token
@@ -150,12 +152,13 @@ let useAuth = () => {
     // Log in if already logged in
     if (localStorage.getItem("loggedIn") === "true") {
       setLoggedIn(true);
+      setShouldRedirect(true);
     }
   }, []);
   /**
    * RETURNS
    */
-  return { loggedIn, login, logout, loading };
+  return { loggedIn, login, logout, loading, shouldRedirect };
 };
 
 let [useAuthGlobal, AuthProvider] = contextualise(useAuth);
