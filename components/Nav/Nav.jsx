@@ -13,8 +13,8 @@ import { Link as RouterLink } from "react-router-dom";
 import React, { forwardRef } from "react";
 import { useAuth } from "../../hooks/useAuth";
 
-const TimetablLogo = ({ color }) => (
-  <RouterLink to={"/"}>
+const TimetablLogo = ({ color, loggedIn }) => (
+  <RouterLink to={loggedIn ? "/app" : "/"}>
     <Flex align={"center"}>
       <Image
         src={"/favicon.svg"}
@@ -83,7 +83,7 @@ export default () => {
 
   return (
     <Flex as="nav" align="center" wrap="wrap" w="100%" h="80px" p={4}>
-      <TimetablLogo color={logoColor} />
+      <TimetablLogo color={logoColor} loggedIn={loggedIn} />
       <Spacer />
       <Flex>
         {loggedIn ? (
