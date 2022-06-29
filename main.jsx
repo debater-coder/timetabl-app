@@ -7,6 +7,10 @@ import registerSW from "./registerSW";
 import { Compose, withProps } from "./utils/contextualise";
 import { AuthProvider } from "./hooks/useAuth";
 import Routes from "./components/Routes";
+import { QueryClient, QueryClientProvider } from "react-query";
+import { ReactQueryDevtools } from "react-query/devtools";
+
+const queryClient = new QueryClient();
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <Compose
@@ -14,12 +18,14 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       React.StrictMode,
       withProps(ChakraProvider, { theme }),
       AuthProvider,
+      withProps(QueryClientProvider, { client: queryClient }),
     ]}
   >
     <ColorModeScript initialColorMode={theme.config.initialColorMode} />
     <BrowserRouter>
       <Routes />
     </BrowserRouter>
+    <ReactQueryDevtools initialIsOpen={false} />
   </Compose>
 );
 

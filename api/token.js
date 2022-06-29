@@ -2,7 +2,6 @@ const fetch = require("node-fetch");
 const cookie = require("cookie");
 
 export default function handler(request, response) {
-  const error = "";
   try {
     fetch("https://student.sbhs.net.au/api/token", {
       method: "POST",
