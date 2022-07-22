@@ -1,7 +1,8 @@
 import replace from "@rollup/plugin-replace";
 import { injectManifest } from "rollup-plugin-workbox";
+import { defineConfig } from "vite";
 
-export default {
+export default defineConfig({
   plugins: [
     injectManifest({
       swSrc: "sw.js",
@@ -15,4 +16,4 @@ export default {
       preventAssignment: true,
     }),
   ],
-};
+});
