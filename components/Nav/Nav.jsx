@@ -12,6 +12,7 @@ import { FaGithub, FaMoon, FaSun, MdLogout, MdSettings } from "react-icons/all";
 import { Link as RouterLink } from "react-router-dom";
 import React, { forwardRef } from "react";
 import { useAuth } from "../../hooks/useAuth";
+import "@fontsource/poppins";
 
 const TimetablLogo = ({ color, loggedIn }) => (
   <RouterLink to={loggedIn ? "/app" : "/"}>
@@ -23,7 +24,12 @@ const TimetablLogo = ({ color, loggedIn }) => (
         boxSize={"2rem"}
         mr={2}
       />
-      <Heading size={"xs"} color={color}>
+      <Heading
+        size={"xs"}
+        color={color}
+        fontFamily={"Poppins, sans-serif"}
+        fontWeight={"regular"}
+      >
         Timetabl
       </Heading>
     </Flex>
