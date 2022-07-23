@@ -43,6 +43,10 @@
     "workbox-window": "^6.5.3"
   },
   "devDependencies": {
+    "@vitejs/plugin-react": "^2.0.0",
+    "eslint": "^8.20.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-react": "^7.30.1",
     "prettier": "2.6.2",
     "vite": "^3.0.2"
   }

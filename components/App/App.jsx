@@ -1,4 +1,3 @@
-import React from "react";
 import Nav from "../Nav";
 import { Outlet } from "react-router-dom";
 import { Flex } from "@chakra-ui/react";
