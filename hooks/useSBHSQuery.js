@@ -1,6 +1,6 @@
 import { useQuery } from "react-query";
 
-const fetchSBHSApi = async ({ queryKey: [_key, endpoint] }) => {
+const fetchSBHSApi = async ({ queryKey: [, endpoint] }) => {
   const res = await fetch("/api/api", {
     credentials: "same-origin",
     method: "POST",

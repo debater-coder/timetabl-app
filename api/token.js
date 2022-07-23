@@ -48,7 +48,7 @@ export default function handler(request, response) {
         ]);
         response.status(200).send();
       })
-      .catch((reason) => {
+      .catch(() => {
         response.status(500).send("Bad response from server.");
       });
   } catch (reason) {

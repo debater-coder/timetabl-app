@@ -1,8 +1,9 @@
-// eslint-disable-next-line no-undef
+/* eslint-env node */
 module.exports = {
+  root: true,
   env: {
     browser: true,
-    es2021: true,
+    es2022: true,
   },
   extends: [
     "eslint:recommended",
@@ -19,7 +20,8 @@ module.exports = {
   },
   plugins: ["react"],
   rules: {
-    "react/display-name": [0],
+    "react/display-name": "off",
+    "react/prop-types": "off",
   },
   settings: {
     react: {
