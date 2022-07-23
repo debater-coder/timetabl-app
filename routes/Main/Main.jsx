@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { Flex, useBreakpointValue } from "@chakra-ui/react";
 import { useAuth } from "../../hooks/useAuth";

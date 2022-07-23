@@ -1,5 +1,4 @@
 import { Box, Flex, Text, useColorModeValue, useToken } from "@chakra-ui/react";
-import React from "react";
 import { motion } from "framer-motion";
 
 export default ({ name, icon: Icon, active, sidebar, mirrored }) => {

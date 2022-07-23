@@ -2,7 +2,6 @@ import { Route, Routes } from "react-router-dom";
 import App from "../App/App";
 import Landing from "../../routes/Landing/Landing";
 import Main from "../../routes/Main/Main";
-import React from "react";
 import Home from "../../routes/Main/Home";
 import Settings from "../../routes/Main/Settings";
 

@@ -1,4 +1,4 @@
-import React, { createContext, useContext } from "react";
+import { createContext, useContext } from "react";
 
 export default (hook, hookConfig = [], defaultValue) => {
   const Context = createContext(defaultValue);

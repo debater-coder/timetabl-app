@@ -10,7 +10,6 @@ import {
 } from "@chakra-ui/react";
 import { FaGithub, FaMoon, FaSun, MdLogout, MdSettings } from "react-icons/all";
 import { Link as RouterLink } from "react-router-dom";
-import React from "react";
 import { useAuth } from "../../hooks/useAuth";
 import "@fontsource/poppins";
 

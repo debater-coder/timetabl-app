@@ -1,4 +1,3 @@
-import React from "react";
 import { Skeleton } from "@chakra-ui/react";
 import { useAuth } from "../../../hooks/useAuth";
 import useSBHSQuery from "../../../hooks/useSBHSQuery";

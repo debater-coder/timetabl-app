@@ -1,5 +1,5 @@
 import { Button, Flex, Heading } from "@chakra-ui/react";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useAuth } from "../../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 
