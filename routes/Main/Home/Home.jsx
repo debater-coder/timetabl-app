@@ -1,5 +1,5 @@
 import React from "react";
-import { Heading, Skeleton, Text } from "@chakra-ui/react";
+import { Skeleton } from "@chakra-ui/react";
 import { useAuth } from "../../../hooks/useAuth";
 import useSBHSQuery from "../../../hooks/useSBHSQuery";
 
@@ -10,7 +10,7 @@ export default () => {
   if (data || !error) {
     return (
       <Skeleton isLoaded={!!data} rounded={5}>
-        G'day {data?.givenName}, you are now logged in!
+        G&apos;day {data?.givenName}, you are now logged in!
       </Skeleton>
     );
   }
