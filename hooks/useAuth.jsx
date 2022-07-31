@@ -93,6 +93,18 @@ let useAuth = () => {
     setLoggedIn(false);
   };
 
+  const refresh = async () => {
+    await fetch("/api/token", {
+      method: "PATCH",
+      body: JSON.stringify({
+        client_id: config.client_id,
+      }),
+      headers: {
+        "Content-Type": "application/json; charset=UTF-8",
+      },
+    });
+  };
+
   /**
    * COMPONENT_DID_MOUNT
    */
@@ -166,7 +178,8 @@ let useAuth = () => {
   /**
    * RETURNS
    */
-  return { loggedIn, login, logout, loading, shouldRedirect };
+  window.refresh = refresh;
+  return { loggedIn, login, logout, loading, shouldRedirect, refresh };
 };
 
 let [useAuthGlobal, AuthProvider] = contextualise(useAuth);
