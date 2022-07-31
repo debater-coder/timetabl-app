@@ -27,6 +27,8 @@ export default () => {
         h={{ base: "80px", md: "100%" }}
         direction={{ base: "row", md: "column" }}
         justify={"center"}
+        position={"fixed"}
+        bottom={0}
       >
         <Sidebar
           pathname={pathname}
