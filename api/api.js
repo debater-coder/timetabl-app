@@ -1,8 +1,23 @@
 const fetch = require("node-fetch");
 
+// Error Codes
+// REFRESH_TOKEN: Access token has expired, use the refresh token to get a new one
+// TOKEN_EXPIRED: Refresh token has expired, prompt the user to log in again
+// UNAUTHORISED: User is not authorised to access the API, prompt the user to log in again
+// OTHER_ERROR: Some other error has occurred, tell the user to try again or try logging out and in again
+
 export default async function handler(req, res) {
-  const { access_token } = req.cookies;
+  const { access_token, refresh_token } = req.cookies;
   const { endpoint } = req.body;
+
+  if (!access_token) {
+    if (refresh_token) {
+      res.status(401).send("REFRESH_TOKEN");
+    } else {
+      res.status(401).send("TOKEN_EXPIRED");
+    }
+    return;
+  }
 
   const raw = await fetch(
     "https://student.sbhs.net.au/api/" +
@@ -12,20 +27,10 @@ export default async function handler(req, res) {
   );
 
   if (raw.status === 401) {
-    try {
-      console.error(await raw.text());
-    } finally {
-      res.status(401).send("Unauthorised");
-    }
+    res.status(401).send("UNAUTHORISED");
+  } else if (!raw.ok) {
+    res.status(500).send("OTHER_ERROR");
+  } else {
+    res.status(200).json(await raw.json());
   }
-
-  if (!raw.ok) {
-    try {
-      console.error(await raw.text());
-    } finally {
-      res.status(500).send("Unknown error");
-    }
-  }
-
-  res.status(200).json(await raw.json());
 }
