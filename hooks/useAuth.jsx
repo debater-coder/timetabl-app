@@ -92,6 +92,7 @@ let useAuth = () => {
     queryClient.clear();
     setLoggedIn(false);
   };
+
   /**
    * COMPONENT_DID_MOUNT
    */
@@ -158,8 +159,9 @@ let useAuth = () => {
     // Log in if already logged in
     if (localStorage.getItem("loggedIn") === "true") {
       setLoggedIn(true);
-      setShouldRedirect(true);
     }
+
+    setShouldRedirect(true);
   }, []);
   /**
    * RETURNS

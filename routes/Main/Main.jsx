@@ -13,7 +13,7 @@ export default () => {
     if (!loggedIn && shouldRedirect) {
       navigate("/");
     }
-  }, [loggedIn]);
+  }, [loggedIn, shouldRedirect]);
 
   return (
     <Flex
