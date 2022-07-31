@@ -28,12 +28,12 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   <Compose
     components={[
       StrictMode,
-      withProps(ChakraProvider, { theme }),
-      AuthProvider,
       withProps(PersistQueryClientProvider, {
         client: queryClient,
         persistOptions: { persister },
       }),
+      withProps(ChakraProvider, { theme }),
+      AuthProvider,
     ]}
   >
     <ColorModeScript initialColorMode={theme.config.initialColorMode} />

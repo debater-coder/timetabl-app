@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import contextualise from "../utils/contextualise";
 import config from "../config.js";
+import { useQueryClient } from "@tanstack/react-query";
 
 let useAuth = () => {
   /**
@@ -9,6 +10,7 @@ let useAuth = () => {
   const [loggedIn, setLoggedIn] = useState(false);
   const [loading, setLoading] = useState(false);
   const [shouldRedirect, setShouldRedirect] = useState(false);
+  const queryClient = useQueryClient();
 
   /**
    * PKCE HELPERS
@@ -82,8 +84,12 @@ let useAuth = () => {
       "&code_challenge_method=S256";
   };
 
-  const logout = () => {
+  const logout = async () => {
+    await fetch("/api/token", {
+      method: "DELETE",
+    });
     localStorage.setItem("loggedIn", "false");
+    queryClient.clear();
     setLoggedIn(false);
   };
   /**
