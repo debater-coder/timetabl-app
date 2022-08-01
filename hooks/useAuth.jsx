@@ -105,6 +105,7 @@ let useAuth = () => {
         "Content-Type": "application/json; charset=UTF-8",
       },
     });
+    setRefreshing(false);
   };
 
   /**
