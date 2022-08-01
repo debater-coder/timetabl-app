@@ -15,7 +15,9 @@ import { createSyncStoragePersister } from "@tanstack/query-sync-storage-persist
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      cacheTime: 1000 * 60 * 60 * 24, // 24 hours
+      cacheTime: Infinity,
+      refetchInterval: 5 * 60 * 1000, // 5 minutes
+      refetchIntervalInBackground: true,
     },
   },
 });
@@ -30,7 +32,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       StrictMode,
       withProps(PersistQueryClientProvider, {
         client: queryClient,
-        persistOptions: { persister },
+        persistOptions: { persister, maxAge: Infinity },
       }),
       withProps(ChakraProvider, { theme }),
       AuthProvider,
