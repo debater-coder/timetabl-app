@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
+import { useAuth } from "./useAuth";
 
-const fetchSBHSApi = async ({ queryKey: [, endpoint] }) => {
+const fetchSBHSApi = async (endpoint, refresh) => {
   const res = await fetch("/api/api", {
     credentials: "same-origin",
     method: "POST",
@@ -11,13 +12,21 @@ const fetchSBHSApi = async ({ queryKey: [, endpoint] }) => {
   });
 
   if (!res.ok) {
-    throw new Error(`HTTP Error: ${res.status}: ${res.statusText}`);
+    const errorText = await res.text();
+
+    if (errorText === "REFRESH_TOKEN") {
+      refresh();
+    }
+
+    throw new Error(`HTTP Error: ${res.status}: ${errorText}`);
   }
 
   return res.json();
 };
 
-export default (endpoint, enabled) =>
-  useQuery(["sbhs", endpoint], fetchSBHSApi, {
-    enabled: enabled,
+export default (endpoint, enabled) => {
+  const { refreshing, refresh } = useAuth();
+  return useQuery(["sbhs", endpoint], () => fetchSBHSApi(endpoint, refresh), {
+    enabled: enabled && !refreshing,
   });
+};

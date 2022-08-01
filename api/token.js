@@ -100,11 +100,6 @@ export default async function handler(request, response) {
       });
 
       if (!res.ok) {
-        console.log(
-          await res.text(),
-          request.cookies.refresh_token,
-          request.body.client_id
-        );
         response.status(500).send("Bad response from server.");
         return;
       }
@@ -118,6 +113,13 @@ export default async function handler(request, response) {
           sameSite: "lax",
           secure: true,
           maxAge: 60 * 60,
+        }),
+        cookie.serialize("refresh_token", data["refresh_token"], {
+          httpOnly: true,
+          path: "/",
+          sameSite: "lax",
+          secure: true,
+          maxAge: 90 * 24 * 60 * 60,
         }),
       ]);
 

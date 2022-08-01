@@ -10,6 +10,7 @@ let useAuth = () => {
   const [loggedIn, setLoggedIn] = useState(false);
   const [loading, setLoading] = useState(false);
   const [shouldRedirect, setShouldRedirect] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
   const queryClient = useQueryClient();
 
   /**
@@ -94,6 +95,7 @@ let useAuth = () => {
   };
 
   const refresh = async () => {
+    setRefreshing(true);
     await fetch("/api/token", {
       method: "PATCH",
       body: JSON.stringify({
@@ -178,8 +180,15 @@ let useAuth = () => {
   /**
    * RETURNS
    */
-  window.refresh = refresh;
-  return { loggedIn, login, logout, loading, shouldRedirect, refresh };
+  return {
+    loggedIn,
+    login,
+    logout,
+    loading,
+    shouldRedirect,
+    refresh,
+    refreshing,
+  };
 };
 
 let [useAuthGlobal, AuthProvider] = contextualise(useAuth);
