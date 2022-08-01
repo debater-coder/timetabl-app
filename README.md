@@ -20,6 +20,7 @@ To run Timetabl locally, you must first set the `VITE_CLIENT_ID` environment var
 ```
 git clone https://github.com/debater-coder/timetabl-app.git
 cd timetabl-app
+npm install
 npm run vdev
 ```
 If you only wish to start the client server, run `npm start` instead of `npm run vdev`.
