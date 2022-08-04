@@ -13,7 +13,7 @@ Timetabl is a PWA and it stores the app shell in cache. The app shell will alway
 This is why Timetabl automatically refetches data every 5 minutes, and in the future it may even perform background syncs.
 
 3. **Be secure**
-Unlike other bell time apps, Timetabl stores your tokens in HTTPS-only cookies instead of localStorage, so that even in the event of an XSS attack, the tokens are secure.
+Unlike other bell time apps, Timetabl stores your tokens in HTTPS-only cookies instead of `localStorage`, so that even in the event of an XSS attack, the tokens are secure.
 
 ## For Contributors
 To run Timetabl locally, you must first set the `VITE_CLIENT_ID` environment variable to the `client_id` you configured in the SBHS Apps section. To simulate the Vercel environment on your local machine, you must also install the [Vercel CLI](https://vercel.com/docs/cli). Then to start the vercel dev server run:
@@ -24,6 +24,9 @@ npm install
 npm run vdev
 ```
 If you only wish to start the client server, run `npm start` instead of `npm run vdev`.
+
+## Contact
+If you wish to report a bug or have a feature request, or something else to say, please either post a GitHub issue, or join the [Timetabl Slack](https://join.slack.com/t/timetabl/shared_invite/zt-1dhr2v791-G0IDTb~kLRXT~0vjmyEtmw).
 
 ## License
 This project is MIT licensed. See [LICENSE](./LICENSE)
