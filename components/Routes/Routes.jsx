@@ -4,6 +4,7 @@ import Landing from "../../routes/Landing/Landing";
 import Main from "../../routes/Main/Main";
 import Home from "../../routes/Main/Home";
 import Settings from "../../routes/Main/Settings";
+import Barcode from "../../routes/Main/Barcode";
 
 export default () => (
   <Routes>
@@ -12,6 +13,7 @@ export default () => (
       <Route path={"app"} element={<Main />}>
         <Route index element={<Home />} />
         <Route path={"settings"} element={<Settings />} />
+        <Route path={"barcode"} element={<Barcode />} />
       </Route>
     </Route>
   </Routes>
