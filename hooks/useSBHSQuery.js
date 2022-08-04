@@ -26,7 +26,13 @@ const fetchSBHSApi = async (endpoint, refresh) => {
 
 export default (endpoint, enabled) => {
   const { refreshing, refresh } = useAuth();
-  return useQuery(["sbhs", endpoint], () => fetchSBHSApi(endpoint, refresh), {
-    enabled: enabled && !refreshing,
-  });
+  return useQuery(
+    ["sbhs", endpoint],
+    () => {
+      if (!refreshing) fetchSBHSApi(endpoint, refresh);
+    },
+    {
+      enabled: enabled && !refreshing,
+    }
+  );
 };
