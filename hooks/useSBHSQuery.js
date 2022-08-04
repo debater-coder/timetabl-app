@@ -20,8 +20,8 @@ const fetchSBHSApi = async (endpoint, refresh) => {
 
     throw new Error(`HTTP Error: ${res.status}: ${errorText}`);
   }
-
-  return res.json();
+  const json = await res.json();
+  return json;
 };
 
 export default (endpoint, enabled) => {
@@ -29,7 +29,7 @@ export default (endpoint, enabled) => {
   return useQuery(
     ["sbhs", endpoint],
     () => {
-      if (!refreshing) fetchSBHSApi(endpoint, refresh);
+      return fetchSBHSApi(endpoint, refresh);
     },
     {
       enabled: enabled && !refreshing,

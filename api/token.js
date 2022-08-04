@@ -101,6 +101,7 @@ export default async function handler(request, response) {
 
       if (!res.ok) {
         response.status(500).send("Bad response from server.");
+        console.log(await res.text());
         return;
       }
 
