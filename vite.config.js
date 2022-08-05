@@ -9,7 +9,14 @@ export default defineConfig({
       swSrc: "sw.js",
       swDest: "dist/sw.js",
       globDirectory: "dist",
-      globPatterns: ["**/*.js", "**/*.css", "**/*.svg", "**/*.html"],
+      globPatterns: [
+        "**/*.js",
+        "**/*.css",
+        "**/*.svg",
+        "**/*.html",
+        "**/*.woff",
+        "**/*.woff2",
+      ],
       mode: "production", // this inlines the module imports when using yarn build
     }),
     replace({
