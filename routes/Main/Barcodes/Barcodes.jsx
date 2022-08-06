@@ -44,7 +44,7 @@ const YourBarcode = () => {
           </Tooltip>
           <IconButton
             colorScheme={"blue"}
-            variant={"outline"}
+            variant={"ghost"}
             icon={<Download />}
             onClick={() => useDownloadBarcode(data?.["studentId"])}
           />
@@ -65,11 +65,19 @@ const YourBarcode = () => {
 
 const SavedBarcode = ({ name, value, onDelete }) => (
   <Flex direction="column">
-    <Flex justify={"space-between"} align="center">
-      <Heading size={"sm"} mb={1} fontFamily={"Poppins, sans-serif"}>
+    <Flex justify={"space-between"} align="center" mb={1}>
+      <Heading size={"sm"} fontFamily={"Poppins, sans-serif"}>
         {name}
       </Heading>
-      <CloseButton onClick={() => onDelete(name)} />
+      <Flex align={"center"}>
+        <IconButton
+          colorScheme={"blue"}
+          variant={"ghost"}
+          icon={<Download />}
+          onClick={() => useDownloadBarcode(value)}
+        />
+        <CloseButton onClick={() => onDelete(name)} />
+      </Flex>
     </Flex>
     <Barcode value={value} />
   </Flex>
