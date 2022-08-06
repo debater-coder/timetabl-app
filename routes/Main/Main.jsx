@@ -21,7 +21,6 @@ export default () => {
       width={"full"}
       height={"full"}
       direction={{ base: "column-reverse", md: "row" }}
-      mt={20}
     >
       <Flex
         w={{ base: "100%", md: "80px" }}
