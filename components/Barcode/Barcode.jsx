@@ -8,5 +8,5 @@ export default ({ value }) => {
     }
   };
 
-  return <chakra.svg ref={barcodeCallback} rounded={6} />;
+  return <chakra.svg shadow={"lg"} ref={barcodeCallback} rounded={10} />;
 };

@@ -12,11 +12,11 @@ export default ({ pathname, sidebar }) => (
         icon={House}
       />
     </Link>
-    <Link to={"/app/barcode"}>
+    <Link to={"/app/barcodes"}>
       <SidebarButton
         sidebar={sidebar}
-        name={"Barcode"}
-        active={pathname === "/app/barcode"}
+        name={"Barcodes"}
+        active={pathname === "/app/barcodes"}
         icon={Barcode}
       />
     </Link>

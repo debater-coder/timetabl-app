@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
-import { Flex, useBreakpointValue } from "@chakra-ui/react";
+import { Flex, useBreakpointValue, useColorModeValue } from "@chakra-ui/react";
 import { useAuth } from "../../hooks/useAuth";
 import Sidebar from "../../components/Sidebar";
 
@@ -21,6 +21,7 @@ export default () => {
       width={"full"}
       height={"full"}
       direction={{ base: "column-reverse", md: "row" }}
+      mt={20}
     >
       <Flex
         w={{ base: "100%", md: "80px" }}
@@ -29,6 +30,8 @@ export default () => {
         justify={"center"}
         position={"fixed"}
         bottom={0}
+        left={0}
+        zIndex={999}
       >
         <Sidebar
           pathname={pathname}
