@@ -31,7 +31,8 @@ export default () => {
         position={"fixed"}
         bottom={0}
         left={0}
-        zIndex={999}
+        zIndex={100}
+        bg={useColorModeValue("white", "gray.800")}
       >
         <Sidebar
           pathname={pathname}
