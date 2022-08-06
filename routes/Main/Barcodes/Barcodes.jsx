@@ -156,9 +156,19 @@ export default () => {
         Your scan in barcode
       </Heading>
       <YourBarcode />
-      <Heading fontFamily={"Poppins, sans-serif"} fontSize="xl" mt={6}>
-        Saved barcodes
-      </Heading>
+      <Flex align="center" mt={6}>
+        <Heading fontFamily={"Poppins, sans-serif"} fontSize="xl" mr={3}>
+          Saved barcodes
+        </Heading>
+        <Tooltip
+          label={
+            "You can save your own barcodes here if you need to create a barcode with a custom value. Enter the name and value, then click the 'Add Barcode' button to save it."
+          }
+          closeOnClick={false}
+        >
+          <Icon boxSize={7} color={useColorModeValue("blue.500", "blue.300")} />
+        </Tooltip>
+      </Flex>
       <Flex
         direction={"column"}
         align="center"
