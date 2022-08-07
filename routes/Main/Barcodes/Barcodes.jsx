@@ -64,8 +64,8 @@ const YourBarcode = () => {
 };
 
 const SavedBarcode = ({ name, value, onDelete }) => (
-  <Flex direction="column">
-    <Flex justify={"space-between"} align="center" mb={1}>
+  <Flex direction="column" align={"center"}>
+    <Flex justify={"space-between"} align="center" mb={1} w="full">
       <Heading size={"sm"} fontFamily={"Poppins, sans-serif"}>
         {name}
       </Heading>
