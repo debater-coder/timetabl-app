@@ -106,7 +106,7 @@ const Empty = () => {
   );
 };
 
-const AddBarcodeForm = ({ addBarcode, barcodes }) => (
+const SaveBarcodeForm = ({ addBarcode, barcodes }) => (
   <Formik
     initialValues={{
       name: "",
@@ -152,7 +152,7 @@ const AddBarcodeForm = ({ addBarcode, barcodes }) => (
         </Field>
       </Flex>
       <Button type={"submit"} colorScheme={"blue"}>
-        Add Barcode
+        Save Barcode
       </Button>
     </Form>
   </Formik>
@@ -241,7 +241,7 @@ export default () => {
         roundedTop={10}
         shadow={"outline"}
       >
-        <AddBarcodeForm addBarcode={addBarcode} barcodes={barcodes} />
+        <SaveBarcodeForm addBarcode={addBarcode} barcodes={barcodes} />
       </Flex>
     </Flex>
   );
