@@ -206,7 +206,7 @@ export default () => {
         </Heading>
         <Tooltip
           label={
-            "You can save your own barcodes here if you need to create a barcode with a custom value. Enter the name and value, then click the 'Add Barcode' button to save it."
+            "You can save your own barcodes here if you need to create a barcode with a custom value. Enter the name and value, then click the 'Add Barcode' button to save it. For a student barcode, you enter the student ID as the value."
           }
           closeOnClick={false}
         >
