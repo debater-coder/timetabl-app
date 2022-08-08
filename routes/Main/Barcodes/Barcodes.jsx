@@ -217,7 +217,7 @@ export default () => {
         direction={"column"}
         align="center"
         gap={3}
-        mb={{ base: 60, md: 40 }}
+        mb={{ base: 80, md: 60 }}
       >
         {barcodes.length > 0 ? (
           barcodes.map(({ name, value }) => (
