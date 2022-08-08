@@ -145,7 +145,7 @@ const AddBarcodeForm = ({ addBarcode, barcodes }) => (
         <Field name="value">
           {({ field, form }) => (
             <FormControl isInvalid={form.errors.value && form.touched.value}>
-              <Input {...field} placeholder="Name" variant={"filled"} />
+              <Input {...field} placeholder="Value" variant={"filled"} />
               <FormErrorMessage>{form.errors.value}</FormErrorMessage>
             </FormControl>
           )}
