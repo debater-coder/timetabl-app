@@ -236,8 +236,10 @@ export default () => {
         direction={"column"}
         position={"fixed"}
         bottom={{ base: 20, md: 0 }}
-        bg={useColorModeValue("white", "gray.800")}
+        bg={useColorModeValue("gray.100", "gray.700")}
         p={4}
+        roundedTop={10}
+        shadow={"outline"}
       >
         <AddBarcodeForm addBarcode={addBarcode} barcodes={barcodes} />
       </Flex>
