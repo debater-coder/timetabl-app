@@ -14,6 +14,8 @@ import {
   CloseButton,
   Box,
   Text,
+  FormControl,
+  FormErrorMessage,
 } from "@chakra-ui/react";
 import "@fontsource/poppins";
 import { Download } from "phosphor-react";
@@ -21,7 +23,7 @@ import useDownloadBarcode from "../../../hooks/useDownloadBarcode";
 import { useState } from "react";
 import { get, update } from "idb-keyval";
 import compareObjects from "../../../utils/compareObjects";
-import { useFormik } from "formik";
+import { Formik, Field, Form } from "formik";
 import { Barcode as BarcodeIcon } from "phosphor-react";
 
 const YourBarcode = () => {
@@ -104,6 +106,58 @@ const Empty = () => {
   );
 };
 
+const AddBarcodeForm = ({ addBarcode, barcodes }) => (
+  <Formik
+    initialValues={{
+      name: "",
+      value: "",
+    }}
+    onSubmit={(values, { resetForm }) => {
+      addBarcode(values.name, values.value);
+      resetForm();
+    }}
+    validate={(values) => {
+      const errors = {};
+
+      if (!values.name) {
+        errors.name = "Required";
+      } else if (barcodes.some((barcode) => barcode.name === values.name)) {
+        errors.name = "Name must be unique";
+      }
+
+      if (!values.value) {
+        errors.value = "Required";
+      }
+
+      return errors;
+    }}
+  >
+    <Form>
+      <Flex gap={1} mt={6} mb={3}>
+        <Field name="name">
+          {({ field, form }) => (
+            <FormControl isInvalid={form.errors.name && form.touched.name}>
+              <Input {...field} placeholder="Name" variant={"filled"} />
+              <FormErrorMessage>{form.errors.name}</FormErrorMessage>
+            </FormControl>
+          )}
+        </Field>
+        <Field name="value">
+          {({ field, form }) => (
+            <FormControl isInvalid={form.errors.value && form.touched.value}>
+              <Input {...field} placeholder="Name" variant={"filled"} />
+              <FormErrorMessage>{form.errors.value}</FormErrorMessage>
+            </FormControl>
+          )}
+        </Field>
+      </Flex>
+      <Button type={"submit"} colorScheme={"blue"}>
+        Add Barcode
+      </Button>
+    </Form>
+  </Formik>
+);
+
 export default () => {
   const addBarcode = async (name, value) => {
     setBarcodes((barcodes) => [...barcodes, { name, value }]);
@@ -136,16 +190,6 @@ export default () => {
     );
   };
 
-  const formik = useFormik({
-    initialValues: {
-      name: "",
-      value: "",
-    },
-    onSubmit: (values, { resetForm }) => {
-      addBarcode(values.name, values.value);
-      resetForm();
-    },
-  });
   const [barcodes, setBarcodes] = useState([]);
 
   getBarcodes();
@@ -195,31 +239,7 @@ export default () => {
         bg={useColorModeValue("white", "gray.800")}
         p={4}
       >
-        <form onSubmit={formik.handleSubmit}>
-          <Flex gap={1} mt={6} mb={3}>
-            <Input
-              variant={"filled"}
-              placeholder={"Name"}
-              type={"text"}
-              id={"name"}
-              name={"name"}
-              onChange={formik.handleChange}
-              value={formik.values.name}
-            />
-            <Input
-              variant={"filled"}
-              placeholder={"Value"}
-              type={"text"}
-              id={"value"}
-              name={"value"}
-              onChange={formik.handleChange}
-              value={formik.values.value}
-            />
-          </Flex>
-          <Button type={"submit"} colorScheme={"blue"}>
-            Add Barcode
-          </Button>
-        </form>
+        <AddBarcodeForm addBarcode={addBarcode} barcodes={barcodes} />
       </Flex>
     </Flex>
   );
