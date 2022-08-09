@@ -16,15 +16,88 @@ import {
   Text,
   FormControl,
   FormErrorMessage,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalCloseButton,
+  useDisclosure,
 } from "@chakra-ui/react";
 import "@fontsource/poppins";
-import { Download } from "phosphor-react";
+import { ArrowsOutSimple, Download } from "phosphor-react";
 import useDownloadBarcode from "../../../hooks/useDownloadBarcode";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { get, update } from "idb-keyval";
 import compareObjects from "../../../utils/compareObjects";
 import { Formik, Field, Form } from "formik";
 import { Barcode as BarcodeIcon } from "phosphor-react";
+
+const SavedBarcode = ({ name, value, onDelete }) => {
+  const wakeLock = useRef(null);
+
+  const { isOpen, onOpen, onClose } = useDisclosure({
+    onOpen: async () => {
+      if ("wakeLock" in navigator) {
+        try {
+          wakeLock.current = await navigator.wakeLock.request();
+        } catch (err) {
+          console.error(`${err.name}, ${err.message}`);
+        }
+      }
+    },
+    onClose: () => {
+      wakeLock.current.release();
+      wakeLock.current = null;
+    },
+  });
+
+  return (
+    <>
+      <Flex direction="column" align={"center"}>
+        <Flex justify={"space-between"} align="center" mb={1} w="full">
+          <Heading size={"sm"} fontFamily={"Poppins, sans-serif"}>
+            {name}
+          </Heading>
+          <Flex align={"center"}>
+            <IconButton
+              colorScheme={"blue"}
+              variant={"ghost"}
+              icon={<ArrowsOutSimple size={20} />}
+              onClick={onOpen}
+            />
+            <IconButton
+              colorScheme={"blue"}
+              variant={"ghost"}
+              icon={<Download />}
+              onClick={() => useDownloadBarcode(value)}
+            />
+            <CloseButton onClick={() => onDelete(name)} />
+          </Flex>
+        </Flex>
+        <Barcode value={value} />
+      </Flex>
+      <Modal isOpen={isOpen} onClose={onClose} isCentered size={"xs"}>
+        <ModalOverlay bg="blackAlpha.900" />
+        <ModalContent>
+          <ModalHeader>{name}</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <Flex
+              align="center"
+              direction={"column"}
+              justify="center"
+              h="full"
+              w="full"
+            >
+              <Barcode value={value} />
+            </Flex>
+          </ModalBody>
+        </ModalContent>
+      </Modal>
+    </>
+  );
+};
 
 const YourBarcode = () => {
   const { loading } = useAuth();
@@ -32,27 +105,8 @@ const YourBarcode = () => {
   if (data || !error) {
     return (
       <Flex direction={"column"} align="center" gap={3}>
-        <Flex align={"center"} justify="space-between" w={"full"}>
-          <Tooltip
-            label={
-              "You can use this barcode to scan in with your phone or click the button on the right to download the barcode. If you are scanning using your phone, you must use the new scanners, like the ones outside the 600s or the ones outside Main Foyer opposite the Main Office."
-            }
-            closeOnClick={false}
-          >
-            <Icon
-              boxSize={7}
-              color={useColorModeValue("blue.500", "blue.300")}
-            />
-          </Tooltip>
-          <IconButton
-            colorScheme={"blue"}
-            variant={"ghost"}
-            icon={<Download />}
-            onClick={() => useDownloadBarcode(data?.["studentId"])}
-          />
-        </Flex>
         <Skeleton isLoaded={!!data} rounded={5} minH={10}>
-          <Barcode value={data?.["studentId"]} />
+          <SavedBarcode name="My ID" value={data?.["studentId"]} />
         </Skeleton>
       </Flex>
     );
@@ -64,26 +118,6 @@ const YourBarcode = () => {
     ". Try logging in and out if the error persists."
   );
 };
-
-const SavedBarcode = ({ name, value, onDelete }) => (
-  <Flex direction="column" align={"center"}>
-    <Flex justify={"space-between"} align="center" mb={1} w="full">
-      <Heading size={"sm"} fontFamily={"Poppins, sans-serif"}>
-        {name}
-      </Heading>
-      <Flex align={"center"}>
-        <IconButton
-          colorScheme={"blue"}
-          variant={"ghost"}
-          icon={<Download />}
-          onClick={() => useDownloadBarcode(value)}
-        />
-        <CloseButton onClick={() => onDelete(name)} />
-      </Flex>
-    </Flex>
-    <Barcode value={value} />
-  </Flex>
-);
 
 const Empty = () => {
   return (
@@ -196,9 +230,19 @@ export default () => {
 
   return (
     <Flex direction={"column"} gap={3} align="center" textAlign={"center"}>
-      <Heading fontSize={"xl"} fontFamily={"Poppins, sans-serif"}>
-        Your scan in barcode
-      </Heading>
+      <Flex align="center" gap={3}>
+        <Heading fontSize={"xl"} fontFamily={"Poppins, sans-serif"}>
+          Your scan in barcode
+        </Heading>
+        <Tooltip
+          label={
+            "You can use this barcode to scan in with your phone or click the button on the right to download the barcode. If you are scanning using your phone, you must use the new scanners, like the ones outside the 600s or the ones outside Main Foyer opposite the Main Office."
+          }
+          closeOnClick={false}
+        >
+          <Icon boxSize={7} color={useColorModeValue("blue.500", "blue.300")} />
+        </Tooltip>
+      </Flex>
       <YourBarcode />
       <Flex align="center" mt={6}>
         <Heading fontFamily={"Poppins, sans-serif"} fontSize="xl" mr={3}>
@@ -236,7 +280,7 @@ export default () => {
         direction={"column"}
         position={"fixed"}
         bottom={{ base: 20, md: 0 }}
-        bg={useColorModeValue("gray.100", "gray.700")}
+        bg={useColorModeValue("gray.200", "gray.700")}
         p={4}
         roundedTop={10}
         shadow={"outline"}
