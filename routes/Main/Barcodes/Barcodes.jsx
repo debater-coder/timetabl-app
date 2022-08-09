@@ -77,7 +77,13 @@ const SavedBarcode = ({ name, value, onDelete }) => {
         </Flex>
         <Barcode value={value} />
       </Flex>
-      <Modal isOpen={isOpen} onClose={onClose} isCentered size={"xs"}>
+      <Modal
+        isOpen={isOpen}
+        blockScrollOnMount={false}
+        onClose={onClose}
+        isCentered
+        size={"xs"}
+      >
         <ModalOverlay bg="blackAlpha.900" />
         <ModalContent>
           <ModalHeader>{name}</ModalHeader>
