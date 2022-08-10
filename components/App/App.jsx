@@ -8,7 +8,9 @@ export default () => {
     <Flex direction={"column"} width={"100%"} height={"100%"}>
       <Nav />
       <Box mt={20} />
-      <Outlet />
+      <Flex direction={"column"} ml={{ base: 0, md: 20 }}>
+        <Outlet />
+      </Flex>
     </Flex>
   );
 };
