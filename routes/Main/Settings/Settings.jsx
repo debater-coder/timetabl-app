@@ -1,28 +1,10 @@
-import { Heading } from "@chakra-ui/react";
-import {
-  Switch,
-  Flex,
-  FormControl,
-  FormLabel,
-  useColorMode,
-} from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
+import { Outlet } from "react-router-dom";
 
 export default () => {
-  const { colorMode, toggleColorMode } = useColorMode();
-
   return (
-    <Flex direction={"column"} width="full" textAlign={"center"} p={5}>
-      <Heading>Settings</Heading>
-      <FormControl display="flex" alignItems="center">
-        <FormLabel htmlFor="dark-mode-switch" mb="0">
-          Dark mode
-        </FormLabel>
-        <Switch
-          id="dark-mode-switch"
-          onChange={toggleColorMode}
-          isChecked={colorMode === "dark"}
-        />
-      </FormControl>
+    <Flex direction={"row"} width="full" p={5}>
+      <Outlet />
     </Flex>
   );
 };
