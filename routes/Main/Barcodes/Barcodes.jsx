@@ -63,16 +63,18 @@ const SavedBarcode = ({ name, value, onDelete }) => {
           <Heading size={"sm"} fontFamily={"Poppins, sans-serif"}>
             {name}
           </Heading>
-          <Flex align={"center"}>
+          <Flex align={"center"} mb={2}>
             <IconButton
               colorScheme={"blue"}
-              variant={"ghost"}
+              variant={"outline"}
+              ml={2}
               icon={<ArrowsOutSimple size={20} />}
               onClick={onOpen}
             />
             <IconButton
               colorScheme={"blue"}
-              variant={"ghost"}
+              variant={"outline"}
+              mx={2}
               icon={<Download />}
               onClick={() => useDownloadBarcode(value)}
             />
