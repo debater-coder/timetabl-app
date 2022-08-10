@@ -23,6 +23,10 @@ import {
   ModalBody,
   ModalCloseButton,
   useDisclosure,
+  Alert,
+  AlertIcon,
+  AlertTitle,
+  AlertDescription,
 } from "@chakra-ui/react";
 import "@fontsource/poppins";
 import { ArrowsOutSimple, Download } from "phosphor-react";
@@ -98,6 +102,16 @@ const SavedBarcode = ({ name, value, onDelete }) => {
             >
               <Barcode value={value} />
             </Flex>
+            <Alert status="info" rounded={6} mt={2}>
+              <AlertIcon />
+              <Box>
+                <AlertTitle>Tip!</AlertTitle>
+                <AlertDescription>
+                  On mobile you can pinch the screen to zoom, and your phone
+                  will not go to sleep while you are in this fullscreen mode
+                </AlertDescription>
+              </Box>
+            </Alert>
           </ModalBody>
         </ModalContent>
       </Modal>
@@ -242,7 +256,7 @@ export default () => {
         </Heading>
         <Tooltip
           label={
-            "You can use this barcode to scan in with your phone or click the button on the right to download the barcode. If you are scanning using your phone, you must use the new scanners, like the ones outside the 600s or the ones outside Main Foyer opposite the Main Office."
+            "You can use this barcode to scan in with your phone or click the button on the right to download the barcode. If you are scanning using your phone, click the fullscreen icon and you must use the new scanners, like the ones outside the 600s or the ones outside Main Foyer opposite the Main Office."
           }
           closeOnClick={false}
         >
