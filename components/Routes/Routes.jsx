@@ -13,7 +13,7 @@ export default () => (
       <Route index element={<Landing />} />
       <Route path={"app"} element={<Main />}>
         <Route index element={<Home />} />
-        <Route path={"settings"} element={<Settings />}>
+        <Route path={"settings/*"} element={<Settings />}>
           <Route path={"appearance"} element={<Appearance />} />
           <Route index element={<Navigate to="appearance" replace={true} />} />
         </Route>
