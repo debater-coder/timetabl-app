@@ -69,6 +69,7 @@ export default () => {
           "#ffffff0f"
         )}`}
         w="full"
+        h="full"
       >
         <Outlet />
       </Flex>
