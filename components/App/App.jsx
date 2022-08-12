@@ -5,10 +5,10 @@ import { Box } from "@chakra-ui/react";
 
 export default () => {
   return (
-    <Flex direction={"column"} width={"100%"} height={"100%"}>
+    <Flex direction={"column"} width={"100vw"} maxW="full" height={"100vh"}>
       <Nav />
       <Box mt={20} />
-      <Flex direction={"column"} ml={{ base: 0, md: 20 }}>
+      <Flex direction={"column"} w="full" h="full">
         <Outlet />
       </Flex>
     </Flex>

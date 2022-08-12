@@ -43,6 +43,8 @@ export default () => {
         align={"center"}
         width={"full"}
         height={"full"}
+        bg={localStorage.getItem("debug") === "true" && "orange"}
+        ml={{ base: 0, md: 20 }}
       >
         <Outlet />
       </Flex>

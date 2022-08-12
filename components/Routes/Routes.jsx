@@ -6,6 +6,8 @@ import Home from "../../routes/Main/Home";
 import Settings from "../../routes/Main/Settings";
 import Barcodes from "../../routes/Main/Barcodes";
 import Appearance from "../../routes/Main/Settings/Appearance";
+import Developers from "../../routes/Main/Settings/Developers";
+import About from "../../routes/Main/Settings/About";
 
 export default () => (
   <Routes>
@@ -15,6 +17,8 @@ export default () => (
         <Route index element={<Home />} />
         <Route path={"settings/*"} element={<Settings />}>
           <Route path={"appearance"} element={<Appearance />} />
+          <Route path={"developers"} element={<Developers />} />
+          <Route path={"about"} element={<About />} />
           <Route index element={<Navigate to="appearance" replace={true} />} />
         </Route>
         <Route path={"barcodes"} element={<Barcodes />} />

@@ -2,25 +2,25 @@ import {
   Flex,
   Heading,
   useToken,
-  useColorModeValue,
   Icon,
+  useColorModeValue,
 } from "@chakra-ui/react";
 import { Code, Info, PaintBrush } from "phosphor-react";
 import { Outlet, Link, useLocation } from "react-router-dom";
+import "@fontsource/poppins";
 
 const MenuEntry = ({ active, to, name, icon }) => {
   return (
     <Link to={to}>
       <Flex
-        bg={
-          active &&
-          useToken("colors", useColorModeValue("blue.600", "blue.400")) + "aa"
-        }
+        bg={active && useToken("colors", "blue.400") + "aa"}
         p={3}
+        px={6}
         h="full"
         w="full"
         align="center"
         gap={2}
+        rounded={10}
       >
         <Icon boxSize={5} as={icon} />
         <Heading size={"sm"}>{name}</Heading>
@@ -32,8 +32,14 @@ const MenuEntry = ({ active, to, name, icon }) => {
 export default () => {
   const { pathname } = useLocation();
   return (
-    <Flex direction={{ base: "column", md: "row" }} width="full" p={5} gap={3}>
-      <Flex outline={"1px solid"} direction="column" rounded={3}>
+    <Flex
+      direction={{ base: "column", md: "row" }}
+      width="full"
+      p={5}
+      gap={3}
+      h="full"
+    >
+      <Flex direction="column" minW={"20vw"}>
         <MenuEntry
           to="appearance"
           name="Appearance"
@@ -53,7 +59,19 @@ export default () => {
           icon={Info}
         />
       </Flex>
-      <Outlet />
+      <Flex
+        direction={"column"}
+        gap={4}
+        p={6}
+        rounded="10"
+        shadow={`inset 0 2px 4px 0 ${useColorModeValue(
+          "#0000000f",
+          "#ffffff0f"
+        )}`}
+        w="full"
+      >
+        <Outlet />
+      </Flex>
     </Flex>
   );
 };
