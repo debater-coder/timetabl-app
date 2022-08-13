@@ -37,7 +37,7 @@ import compareObjects from "../../../utils/compareObjects";
 import { Formik, Field, Form } from "formik";
 import { Barcode as BarcodeIcon } from "phosphor-react";
 
-const SavedBarcode = ({ name, value, onDelete }) => {
+const SavedBarcode = ({ name, value, onDelete, readOnly }) => {
   const wakeLock = useRef(null);
 
   const { isOpen, onOpen, onClose } = useDisclosure({
@@ -78,7 +78,7 @@ const SavedBarcode = ({ name, value, onDelete }) => {
               icon={<Download />}
               onClick={() => useDownloadBarcode(value)}
             />
-            <CloseButton onClick={() => onDelete(name)} />
+            {!readOnly && <CloseButton onClick={() => onDelete(name)} />}
           </Flex>
         </Flex>
         <Barcode value={value} />
@@ -128,7 +128,7 @@ const YourBarcode = () => {
     return (
       <Flex direction={"column"} align="center" gap={3}>
         <Skeleton isLoaded={!!data} rounded={5} minH={10}>
-          <SavedBarcode name="My ID" value={data?.["studentId"]} />
+          <SavedBarcode name="My ID" value={data?.["studentId"]} readOnly />
         </Skeleton>
       </Flex>
     );
