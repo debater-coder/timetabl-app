@@ -8,6 +8,7 @@ import Barcodes from "../../routes/Main/Barcodes";
 import Appearance from "../../routes/Main/Settings/Appearance";
 import Developers from "../../routes/Main/Settings/Developers";
 import About from "../../routes/Main/Settings/About";
+import Profile from "../../routes/Main/Profile";
 
 export default () => (
   <Routes>
@@ -22,6 +23,7 @@ export default () => (
           <Route index element={<Navigate to="appearance" replace={true} />} />
         </Route>
         <Route path={"barcodes"} element={<Barcodes />} />
+        <Route path={"profile"} element={<Profile />} />
       </Route>
     </Route>
   </Routes>

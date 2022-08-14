@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import SidebarButton from "./SidebarButton";
-import { Barcode, House } from "phosphor-react";
+import { Barcode, House, User } from "phosphor-react";
 
 export default ({ pathname, sidebar }) => (
   <>
@@ -18,6 +18,14 @@ export default ({ pathname, sidebar }) => (
         name={"Barcodes"}
         active={pathname === "/app/barcodes"}
         icon={Barcode}
+      />
+    </Link>
+    <Link to={"/app/profile"}>
+      <SidebarButton
+        sidebar={sidebar}
+        name={"Profile"}
+        active={pathname === "/app/profile"}
+        icon={User}
       />
     </Link>
   </>
