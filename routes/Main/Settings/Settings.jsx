@@ -70,6 +70,7 @@ export default () => {
         )}`}
         w="full"
         h="full"
+        mb={20}
       >
         <Outlet />
       </Flex>
