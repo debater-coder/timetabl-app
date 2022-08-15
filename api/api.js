@@ -19,6 +19,11 @@ export default async function handler(req, res) {
     return;
   }
 
+  if (!endpoint) {
+    res.status(400).send("NO_ENDPOINT");
+    return;
+  }
+
   const raw = await fetch(
     "https://student.sbhs.net.au/api/" +
       endpoint +
@@ -31,6 +36,10 @@ export default async function handler(req, res) {
   } else if (!raw.ok) {
     res.status(500).send("OTHER_ERROR");
   } else {
-    res.status(200).json(await raw.json());
+    try {
+      res.status(200).json(await raw.json());
+    } catch {
+      res.status(500).send("BAD_JSON");
+    }
   }
 }
