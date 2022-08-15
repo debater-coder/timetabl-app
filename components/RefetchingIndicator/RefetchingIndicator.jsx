@@ -5,12 +5,13 @@ import {
   Text,
   IconButton,
 } from "@chakra-ui/react";
+import { useIsFetching, useQueryClient } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 import { ArrowClockwise } from "phosphor-react";
-import useSBHSQuery from "../../hooks/useSBHSQuery";
 
 export default () => {
-  const { isFetching, refetch } = useSBHSQuery();
+  const queryClient = useQueryClient();
+  const isFetching = useIsFetching();
 
   return (
     <Flex
@@ -41,7 +42,9 @@ export default () => {
           size="xs"
           variant={"ghost"}
           rounded="full"
-          onClick={refetch}
+          onClick={async () => {
+            await queryClient.refetchQueries();
+          }}
         />
       )}
     </Flex>
