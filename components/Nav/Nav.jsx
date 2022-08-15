@@ -3,6 +3,7 @@ import {
   Heading,
   IconButton,
   Image,
+  Portal,
   Spacer,
   Tooltip,
   useColorMode,
@@ -12,6 +13,7 @@ import { FaGithub, FaMoon, FaSun, MdLogout, MdSettings } from "react-icons/all";
 import { Link as RouterLink } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 import "@fontsource/poppins";
+import RefetchingIndicator from "../RefetchingIndicator";
 
 const TimetablLogo = ({ color, loggedIn }) => (
   <RouterLink to={loggedIn ? "/app" : "/"}>
@@ -101,6 +103,9 @@ export default () => {
       zIndex={999}
     >
       <TimetablLogo color={logoColor} loggedIn={loggedIn} />
+      <Portal>
+        <RefetchingIndicator />
+      </Portal>
       <Spacer />
       <Flex>
         {loggedIn ? (
