@@ -6,7 +6,7 @@ import {
   IconButton,
 } from "@chakra-ui/react";
 import { useIsFetching, useQueryClient } from "@tanstack/react-query";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { ArrowClockwise } from "phosphor-react";
 
 export default () => {
@@ -27,24 +27,35 @@ export default () => {
       as={motion.div}
       layout
     >
+      <AnimatePresence>
+        {isFetching ? (
+          <Text
+            as={motion.p}
+            layout
+            initial={{ width: 0, scaleX: 0, opacity: 0 }}
+            animate={{ width: "auto", scaleX: 1, opacity: 1 }}
+            exit={{ width: 0, scaleX: 0, opacity: 0 }}
+            fontSize={"xs"}
+            fontFamily="Poppins, sans-serif"
+            whiteSpace={"nowrap"}
+          >
+            Fetching the latest data
+          </Text>
+        ) : (
+          ""
+        )}
+      </AnimatePresence>
       {isFetching ? (
-        <Text fontSize={"xs"} fontFamily="Poppins, sans-serif">
-          Fetching the latest data
-        </Text>
-      ) : (
-        ""
-      )}
-      {isFetching ? (
-        <Spinner size={"xs"} />
+        <Spinner size={"xs"} as={motion.div} layout />
       ) : (
         <IconButton
+          as={motion.button}
+          layout
           icon={<ArrowClockwise />}
           size="xs"
           variant={"ghost"}
           rounded="full"
-          onClick={async () => {
-            await queryClient.refetchQueries();
-          }}
+          onClick={() => queryClient.refetchQueries()}
         />
       )}
     </Flex>
