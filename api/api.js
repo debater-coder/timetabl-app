@@ -23,23 +23,26 @@ export default async function handler(req, res) {
     res.status(400).send("NO_ENDPOINT");
     return;
   }
+  try {
+    const raw = await fetch(
+      "https://student.sbhs.net.au/api/" +
+        endpoint +
+        "?access_token=" +
+        access_token
+    );
 
-  const raw = await fetch(
-    "https://student.sbhs.net.au/api/" +
-      endpoint +
-      "?access_token=" +
-      access_token
-  );
-
-  if (raw.status === 401) {
-    res.status(401).send("UNAUTHORISED");
-  } else if (!raw.ok) {
-    res.status(500).send("OTHER_ERROR");
-  } else {
-    try {
-      res.status(200).json(await raw.json());
-    } catch {
-      res.status(500).send("BAD_JSON");
+    if (raw.status === 401) {
+      res.status(401).send("UNAUTHORISED");
+    } else if (!raw.ok) {
+      res.status(500).send("OTHER_ERROR");
+    } else {
+      try {
+        res.status(200).json(await raw.json());
+      } catch {
+        res.status(500).send("BAD_JSON");
+      }
     }
+  } catch {
+    res.status(500).send("SERVER_NOT_AVAILABLE");
   }
 }

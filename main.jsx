@@ -7,10 +7,13 @@ import registerSW from "./registerSW";
 import { Compose, withProps } from "./utils/contextualise";
 import { AuthProvider } from "./hooks/useAuth";
 import Routes from "./components/Routes";
-import { QueryClient } from "@tanstack/react-query";
+import { QueryClient, QueryCache } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { PersistQueryClientProvider } from "@tanstack/react-query-persist-client";
 import { createSyncStoragePersister } from "@tanstack/query-sync-storage-persister";
+import { createStandaloneToast } from "@chakra-ui/toast";
+
+const { ToastContainer, toast } = createStandaloneToast();
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -20,6 +23,15 @@ const queryClient = new QueryClient({
       refetchIntervalInBackground: true,
     },
   },
+  queryCache: new QueryCache({
+    onError: (error) =>
+      toast({
+        title: "Something went wrong",
+        description: error.message,
+        status: "error",
+        isClosable: true,
+      }),
+  }),
 });
 
 const persister = createSyncStoragePersister({
@@ -42,6 +54,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <BrowserRouter>
       <Routes />
     </BrowserRouter>
+    <ToastContainer />
     <ReactQueryDevtools initialIsOpen={false} />
   </Compose>
 );

@@ -1,15 +1,21 @@
 import { useQuery } from "@tanstack/react-query";
+import NetworkError from "../errors/NetworkError";
 import { useAuth } from "./useAuth";
 
 const fetchSBHSApi = async (endpoint, refresh) => {
-  const res = await fetch("/api/api", {
-    credentials: "same-origin",
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ endpoint }),
-  });
+  let res;
+  try {
+    res = await fetch("/api/api", {
+      credentials: "same-origin",
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ endpoint }),
+    });
+  } catch {
+    throw new NetworkError("Failed to fetch");
+  }
 
   if (!res.ok) {
     const errorText = await res.text();
