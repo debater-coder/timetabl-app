@@ -85,8 +85,8 @@ let useAuth = () => {
       "&code_challenge_method=S256";
   };
 
-  const logout = async () => {
-    await fetch("/api/token", {
+  const logout = () => {
+    fetch("/api/token", {
       method: "DELETE",
     });
     localStorage.setItem("loggedIn", "false");
