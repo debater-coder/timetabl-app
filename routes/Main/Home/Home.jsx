@@ -5,14 +5,14 @@ import { withProps } from "../../../utils/contextualise";
 import handleQuery from "../../../utils/handleQuery";
 
 export default () => {
-  const { data, error } = useSBHSQuery("details/userinfo.json");
+  const { data, error } = useSBHSQuery("timetable/daytimetable.json");
 
   return handleQuery(
     data,
     error,
     (isLoaded) => (
       <Skeleton isLoaded={isLoaded} rounded={5}>
-        G&apos;day {data?.givenName}, you are now logged in!
+        <pre>{JSON.stringify(data ?? {}, undefined, 2)}</pre>
       </Skeleton>
     ),
     withProps(QueryError, { error })
