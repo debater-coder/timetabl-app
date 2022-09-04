@@ -103,9 +103,9 @@ export default () => {
       zIndex={999}
     >
       <TimetablLogo color={logoColor} loggedIn={loggedIn} />
-      <Portal>
+      {/* <Portal>
         <RefetchingIndicator />
-      </Portal>
+      </Portal> */}
       <Spacer />
       <Flex>
         {loggedIn ? (
