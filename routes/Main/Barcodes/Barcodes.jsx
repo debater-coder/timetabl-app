@@ -1,143 +1,20 @@
-import Barcode from "../../../components/Barcode";
-import useSBHSQuery from "../../../hooks/useSBHSQuery";
 import {
-  Skeleton,
   Tooltip,
   Icon,
   Flex,
   Heading,
-  IconButton,
   useColorModeValue,
-  Input,
-  Button,
-  CloseButton,
   Box,
   Text,
-  FormControl,
-  FormErrorMessage,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalBody,
-  ModalCloseButton,
-  useDisclosure,
-  Alert,
-  AlertIcon,
-  AlertTitle,
-  AlertDescription,
 } from "@chakra-ui/react";
 import "@fontsource/poppins";
-import { ArrowsOutSimple, Download } from "phosphor-react";
-import useDownloadBarcode from "../../../hooks/useDownloadBarcode";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { get, update } from "idb-keyval";
 import compareObjects from "../../../utils/compareObjects";
-import { Formik, Field, Form } from "formik";
 import { Barcode as BarcodeIcon } from "phosphor-react";
-import handleQuery from "../../../utils/handleQuery";
-import { withProps } from "../../../utils/contextualise";
-import QueryError from "../../../components/QueryError";
-
-const SavedBarcode = ({ name, value, onDelete, readOnly }) => {
-  const wakeLock = useRef(null);
-
-  const { isOpen, onOpen, onClose } = useDisclosure({
-    onOpen: async () => {
-      if ("wakeLock" in navigator) {
-        try {
-          wakeLock.current = await navigator.wakeLock.request();
-        } catch (err) {
-          console.error(`${err.name}, ${err.message}`);
-        }
-      }
-    },
-    onClose: () => {
-      wakeLock.current.release();
-      wakeLock.current = null;
-    },
-  });
-
-  return (
-    <>
-      <Flex direction="column" align={"center"}>
-        <Flex justify={"space-between"} align="center" mb={1} w="full">
-          <Heading size={"sm"} fontFamily={"Poppins, sans-serif"}>
-            {name}
-          </Heading>
-          <Flex align={"center"} mb={2}>
-            <IconButton
-              colorScheme={"blue"}
-              variant={"outline"}
-              ml={2}
-              icon={<ArrowsOutSimple size={20} />}
-              onClick={onOpen}
-            />
-            <IconButton
-              colorScheme={"blue"}
-              variant={"outline"}
-              mx={2}
-              icon={<Download />}
-              onClick={() => useDownloadBarcode(value)}
-            />
-            {!readOnly && <CloseButton onClick={() => onDelete(name)} />}
-          </Flex>
-        </Flex>
-        <Barcode value={value} />
-      </Flex>
-      <Modal
-        isOpen={isOpen}
-        blockScrollOnMount={false}
-        onClose={onClose}
-        isCentered
-        size={"xs"}
-      >
-        <ModalOverlay bg="blackAlpha.900" />
-        <ModalContent>
-          <ModalHeader>{name}</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>
-            <Flex
-              align="center"
-              direction={"column"}
-              justify="center"
-              h="full"
-              w="full"
-            >
-              <Barcode value={value} />
-            </Flex>
-            <Alert status="info" rounded={6} mt={2}>
-              <AlertIcon />
-              <Box>
-                <AlertTitle>Tip!</AlertTitle>
-                <AlertDescription>
-                  On mobile you can pinch the screen to zoom, and your phone
-                  will not go to sleep while you are in this fullscreen mode
-                </AlertDescription>
-              </Box>
-            </Alert>
-          </ModalBody>
-        </ModalContent>
-      </Modal>
-    </>
-  );
-};
-
-const YourBarcode = () => {
-  const { data, error } = useSBHSQuery("details/userinfo.json");
-  return handleQuery(
-    data,
-    error,
-    (isLoaded) => (
-      <Flex direction={"column"} align="center" gap={3}>
-        <Skeleton isLoaded={isLoaded} rounded={5} minH={10}>
-          <SavedBarcode name="My ID" value={data?.["studentId"]} readOnly />
-        </Skeleton>
-      </Flex>
-    ),
-    withProps(QueryError, { error })
-  );
-};
+import SavedBarcode from "./SavedBarcode";
+import YourBarcode from "./YourBarcode";
+import SaveBarcodeForm from "./SaveBarcodeForm";
 
 const Empty = () => {
   return (
@@ -159,58 +36,6 @@ const Empty = () => {
     </Box>
   );
 };
-
-const SaveBarcodeForm = ({ addBarcode, barcodes }) => (
-  <Formik
-    initialValues={{
-      name: "",
-      value: "",
-    }}
-    onSubmit={(values, { resetForm }) => {
-      addBarcode(values.name, values.value);
-      resetForm();
-    }}
-    validate={(values) => {
-      const errors = {};
-
-      if (!values.name) {
-        errors.name = "Required";
-      } else if (barcodes.some((barcode) => barcode.name === values.name)) {
-        errors.name = "Name must be unique";
-      }
-
-      if (!values.value) {
-        errors.value = "Required";
-      }
-
-      return errors;
-    }}
-  >
-    <Form>
-      <Flex gap={1} mt={6} mb={3}>
-        <Field name="name">
-          {({ field, form }) => (
-            <FormControl isInvalid={form.errors.name && form.touched.name}>
-              <Input {...field} placeholder="Name" variant={"filled"} />
-              <FormErrorMessage>{form.errors.name}</FormErrorMessage>
-            </FormControl>
-          )}
-        </Field>
-        <Field name="value">
-          {({ field, form }) => (
-            <FormControl isInvalid={form.errors.value && form.touched.value}>
-              <Input {...field} placeholder="Value" variant={"filled"} />
-              <FormErrorMessage>{form.errors.value}</FormErrorMessage>
-            </FormControl>
-          )}
-        </Field>
-      </Flex>
-      <Button type={"submit"} colorScheme={"blue"}>
-        Save Barcode
-      </Button>
-    </Form>
-  </Formik>
-);
 
 export default () => {
   const addBarcode = async (name, value) => {
