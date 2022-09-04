@@ -1,8 +1,8 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import NetworkError from "../errors/NetworkError";
 import { useAuth } from "./useAuth";
 
-const fetchSBHSApi = async (endpoint, refresh) => {
+const fetchSBHSApi = async (endpoint, refresh, signal, queryClient) => {
   let res;
   try {
     res = await fetch("/api/api", {
@@ -12,6 +12,7 @@ const fetchSBHSApi = async (endpoint, refresh) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ endpoint }),
+      signal,
     });
   } catch {
     throw new NetworkError("Failed to fetch");
@@ -22,6 +23,7 @@ const fetchSBHSApi = async (endpoint, refresh) => {
 
     if (errorText === "REFRESH_TOKEN") {
       refresh();
+      queryClient.cancelQueries(["sbhs", endpoint]);
     }
 
     throw new Error(`HTTP Error: ${res.status}: ${errorText}`);
@@ -32,10 +34,12 @@ const fetchSBHSApi = async (endpoint, refresh) => {
 
 export default (endpoint, enabled) => {
   const { refreshing, refresh } = useAuth();
+  const queryClient = useQueryClient();
+
   return useQuery(
     ["sbhs", endpoint],
-    () => {
-      return fetchSBHSApi(endpoint, refresh);
+    ({ signal }) => {
+      return fetchSBHSApi(endpoint, refresh, signal, queryClient);
     },
     {
       enabled: enabled && !refreshing,
