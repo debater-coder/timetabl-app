@@ -13,6 +13,10 @@ import { PersistQueryClientProvider } from "@tanstack/react-query-persist-client
 import { createSyncStoragePersister } from "@tanstack/query-sync-storage-persister";
 import { createStandaloneToast } from "@chakra-ui/toast";
 
+if (window.location.host === "timetabl.vercel.app") {
+  window.location = "https://www.timetabl.app";
+}
+
 const { ToastContainer, toast } = createStandaloneToast();
 
 const queryClient = new QueryClient({
