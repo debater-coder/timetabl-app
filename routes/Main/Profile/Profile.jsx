@@ -1,14 +1,17 @@
 import { Flex, Skeleton, useColorModeValue, Text } from "@chakra-ui/react";
-import { useAuth } from "../../../hooks/useAuth";
+import QueryError from "../../../components/QueryError";
 import useSBHSQuery from "../../../hooks/useSBHSQuery";
+import { withProps } from "../../../utils/contextualise";
+import handleQuery from "../../../utils/handleQuery";
 
 export default () => {
-  const { loading } = useAuth();
-  const { data, error } = useSBHSQuery("details/userinfo.json", !loading);
+  const { data, error } = useSBHSQuery("details/userinfo.json");
 
-  if (data || !error) {
-    return (
-      <Skeleton isLoaded={!!data} rounded={5}>
+  return handleQuery(
+    data,
+    error,
+    (isLoaded) => (
+      <Skeleton isLoaded={isLoaded} rounded={5}>
         <Flex
           direction="column"
           bg={useColorModeValue("gray.100", "gray.500")}
@@ -22,12 +25,7 @@ export default () => {
           <Text>{data?.role}</Text>
         </Flex>
       </Skeleton>
-    );
-  }
-
-  return (
-    "An error occured: " +
-    error.message +
-    ". Try logging in and out if the error persists."
+    ),
+    withProps(QueryError, { error })
   );
 };
