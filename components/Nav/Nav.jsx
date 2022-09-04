@@ -102,7 +102,7 @@ export default () => {
       zIndex={999}
     >
       <TimetablLogo color={logoColor} loggedIn={loggedIn} />
-      <RefetchingIndicator />
+      {loggedIn && <RefetchingIndicator />}
       <Spacer />
       <Flex>
         {loggedIn ? (
