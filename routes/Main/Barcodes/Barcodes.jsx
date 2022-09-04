@@ -1,5 +1,4 @@
 import Barcode from "../../../components/Barcode";
-import { useAuth } from "../../../hooks/useAuth";
 import useSBHSQuery from "../../../hooks/useSBHSQuery";
 import {
   Skeleton,
@@ -36,6 +35,9 @@ import { get, update } from "idb-keyval";
 import compareObjects from "../../../utils/compareObjects";
 import { Formik, Field, Form } from "formik";
 import { Barcode as BarcodeIcon } from "phosphor-react";
+import handleQuery from "../../../utils/handleQuery";
+import { withProps } from "../../../utils/contextualise";
+import QueryError from "../../../components/QueryError";
 
 const SavedBarcode = ({ name, value, onDelete, readOnly }) => {
   const wakeLock = useRef(null);
@@ -122,22 +124,18 @@ const SavedBarcode = ({ name, value, onDelete, readOnly }) => {
 };
 
 const YourBarcode = () => {
-  const { loading } = useAuth();
-  const { data, error } = useSBHSQuery("details/userinfo.json", !loading);
-  if (data || !error) {
-    return (
+  const { data, error } = useSBHSQuery("details/userinfo.json");
+  return handleQuery(
+    data,
+    error,
+    (isLoaded) => (
       <Flex direction={"column"} align="center" gap={3}>
-        <Skeleton isLoaded={!!data} rounded={5} minH={10}>
+        <Skeleton isLoaded={isLoaded} rounded={5} minH={10}>
           <SavedBarcode name="My ID" value={data?.["studentId"]} readOnly />
         </Skeleton>
       </Flex>
-    );
-  }
-
-  return (
-    "An error occured: " +
-    error.message +
-    ". Try logging in and out if the error persists."
+    ),
+    withProps(QueryError, { error })
   );
 };
 

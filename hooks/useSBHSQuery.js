@@ -34,7 +34,7 @@ const fetchSBHSApi = async (endpoint, refresh, signal, queryClient) => {
 };
 
 export default (endpoint, enabled) => {
-  const { refreshing, refresh } = useAuth();
+  const { refreshing, refresh, loading } = useAuth();
   const queryClient = useQueryClient();
 
   return useQuery(
@@ -43,7 +43,7 @@ export default (endpoint, enabled) => {
       return fetchSBHSApi(endpoint, refresh, signal, queryClient);
     },
     {
-      enabled: enabled && !refreshing,
+      enabled: enabled && !refreshing && !loading,
     }
   );
 };
