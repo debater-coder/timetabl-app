@@ -32,7 +32,15 @@ export default () => {
           here
           <ExternalLinkIcon mx="2px" />
         </Link>
-        .
+        . Also check out the slack forum{" "}
+        <Link
+          href="https://join.slack.com/t/timetabl/shared_invite/zt-1dhr2v791-G0IDTb~kLRXT~0vjmyEtmw"
+          isExternal
+          color={"teal.500"}
+        >
+          here
+          <ExternalLinkIcon mx="2px" />
+        </Link>
       </Text>
       <Text fontSize={"sm"}>
         This is a alpha release, meaning the software will have bugs and
