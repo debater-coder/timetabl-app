@@ -1,4 +1,5 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
+import HTTPError from "../errors/HTTPError";
 import NetworkError from "../errors/NetworkError";
 import { useAuth } from "./useAuth";
 
@@ -26,7 +27,7 @@ const fetchSBHSApi = async (endpoint, refresh, signal, queryClient) => {
       queryClient.cancelQueries(["sbhs", endpoint]);
     }
 
-    throw new Error(`HTTP Error: ${res.status}: ${errorText}`);
+    throw new HTTPError(res.status);
   }
   const json = await res.json();
   return json;

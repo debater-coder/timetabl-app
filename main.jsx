@@ -44,7 +44,13 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       StrictMode,
       withProps(PersistQueryClientProvider, {
         client: queryClient,
-        persistOptions: { persister, maxAge: Infinity },
+        persistOptions: {
+          persister,
+          maxAge: Infinity,
+          dehydrateOptions: {
+            shouldDehydrateQuery: () => true,
+          },
+        },
       }),
       withProps(ChakraProvider, { theme }),
       AuthProvider,
