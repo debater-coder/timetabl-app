@@ -76,19 +76,26 @@ const Bell = ({ bell, timetable, isLoaded }) => {
 const HomeView = (isLoaded, data) => {
   const bells = data?.["bells"] ?? Array(11).fill({});
   return (
-    <Flex
-      direction={"column"}
-      bg={useToken("colors", useColorModeValue("gray.300", "gray.500")) + "33"}
-      rounded={10}
-    >
-      {bells.map((bell) => (
-        <Bell
-          key={bell["bell"]}
-          bell={bell}
-          timetable={data?.["timetable"]}
-          isLoaded={isLoaded}
-        />
-      ))}
+    <Flex direction={"column"} gap={6}>
+      <Heading textAlign={"center"} fontFamily={"Poppins, sans-serif"}>
+        {data?.["date"] ?? ""}
+      </Heading>
+      <Flex
+        direction={"column"}
+        bg={
+          useToken("colors", useColorModeValue("gray.300", "gray.500")) + "33"
+        }
+        rounded={10}
+      >
+        {bells.map((bell) => (
+          <Bell
+            key={bell["bell"]}
+            bell={bell}
+            timetable={data?.["timetable"]}
+            isLoaded={isLoaded}
+          />
+        ))}
+      </Flex>
     </Flex>
   );
 };
