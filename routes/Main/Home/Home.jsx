@@ -20,12 +20,11 @@ const Bell = ({ bell, timetable }) => {
 
   return (
     <Flex p={3} m={1} bg={"gray"} rounded={10} direction={"column"}>
-      <Heading key={bell.bell} size="sm" fontFamily={"Poppins, sans-serif"}>
+      <Heading size="sm" fontFamily={"Poppins, sans-serif"}>
         {name}
       </Heading>
-      <Text key={bell.bell}>
-        {period?.["room"] ? `Room: ${period?.["room"]}` : ""}
-      </Text>
+      <Text>{period?.["room"] ? `Room: ${period?.["room"]}` : ""}</Text>
+      <Text>{bell?.["startTime"] ?? ""}</Text>
     </Flex>
   );
 };
@@ -34,7 +33,11 @@ const HomeView = (isLoaded, data) => (
   <Skeleton isLoaded={isLoaded} rounded={5}>
     {data?.["bells"] && data?.["timetable"]
       ? data["bells"].map((bell) => (
-          <Bell key={bell.bell} bell={bell} timetable={data?.["timetable"]} />
+          <Bell
+            key={bell["bell"]}
+            bell={bell}
+            timetable={data?.["timetable"]}
+          />
         ))
       : ""}
   </Skeleton>
