@@ -37,7 +37,7 @@ const Bell = ({ bell, timetable, isLoaded }) => {
   return (
     <Skeleton rounded={5} m={1} isLoaded={isLoaded}>
       <Flex
-        m={1}
+        m={0.5}
         rounded={10}
         _hover={{ bg: useToken("colors", "gray.400") + "22" }}
         shadow={period?.["room"] && "lg"}
@@ -47,14 +47,9 @@ const Bell = ({ bell, timetable, isLoaded }) => {
           roundedLeft={10}
           bg={subject?.["colour"] ? `#${subject?.["colour"]}` : "transparent"}
         />
-        <Flex
-          direction={"column"}
-          px={3}
-          py={period?.["room"] ? 3 : 1}
-          w="full"
-        >
-          <Flex gap={6}>
-            <Heading size="sm" fontFamily={"Poppins, sans-serif"}>
+        <Flex direction={"column"} px={3} py={period?.["room"] && 3} w="full">
+          <Flex gap={6} align="center">
+            <Heading size="xs" fontFamily={"Poppins, sans-serif"}>
               {name}
             </Heading>
             <Spacer />
@@ -63,7 +58,7 @@ const Bell = ({ bell, timetable, isLoaded }) => {
             </Text>
           </Flex>
           {period?.["room"] && (
-            <Text fontWeight={"semibold"} fontSize="sm">
+            <Text fontWeight={"semibold"} fontSize="xs">
               {bell?.["startTime"]} {teacher ?? ""}
             </Text>
           )}
@@ -76,7 +71,7 @@ const Bell = ({ bell, timetable, isLoaded }) => {
 const HomeView = (isLoaded, data) => {
   const bells = data?.["bells"] ?? Array(11).fill({});
   return (
-    <Flex direction={"column"} gap={6}>
+    <Flex direction={"column"}>
       <Heading textAlign={"center"} fontFamily={"Poppins, sans-serif"}>
         {data?.["date"] ?? ""}
       </Heading>
