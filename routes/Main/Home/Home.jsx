@@ -40,7 +40,7 @@ const Bell = ({ bell, timetable, isLoaded }) => {
         m={1}
         rounded={10}
         _hover={{ bg: useToken("colors", "gray.400") + "22" }}
-        shadow="lg"
+        shadow={period?.["room"] && "lg"}
       >
         <Box
           w={2}
