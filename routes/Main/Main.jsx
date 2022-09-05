@@ -43,8 +43,10 @@ export default () => {
         align={"center"}
         width={"full"}
         height={"full"}
+        maxH={{ base: "calc(100% - 80px)", md: "100%" }}
+        mb={{ base: "80px", md: 0 }}
+        overflowY={"auto"}
         bg={localStorage.getItem("debug") === "true" && "orange"}
-        ml={{ base: 0, md: 20 }}
       >
         <Outlet />
       </Flex>
