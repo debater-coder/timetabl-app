@@ -5,6 +5,7 @@ import {
   Skeleton,
   Spacer,
   Text,
+  useBoolean,
   useColorModeValue,
   useToken,
 } from "@chakra-ui/react";
@@ -13,8 +14,11 @@ import useSBHSQuery from "../../../hooks/useSBHSQuery";
 import { withProps } from "../../../utils/contextualise";
 import handleQuery from "../../../utils/handleQuery";
 import "@fontsource/poppins";
+import { AnimatePresence, AnimateSharedLayout, motion } from "framer-motion";
 
 const Bell = ({ bell, timetable, isLoaded }) => {
+  const [expanded, { toggle: toggleExpanded }] = useBoolean(false);
+
   const period = timetable?.["timetable"]?.["periods"]?.[bell["bell"]];
   let name = bell["bellDisplay"];
   let subject = null;
@@ -41,6 +45,9 @@ const Bell = ({ bell, timetable, isLoaded }) => {
         rounded={10}
         _hover={{ bg: useToken("colors", "gray.400") + "22" }}
         shadow={period?.["room"] && "lg"}
+        onClick={toggleExpanded}
+        as={motion.div}
+        layout
       >
         <Box
           w={2}
@@ -49,19 +56,24 @@ const Bell = ({ bell, timetable, isLoaded }) => {
         />
         <Flex direction={"column"} px={3} py={period?.["room"] && 3} w="full">
           <Flex gap={6} align="center">
-            <Heading size="xs" fontFamily={"Poppins, sans-serif"}>
+            <Heading
+              size="xs"
+              fontFamily={"Poppins, sans-serif"}
+              as={motion.h2}
+              layout
+            >
               {name}
             </Heading>
             <Spacer />
-            <Text fontWeight={"semibold"}>
+            <Text fontWeight={"semibold"} as={motion.p} layout>
               {period?.["room"] ?? bell?.["startTime"] ?? ""}
             </Text>
           </Flex>
-          {period?.["room"] && (
-            <Text fontWeight={"semibold"} fontSize="xs">
-              {bell?.["startTime"]} {teacher ?? ""}
-            </Text>
-          )}
+          <Text fontWeight={"semibold"} fontSize="xs" as={motion.p} layout>
+            {period?.["room"] &&
+              expanded &&
+              (bell?.["startTime"] + " " + teacher ?? "")}
+          </Text>
         </Flex>
       </Flex>
     </Skeleton>
@@ -75,22 +87,24 @@ const HomeView = (isLoaded, data) => {
       <Heading textAlign={"center"} fontFamily={"Poppins, sans-serif"}>
         {data?.["date"] ?? ""}
       </Heading>
-      <Flex
-        direction={"column"}
-        bg={
-          useToken("colors", useColorModeValue("gray.300", "gray.500")) + "33"
-        }
-        rounded={10}
-      >
-        {bells.map((bell) => (
-          <Bell
-            key={bell["bell"]}
-            bell={bell}
-            timetable={data?.["timetable"]}
-            isLoaded={isLoaded}
-          />
-        ))}
-      </Flex>
+      <AnimateSharedLayout>
+        <Flex
+          direction={"column"}
+          bg={
+            useToken("colors", useColorModeValue("gray.300", "gray.500")) + "33"
+          }
+          rounded={10}
+        >
+          {bells.map((bell) => (
+            <Bell
+              key={bell["bell"]}
+              bell={bell}
+              timetable={data?.["timetable"]}
+              isLoaded={isLoaded}
+            />
+          ))}
+        </Flex>
+      </AnimateSharedLayout>
     </Flex>
   );
 };
