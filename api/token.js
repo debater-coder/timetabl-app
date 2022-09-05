@@ -48,7 +48,7 @@ export default async function handler(request, response) {
                 maxAge: 90 * 24 * 60 * 60,
               }),
             ]);
-            response.status(200).send();
+            response.status(200).send("SUCCESSFULLY_REFRESHED_TOKEN");
           })
           .catch(() => {
             response.status(500).send("Bad response from server.");
