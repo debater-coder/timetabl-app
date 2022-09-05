@@ -6,6 +6,7 @@ import {
   Spacer,
   Text,
   useColorModeValue,
+  useToken,
 } from "@chakra-ui/react";
 import QueryError from "../../../components/QueryError";
 import useSBHSQuery from "../../../hooks/useSBHSQuery";
@@ -17,6 +18,7 @@ const Bell = ({ bell, timetable }) => {
   const period = timetable["timetable"]?.["periods"]?.[bell["bell"]];
   let name = bell["bellDisplay"];
   let subject = null;
+  let teacher = period?.["teacher"];
 
   if (period?.["title"]) {
     name = period["title"];
@@ -28,8 +30,17 @@ const Bell = ({ bell, timetable }) => {
     }
   }
 
+  if (subject) {
+    teacher = subject?.["fullTeacher"] ?? teacher;
+  }
+
   return (
-    <Flex m={1} bg={useColorModeValue("gray.300", "gray.500")} rounded={10}>
+    <Flex
+      m={1}
+      rounded={10}
+      _hover={{ bg: useToken("colors", "gray.400") + "22" }}
+      shadow="lg"
+    >
       <Box
         w={2}
         roundedLeft={10}
@@ -41,9 +52,15 @@ const Bell = ({ bell, timetable }) => {
             {name}
           </Heading>
           <Spacer />
-          <Text>{period?.["room"] ?? ""}</Text>
+          <Text fontWeight={"semibold"}>
+            {period?.["room"] ?? bell?.["startTime"] ?? ""}
+          </Text>
         </Flex>
-        <Text>{bell?.["startTime"] ?? ""}</Text>
+        {period?.["room"] && (
+          <Text fontWeight={"semibold"}>
+            {bell?.["startTime"]} {teacher ?? ""}
+          </Text>
+        )}
       </Flex>
     </Flex>
   );
@@ -51,15 +68,21 @@ const Bell = ({ bell, timetable }) => {
 
 const HomeView = (isLoaded, data) => (
   <Skeleton isLoaded={isLoaded} rounded={5}>
-    {data?.["bells"] && data?.["timetable"]
-      ? data["bells"].map((bell) => (
-          <Bell
-            key={bell["bell"]}
-            bell={bell}
-            timetable={data?.["timetable"]}
-          />
-        ))
-      : ""}
+    <Flex
+      direction={"column"}
+      bg={useToken("colors", useColorModeValue("gray.300", "gray.500")) + "33"}
+      rounded={10}
+    >
+      {data?.["bells"] && data?.["timetable"]
+        ? data["bells"].map((bell) => (
+            <Bell
+              key={bell["bell"]}
+              bell={bell}
+              timetable={data?.["timetable"]}
+            />
+          ))
+        : ""}
+    </Flex>
   </Skeleton>
 );
 
