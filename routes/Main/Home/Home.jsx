@@ -35,7 +35,7 @@ const Bell = ({ bell, timetable }) => {
         roundedLeft={10}
         bg={subject?.["colour"] ? `#${subject?.["colour"]}` : "transparent"}
       />
-      <Flex direction={"column"} p={3}>
+      <Flex direction={"column"} p={3} w="full">
         <Flex gap={6}>
           <Heading size="sm" fontFamily={"Poppins, sans-serif"}>
             {name}
