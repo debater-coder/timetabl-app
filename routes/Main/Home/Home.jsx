@@ -9,7 +9,7 @@ import {
   useColorModeValue,
   useToken,
 } from "@chakra-ui/react";
-import useSBHSQuery from "../../../hooks/useSBHSQuery";
+import { useDTT } from "../../../hooks/useSBHSQuery";
 import "@fontsource/poppins";
 import { motion, LayoutGroup } from "framer-motion";
 import QueryHandler from "../../../components/QueryHandler";
@@ -69,49 +69,16 @@ const Period = ({ periodData, isLoaded }) => {
 };
 
 const HomeView = (isLoaded, data) => {
-  const bells =
-    data?.["bells"] ??
+  data =
+    data ??
     Array(11).fill({
-      bellDisplay: "Loading... Loading... Loading...",
-      startTime: "8:00",
+      name: "Loading... Loading... Loading",
+      room: 605,
     });
-
-  const periodsData = bells.map((bell) => {
-    const timetable = data?.["timetable"];
-    const subjects = timetable?.["subjects"];
-    const period = timetable?.["timetable"]?.["periods"]?.[bell["bell"]];
-
-    let subject = null;
-
-    let name = bell["bellDisplay"];
-    let teacher = period?.["fullTeacher"] ?? period?.["teacher"];
-    const active = false;
-
-    if (period?.["title"]) {
-      name = period["title"];
-
-      if (period?.["year"]) {
-        name = period["year"] + name;
-        subject = subjects?.[name] ?? subject;
-        name = subject?.["title"] ?? name;
-      }
-    }
-
-    return {
-      name,
-      room: period?.["room"],
-      teacher,
-      time: bell?.["startTime"],
-      colour: subject?.["colour"] ? `#${subject?.["colour"]}` : "transparent",
-      key: bell["bell"],
-      active,
-    };
-  });
-
   return (
     <Flex direction={"column"}>
       <Heading textAlign={"center"} fontFamily={"Poppins, sans-serif"}>
-        {data?.["date"] ?? ""}
+        Your Timetable
       </Heading>
       <LayoutGroup>
         <Flex
@@ -123,7 +90,7 @@ const HomeView = (isLoaded, data) => {
           as={motion.div}
           layout
         >
-          {periodsData.map((periodData) => (
+          {data.map((periodData) => (
             <Period
               periodData={periodData}
               key={periodData["key"]}
@@ -137,9 +104,5 @@ const HomeView = (isLoaded, data) => {
 };
 
 export default function Home() {
-  return (
-    <QueryHandler query={useSBHSQuery("timetable/daytimetable.json")}>
-      {HomeView}
-    </QueryHandler>
-  );
+  return <QueryHandler query={useDTT()}>{HomeView}</QueryHandler>;
 }

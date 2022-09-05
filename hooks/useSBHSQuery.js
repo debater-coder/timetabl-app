@@ -33,7 +33,7 @@ const fetchSBHSApi = async (endpoint, refresh, signal, queryClient) => {
   return json;
 };
 
-export default (endpoint, enabled) => {
+export const useSBHSQuery = (endpoint, enabled = true, select) => {
   const { refreshing, refresh, loading } = useAuth();
   const queryClient = useQueryClient();
 
@@ -44,6 +44,42 @@ export default (endpoint, enabled) => {
     },
     {
       enabled: enabled && !refreshing && !loading,
+      select,
     }
   );
 };
+
+export const useDTT = (enabled) =>
+  useSBHSQuery("timetable/daytimetable.json", enabled, (data) =>
+    data?.["bells"].map((bell) => {
+      const timetable = data?.["timetable"];
+      const subjects = timetable?.["subjects"];
+      const period = timetable?.["timetable"]?.["periods"]?.[bell["bell"]];
+
+      let subject = null;
+
+      let name = bell["bellDisplay"];
+      let teacher = period?.["fullTeacher"] ?? period?.["teacher"];
+      const active = false;
+
+      if (period?.["title"]) {
+        name = period["title"];
+
+        if (period?.["year"]) {
+          name = period["year"] + name;
+          subject = subjects?.[name] ?? subject;
+          name = subject?.["title"] ?? name;
+        }
+      }
+
+      return {
+        name,
+        room: period?.["room"],
+        teacher,
+        time: bell?.["startTime"],
+        colour: subject?.["colour"] ? `#${subject?.["colour"]}` : "transparent",
+        key: bell["bell"],
+        active,
+      };
+    })
+  );

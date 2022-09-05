@@ -1,6 +1,6 @@
 import { Flex, Skeleton } from "@chakra-ui/react";
 import QueryError from "../../../components/QueryError";
-import useSBHSQuery from "../../../hooks/useSBHSQuery";
+import { useSBHSQuery } from "../../../hooks/useSBHSQuery";
 import { withProps } from "../../../utils/contextualise";
 import handleQuery from "../../../utils/handleQuery";
 import SavedBarcode from "./SavedBarcode";
