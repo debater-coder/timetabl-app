@@ -84,7 +84,7 @@ const HomeView = (isLoaded, data) => {
     let subject = null;
 
     let name = bell["bellDisplay"];
-    let teacher = period?.["teacher"];
+    let teacher = period?.["fullTeacher"] ?? period?.["teacher"];
     const active = false;
 
     if (period?.["title"]) {
@@ -95,10 +95,6 @@ const HomeView = (isLoaded, data) => {
         subject = subjects?.[name] ?? subject;
         name = subject?.["title"] ?? name;
       }
-    }
-
-    if (subject) {
-      teacher = subject?.["fullTeacher"] ?? teacher;
     }
 
     return {
