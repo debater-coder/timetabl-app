@@ -9,12 +9,10 @@ import {
   useColorModeValue,
   useToken,
 } from "@chakra-ui/react";
-import QueryError from "../../../components/QueryError";
 import useSBHSQuery from "../../../hooks/useSBHSQuery";
-import { withProps } from "../../../utils/contextualise";
-import handleQuery from "../../../utils/handleQuery";
 import "@fontsource/poppins";
 import { motion, LayoutGroup } from "framer-motion";
+import QueryHandler from "../../../components/QueryHandler";
 
 const Period = ({ periodData, isLoaded }) => {
   const [expanded, { toggle: toggleExpanded }] = useBoolean(false);
@@ -142,13 +140,10 @@ const HomeView = (isLoaded, data) => {
   );
 };
 
-export default () => {
-  const { data, error } = useSBHSQuery("timetable/daytimetable.json");
-
-  return handleQuery(
-    data,
-    error,
-    (isLoaded) => HomeView(isLoaded, data),
-    withProps(QueryError, { error })
+export default function Home() {
+  return (
+    <QueryHandler query={useSBHSQuery("timetable/daytimetable.json")}>
+      {HomeView}
+    </QueryHandler>
   );
-};
+}
