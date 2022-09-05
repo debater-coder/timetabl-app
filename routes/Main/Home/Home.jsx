@@ -63,7 +63,7 @@ const Bell = ({ bell, timetable, isLoaded }) => {
             </Text>
           </Flex>
           {period?.["room"] && (
-            <Text fontWeight={"semibold"}>
+            <Text fontWeight={"semibold"} fontSize="sm">
               {bell?.["startTime"]} {teacher ?? ""}
             </Text>
           )}
