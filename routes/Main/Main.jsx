@@ -45,6 +45,8 @@ export default () => {
         height={"full"}
         maxH={{ base: "calc(100% - 80px)", md: "100%" }}
         mb={{ base: "80px", md: 0 }}
+        maxW={{ base: "100%", md: "calc(100% - 80px)" }}
+        ml={{ base: 0, md: "80px" }}
         overflowY={"auto"}
         bg={localStorage.getItem("debug") === "true" && "orange"}
       >
