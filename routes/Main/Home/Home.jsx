@@ -1,4 +1,12 @@
-import { Flex, Heading, Skeleton, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  Heading,
+  Skeleton,
+  Spacer,
+  Text,
+  useColorModeValue,
+} from "@chakra-ui/react";
 import QueryError from "../../../components/QueryError";
 import useSBHSQuery from "../../../hooks/useSBHSQuery";
 import { withProps } from "../../../utils/contextualise";
@@ -21,18 +29,22 @@ const Bell = ({ bell, timetable }) => {
   }
 
   return (
-    <Flex
-      p={3}
-      m={1}
-      bg={subject?.["colour"] ? `#${subject?.["colour"]}` : "gray"}
-      rounded={10}
-      direction={"column"}
-    >
-      <Heading size="sm" fontFamily={"Poppins, sans-serif"}>
-        {name}
-      </Heading>
-      <Text>{period?.["room"] ? `Room: ${period?.["room"]}` : ""}</Text>
-      <Text>{bell?.["startTime"] ?? ""}</Text>
+    <Flex m={1} bg={useColorModeValue("gray.300", "gray.500")} rounded={10}>
+      <Box
+        w={2}
+        roundedLeft={10}
+        bg={subject?.["colour"] ? `#${subject?.["colour"]}` : "transparent"}
+      />
+      <Flex direction={"column"} p={3}>
+        <Flex gap={6}>
+          <Heading size="sm" fontFamily={"Poppins, sans-serif"}>
+            {name}
+          </Heading>
+          <Spacer />
+          <Text>{period?.["room"] ?? ""}</Text>
+        </Flex>
+        <Text>{bell?.["startTime"] ?? ""}</Text>
+      </Flex>
     </Flex>
   );
 };
