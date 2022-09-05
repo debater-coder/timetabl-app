@@ -8,18 +8,26 @@ import "@fontsource/poppins";
 const Bell = ({ bell, timetable }) => {
   const period = timetable["timetable"]?.["periods"]?.[bell["bell"]];
   let name = bell["bellDisplay"];
+  let subject = null;
 
   if (period?.["title"]) {
     name = period["title"];
 
     if (period["year"]) {
       name = period["year"] + name;
-      name = timetable["subjects"]?.[name]["title"] ?? name;
+      subject = timetable["subjects"]?.[name] ?? subject;
+      name = subject["title"] ?? name;
     }
   }
 
   return (
-    <Flex p={3} m={1} bg={"gray"} rounded={10} direction={"column"}>
+    <Flex
+      p={3}
+      m={1}
+      bg={subject?.["colour"] ? `#${subject?.["colour"]}` : "gray"}
+      rounded={10}
+      direction={"column"}
+    >
       <Heading size="sm" fontFamily={"Poppins, sans-serif"}>
         {name}
       </Heading>
