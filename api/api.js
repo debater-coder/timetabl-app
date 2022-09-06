@@ -8,7 +8,7 @@ const fetch = require("node-fetch");
 
 export default async function handler(req, res) {
   const { access_token, refresh_token } = req.cookies;
-  const { endpoint } = req.body;
+  const { endpoint, options } = req.body;
 
   if (!access_token) {
     if (refresh_token) {
@@ -25,10 +25,10 @@ export default async function handler(req, res) {
   }
   try {
     const raw = await fetch(
-      "https://student.sbhs.net.au/api/" +
-        endpoint +
-        "?access_token=" +
-        access_token
+      `https://student.sbhs.net.au/api/${endpoint}?${new URLSearchParams({
+        access_token,
+        ...options,
+      })}`
     );
 
     if (raw.status === 401) {

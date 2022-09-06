@@ -2,6 +2,9 @@ import {
   Box,
   Flex,
   Heading,
+  Icon,
+  IconButton,
+  Input,
   Skeleton,
   Spacer,
   Text,
@@ -13,6 +16,30 @@ import { useDTT } from "../../../hooks/useSBHSQuery";
 import "@fontsource/poppins";
 import { motion, LayoutGroup } from "framer-motion";
 import QueryHandler from "../../../components/QueryHandler";
+import { useState } from "react";
+import { GiFrenchFries } from "react-icons/gi";
+import { ArrowLeft, ArrowRight } from "phosphor-react";
+import { DateTime } from "luxon";
+
+const Empty = () => {
+  return (
+    <Box textAlign="center" py={10} px={6}>
+      <Icon boxSize={"50px"} color={"yellow.500"} as={GiFrenchFries} />
+      <Heading
+        as="h2"
+        size="xl"
+        mt={1}
+        mb={2}
+        fontFamily={"Poppins, sans-serif"}
+      >
+        No periods on this day
+      </Heading>
+      <Text color={"gray.500"}>
+        Chill out, grab some Oporto, and enjoy your day off!
+      </Text>
+    </Box>
+  );
+};
 
 const Period = ({ periodData, isLoaded }) => {
   const [expanded, { toggle: toggleExpanded }] = useBoolean(false);
@@ -68,35 +95,64 @@ const Period = ({ periodData, isLoaded }) => {
   );
 };
 
-const HomeView = (isLoaded, data) => {
-  data =
-    data ??
+const HomeView = ({ isLoaded, data, onDateChange, date }) => {
+  const periods =
+    data?.periods ??
     Array(11).fill({
       name: "Loading... Loading... Loading",
       room: 605,
     });
+
   return (
-    <Flex direction={"column"}>
+    <Flex direction={"column"} align="center" gap={6}>
       <Heading textAlign={"center"} fontFamily={"Poppins, sans-serif"}>
         Your Timetable
       </Heading>
+      <Flex w="full" gap={3}>
+        <IconButton
+          icon={<ArrowLeft />}
+          variant="outline"
+          onClick={() =>
+            onDateChange(DateTime.fromISO(date).minus({ days: 1 }).toISODate())
+          }
+          aria-label="Previous day"
+        />
+        <Input
+          type="date"
+          value={date ?? ""}
+          onChange={(event) => onDateChange(event.target.value)}
+        />
+        <IconButton
+          icon={<ArrowRight />}
+          variant="outline"
+          onClick={() =>
+            onDateChange(DateTime.fromISO(date).plus({ days: 1 }).toISODate())
+          }
+          aria-label="Next day"
+        />
+      </Flex>
       <LayoutGroup>
         <Flex
           direction={"column"}
           bg={
             useToken("colors", useColorModeValue("gray.300", "gray.500")) + "33"
           }
+          minW={"50vw"}
           rounded={10}
           as={motion.div}
           layout
         >
-          {data.map((periodData) => (
-            <Period
-              periodData={periodData}
-              key={periodData["key"]}
-              isLoaded={isLoaded}
-            />
-          ))}
+          {periods.length ? (
+            periods.map((period) => (
+              <Period
+                periodData={period}
+                key={period["key"]}
+                isLoaded={isLoaded}
+              />
+            ))
+          ) : (
+            <Empty />
+          )}
         </Flex>
       </LayoutGroup>
     </Flex>
@@ -104,5 +160,18 @@ const HomeView = (isLoaded, data) => {
 };
 
 export default function Home() {
-  return <QueryHandler query={useDTT()}>{HomeView}</QueryHandler>;
+  const [date, setDate] = useState();
+
+  return (
+    <QueryHandler query={useDTT(date)}>
+      {(isLoaded, data) => (
+        <HomeView
+          isLoaded={isLoaded}
+          data={data}
+          onDateChange={setDate}
+          date={date ?? data?.date}
+        />
+      )}
+    </QueryHandler>
+  );
 }

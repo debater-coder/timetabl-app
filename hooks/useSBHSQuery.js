@@ -3,8 +3,15 @@ import HTTPError from "../errors/HTTPError";
 import NetworkError from "../errors/NetworkError";
 import { useAuth } from "./useAuth";
 
-const fetchSBHSApi = async (endpoint, refresh, signal, queryClient) => {
+const fetchSBHSApi = async (
+  endpoint,
+  options,
+  refresh,
+  signal,
+  queryClient
+) => {
   let res;
+
   try {
     res = await fetch("/api/api", {
       credentials: "same-origin",
@@ -12,7 +19,7 @@ const fetchSBHSApi = async (endpoint, refresh, signal, queryClient) => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ endpoint }),
+      body: JSON.stringify({ endpoint, options }),
       signal,
     });
   } catch {
@@ -33,14 +40,14 @@ const fetchSBHSApi = async (endpoint, refresh, signal, queryClient) => {
   return json;
 };
 
-export const useSBHSQuery = (endpoint, enabled = true, select) => {
+export const useSBHSQuery = (endpoint, options, enabled = true, select) => {
   const { refreshing, refresh, loading } = useAuth();
   const queryClient = useQueryClient();
 
   return useQuery(
-    ["sbhs", endpoint],
+    ["sbhs", endpoint, options],
     ({ signal }) => {
-      return fetchSBHSApi(endpoint, refresh, signal, queryClient);
+      return fetchSBHSApi(endpoint, options, refresh, signal, queryClient);
     },
     {
       enabled: enabled && !refreshing && !loading,
@@ -51,45 +58,48 @@ export const useSBHSQuery = (endpoint, enabled = true, select) => {
 
 const noop = (data) => data;
 
-export const useDTT = (enabled, select = noop) =>
-  useSBHSQuery("timetable/daytimetable.json", enabled, (data) =>
-    data?.["bells"].map((bell) => {
-      const timetable = data?.["timetable"];
-      const subjects = timetable?.["subjects"];
-      const period = timetable?.["timetable"]?.["periods"]?.[bell["bell"]];
+export const useDTT = (date, enabled, select = noop) =>
+  useSBHSQuery("timetable/daytimetable.json", { date }, enabled, (data) =>
+    select({
+      periods: (data?.["bells"] ?? []).map((bell) => {
+        const timetable = data?.["timetable"];
+        const subjects = timetable?.["subjects"];
+        const period = timetable?.["timetable"]?.["periods"]?.[bell["bell"]];
 
-      let subject = null;
+        let subject = null;
 
-      let name = bell["bellDisplay"];
-      let teacher = period?.["fullTeacher"] ?? period?.["teacher"];
-      const active = false;
+        let name = bell["bellDisplay"];
+        let teacher = period?.["fullTeacher"] ?? period?.["teacher"];
+        const active = false;
 
-      if (period?.["title"]) {
-        name = period["title"];
+        if (period?.["title"]) {
+          name = period["title"];
 
-        if (period?.["year"]) {
-          name = period["year"] + name;
-          subject = subjects?.[name] ?? subject;
-          name = subject?.["title"] ?? name;
+          if (period?.["year"]) {
+            name = period["year"] + name;
+            subject = subjects?.[name] ?? subject;
+            name = subject?.["title"] ?? name;
+          }
         }
-      }
 
-      return select({
-        name,
-        room: period?.["room"],
-        teacher,
-        time: bell?.["startTime"],
-        colour: subject?.["colour"] ? `#${subject?.["colour"]}` : "transparent",
-        key: bell["bell"],
-        active,
-      });
+        return {
+          name,
+          room: period?.["room"],
+          teacher,
+          time: bell?.["startTime"],
+          colour: subject?.["colour"]
+            ? `#${subject?.["colour"]}`
+            : "transparent",
+          key: bell["bell"],
+          active,
+        };
+      }),
+      date: data?.["date"],
     })
   );
 
 export const useProfile = (enabled, select = noop) =>
-  useSBHSQuery("details/userinfo.json", enabled, select);
+  useSBHSQuery("details/userinfo.json", {}, enabled, select);
 
 export const useStudentID = (enabled, select = noop) =>
-  useSBHSQuery("details/userinfo.json", enabled, (data) =>
-    select(data?.["studentId"])
-  );
+  useProfile(enabled, (data) => select(data?.["studentId"]));
