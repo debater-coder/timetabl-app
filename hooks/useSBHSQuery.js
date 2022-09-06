@@ -72,9 +72,10 @@ export const useDTT = (date, enabled, select = noop) =>
         let name = bell["bellDisplay"];
         let teacher = period?.["fullTeacher"] ?? period?.["teacher"];
         const active =
-          DateTime.fromISO(bell?.["startTime"]) <
+          DateTime.fromISO(`${data?.["date"]}T${bell?.["startTime"]}`) <
+            DateTime.now() &&
           DateTime.now() <
-          DateTime.fromISO(bell?.["endTime"]);
+            DateTime.fromISO(`${data?.["date"]}T${bell?.["endTime"]}`);
 
         if (period?.["title"]) {
           name = period["title"];
