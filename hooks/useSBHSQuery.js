@@ -83,3 +83,6 @@ export const useDTT = (enabled) =>
       };
     })
   );
+
+export const useStudentID = (enabled) =>
+  useSBHSQuery("details/userinfo.json", enabled, (data) => data?.["studentId"]);
