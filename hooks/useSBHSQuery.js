@@ -1,4 +1,5 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { DateTime } from "luxon";
 import HTTPError from "../errors/HTTPError";
 import NetworkError from "../errors/NetworkError";
 import { useAuth } from "./useAuth";
@@ -70,7 +71,10 @@ export const useDTT = (date, enabled, select = noop) =>
 
         let name = bell["bellDisplay"];
         let teacher = period?.["fullTeacher"] ?? period?.["teacher"];
-        const active = false;
+        const active =
+          DateTime.fromISO(bell?.["startTime"]) <
+          DateTime.now() <
+          DateTime.fromISO(bell?.["endTime"]);
 
         if (period?.["title"]) {
           name = period["title"];

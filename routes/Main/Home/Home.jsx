@@ -57,6 +57,7 @@ const Period = ({ periodData, isLoaded }) => {
             rounded={100}
             as={motion.div}
             layout
+            layoutId="activeIndicator"
             bg={useToken("colors", "blue.500") + "33"}
           />
         )}
