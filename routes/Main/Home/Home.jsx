@@ -5,6 +5,7 @@ import {
   Icon,
   IconButton,
   Input,
+  InputGroup,
   Skeleton,
   Spacer,
   Text,
@@ -23,18 +24,19 @@ import { DateTime } from "luxon";
 
 const Empty = () => {
   return (
-    <Box textAlign="center" py={10} px={6}>
-      <Icon boxSize={"50px"} color={"yellow.500"} as={GiFrenchFries} />
+    <Box textAlign="center" py={10} px={6} as={motion.p} layout>
+      <Icon boxSize={"50px"} color={"yellow.500"} as={motion(GiFrenchFries)} />
       <Heading
-        as="h2"
         size="xl"
         mt={1}
         mb={2}
         fontFamily={"Poppins, sans-serif"}
+        as={motion.h2}
+        layout
       >
         No periods on this day
       </Heading>
-      <Text color={"gray.500"}>
+      <Text color={"gray.500"} as={motion.p} layout>
         Chill out, grab some Oporto, and enjoy your day off!
       </Text>
     </Box>
@@ -117,11 +119,13 @@ const HomeView = ({ isLoaded, data, onDateChange, date }) => {
           }
           aria-label="Previous day"
         />
-        <Input
-          type="date"
-          value={date ?? ""}
-          onChange={(event) => onDateChange(event.target.value)}
-        />
+        <InputGroup>
+          <Input
+            type="date"
+            value={date ?? ""}
+            onChange={(event) => onDateChange(event.target.value)}
+          />
+        </InputGroup>
         <IconButton
           icon={<ArrowRight />}
           variant="outline"
