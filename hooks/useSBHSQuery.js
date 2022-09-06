@@ -91,9 +91,10 @@ export const useDTT = (date, enabled, select = noop) =>
           room: period?.["room"],
           teacher,
           time: bell?.["startTime"],
-          colour: subject?.["colour"]
-            ? `#${subject?.["colour"]}`
-            : "transparent",
+          colour:
+            subject?.["colour"] && period?.["room"]
+              ? `#${subject?.["colour"]}`
+              : "transparent",
           key: bell["bell"],
           active,
         };
