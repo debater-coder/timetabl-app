@@ -49,7 +49,9 @@ export const useSBHSQuery = (endpoint, enabled = true, select) => {
   );
 };
 
-export const useDTT = (enabled) =>
+const noop = (data) => data;
+
+export const useDTT = (enabled, select = noop) =>
   useSBHSQuery("timetable/daytimetable.json", enabled, (data) =>
     data?.["bells"].map((bell) => {
       const timetable = data?.["timetable"];
@@ -72,7 +74,7 @@ export const useDTT = (enabled) =>
         }
       }
 
-      return {
+      return select({
         name,
         room: period?.["room"],
         teacher,
@@ -80,9 +82,14 @@ export const useDTT = (enabled) =>
         colour: subject?.["colour"] ? `#${subject?.["colour"]}` : "transparent",
         key: bell["bell"],
         active,
-      };
+      });
     })
   );
 
-export const useStudentID = (enabled) =>
-  useSBHSQuery("details/userinfo.json", enabled, (data) => data?.["studentId"]);
+export const useProfile = (enabled, select = noop) =>
+  useSBHSQuery("details/userinfo.json", enabled, select);
+
+export const useStudentID = (enabled, select = noop) =>
+  useSBHSQuery("details/userinfo.json", enabled, (data) =>
+    select(data?.["studentId"])
+  );
