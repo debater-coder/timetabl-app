@@ -27,7 +27,7 @@ export default () => {
   }, [loggedIn]);
 
   return (
-    <Flex align={"center"} width={"full"} direction={"column"} gap={3}>
+    <Flex align={"center"} mx="auto" maxW="80%" direction={"column"} gap={3}>
       <Flex align={"center"}>
         <Heading mb={3} fontFamily="Poppins, sans-serif">
           Welcome to Timetabl&nbsp;
