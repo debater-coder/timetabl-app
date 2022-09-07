@@ -3,5 +3,5 @@ export default (data, error, callback, onError) => {
     return callback(!!data);
   }
 
-  return onError();
+  return onError;
 };

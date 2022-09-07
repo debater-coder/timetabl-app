@@ -16,7 +16,7 @@ import {
 import { useDTT } from "../../../hooks/useSBHSQuery";
 import "@fontsource/poppins";
 import { motion, LayoutGroup } from "framer-motion";
-import QueryHandler from "../../../components/QueryHandler";
+import QueriesHandler from "../../../components/QueriesHandler";
 import { useEffect, useState } from "react";
 import { GiFrenchFries } from "react-icons/gi";
 import { ArrowLeft, ArrowRight } from "phosphor-react";
@@ -117,7 +117,7 @@ const Period = ({
   );
 };
 
-const NextPeriod = ({ periods, date, countdown, setCountdown }) => {
+const NextPeriod = ({ periods, date, countdown, setCountdown, isLoaded }) => {
   const activePeriod = periods.findIndex(
     ({ time, endTime }) =>
       (DateTime.fromISO(`${date}T${time}`) < DateTime.now() &&
@@ -140,13 +140,17 @@ const NextPeriod = ({ periods, date, countdown, setCountdown }) => {
   });
 
   return (
-    <Period isLoaded periodData={nextPeriod} upcoming countdown={countdown} />
+    <Period
+      isLoaded={isLoaded}
+      periodData={nextPeriod}
+      upcoming
+      countdown={countdown}
+    />
   );
 };
 
 const HomeView = ({ isLoaded, data, onDateChange, date }) => {
   const [countdown, setCountdown] = useState("");
-
   const periods =
     data?.periods ??
     Array(11).fill({
@@ -157,7 +161,7 @@ const HomeView = ({ isLoaded, data, onDateChange, date }) => {
   return (
     <Flex direction={"column"} align="center" gap={3}>
       {periods.length ? (
-        <NextPeriod {...{ periods, date, countdown, setCountdown }} />
+        <NextPeriod {...{ periods, date, countdown, setCountdown, isLoaded }} />
       ) : (
         ""
       )}
@@ -219,15 +223,15 @@ export default function Home() {
   const [date, setDate] = useState();
 
   return (
-    <QueryHandler query={useDTT(date)}>
+    <QueriesHandler queries={{ dtt: useDTT(date) }}>
       {(isLoaded, data) => (
         <HomeView
           isLoaded={isLoaded}
-          data={data}
+          data={data?.dtt}
           onDateChange={setDate}
-          date={date ?? data?.date}
+          date={date ?? data?.dtt?.date}
         />
       )}
-    </QueryHandler>
+    </QueriesHandler>
   );
 }

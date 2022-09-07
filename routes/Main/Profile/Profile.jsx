@@ -1,11 +1,11 @@
 import { Flex, Skeleton, useColorModeValue, Text } from "@chakra-ui/react";
-import QueryHandler from "../../../components/QueryHandler";
+import QueriesHandler from "../../../components/QueriesHandler";
 import { useProfile } from "../../../hooks/useSBHSQuery";
 
 export default () => {
   return (
-    <QueryHandler query={useProfile()}>
-      {(isLoaded, data) => (
+    <QueriesHandler queries={{ profile: useProfile() }}>
+      {(isLoaded, { profile }) => (
         <Skeleton isLoaded={isLoaded} rounded={5}>
           <Flex
             direction="column"
@@ -15,12 +15,12 @@ export default () => {
             rounded={5}
           >
             <Text>
-              {data?.givenName} {data?.surname}
+              {profile?.givenName} {profile?.surname}
             </Text>
-            <Text>{data?.role}</Text>
+            <Text>{profile?.role}</Text>
           </Flex>
         </Skeleton>
       )}
-    </QueryHandler>
+    </QueriesHandler>
   );
 };
