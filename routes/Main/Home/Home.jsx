@@ -202,10 +202,10 @@ const HomeView = ({ isLoaded, data, onDateChange, date }) => {
           layout
         >
           {periods.length ? (
-            periods.map((period) => (
+            periods.map((period, index) => (
               <Period
                 periodData={period}
-                key={period["key"]}
+                key={period["key"] ?? index}
                 isLoaded={isLoaded}
                 date={date}
               />
