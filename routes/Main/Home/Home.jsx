@@ -50,22 +50,11 @@ const Period = ({ periodData, isLoaded }) => {
   return (
     <Skeleton rounded={5} m={1} isLoaded={isLoaded}>
       <Flex align="center" gap={3}>
-        {active && (
-          <Box
-            w={4}
-            h={4}
-            rounded={100}
-            as={motion.div}
-            layout
-            layoutId="activeIndicator"
-            bg={useToken("colors", "blue.500") + "33"}
-          />
-        )}
         <Flex
           m={0.5}
           rounded={10}
           _hover={{ bg: useToken("colors", "gray.400") + "22" }}
-          shadow={room && "lg"}
+          shadow={active ? "outline" : room && "lg"}
           onClick={toggleExpanded}
           as={motion.div}
           w={"full"}
