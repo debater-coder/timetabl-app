@@ -149,7 +149,7 @@ const NextPeriod = ({ periods, date, countdown, setCountdown, isLoaded }) => {
   );
 };
 
-const HomeView = ({ isLoaded, data, onDateChange, date }) => {
+const HomeView = ({ isLoaded, data, onDateChange, date, initialDate }) => {
   const [countdown, setCountdown] = useState("");
   const periods =
     data?.periods ??
@@ -161,7 +161,9 @@ const HomeView = ({ isLoaded, data, onDateChange, date }) => {
   return (
     <Flex direction={"column"} align="center" gap={3}>
       {periods.length ? (
-        <NextPeriod {...{ periods, date, countdown, setCountdown, isLoaded }} />
+        <NextPeriod
+          {...{ periods, date: initialDate, countdown, setCountdown, isLoaded }}
+        />
       ) : (
         ""
       )}
@@ -177,7 +179,7 @@ const HomeView = ({ isLoaded, data, onDateChange, date }) => {
         <InputGroup>
           <Input
             type="date"
-            value={date ?? ""}
+            value={date ?? initialDate ?? ""}
             onChange={(event) => onDateChange(event.target.value)}
           />
         </InputGroup>
@@ -223,13 +225,14 @@ export default function Home() {
   const [date, setDate] = useState();
 
   return (
-    <QueriesHandler queries={{ dtt: useDTT(date) }}>
+    <QueriesHandler queries={{ dtt: useDTT(date), initialDtt: useDTT() }}>
       {(isLoaded, data) => (
         <HomeView
           isLoaded={isLoaded}
           data={data?.dtt}
           onDateChange={setDate}
           date={date ?? data?.dtt?.date}
+          initialDate={data?.initialDtt?.date}
         />
       )}
     </QueriesHandler>
