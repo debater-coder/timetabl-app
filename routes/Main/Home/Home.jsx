@@ -17,7 +17,7 @@ import { useDTT } from "../../../hooks/useSBHSQuery";
 import "@fontsource/poppins";
 import { motion, LayoutGroup } from "framer-motion";
 import QueryHandler from "../../../components/QueryHandler";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { GiFrenchFries } from "react-icons/gi";
 import { ArrowLeft, ArrowRight } from "phosphor-react";
 import { DateTime } from "luxon";
@@ -43,15 +43,32 @@ const Empty = () => {
   );
 };
 
-const Period = ({ periodData, isLoaded }) => {
+const Period = ({
+  periodData,
+  isLoaded,
+  date,
+  upcoming = false,
+  countdown,
+}) => {
   const [expanded, { toggle: toggleExpanded }] = useBoolean(false);
-  const { active, room, colour, name, time, teacher } = periodData;
+
+  const { room, colour, name, time, teacher, endTime } = periodData;
+  const active =
+    (DateTime.fromISO(`${date}T${time}`) < DateTime.now() &&
+      DateTime.now() < DateTime.fromISO(`${date}T${endTime}`)) ??
+    false;
 
   return (
-    <Skeleton rounded={5} m={1} isLoaded={isLoaded}>
-      <Flex align="center" gap={3}>
+    <Skeleton rounded={5} m={1} isLoaded={isLoaded} w={upcoming && "full"}>
+      <Flex align="center" gap={3} w={"full"}>
         <Flex
           m={0.5}
+          bg={
+            upcoming
+              ? useToken("colors", useColorModeValue("gray.300", "gray.500")) +
+                "33"
+              : "transparent"
+          }
           rounded={10}
           _hover={{ bg: useToken("colors", "gray.400") + "22" }}
           shadow={active ? "outline" : room && "lg"}
@@ -61,10 +78,15 @@ const Period = ({ periodData, isLoaded }) => {
           layout
         >
           <Box w={2} roundedLeft={10} bg={colour} />
-          <Flex direction={"column"} px={3} py={room && 3} w="full">
-            <Flex gap={6} align="center">
+          <Flex
+            direction={"column"}
+            px={3}
+            py={(room || upcoming) && 3}
+            w="full"
+          >
+            <Flex gap={6} align="center" w="full">
               <Heading
-                size="xs"
+                size={upcoming ? "lg" : "xs"}
                 fontFamily={"Poppins, sans-serif"}
                 as={motion.h2}
                 layout
@@ -76,9 +98,17 @@ const Period = ({ periodData, isLoaded }) => {
                 {room ?? time ?? ""}
               </Text>
             </Flex>
-            <Text fontWeight={"semibold"} fontSize="xs" as={motion.p} layout>
-              {((room && expanded) || !isLoaded) &&
-                (time + " " + teacher ?? "")}
+            <Text
+              fontWeight={!upcoming && "semibold"}
+              fontSize={upcoming ? "md" : "xs"}
+              as={motion.p}
+              layout
+            >
+              {(room && expanded) || !isLoaded
+                ? time + " " + teacher
+                : upcoming
+                ? `IN ${countdown}`
+                : ""}
             </Text>
           </Flex>
         </Flex>
@@ -88,6 +118,8 @@ const Period = ({ periodData, isLoaded }) => {
 };
 
 const HomeView = ({ isLoaded, data, onDateChange, date }) => {
+  const [countdown, setCountdown] = useState("");
+
   const periods =
     data?.periods ??
     Array(11).fill({
@@ -95,11 +127,30 @@ const HomeView = ({ isLoaded, data, onDateChange, date }) => {
       room: 605,
     });
 
+  const activePeriod = periods.findIndex(
+    ({ time, endTime }) =>
+      (DateTime.fromISO(`${date}T${time}`) < DateTime.now() &&
+        DateTime.now() < DateTime.fromISO(`${date}T${endTime}`)) ??
+      false
+  );
+
+  const nextPeriod = periods[activePeriod + 1];
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setCountdown(
+        DateTime.fromISO(`${date}T${nextPeriod.time}`)
+          .diffNow()
+          .toFormat("hh:mm:ss")
+      );
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  });
+
   return (
     <Flex direction={"column"} align="center" gap={3}>
-      <Heading textAlign={"center"} fontFamily={"Poppins, sans-serif"}>
-        Your Timetable
-      </Heading>
+      <Period isLoaded periodData={nextPeriod} upcoming countdown={countdown} />
       <Flex w="full" gap={3}>
         <IconButton
           icon={<ArrowLeft />}
@@ -142,6 +193,7 @@ const HomeView = ({ isLoaded, data, onDateChange, date }) => {
                 periodData={period}
                 key={period["key"]}
                 isLoaded={isLoaded}
+                date={date}
               />
             ))
           ) : (

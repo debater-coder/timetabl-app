@@ -1,5 +1,4 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { DateTime } from "luxon";
 import HTTPError from "../errors/HTTPError";
 import NetworkError from "../errors/NetworkError";
 import { useAuth } from "./useAuth";
@@ -71,11 +70,6 @@ export const useDTT = (date, enabled, select = noop) =>
 
         let name = bell["bellDisplay"];
         let teacher = period?.["fullTeacher"] ?? period?.["teacher"];
-        const active =
-          DateTime.fromISO(`${data?.["date"]}T${bell?.["startTime"]}`) <
-            DateTime.now() &&
-          DateTime.now() <
-            DateTime.fromISO(`${data?.["date"]}T${bell?.["endTime"]}`);
 
         if (period?.["title"]) {
           name = period["title"];
@@ -92,12 +86,12 @@ export const useDTT = (date, enabled, select = noop) =>
           room: period?.["room"],
           teacher,
           time: bell?.["startTime"],
+          endTime: bell?.["endTime"],
           colour:
             subject?.["colour"] && period?.["room"]
               ? `#${subject?.["colour"]}`
               : "transparent",
           key: bell["bell"],
-          active,
         };
       }),
       date: data?.["date"],
