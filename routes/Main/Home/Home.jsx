@@ -160,13 +160,9 @@ const HomeView = ({ isLoaded, data, onDateChange, date, initialDate }) => {
 
   return (
     <Flex direction={"column"} align="center" gap={3}>
-      {periods.length ? (
-        <NextPeriod
-          {...{ periods, date: initialDate, countdown, setCountdown, isLoaded }}
-        />
-      ) : (
-        ""
-      )}
+      <NextPeriod
+        {...{ periods, date: initialDate, countdown, setCountdown, isLoaded }}
+      />
       <Flex w="full" gap={3}>
         <IconButton
           icon={<ArrowLeft />}
