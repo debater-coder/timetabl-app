@@ -117,16 +117,7 @@ const Period = ({
   );
 };
 
-const HomeView = ({ isLoaded, data, onDateChange, date }) => {
-  const [countdown, setCountdown] = useState("");
-
-  const periods =
-    data?.periods ??
-    Array(11).fill({
-      name: "Loading... Loading... Loading",
-      room: 605,
-    });
-
+const NextPeriod = ({ periods, date, countdown, setCountdown }) => {
   const activePeriod = periods.findIndex(
     ({ time, endTime }) =>
       (DateTime.fromISO(`${date}T${time}`) < DateTime.now() &&
@@ -149,8 +140,27 @@ const HomeView = ({ isLoaded, data, onDateChange, date }) => {
   });
 
   return (
+    <Period isLoaded periodData={nextPeriod} upcoming countdown={countdown} />
+  );
+};
+
+const HomeView = ({ isLoaded, data, onDateChange, date }) => {
+  const [countdown, setCountdown] = useState("");
+
+  const periods =
+    data?.periods ??
+    Array(11).fill({
+      name: "Loading... Loading... Loading",
+      room: 605,
+    });
+
+  return (
     <Flex direction={"column"} align="center" gap={3}>
-      <Period isLoaded periodData={nextPeriod} upcoming countdown={countdown} />
+      {periods.length ? (
+        <NextPeriod {...{ periods, date, countdown, setCountdown }} />
+      ) : (
+        ""
+      )}
       <Flex w="full" gap={3}>
         <IconButton
           icon={<ArrowLeft />}
