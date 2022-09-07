@@ -96,7 +96,7 @@ const HomeView = ({ isLoaded, data, onDateChange, date }) => {
     });
 
   return (
-    <Flex direction={"column"} align="center" gap={6}>
+    <Flex direction={"column"} align="center" gap={3}>
       <Heading textAlign={"center"} fontFamily={"Poppins, sans-serif"}>
         Your Timetable
       </Heading>
