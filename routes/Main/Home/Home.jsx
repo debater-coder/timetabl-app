@@ -21,6 +21,7 @@ import { useEffect, useState } from "react";
 import { GiFrenchFries } from "react-icons/gi";
 import { ArrowLeft, ArrowRight } from "phosphor-react";
 import { DateTime } from "luxon";
+import useSettings from "../../../hooks/useSettings";
 
 const Empty = () => {
   return (
@@ -51,6 +52,7 @@ const Period = ({
   countdown,
 }) => {
   const [expanded, { toggle: toggleExpanded }] = useBoolean(false);
+  const { periodColours, setPeriodColours } = useSettings();
 
   const { room, colour, name, time, teacher, endTime } = periodData;
   const active =
@@ -77,7 +79,16 @@ const Period = ({
           w={"full"}
           layout
         >
-          <Box w={2} roundedLeft={10} bg={colour} />
+          <Box
+            w={2}
+            roundedLeft={10}
+            bg={
+              room &&
+              { default: colour, primary: "primary.500", none: "transparent" }[
+                periodColours
+              ]
+            }
+          />
           <Flex
             direction={"column"}
             px={3}

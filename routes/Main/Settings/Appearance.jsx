@@ -9,9 +9,14 @@ import {
   useRadioGroup,
   Icon,
   Flex,
+  Heading,
+  RadioGroup,
+  Radio,
+  VStack,
 } from "@chakra-ui/react";
 import { Check } from "phosphor-react";
-import useDynamicTheme from "../../../hooks/useDynamicTheme";
+import useSettings from "../../../hooks/useSettings";
+import "@fontsource/poppins";
 
 const PrimaryColour = (props) => {
   const { state, getInputProps, getCheckboxProps } = useRadio(props);
@@ -43,9 +48,7 @@ const PrimaryColour = (props) => {
   );
 };
 
-const PrimaryColourPicker = () => {
-  const { primary, setPrimary } = useDynamicTheme();
-
+const ColourPicker = ({ value, onChange }) => {
   const options = [
     "red",
     "orange",
@@ -59,39 +62,54 @@ const PrimaryColourPicker = () => {
   ];
 
   const { getRootProps, getRadioProps } = useRadioGroup({
-    onChange: setPrimary,
-    value: primary,
+    onChange,
+    value,
   });
 
   const group = getRootProps();
 
   return (
-    <FormControl display="flex">
-      <FormLabel mb="0">Primary Colour</FormLabel>
-      <SimpleGrid minChildWidth={20} spacing={5} {...group} w="full">
-        {options.map((value) => {
-          const radio = getRadioProps({ value });
-          return (
-            <PrimaryColour key={value} {...radio}>
-              {value}
-            </PrimaryColour>
-          );
-        })}
-      </SimpleGrid>
-    </FormControl>
+    <SimpleGrid minChildWidth={20} spacing={5} {...group} w="full">
+      {options.map((value) => {
+        const radio = getRadioProps({ value });
+        return (
+          <PrimaryColour key={value} {...radio}>
+            {value}
+          </PrimaryColour>
+        );
+      })}
+    </SimpleGrid>
   );
 };
 
 export default () => {
   const { colorMode, toggleColorMode } = useColorMode();
+  const { primary, setPrimary, periodColours, setPeriodColours } =
+    useSettings();
 
   return (
     <>
+      <Heading size={"md"} fontFamily={"Poppins, sans-serif"}>
+        Colours
+      </Heading>
       <FormControl display="flex" alignItems="center">
         <FormLabel mb="0">Dark mode</FormLabel>
         <Switch onChange={toggleColorMode} isChecked={colorMode === "dark"} />
       </FormControl>
-      <PrimaryColourPicker />
+      <FormControl display="flex">
+        <FormLabel mb="0">Primary Colour</FormLabel>
+        <ColourPicker value={primary} onChange={setPrimary} />
+      </FormControl>
+      <FormControl display="flex">
+        <FormLabel mb="0">Period colours</FormLabel>
+        <RadioGroup value={periodColours} onChange={setPeriodColours}>
+          <VStack align={"left"}>
+            <Radio value="default">Default colours</Radio>
+            <Radio value="primary">Primary colour</Radio>
+            <Radio value="none">No colour coding</Radio>
+          </VStack>
+        </RadioGroup>
+      </FormControl>
     </>
   );
 };

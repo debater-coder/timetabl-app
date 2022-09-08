@@ -14,7 +14,7 @@ import { createSyncStoragePersister } from "@tanstack/query-sync-storage-persist
 import { createStandaloneToast } from "@chakra-ui/toast";
 import reportWebVitals from "./reportWebVitals";
 import { sendToVercelAnalytics } from "./vitals";
-import useDynamicTheme, { DynamicThemeProvider } from "./hooks/useDynamicTheme";
+import useSettings, { SettingsProvider } from "./hooks/useSettings";
 
 if (window.location.host === "timetabl.vercel.app") {
   window.location = "https://www.timetabl.app";
@@ -46,7 +46,7 @@ const persister = createSyncStoragePersister({
 });
 
 const ChakraWrapper = ({ ...props }) => {
-  const { primary } = useDynamicTheme();
+  const { primary } = useSettings();
 
   const theme = themeGen(primary);
 
@@ -67,7 +67,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           },
         },
       }),
-      DynamicThemeProvider,
+      SettingsProvider,
       ChakraWrapper,
       AuthProvider,
     ]}
