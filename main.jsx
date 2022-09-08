@@ -14,6 +14,7 @@ import { createSyncStoragePersister } from "@tanstack/query-sync-storage-persist
 import { createStandaloneToast } from "@chakra-ui/toast";
 import reportWebVitals from "./reportWebVitals";
 import { sendToVercelAnalytics } from "./vitals";
+import useDynamicTheme, { DynamicThemeProvider } from "./hooks/useDynamicTheme";
 
 if (window.location.host === "timetabl.vercel.app") {
   window.location = "https://www.timetabl.app";
@@ -44,7 +45,13 @@ const persister = createSyncStoragePersister({
   storage: window.localStorage,
 });
 
-const theme = themeGen("blue");
+const ChakraWrapper = ({ ...props }) => {
+  const { primary } = useDynamicTheme();
+
+  const theme = themeGen(primary);
+
+  return <ChakraProvider theme={theme} {...props} />;
+};
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <Compose
@@ -60,11 +67,12 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           },
         },
       }),
-      withProps(ChakraProvider, { theme }),
+      DynamicThemeProvider,
+      ChakraWrapper,
       AuthProvider,
     ]}
   >
-    <ColorModeScript initialColorMode={theme.config.initialColorMode} />
+    <ColorModeScript initialColorMode={themeGen().config.initialColorMode} />
     <BrowserRouter>
       <Routes />
     </BrowserRouter>
