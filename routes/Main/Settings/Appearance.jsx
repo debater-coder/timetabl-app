@@ -26,6 +26,7 @@ const PrimaryColour = (props) => {
         {...checkbox}
         cursor="pointer"
         p={2}
+        minW={10}
         bg={props.value + ".500"}
         rounded="full"
         align={"center"}
@@ -67,7 +68,7 @@ const PrimaryColourPicker = () => {
   return (
     <FormControl display="flex">
       <FormLabel mb="0">Primary Colour</FormLabel>
-      <SimpleGrid minChildWidth={5} spacing={5} {...group} w="full">
+      <SimpleGrid minChildWidth={20} spacing={5} {...group} w="full">
         {options.map((value) => {
           const radio = getRadioProps({ value });
           return (
