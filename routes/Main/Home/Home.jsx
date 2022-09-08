@@ -171,13 +171,13 @@ const HomeView = ({ isLoaded, data, onDateChange, date, initialDate }) => {
             onDateChange(DateTime.fromISO(date).minus({ days: 1 }).toISODate())
           }
           aria-label="Previous day"
-          colorScheme={"gray"}
         />
         <InputGroup>
           <Input
             type="date"
             value={date ?? initialDate ?? ""}
             onChange={(event) => onDateChange(event.target.value)}
+            focusBorderColor="primary.200"
           />
         </InputGroup>
         <IconButton
@@ -187,7 +187,6 @@ const HomeView = ({ isLoaded, data, onDateChange, date, initialDate }) => {
             onDateChange(DateTime.fromISO(date).plus({ days: 1 }).toISODate())
           }
           aria-label="Next day"
-          colorScheme={"gray"}
         />
       </Flex>
       <LayoutGroup>
