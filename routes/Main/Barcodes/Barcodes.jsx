@@ -19,7 +19,7 @@ import SaveBarcodeForm from "./SaveBarcodeForm";
 const Empty = () => {
   return (
     <Box textAlign="center" py={10} px={6}>
-      <Icon boxSize={"50px"} color={"blue.500"} as={BarcodeIcon} />
+      <Icon boxSize={"50px"} color={"primary.500"} as={BarcodeIcon} />
       <Heading
         as="h2"
         size="xl"
@@ -85,7 +85,10 @@ export default () => {
           }
           closeOnClick={false}
         >
-          <Icon boxSize={7} color={useColorModeValue("blue.500", "blue.300")} />
+          <Icon
+            boxSize={7}
+            color={useColorModeValue("primary.500", "primary.300")}
+          />
         </Tooltip>
       </Flex>
       <YourBarcode />
@@ -99,7 +102,10 @@ export default () => {
           }
           closeOnClick={false}
         >
-          <Icon boxSize={7} color={useColorModeValue("blue.500", "blue.300")} />
+          <Icon
+            boxSize={7}
+            color={useColorModeValue("primary.500", "primary.300")}
+          />
         </Tooltip>
       </Flex>
       <Flex

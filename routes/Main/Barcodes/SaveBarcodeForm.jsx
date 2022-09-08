@@ -52,9 +52,7 @@ export default ({ addBarcode, barcodes }) => (
           )}
         </Field>
       </Flex>
-      <Button type={"submit"} colorScheme={"blue"}>
-        Save Barcode
-      </Button>
+      <Button type={"submit"}>Save Barcode</Button>
     </Form>
   </Formik>
 );

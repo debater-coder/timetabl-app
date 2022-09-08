@@ -49,14 +49,12 @@ export default ({ name, value, onDelete, readOnly }) => {
           </Heading>
           <Flex align={"center"} mb={2}>
             <IconButton
-              colorScheme={"blue"}
               variant={"outline"}
               ml={2}
               icon={<ArrowsOutSimple size={20} />}
               onClick={onOpen}
             />
             <IconButton
-              colorScheme={"blue"}
               variant={"outline"}
               mx={2}
               icon={<Download />}

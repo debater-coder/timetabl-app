@@ -171,6 +171,7 @@ const HomeView = ({ isLoaded, data, onDateChange, date, initialDate }) => {
             onDateChange(DateTime.fromISO(date).minus({ days: 1 }).toISODate())
           }
           aria-label="Previous day"
+          colorScheme={"gray"}
         />
         <InputGroup>
           <Input
@@ -186,6 +187,7 @@ const HomeView = ({ isLoaded, data, onDateChange, date, initialDate }) => {
             onDateChange(DateTime.fromISO(date).plus({ days: 1 }).toISODate())
           }
           aria-label="Next day"
+          colorScheme={"gray"}
         />
       </Flex>
       <LayoutGroup>

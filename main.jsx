@@ -2,7 +2,7 @@ import { StrictMode } from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import { ChakraProvider, ColorModeScript } from "@chakra-ui/react";
-import theme from "./components/App/theme";
+import themeGen from "./theme";
 import registerSW from "./registerSW";
 import { Compose, withProps } from "./utils/contextualise";
 import { AuthProvider } from "./hooks/useAuth";
@@ -44,32 +44,38 @@ const persister = createSyncStoragePersister({
   storage: window.localStorage,
 });
 
-ReactDOM.createRoot(document.getElementById("root")).render(
-  <Compose
-    components={[
-      StrictMode,
-      withProps(PersistQueryClientProvider, {
-        client: queryClient,
-        persistOptions: {
-          persister,
-          maxAge: Infinity,
-          dehydrateOptions: {
-            shouldDehydrateQuery: () => true,
+const ComponentTree = () => {
+  const theme = themeGen("blue");
+
+  return (
+    <Compose
+      components={[
+        StrictMode,
+        withProps(PersistQueryClientProvider, {
+          client: queryClient,
+          persistOptions: {
+            persister,
+            maxAge: Infinity,
+            dehydrateOptions: {
+              shouldDehydrateQuery: () => true,
+            },
           },
-        },
-      }),
-      withProps(ChakraProvider, { theme }),
-      AuthProvider,
-    ]}
-  >
-    <ColorModeScript initialColorMode={theme.config.initialColorMode} />
-    <BrowserRouter>
-      <Routes />
-    </BrowserRouter>
-    <ToastContainer />
-    <ReactQueryDevtools initialIsOpen={false} />
-  </Compose>
-);
+        }),
+        withProps(ChakraProvider, { theme }),
+        AuthProvider,
+      ]}
+    >
+      <ColorModeScript initialColorMode={theme.config.initialColorMode} />
+      <BrowserRouter>
+        <Routes />
+      </BrowserRouter>
+      <ToastContainer />
+      <ReactQueryDevtools initialIsOpen={false} />
+    </Compose>
+  );
+};
+
+ReactDOM.createRoot(document.getElementById("root")).render(<ComponentTree />);
 
 registerSW();
 

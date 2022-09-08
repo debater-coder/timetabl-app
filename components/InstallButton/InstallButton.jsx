@@ -21,7 +21,6 @@ export default function installButton() {
       </Tooltip>
       <Button
         mr={1}
-        colorScheme="blue"
         onClick={async () => {
           deferredPrompt.current.prompt();
           deferredPrompt.current = null;

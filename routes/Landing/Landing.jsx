@@ -32,7 +32,7 @@ export default () => {
         <Heading mb={3} fontFamily="Poppins, sans-serif">
           Welcome to Timetabl&nbsp;
         </Heading>
-        <Badge fontSize={"2xl"} variant="subtle" colorScheme={"blue"}>
+        <Badge fontSize={"2xl"} variant="subtle">
           ALPHA
         </Badge>
       </Flex>
@@ -66,9 +66,7 @@ export default () => {
           unforeseen problems. Use at your own risk.
         </AlertDescription>
       </Alert>
-      <Button onClick={login} colorScheme={"blue"}>
-        Login
-      </Button>
+      <Button onClick={login}>Login</Button>
     </Flex>
   );
 };

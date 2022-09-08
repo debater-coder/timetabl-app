@@ -43,6 +43,7 @@ const GithubBTN = ({ iconColor }) => (
       color={iconColor}
       icon={<FaGithub />}
       aria-label="Github Repository"
+      colorScheme={"gray"}
     />
   </a>
 );
@@ -53,6 +54,7 @@ const DarkModeBTN = ({ toggleColorMode, iconColor, icon }) => (
     color={iconColor}
     icon={icon}
     mr={1}
+    colorScheme={"gray"}
   />
 );
 const LogoutBTN = ({ logout, iconColor }) => (
@@ -63,6 +65,7 @@ const LogoutBTN = ({ logout, iconColor }) => (
       aria-label={"Logout"}
       color={iconColor}
       icon={<MdLogout />}
+      colorScheme={"gray"}
     />
   </Tooltip>
 );
@@ -75,6 +78,7 @@ const SettingsBTN = ({ iconColor }) => (
         mr={1}
         icon={<MdSettings />}
         color={iconColor}
+        colorScheme={"gray"}
       />
     </RouterLink>
   </Tooltip>
@@ -82,7 +86,7 @@ const SettingsBTN = ({ iconColor }) => (
 
 export default () => {
   const { toggleColorMode } = useColorMode();
-  const logoColor = useColorModeValue("blue.700", "blue.200");
+  const logoColor = useColorModeValue("primary.700", "primary.200");
   const iconColor = useColorModeValue("black", "white");
   const colorModeIcon = useColorModeValue(<FaMoon />, <FaSun />);
 

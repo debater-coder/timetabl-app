@@ -13,7 +13,7 @@ const MenuEntry = ({ active, to, name, icon }) => {
   return (
     <Link to={to}>
       <Flex
-        bg={active && useToken("colors", "blue.400") + "aa"}
+        bg={active && useToken("colors", "primary.400") + "aa"}
         p={3}
         px={6}
         h="full"
