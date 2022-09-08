@@ -1,4 +1,4 @@
-import { Button } from "@chakra-ui/react";
+import { Button, Icon, Tooltip } from "@chakra-ui/react";
 import { useRef, useState } from "react";
 
 export default function installButton() {
@@ -12,16 +12,24 @@ export default function installButton() {
   });
 
   return showInstall ? (
-    <Button
-      mr={1}
-      colorScheme="blue"
-      onClick={async () => {
-        deferredPrompt.current.prompt();
-        deferredPrompt.current = null;
-      }}
-    >
-      Install
-    </Button>
+    <>
+      <Tooltip
+        closeOnClick={false}
+        label="Installing Timetabl takes up no extra storage and it allows for easier access."
+      >
+        <Icon boxSize={5} mr={2} />
+      </Tooltip>
+      <Button
+        mr={1}
+        colorScheme="blue"
+        onClick={async () => {
+          deferredPrompt.current.prompt();
+          deferredPrompt.current = null;
+        }}
+      >
+        Install
+      </Button>
+    </>
   ) : (
     ""
   );
