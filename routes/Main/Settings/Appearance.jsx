@@ -1,19 +1,20 @@
 import {
   FormControl,
   FormLabel,
-  RadioGroup,
   Switch,
   useColorMode,
-  Radio,
   SimpleGrid,
   useRadio,
   Box,
   useRadioGroup,
+  Icon,
+  Flex,
 } from "@chakra-ui/react";
+import { Check } from "phosphor-react";
 import useDynamicTheme from "../../../hooks/useDynamicTheme";
 
 const PrimaryColour = (props) => {
-  const { getInputProps, getCheckboxProps } = useRadio(props);
+  const { state, getInputProps, getCheckboxProps } = useRadio(props);
 
   const input = getInputProps();
   const checkbox = getCheckboxProps();
@@ -21,17 +22,22 @@ const PrimaryColour = (props) => {
   return (
     <Box as="label">
       <input {...input} />
-      <Box
+      <Flex
         {...checkbox}
         cursor="pointer"
-        _checked={{
-          boxShadow: "outline",
-        }}
-        w={5}
-        h={5}
+        p={2}
         bg={props.value + ".500"}
         rounded="full"
-      ></Box>
+        align={"center"}
+        justify={"center"}
+      >
+        <Icon
+          color={"white"}
+          as={Check}
+          visibility={!state.isChecked && "hidden"}
+          boxSize={5}
+        />
+      </Flex>
     </Box>
   );
 };
