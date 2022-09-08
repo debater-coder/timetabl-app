@@ -13,6 +13,7 @@ import { Link as RouterLink } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 import "@fontsource/poppins";
 import RefetchingIndicator from "../RefetchingIndicator";
+import InstallButton from "../InstallButton";
 
 const TimetablLogo = ({ color, loggedIn }) => (
   <RouterLink to={loggedIn ? "/app" : "/"}>
@@ -94,6 +95,8 @@ export default () => {
       wrap="wrap"
       w="100%"
       h="80px"
+      maxH={"80px"}
+      flexWrap="nowrap"
       p={4}
       pos="fixed"
       top={0}
@@ -104,9 +107,10 @@ export default () => {
       <TimetablLogo color={logoColor} loggedIn={loggedIn} />
       {loggedIn && <RefetchingIndicator />}
       <Spacer />
-      <Flex>
+      <Flex align="center">
         {loggedIn ? (
           <>
+            <InstallButton />
             <SettingsBTN iconColor={iconColor} />
             <LogoutBTN logout={logout} iconColor={iconColor} />
           </>
