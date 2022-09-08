@@ -12,6 +12,8 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { PersistQueryClientProvider } from "@tanstack/react-query-persist-client";
 import { createSyncStoragePersister } from "@tanstack/query-sync-storage-persister";
 import { createStandaloneToast } from "@chakra-ui/toast";
+import reportWebVitals from "./reportWebVitals";
+import { sendToVercelAnalytics } from "./vitals";
 
 if (window.location.host === "timetabl.vercel.app") {
   window.location = "https://www.timetabl.app";
@@ -70,3 +72,5 @@ ReactDOM.createRoot(document.getElementById("root")).render(
 );
 
 registerSW();
+
+reportWebVitals(sendToVercelAnalytics);
