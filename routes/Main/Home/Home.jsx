@@ -52,7 +52,7 @@ const Period = ({
   countdown,
 }) => {
   const [expanded, { toggle: toggleExpanded }] = useBoolean(false);
-  const { periodColours, setPeriodColours } = useSettings();
+  const { periodColours } = useSettings();
 
   const { room, colour, name, time, teacher, endTime } = periodData;
   const active =
