@@ -44,38 +44,34 @@ const persister = createSyncStoragePersister({
   storage: window.localStorage,
 });
 
-const ComponentTree = () => {
-  const theme = themeGen("blue");
+const theme = themeGen("blue");
 
-  return (
-    <Compose
-      components={[
-        StrictMode,
-        withProps(PersistQueryClientProvider, {
-          client: queryClient,
-          persistOptions: {
-            persister,
-            maxAge: Infinity,
-            dehydrateOptions: {
-              shouldDehydrateQuery: () => true,
-            },
+ReactDOM.createRoot(document.getElementById("root")).render(
+  <Compose
+    components={[
+      StrictMode,
+      withProps(PersistQueryClientProvider, {
+        client: queryClient,
+        persistOptions: {
+          persister,
+          maxAge: Infinity,
+          dehydrateOptions: {
+            shouldDehydrateQuery: () => true,
           },
-        }),
-        withProps(ChakraProvider, { theme }),
-        AuthProvider,
-      ]}
-    >
-      <ColorModeScript initialColorMode={theme.config.initialColorMode} />
-      <BrowserRouter>
-        <Routes />
-      </BrowserRouter>
-      <ToastContainer />
-      <ReactQueryDevtools initialIsOpen={false} />
-    </Compose>
-  );
-};
-
-ReactDOM.createRoot(document.getElementById("root")).render(<ComponentTree />);
+        },
+      }),
+      withProps(ChakraProvider, { theme }),
+      AuthProvider,
+    ]}
+  >
+    <ColorModeScript initialColorMode={theme.config.initialColorMode} />
+    <BrowserRouter>
+      <Routes />
+    </BrowserRouter>
+    <ToastContainer />
+    <ReactQueryDevtools initialIsOpen={false} />
+  </Compose>
+);
 
 registerSW();
 
