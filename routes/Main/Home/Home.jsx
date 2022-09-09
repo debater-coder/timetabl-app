@@ -160,7 +160,14 @@ const NextPeriod = ({ periods, date, countdown, setCountdown, isLoaded }) => {
   );
 };
 
-const HomeView = ({ isLoaded, data, onDateChange, date, initialDate }) => {
+const HomeView = ({
+  isLoaded,
+  data,
+  onDateChange,
+  date,
+  initialDate,
+  initialData,
+}) => {
   const [countdown, setCountdown] = useState("");
   const periods =
     data?.periods ??
@@ -169,10 +176,23 @@ const HomeView = ({ isLoaded, data, onDateChange, date, initialDate }) => {
       room: 605,
     });
 
+  const initialPeriods =
+    initialData?.periods ??
+    Array(11).fill({
+      name: "Loading... Loading... Loading",
+      room: 605,
+    });
+
   return (
     <Flex direction={"column"} align="center" gap={3}>
       <NextPeriod
-        {...{ periods, date: initialDate, countdown, setCountdown, isLoaded }}
+        {...{
+          periods: initialPeriods,
+          date: initialDate,
+          countdown,
+          setCountdown,
+          isLoaded,
+        }}
       />
       <Flex w="full" gap={3}>
         <IconButton
@@ -241,6 +261,7 @@ export default function Home() {
           onDateChange={setDate}
           date={date ?? data?.dtt?.date}
           initialDate={data?.initialDtt?.date}
+          initialData={data?.initialDtt}
         />
       )}
     </QueriesHandler>
