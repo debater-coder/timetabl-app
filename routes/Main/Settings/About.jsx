@@ -27,7 +27,7 @@ export default () => {
         <Link
           href="https://github.com/debater-coder/timetabl-app"
           isExternal
-          color={"teal.500"}
+          color={"primary.500"}
         >
           here
           <ExternalLinkIcon mx="2px" />
@@ -36,7 +36,7 @@ export default () => {
         <Link
           href="https://join.slack.com/t/timetabl/shared_invite/zt-1dhr2v791-G0IDTb~kLRXT~0vjmyEtmw"
           isExternal
-          color={"teal.500"}
+          color={"primary.500"}
         >
           here
           <ExternalLinkIcon mx="2px" />
