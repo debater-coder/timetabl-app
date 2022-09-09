@@ -2,11 +2,12 @@ import {
   Flex,
   Heading,
   IconButton,
-  Image,
   Spacer,
   Tooltip,
   useColorMode,
   useColorModeValue,
+  Icon,
+  useToken,
 } from "@chakra-ui/react";
 import { FaGithub, FaMoon, FaSun, MdLogout, MdSettings } from "react-icons/all";
 import { Link as RouterLink } from "react-router-dom";
@@ -18,13 +19,42 @@ import InstallButton from "../InstallButton";
 const TimetablLogo = ({ color, loggedIn }) => (
   <RouterLink to={loggedIn ? "/app" : "/"}>
     <Flex align={"center"}>
-      <Image
-        src={"/favicon.svg"}
-        alt={"Timetabl Logo"}
-        height={"100%"}
-        boxSize={"2rem"}
-        mr={2}
-      />
+      <Icon viewBox="0 0 1000 1000" boxSize={"2rem"} mr={2}>
+        <rect
+          width="1000"
+          height="1000"
+          rx="350"
+          ry="350"
+          fill={useToken("colors", "primary.200")}
+        ></rect>
+        <g transform="matrix(1.0666666666666667,0,0,1.0666666666666667,100,100)">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            version="1.1"
+            width="750"
+            height="750"
+          >
+            <svg
+              width="750"
+              height="750"
+              viewBox="0 0 750 750"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <circle
+                cx="375"
+                cy="375"
+                r="375"
+                fill={useToken("colors", "primary.200")}
+              ></circle>
+              <path
+                d="M247 151C247 133.33 261.3 119 279 119C296.7 119 311 133.33 311 151V183H439V151C439 133.33 453.3 119 471 119C488.7 119 503 133.33 503 151V183H551C577.5 183 599 204.49 599 231V279H151V231C151 204.49 172.49 183 199 183H247V151ZM599 583C599 609.5 577.5 631 551 631H199C172.49 631 151 609.5 151 583V311H599V583Z"
+                fill="#171923"
+              ></path>
+            </svg>
+          </svg>
+        </g>
+      </Icon>
       <Heading
         size={"xs"}
         color={color}
