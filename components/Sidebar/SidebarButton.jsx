@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 
 export default ({ name, icon: Icon, active, sidebar, mirrored }) => {
   const hoverColor = useColorModeValue("gray.100", "gray.700");
-  const [secondary] = useToken("colors", ["teal.300"]);
+  const [secondary] = useToken("colors", ["primary.300"]);
   const MotionFlex = motion(Flex);
   return (
     <Flex
