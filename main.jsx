@@ -22,6 +22,8 @@ if (window.location.host === "timetabl.vercel.app") {
 
 const { ToastContainer, toast } = createStandaloneToast();
 
+export { toast };
+
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -33,7 +35,8 @@ const queryClient = new QueryClient({
   queryCache: new QueryCache({
     onError: (error) =>
       toast({
-        title: "Something went wrong",
+        title:
+          "Something went wrong, try logging in and out if the issue persists.",
         description: error.message,
         status: "error",
         isClosable: true,

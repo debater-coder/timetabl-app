@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import contextualise from "../utils/contextualise";
 import config from "../config.js";
 import { useQueryClient } from "@tanstack/react-query";
+import { toast } from "../main";
+import HTTPError from "../errors/HTTPError";
 
 let useAuth = () => {
   /**
@@ -96,16 +98,30 @@ let useAuth = () => {
 
   const refresh = async () => {
     setRefreshing(true);
-    await fetch("/api/token", {
-      method: "PATCH",
-      body: JSON.stringify({
-        client_id: config.client_id,
-      }),
-      headers: {
-        "Content-Type": "application/json; charset=UTF-8",
-      },
-    });
-    setRefreshing(false);
+    try {
+      const res = await fetch("/api/token", {
+        method: "PATCH",
+        body: JSON.stringify({
+          client_id: config.client_id,
+        }),
+        headers: {
+          "Content-Type": "application/json; charset=UTF-8",
+        },
+      });
+      if (!res.ok) {
+        throw new HTTPError(res.status);
+      }
+    } catch (error) {
+      toast({
+        title:
+          "Something went wrong, try logging in and out if the issue persists.",
+        description: error.message,
+        status: "error",
+        isClosable: true,
+      });
+    } finally {
+      setRefreshing(false);
+    }
   };
 
   /**
