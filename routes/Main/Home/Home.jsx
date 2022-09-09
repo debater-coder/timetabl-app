@@ -23,10 +23,17 @@ import { ArrowLeft, ArrowRight } from "phosphor-react";
 import { DateTime } from "luxon";
 import useSettings from "../../../hooks/useSettings";
 
+const MotionIcon = motion(Icon);
+
 const Empty = () => {
   return (
-    <Box textAlign="center" py={10} px={6} as={motion.p} layout>
-      <Icon boxSize={"50px"} color={"yellow.500"} as={motion(GiFrenchFries)} />
+    <Box textAlign="center" py={10} px={6} as={motion.div} layout>
+      <MotionIcon
+        boxSize={"50px"}
+        color={"yellow.500"}
+        as={GiFrenchFries}
+        layout
+      />
       <Heading
         size="xl"
         mt={1}
