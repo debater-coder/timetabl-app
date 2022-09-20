@@ -118,7 +118,7 @@ const Period = ({
             </Flex>
             <Text
               fontWeight={!upcoming && "semibold"}
-              fontSize={upcoming ? "md" : "xs"}
+              fontSize={upcoming ? "lg" : "xs"}
               as={motion.p}
               layout
             >
