@@ -61,39 +61,48 @@ const noop = (data) => data;
 export const useDTT = (date, enabled, select = noop) =>
   useSBHSQuery("timetable/daytimetable.json", { date }, enabled, (data) =>
     select({
-      periods: (data?.["bells"] ?? []).map((bell) => {
-        const timetable = data?.["timetable"];
-        const subjects = timetable?.["subjects"];
-        const period = timetable?.["timetable"]?.["periods"]?.[bell["bell"]];
+      periods: (data?.["bells"] ?? [])
+        .map((bell, index, bells) => {
+          const timetable = data?.["timetable"];
+          const subjects = timetable?.["subjects"];
+          const period = timetable?.["timetable"]?.["periods"]?.[bell["bell"]];
 
-        let subject = null;
+          let subject = null;
 
-        let name = bell["bellDisplay"];
-        let teacher = period?.["fullTeacher"] ?? period?.["teacher"];
+          let name = bell["bellDisplay"];
+          let teacher = period?.["fullTeacher"] ?? period?.["teacher"];
 
-        if (period?.["title"]) {
-          name = period["title"];
+          if (period?.["title"]) {
+            name = period["title"];
 
-          if (period?.["year"]) {
-            name = period["year"] + name;
-            subject = subjects?.[name] ?? subject;
-            name = subject?.["title"] ?? name;
+            if (period?.["year"]) {
+              name = period["year"] + name;
+              subject = subjects?.[name] ?? subject;
+              name = subject?.["title"] ?? name;
+            }
           }
-        }
 
-        return {
-          name,
-          room: period?.["room"],
-          teacher,
-          time: bell?.["startTime"],
-          endTime: bell?.["endTime"],
-          colour:
-            subject?.["colour"] && period?.["room"]
-              ? `#${subject?.["colour"]}`
-              : "transparent",
-          key: bell["bell"],
-        };
-      }),
+          return [
+            {
+              name: "Transition",
+              endTime: bell?.["startTime"],
+              time: bells?.[index - 1]?.["endTime"] ?? "00:00",
+            },
+            {
+              name,
+              room: period?.["room"],
+              teacher,
+              time: bell?.["startTime"],
+              endTime: bell?.["endTime"],
+              colour:
+                subject?.["colour"] && period?.["room"]
+                  ? `#${subject?.["colour"]}`
+                  : "transparent",
+              key: bell["bell"],
+            },
+          ];
+        })
+        .reduce((acc, val) => [...acc, ...val]),
       date: data?.["date"],
     })
   );

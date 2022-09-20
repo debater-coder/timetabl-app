@@ -57,6 +57,7 @@ const Period = ({
   date,
   upcoming = false,
   countdown,
+  transition,
 }) => {
   const [expanded, { toggle: toggleExpanded }] = useBoolean(false);
   const { periodColours } = useSettings();
@@ -68,7 +69,12 @@ const Period = ({
     false;
 
   return (
-    <Skeleton rounded={5} m={1} isLoaded={isLoaded} w={upcoming && "full"}>
+    <Skeleton
+      rounded={5}
+      m={!transition && 1}
+      isLoaded={isLoaded}
+      w={upcoming && "full"}
+    >
       <Flex align="center" gap={3} w={"full"}>
         <Flex
           m={0.5}
@@ -99,7 +105,7 @@ const Period = ({
           <Flex
             direction={"column"}
             px={3}
-            py={(room || upcoming) && 3}
+            py={!transition && (room || upcoming) && 3}
             w="full"
           >
             <Flex gap={6} align="center" w="full">
@@ -109,11 +115,11 @@ const Period = ({
                 as={motion.h2}
                 layout
               >
-                {name}
+                {!transition && name}
               </Heading>
               <Spacer />
               <Text fontWeight={"semibold"} as={motion.p} layout>
-                {room ?? time ?? ""}
+                {!transition && (room ?? time ?? "")}
               </Text>
             </Flex>
             <Text
@@ -245,6 +251,7 @@ const HomeView = ({
                 key={period["key"] ?? index}
                 isLoaded={isLoaded}
                 date={date}
+                transition={period?.name == "Transition"}
               />
             ))
           ) : (
