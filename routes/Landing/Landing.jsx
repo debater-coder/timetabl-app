@@ -62,7 +62,7 @@ export default () => {
         <AlertIcon />
         <AlertTitle>Disclaimer</AlertTitle>
         <AlertDescription>
-          This is a alpha release, meaning the software will have bugs and
+          This is an alpha release, meaning the software will have bugs and
           unforeseen problems. Use at your own risk.
         </AlertDescription>
       </Alert>

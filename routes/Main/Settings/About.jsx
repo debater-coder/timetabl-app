@@ -43,7 +43,7 @@ export default () => {
         </Link>
       </Text>
       <Text fontSize={"sm"}>
-        This is a alpha release, meaning the software will have bugs and
+        This is an alpha release, meaning the software will have bugs and
         unforeseen problems. Use at your own risk.
       </Text>
       <Text>
