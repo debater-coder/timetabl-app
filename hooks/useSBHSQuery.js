@@ -102,7 +102,8 @@ export const useDTT = (date, enabled, select = noop) =>
             },
           ];
         })
-        .reduce((acc, val) => [...acc, ...val]),
+        .flat()
+        .filter((period) => period?.time !== period?.endTime),
       date: data?.["date"],
     })
   );
