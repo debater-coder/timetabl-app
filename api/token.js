@@ -99,13 +99,21 @@ export default async function handler(request, response) {
         },
       });
 
-      if (!res.ok) {
+      let data;
+
+      try {
+        data = await res.json();
+      } catch {
+        if (!res.ok) {
+          if (data && data?.["error"] == "invalid_grant") {
+            response.status(500).send("INVALID GRANT");
+            return;
+          }
+        }
+
         response.status(500).send("Bad response from server.");
-        console.log(await res.text());
         return;
       }
-
-      const data = await res.json();
 
       response.setHeader("Set-Cookie", [
         cookie.serialize("access_token", data["access_token"], {
