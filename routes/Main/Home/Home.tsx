@@ -92,7 +92,7 @@ const HomeView = ({
             periods.map((period, index) => (
               <Period
                 periodData={period}
-                key={period["key"] ?? index}
+                key={period["key"] ?? index + 100}
                 isLoaded={isLoaded}
                 date={date}
                 transition={period?.name == "Transition"}

@@ -58,7 +58,7 @@ export const useSBHSQuery = (endpoint, options, enabled = true, select) => {
 
 const noop = (data) => data;
 
-export const useDTT = (date, enabled, select = noop) =>
+export const useDTT = (date?, enabled = true, select = noop) =>
   useSBHSQuery("timetable/daytimetable.json", { date }, enabled, (data) =>
     select({
       periods: (data?.["bells"] ?? [])
