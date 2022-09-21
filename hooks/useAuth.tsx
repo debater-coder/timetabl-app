@@ -5,7 +5,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "../main";
 import HTTPError from "../errors/HTTPError";
 
-let useAuth = () => {
+const useAuth = () => {
   /**
    * STATE
    */
@@ -20,7 +20,7 @@ let useAuth = () => {
    */
   // Generate a secure random string using the browser crypto functions
   const generateRandomString = () => {
-    let array = new Uint32Array(28);
+    const array = new Uint32Array(28);
     window.crypto.getRandomValues(array);
     return Array.from(array, (dec) => ("0" + dec.toString(16)).substr(-2)).join(
       ""
@@ -49,7 +49,7 @@ let useAuth = () => {
 
   // Return the base64-urlencoded sha256 hash for the PKCE challenge
   const pkceChallengeFromVerifier = async (v) => {
-    let hashed = await sha256(v);
+    const hashed = await sha256(v);
     return base64urlencode(hashed);
   };
 
@@ -59,19 +59,19 @@ let useAuth = () => {
 
   const login = async () => {
     // Create and store a random "state" value
-    let state = generateRandomString();
+    const state = generateRandomString();
     localStorage.setItem("pkce_state", state);
 
     // Create and store a new PKCE code_verifier (the plaintext random secret)
-    let code_verifier = generateRandomString();
+    const code_verifier = generateRandomString();
     localStorage.setItem("pkce_code_verifier", code_verifier);
 
     // Hash and base64-urlencode the secret to use as the challenge
-    let code_challenge = await pkceChallengeFromVerifier(code_verifier);
+    const code_challenge = await pkceChallengeFromVerifier(code_verifier);
 
     // Build the authorization URL
     // Redirect to the authorization server
-    window.location =
+    window.location.href =
       config.authorization_endpoint +
       "?response_type=code" +
       "&client_id=" +
@@ -129,7 +129,7 @@ let useAuth = () => {
    */
   useEffect(() => {
     // Get query
-    let query = Object.fromEntries(
+    const query = Object.fromEntries(
       new URLSearchParams(window.location.search).entries()
     );
 
@@ -208,6 +208,6 @@ let useAuth = () => {
   };
 };
 
-let [useAuthGlobal, AuthProvider] = contextualise(useAuth);
+const [useAuthGlobal, AuthProvider] = contextualise(useAuth);
 
 export { AuthProvider, useAuthGlobal as useAuth };

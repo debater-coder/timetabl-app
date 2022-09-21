@@ -70,7 +70,7 @@ export const useDTT = (date, enabled, select = noop) =>
           let subject = null;
 
           let name = bell["bellDisplay"];
-          let teacher = period?.["fullTeacher"] ?? period?.["teacher"];
+          const teacher = period?.["fullTeacher"] ?? period?.["teacher"];
 
           if (period?.["title"]) {
             name = period["title"];
