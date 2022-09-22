@@ -51,15 +51,17 @@ const HomeView = ({
 
   return (
     <Flex direction={"column"} align="center" gap={3}>
-      <NextPeriod
-        {...{
-          periods: initialPeriods,
-          date: initialDate,
-          countdown,
-          setCountdown,
-          isLoaded,
-        }}
-      />
+      {initialDate === DateTime.now().toISODate() && (
+        <NextPeriod
+          {...{
+            periods: initialPeriods,
+            date: initialDate,
+            countdown,
+            setCountdown,
+            isLoaded,
+          }}
+        />
+      )}
       <Flex w="full" gap={3}>
         <IconButton
           icon={<ArrowLeft />}
@@ -73,7 +75,7 @@ const HomeView = ({
           <Input
             type="date"
             value={date ?? initialDate ?? ""}
-            onChange={(event) => onDateChange(event.target.value)}
+            onChange={({ target: { value } }) => onDateChange(value)}
             focusBorderColor="primary.200"
           />
         </InputGroup>

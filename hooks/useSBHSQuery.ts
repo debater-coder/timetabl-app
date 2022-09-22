@@ -122,6 +122,7 @@ export const useDTT = <TData = TimetablDTT>(
     { date },
     enabled,
     (data): TData => {
+      // console.log(data);
       const result = {
         periods: (data?.["bells"] ?? [])
           .map((bell, index, bells) => {
