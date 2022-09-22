@@ -2,9 +2,23 @@ import { DateTime } from "luxon";
 import { useEffect } from "react";
 import Period from "./Period";
 
-export default ({ periods, date, countdown, setCountdown, isLoaded }) => {
+type NextPeriodProps = {
+  periods: any;
+  date: string;
+  countdown: string;
+  setCountdown: (countdown: string) => void;
+  isLoaded: boolean;
+};
+
+export default ({
+  periods,
+  date,
+  countdown,
+  setCountdown,
+  isLoaded,
+}: NextPeriodProps) => {
   const activePeriod = periods.findIndex(
-    ({ time, endTime }) =>
+    ({ time, endTime }: { time: string; endTime: string }) =>
       (DateTime.fromISO(`${date}T${time}`) < DateTime.now() &&
         DateTime.now() < DateTime.fromISO(`${date}T${endTime}`)) ??
       false

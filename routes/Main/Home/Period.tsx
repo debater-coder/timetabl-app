@@ -13,16 +13,32 @@ import { motion } from "framer-motion";
 import { DateTime } from "luxon";
 import useSettings from "../../../hooks/useSettings";
 
-export default ({
+type PeriodProps = {
+  periodData: {
+    name: string;
+    colour: string;
+    room: string;
+    time: string;
+    teacher: string;
+    endTime: string;
+  };
+  isLoaded: boolean;
+  date?: string;
+  upcoming?: boolean;
+  countdown?: string;
+  transition?: boolean;
+};
+
+export default function Period({
   periodData,
   isLoaded,
   date = undefined,
   upcoming = false,
-  countdown = false,
+  countdown = null,
   transition = false,
-}) => {
+}: PeriodProps) {
   const [expanded, { toggle: toggleExpanded }] = useBoolean(false);
-  const { periodColours } = useSettings();
+  const { periodColours }: { periodColours: string } = useSettings();
 
   const { room, colour, name, time, teacher, endTime } = periodData;
   const active =
@@ -101,4 +117,4 @@ export default ({
       </Flex>
     </Skeleton>
   );
-};
+}

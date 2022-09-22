@@ -17,6 +17,15 @@ import Period from "./Period";
 import NextPeriod from "./NextPeriod";
 import Empty from "./Empty";
 
+type HomeViewProps = {
+  isLoaded: boolean;
+  data: any;
+  onDateChange: (date: any) => void;
+  date: string;
+  initialDate: string;
+  initialData: any;
+};
+
 const HomeView = ({
   isLoaded,
   data,
@@ -24,7 +33,7 @@ const HomeView = ({
   date,
   initialDate,
   initialData,
-}) => {
+}: HomeViewProps) => {
   const [countdown, setCountdown] = useState("");
   const periods =
     data?.periods ??
@@ -89,7 +98,7 @@ const HomeView = ({
           layout
         >
           {periods.length ? (
-            periods.map((period, index) => (
+            periods.map((period: any, index: number) => (
               <Period
                 periodData={period}
                 key={period["key"] ?? index + 100}
@@ -112,11 +121,13 @@ export default function Home() {
 
   return (
     <QueriesHandler queries={{ dtt: useDTT(date), initialDtt: useDTT() }}>
-      {(isLoaded, data) => (
+      {(isLoaded: boolean, data: any) => (
         <HomeView
           isLoaded={isLoaded}
           data={data?.dtt}
-          onDateChange={setDate}
+          onDateChange={(date) => {
+            setDate(date);
+          }}
           date={date ?? data?.dtt?.date}
           initialDate={data?.initialDtt?.date}
           initialData={data?.initialDtt}

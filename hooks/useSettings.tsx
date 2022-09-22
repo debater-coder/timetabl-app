@@ -1,12 +1,12 @@
 import { useState } from "react";
 import contextualise from "../utils/contextualise";
 
-export const usePersistentState = (name, initalValue) => {
+export const usePersistentState = (name: string, initalValue: string) => {
   const [state, setState] = useState(localStorage.getItem(name) ?? initalValue);
 
   return [
     state,
-    (value) => {
+    (value: string) => {
       localStorage.setItem(name, value);
       setState(value);
     },

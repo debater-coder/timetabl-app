@@ -3,7 +3,8 @@
     "module": "ESNext",
     "moduleResolution": "Node",
     "target": "ES2020",
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "noImplicitAny": true
   },
   "exclude": ["node_modules", "**/node_modules/*"]
 }

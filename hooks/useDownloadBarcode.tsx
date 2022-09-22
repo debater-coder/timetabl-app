@@ -1,6 +1,6 @@
 import JsBarcode from "jsbarcode";
 
-export default (value) => {
+export default (value: string) => {
   const canvas = document.createElement("canvas");
   JsBarcode(canvas, value, {
     displayValue: false,

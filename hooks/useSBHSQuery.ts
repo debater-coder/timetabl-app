@@ -1,14 +1,14 @@
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { QueryClient, useQuery, useQueryClient } from "@tanstack/react-query";
 import HTTPError from "../errors/HTTPError";
 import NetworkError from "../errors/NetworkError";
 import { useAuth } from "./useAuth";
 
 const fetchSBHSApi = async (
-  endpoint,
-  options,
-  refresh,
-  signal,
-  queryClient
+  endpoint: string,
+  options: any,
+  refresh: () => void,
+  signal: AbortSignal,
+  queryClient: QueryClient
 ) => {
   let res;
 
@@ -40,7 +40,12 @@ const fetchSBHSApi = async (
   return json;
 };
 
-export const useSBHSQuery = (endpoint, options, enabled = true, select) => {
+export const useSBHSQuery = (
+  endpoint: string,
+  options: any,
+  enabled = true,
+  select: (data: any) => any = noop
+) => {
   const { refreshing, refresh, loading } = useAuth();
   const queryClient = useQueryClient();
 
@@ -56,13 +61,13 @@ export const useSBHSQuery = (endpoint, options, enabled = true, select) => {
   );
 };
 
-const noop = (data) => data;
+const noop = (data: any) => data;
 
-export const useDTT = (date?, enabled = true, select = noop) =>
-  useSBHSQuery("timetable/daytimetable.json", { date }, enabled, (data) =>
+export const useDTT = (date?: string, enabled = true, select = noop) =>
+  useSBHSQuery("timetable/daytimetable.json", { date }, enabled, (data: any) =>
     select({
       periods: (data?.["bells"] ?? [])
-        .map((bell, index, bells) => {
+        .map((bell: any, index: number, bells: any[]) => {
           const timetable = data?.["timetable"];
           const subjects = timetable?.["subjects"];
           const period = timetable?.["timetable"]?.["periods"]?.[bell["bell"]];
@@ -103,13 +108,13 @@ export const useDTT = (date?, enabled = true, select = noop) =>
           ];
         })
         .flat()
-        .filter((period) => period?.time !== period?.endTime),
+        .filter((period: any) => period?.time !== period?.endTime),
       date: data?.["date"],
     })
   );
 
-export const useProfile = (enabled, select = noop) =>
+export const useProfile = (enabled: boolean, select = noop) =>
   useSBHSQuery("details/userinfo.json", {}, enabled, select);
 
-export const useStudentID = (enabled, select = noop) =>
+export const useStudentID = (enabled: boolean, select = noop) =>
   useProfile(enabled, (data) => select(data?.["studentId"]));
