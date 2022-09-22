@@ -1,9 +1,10 @@
 import { DateTime } from "luxon";
 import { useEffect } from "react";
+import { TimetablPeriod } from "../../../hooks/useSBHSQuery";
 import Period from "./Period";
 
 type NextPeriodProps = {
-  periods: any;
+  periods: TimetablPeriod[];
   date: string;
   countdown: string;
   setCountdown: (countdown: string) => void;

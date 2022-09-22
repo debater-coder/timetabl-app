@@ -6,7 +6,7 @@ import {
   useColorModeValue,
   useToken,
 } from "@chakra-ui/react";
-import { useDTT } from "../../../hooks/useSBHSQuery";
+import { TimetablDTT, useDTT } from "../../../hooks/useSBHSQuery";
 import "@fontsource/poppins";
 import { motion, LayoutGroup } from "framer-motion";
 import QueriesHandler from "../../../components/QueriesHandler";
@@ -19,11 +19,11 @@ import Empty from "./Empty";
 
 type HomeViewProps = {
   isLoaded: boolean;
-  data: any;
-  onDateChange: (date: any) => void;
+  data: TimetablDTT;
+  onDateChange: (date?: string) => void;
   date: string;
   initialDate: string;
-  initialData: any;
+  initialData: TimetablDTT;
 };
 
 const HomeView = ({
@@ -98,7 +98,7 @@ const HomeView = ({
           layout
         >
           {periods.length ? (
-            periods.map((period: any, index: number) => (
+            periods.map((period, index) => (
               <Period
                 periodData={period}
                 key={period["key"] ?? index + 100}
@@ -117,11 +117,17 @@ const HomeView = ({
 };
 
 export default function Home() {
-  const [date, setDate] = useState();
+  const [date, setDate] = useState<string | undefined>();
 
   return (
     <QueriesHandler queries={{ dtt: useDTT(date), initialDtt: useDTT() }}>
-      {(isLoaded: boolean, data: any) => (
+      {(
+        isLoaded: boolean,
+        data: {
+          dtt: TimetablDTT;
+          initialDtt: TimetablDTT;
+        }
+      ) => (
         <HomeView
           isLoaded={isLoaded}
           data={data?.dtt}

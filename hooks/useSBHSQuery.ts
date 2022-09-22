@@ -3,13 +3,13 @@ import HTTPError from "../errors/HTTPError";
 import NetworkError from "../errors/NetworkError";
 import { useAuth } from "./useAuth";
 
-const fetchSBHSApi = async (
+const fetchSBHSApi = async <T>(
   endpoint: string,
-  options: any,
+  options: Record<string, unknown>,
   refresh: () => void,
   signal: AbortSignal,
   queryClient: QueryClient
-) => {
+): Promise<Awaited<T>> => {
   let res;
 
   try {
@@ -40,16 +40,16 @@ const fetchSBHSApi = async (
   return json;
 };
 
-export const useSBHSQuery = (
+export const useSBHSQuery = <TQueryFnData, TError, TData = TQueryFnData>(
   endpoint: string,
-  options: any,
+  options: Record<string, unknown>,
   enabled = true,
-  select: (data: any) => any = noop
+  select: (data: TQueryFnData) => TData
 ) => {
   const { refreshing, refresh, loading } = useAuth();
   const queryClient = useQueryClient();
 
-  return useQuery(
+  return useQuery<TQueryFnData, TError, TData>(
     ["sbhs", endpoint, options],
     ({ signal }) => {
       return fetchSBHSApi(endpoint, options, refresh, signal, queryClient);
@@ -61,60 +61,131 @@ export const useSBHSQuery = (
   );
 };
 
-const noop = (data: any) => data;
+type APIBell = {
+  bell?: string;
+  bellDisplay?: string;
+  endTime?: string;
+  period?: string;
+  startTime?: string;
+  time?: string;
+};
 
-export const useDTT = (date?: string, enabled = true, select = noop) =>
-  useSBHSQuery("timetable/daytimetable.json", { date }, enabled, (data: any) =>
-    select({
-      periods: (data?.["bells"] ?? [])
-        .map((bell: any, index: number, bells: any[]) => {
-          const timetable = data?.["timetable"];
-          const subjects = timetable?.["subjects"];
-          const period = timetable?.["timetable"]?.["periods"]?.[bell["bell"]];
+type APISubject = {
+  colour?: string;
+  fullTeacher?: string;
+  subject?: string;
+  title?: string;
+};
 
-          let subject = null;
+type APIPeriod = {
+  fullTeacher?: string;
+  teacher?: string;
+  title?: string;
+  year?: string;
+  room?: string;
+  date?: string;
+};
 
-          let name = bell["bellDisplay"];
-          const teacher = period?.["fullTeacher"] ?? period?.["teacher"];
+type APIDTT = {
+  bells?: APIBell[];
+  timetable?: {
+    subjects?: Record<string, APISubject>;
+    timetable?: {
+      periods?: Record<string, APIPeriod>;
+    };
+  };
+  date?: string;
+};
 
-          if (period?.["title"]) {
-            name = period["title"];
+export type TimetablPeriod = {
+  name?: string;
+  room?: string;
+  teacher?: string;
+  time?: string;
+  endTime?: string;
+  colour?: string;
+  key?: string;
+};
 
-            if (period?.["year"]) {
-              name = period["year"] + name;
-              subject = subjects?.[name] ?? subject;
-              name = subject?.["title"] ?? name;
+export type TimetablDTT = {
+  periods: TimetablPeriod[];
+  date: string;
+};
+
+export const useDTT = <TData = TimetablDTT>(
+  date?: string,
+  enabled = true,
+  select?: (data: TimetablDTT) => TData
+) =>
+  useSBHSQuery<APIDTT, Error, TData>(
+    "timetable/daytimetable.json",
+    { date },
+    enabled,
+    (data): TData => {
+      const result = {
+        periods: (data?.["bells"] ?? [])
+          .map((bell, index, bells) => {
+            const timetable = data?.["timetable"];
+            const subjects = timetable?.["subjects"];
+            const period =
+              timetable?.["timetable"]?.["periods"]?.[bell["bell"]];
+
+            let subject = null;
+
+            let name = bell["bellDisplay"];
+            const teacher = period?.["fullTeacher"] ?? period?.["teacher"];
+
+            if (period?.["title"]) {
+              name = period["title"];
+
+              if (period?.["year"]) {
+                name = period["year"] + name;
+                subject = subjects?.[name] ?? subject;
+                name = subject?.["title"] ?? name;
+              }
             }
-          }
 
-          return [
-            {
-              name: "Transition",
-              endTime: bell?.["startTime"],
-              time: bells?.[index - 1]?.["endTime"] ?? "00:00",
-            },
-            {
-              name,
-              room: period?.["room"],
-              teacher,
-              time: bell?.["startTime"],
-              endTime: bell?.["endTime"],
-              colour:
-                subject?.["colour"] && period?.["room"]
-                  ? `#${subject?.["colour"]}`
-                  : "transparent",
-              key: bell["bell"],
-            },
-          ];
-        })
-        .flat()
-        .filter((period: any) => period?.time !== period?.endTime),
-      date: data?.["date"],
-    })
+            return [
+              {
+                name: "Transition",
+                endTime: bell?.["startTime"],
+                time: bells?.[index - 1]?.["endTime"] ?? "00:00",
+              },
+              {
+                name,
+                room: period?.["room"],
+                teacher,
+                time: bell?.["startTime"],
+                endTime: bell?.["endTime"],
+                colour:
+                  subject?.["colour"] && period?.["room"]
+                    ? `#${subject?.["colour"]}`
+                    : "transparent",
+                key: bell["bell"],
+              },
+            ];
+          })
+          .flat()
+          .filter((period) => period?.time !== period?.endTime),
+        date: data?.["date"],
+      };
+      return select ? select(result) : (result as TData);
+    }
   );
 
-export const useProfile = (enabled: boolean, select = noop) =>
-  useSBHSQuery("details/userinfo.json", {}, enabled, select);
+type APIProfile = {
+  studentId: string;
+};
 
-export const useStudentID = (enabled: boolean, select = noop) =>
-  useProfile(enabled, (data) => select(data?.["studentId"]));
+export const useProfile = <TData>(
+  enabled: boolean,
+  select?: (data: APIProfile) => TData
+) => useSBHSQuery("details/userinfo.json", {}, enabled, select);
+
+export const useStudentID = <TData>(
+  enabled: boolean,
+  select?: (studentId: string) => TData
+) =>
+  useProfile(enabled, ({ studentId }) =>
+    select ? select(studentId) : studentId
+  );

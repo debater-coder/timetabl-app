@@ -11,17 +11,11 @@ import {
 } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import { DateTime } from "luxon";
+import { TimetablPeriod } from "../../../hooks/useSBHSQuery";
 import useSettings from "../../../hooks/useSettings";
 
 type PeriodProps = {
-  periodData: {
-    name: string;
-    colour: string;
-    room: string;
-    time: string;
-    teacher: string;
-    endTime: string;
-  };
+  periodData: TimetablPeriod;
   isLoaded: boolean;
   date?: string;
   upcoming?: boolean;
