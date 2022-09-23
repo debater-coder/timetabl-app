@@ -43,7 +43,7 @@ export default function Period({
   return (
     <Skeleton
       rounded={5}
-      m={!transition && 1}
+      m={!transition && 0.5}
       isLoaded={isLoaded}
       w={upcoming && "full"}
     >
@@ -63,6 +63,7 @@ export default function Period({
           as={motion.div}
           w={"full"}
           layout
+          cursor={"pointer"}
         >
           <Box
             w={2}
