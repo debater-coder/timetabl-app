@@ -56,52 +56,59 @@ const HomeView = ({
   }, [initialDate, date]);
 
   return (
-    <Flex direction={"column"} align="center" gap={3}>
-      {initialDate === DateTime.now().toISODate() && (
-        <NextPeriod
-          {...{
-            periods: initialPeriods,
-            date: initialDate,
-            countdown,
-            setCountdown,
-            isLoaded,
-          }}
-        />
-      )}
-      <Flex w="full" gap={3}>
-        <IconButton
-          icon={<ArrowLeft />}
-          variant="outline"
-          onClick={() =>
-            onDateChange(DateTime.fromISO(date).minus({ days: 1 }).toISODate())
-          }
-          aria-label="Previous day"
-        />
-        <Input
-          type="date"
-          value={date ?? initialDate ?? ""}
-          onChange={({ target: { value } }) => onDateChange(value)}
-          focusBorderColor="primary.200"
-          as={motion.input}
-          layout
-        />
-        <AnimatePresence>
-          {date !== initialDate && (
-            <Button variant="outline" onClick={() => onDateChange()}>
-              Reset
-            </Button>
-          )}
-        </AnimatePresence>
-        <IconButton
-          icon={<ArrowRight />}
-          variant="outline"
-          onClick={() =>
-            onDateChange(DateTime.fromISO(date).plus({ days: 1 }).toISODate())
-          }
-          aria-label="Next day"
-        />
-      </Flex>
-      <LayoutGroup>
+    <LayoutGroup>
+      <Flex direction={"column"} align="center" gap={3}>
+        {initialDate === DateTime.now().toISODate() && (
+          <NextPeriod
+            {...{
+              periods: initialPeriods,
+              date: initialDate,
+              countdown,
+              setCountdown,
+              isLoaded,
+            }}
+          />
+        )}
+        <Flex w="full" gap={3} as={motion.div} layout>
+          <IconButton
+            icon={<ArrowLeft />}
+            variant="outline"
+            onClick={() =>
+              onDateChange(
+                DateTime.fromISO(date).minus({ days: 1 }).toISODate()
+              )
+            }
+            aria-label="Previous day"
+          />
+          <Input
+            type="date"
+            value={date ?? initialDate ?? ""}
+            onChange={({ target: { value } }) => onDateChange(value)}
+            focusBorderColor="primary.200"
+            as={motion.input}
+            layout
+          />
+          <AnimatePresence>
+            {date !== initialDate && (
+              <Button
+                variant="outline"
+                onClick={() => onDateChange()}
+                as={motion.button}
+                layout
+              >
+                Reset
+              </Button>
+            )}
+          </AnimatePresence>
+          <IconButton
+            icon={<ArrowRight />}
+            variant="outline"
+            onClick={() =>
+              onDateChange(DateTime.fromISO(date).plus({ days: 1 }).toISODate())
+            }
+            aria-label="Next day"
+          />
+        </Flex>
         <Flex
           direction={"column"}
           bg={
@@ -126,8 +133,8 @@ const HomeView = ({
             <Empty />
           )}
         </Flex>
-      </LayoutGroup>
-    </Flex>
+      </Flex>
+    </LayoutGroup>
   );
 };
 

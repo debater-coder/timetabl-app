@@ -43,11 +43,12 @@ export default function Period({
   return (
     <Skeleton
       rounded={5}
-      m={!transition && 0.5}
+      mx={!transition && 1}
+      mb={!transition && 1}
       isLoaded={isLoaded}
       w={upcoming && "full"}
     >
-      <Flex align="center" gap={3} w={"full"}>
+      <Flex align="center" gap={3} w={"full"} as={motion.div} layout>
         <Flex
           m={0.5}
           bg={
@@ -63,7 +64,7 @@ export default function Period({
           as={motion.div}
           w={"full"}
           layout
-          cursor={"pointer"}
+          cursor={room && "pointer"}
         >
           <Box
             w={2}
