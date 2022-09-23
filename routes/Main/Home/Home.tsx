@@ -1,16 +1,16 @@
 import {
+  Button,
   Flex,
   IconButton,
   Input,
-  InputGroup,
   useColorModeValue,
   useToken,
 } from "@chakra-ui/react";
 import { TimetablDTT, useDTT } from "../../../hooks/useSBHSQuery";
 import "@fontsource/poppins";
-import { motion, LayoutGroup } from "framer-motion";
+import { motion, LayoutGroup, AnimatePresence } from "framer-motion";
 import QueriesHandler from "../../../components/QueriesHandler";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ArrowLeft, ArrowRight } from "phosphor-react";
 import { DateTime } from "luxon";
 import Period from "./Period";
@@ -49,6 +49,12 @@ const HomeView = ({
       room: 605,
     });
 
+  useEffect(() => {
+    if (initialDate === date) {
+      onDateChange();
+    }
+  }, [initialDate, date]);
+
   return (
     <Flex direction={"column"} align="center" gap={3}>
       {initialDate === DateTime.now().toISODate() && (
@@ -71,14 +77,21 @@ const HomeView = ({
           }
           aria-label="Previous day"
         />
-        <InputGroup>
-          <Input
-            type="date"
-            value={date ?? initialDate ?? ""}
-            onChange={({ target: { value } }) => onDateChange(value)}
-            focusBorderColor="primary.200"
-          />
-        </InputGroup>
+        <Input
+          type="date"
+          value={date ?? initialDate ?? ""}
+          onChange={({ target: { value } }) => onDateChange(value)}
+          focusBorderColor="primary.200"
+          as={motion.input}
+          layout
+        />
+        <AnimatePresence>
+          {date !== initialDate && (
+            <Button variant="outline" onClick={() => onDateChange()}>
+              Reset
+            </Button>
+          )}
+        </AnimatePresence>
         <IconButton
           icon={<ArrowRight />}
           variant="outline"
