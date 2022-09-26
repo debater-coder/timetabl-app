@@ -84,8 +84,14 @@ const ColourPicker = ({ value, onChange }) => {
 
 export default () => {
   const { colorMode, toggleColorMode } = useColorMode();
-  const { primary, setPrimary, periodColours, setPeriodColours } =
-    useSettings();
+  const {
+    primary,
+    setPrimary,
+    periodColours,
+    setPeriodColours,
+    setExpanded,
+    expanded,
+  } = useSettings();
 
   return (
     <>
@@ -109,6 +115,15 @@ export default () => {
             <Radio value="none">No colour coding</Radio>
           </VStack>
         </RadioGroup>
+      </FormControl>
+      <FormControl display="flex" alignItems="center">
+        <FormLabel mb="0">Expand periods by default</FormLabel>
+        <Switch
+          onChange={() => {
+            setExpanded(expanded === "true" ? "false" : "true");
+          }}
+          isChecked={expanded === "true"}
+        />
       </FormControl>
     </>
   );

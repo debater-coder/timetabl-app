@@ -31,7 +31,10 @@ export default function Period({
   countdown = null,
   transition = false,
 }: PeriodProps) {
-  const [expanded, { toggle: toggleExpanded }] = useBoolean(false);
+  const { expanded: defaultExpanded } = useSettings();
+  const [expanded, { toggle: toggleExpanded }] = useBoolean(
+    defaultExpanded === "true"
+  );
   const { periodColours }: { periodColours: string } = useSettings();
 
   const { room, colour, name, time, teacher, endTime } = periodData;

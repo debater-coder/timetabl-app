@@ -19,12 +19,15 @@ const [useSettings, SettingsProvider] = contextualise(() => {
     "periodColours",
     "default"
   );
+  const [expanded, setExpanded] = usePersistentState("expanded", "false");
 
   return {
     primary,
     setPrimary,
     periodColours,
     setPeriodColours,
+    expanded,
+    setExpanded,
   };
 });
 
