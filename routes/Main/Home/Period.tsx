@@ -63,93 +63,91 @@ export default function Period({
       isLoaded={isLoaded}
       w={upcoming && "full"}
     >
-      <Flex align="center" gap={3} w={"full"} as={motion.div} layout>
-        <Tooltip
-          label={<Text fontSize={"xs"}>Keep hovering to expand</Text>}
-          placement="right"
-          isOpen={!!hoverTimeout && !!room}
+      <Tooltip
+        label={<Text fontSize={"xs"}>Keep hovering to expand</Text>}
+        placement="right"
+        isOpen={!!hoverTimeout && !!room}
+      >
+        <Flex
+          m={0.5}
+          bg={upcoming ? periodBg : "transparent"}
+          rounded={10}
+          _hover={{ bg: useToken("colors", "gray.400") + "22" }}
+          shadow={active ? "outline" : room && "lg"}
+          onClick={setExpanded.toggle}
+          onMouseEnter={() => {
+            setHoverTimeout(
+              setTimeout(() => {
+                setHoverTimeout(null);
+                setExpanded.on();
+              }, 500)
+            );
+          }}
+          onMouseLeave={() => {
+            if (hoverTimeout) {
+              clearTimeout(hoverTimeout);
+            }
+            setHoverTimeout(null);
+            setExpanded.off();
+          }}
+          as={motion.div}
+          w={"full"}
+          layout
+          cursor={room && "pointer"}
         >
+          <Box
+            w={2}
+            roundedLeft={10}
+            bg={
+              room &&
+              {
+                default: colour,
+                primary: "primary.500",
+                none: "transparent",
+              }[periodColours]
+            }
+          />
           <Flex
-            m={0.5}
-            bg={upcoming ? periodBg : "transparent"}
-            rounded={10}
-            _hover={{ bg: useToken("colors", "gray.400") + "22" }}
-            shadow={active ? "outline" : room && "lg"}
-            onClick={setExpanded.toggle}
-            onMouseEnter={() => {
-              setHoverTimeout(
-                setTimeout(() => {
-                  setHoverTimeout(null);
-                  setExpanded.on();
-                }, 500)
-              );
-            }}
-            onMouseLeave={() => {
-              if (hoverTimeout) {
-                clearTimeout(hoverTimeout);
-              }
-              setHoverTimeout(null);
-              setExpanded.off();
-            }}
-            as={motion.div}
-            w={"full"}
-            layout
-            cursor={room && "pointer"}
+            direction={"column"}
+            px={3}
+            py={!transition && (room || upcoming) && 3}
+            w="full"
           >
-            <Box
-              w={2}
-              roundedLeft={10}
-              bg={
-                room &&
-                {
-                  default: colour,
-                  primary: "primary.500",
-                  none: "transparent",
-                }[periodColours]
-              }
-            />
-            <Flex
-              direction={"column"}
-              px={3}
-              py={!transition && (room || upcoming) && 3}
-              w="full"
-            >
-              <Flex gap={6} align="center" w="full">
-                <Heading
-                  size={upcoming ? "lg" : "xs"}
-                  fontFamily={"Poppins, sans-serif"}
-                  as={motion.h2}
-                  layout
-                  color={!room && grayedOutTextColour}
-                >
-                  {!transition && name}
-                </Heading>
-                <Spacer />
-                <Text
-                  fontWeight={"semibold"}
-                  as={motion.p}
-                  layout
-                  color={!room && grayedOutTextColour}
-                >
-                  {!transition && (room ?? time ?? "")}
-                </Text>
-              </Flex>
+            <Flex gap={6} align="center" w="full">
+              <Heading
+                size={upcoming ? "lg" : "xs"}
+                fontFamily={"Poppins, sans-serif"}
+                as={motion.h2}
+                layout
+                color={!room && grayedOutTextColour}
+              >
+                {!transition && name}
+              </Heading>
+              <Spacer />
               <Text
-                fontWeight={!upcoming && "semibold"}
-                fontSize={upcoming ? "lg" : "xs"}
+                fontWeight={"semibold"}
                 as={motion.p}
                 layout
+                color={!room && grayedOutTextColour}
               >
-                {(room && expanded) || !isLoaded
-                  ? time + " " + teacher
-                  : upcoming
-                  ? `IN ${countdown}`
-                  : ""}
+                {!transition && (room ?? time ?? "")}
               </Text>
             </Flex>
+            <Text
+              fontWeight={!upcoming && "semibold"}
+              fontSize={upcoming ? "lg" : "xs"}
+              as={motion.p}
+              layout
+            >
+              {(room && expanded) || !isLoaded
+                ? time + " " + teacher
+                : upcoming
+                ? `IN ${countdown}`
+                : ""}
+            </Text>
           </Flex>
-        </Tooltip>
-      </Flex>
+        </Flex>
+      </Tooltip>
     </Skeleton>
   );
 }
