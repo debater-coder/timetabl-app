@@ -91,11 +91,21 @@ export default function Period({
                 fontFamily={"Poppins, sans-serif"}
                 as={motion.h2}
                 layout
+                color={
+                  !room && useColorModeValue("blackAlpha.700", "whiteAlpha.700")
+                }
               >
                 {!transition && name}
               </Heading>
               <Spacer />
-              <Text fontWeight={"semibold"} as={motion.p} layout>
+              <Text
+                fontWeight={"semibold"}
+                as={motion.p}
+                layout
+                color={
+                  !room && useColorModeValue("blackAlpha.700", "whiteAlpha.700")
+                }
+              >
                 {!transition && (room ?? time ?? "")}
               </Text>
             </Flex>
