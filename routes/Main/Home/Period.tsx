@@ -9,6 +9,7 @@ import {
   useToken,
   Text,
   Tooltip,
+  useMediaQuery,
 } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import { DateTime } from "luxon";
@@ -36,6 +37,7 @@ export default function Period({
   const { expanded: defaultExpanded } = useSettings();
   const [expanded, setExpanded] = useBoolean(defaultExpanded === "true");
   const { periodColours }: { periodColours: string } = useSettings();
+  const [hoverable] = useMediaQuery("(any-hover: hover)");
 
   const { room, colour, name, time, teacher, endTime } = periodData;
   const active =
@@ -75,21 +77,29 @@ export default function Period({
           _hover={{ bg: useToken("colors", "gray.400") + "22" }}
           shadow={active ? "outline" : room && "lg"}
           onClick={setExpanded.toggle}
-          onMouseEnter={() => {
-            setHoverTimeout(
-              setTimeout(() => {
-                setHoverTimeout(null);
-                setExpanded.on();
-              }, 500)
-            );
-          }}
-          onMouseLeave={() => {
-            if (hoverTimeout) {
-              clearTimeout(hoverTimeout);
-            }
-            setHoverTimeout(null);
-            setExpanded.off();
-          }}
+          onMouseEnter={
+            hoverable
+              ? () => {
+                  setHoverTimeout(
+                    setTimeout(() => {
+                      setHoverTimeout(null);
+                      setExpanded.on();
+                    }, 500)
+                  );
+                }
+              : undefined
+          }
+          onMouseLeave={
+            hoverable
+              ? () => {
+                  if (hoverTimeout) {
+                    clearTimeout(hoverTimeout);
+                  }
+                  setHoverTimeout(null);
+                  setExpanded.off();
+                }
+              : undefined
+          }
           as={motion.div}
           w={"full"}
           layout
