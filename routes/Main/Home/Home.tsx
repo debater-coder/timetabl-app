@@ -53,7 +53,7 @@ const HomeView = ({
     if (initialDate === date) {
       onDateChange();
     }
-  }, [initialDate, date]);
+  }, [initialDate, date, onDateChange]);
 
   return (
     <LayoutGroup>

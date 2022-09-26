@@ -43,6 +43,13 @@ export default function Period({
       DateTime.now() < DateTime.fromISO(`${date}T${endTime}`)) ??
     false;
 
+  const periodBg =
+    useToken("colors", useColorModeValue("gray.300", "gray.500")) + "33";
+
+  const grayedOutTextColour = useColorModeValue(
+    "blackAlpha.700",
+    "whiteAlpha.700"
+  );
   return (
     <Skeleton
       rounded={5}
@@ -54,12 +61,7 @@ export default function Period({
       <Flex align="center" gap={3} w={"full"} as={motion.div} layout>
         <Flex
           m={0.5}
-          bg={
-            upcoming
-              ? useToken("colors", useColorModeValue("gray.300", "gray.500")) +
-                "33"
-              : "transparent"
-          }
+          bg={upcoming ? periodBg : "transparent"}
           rounded={10}
           _hover={{ bg: useToken("colors", "gray.400") + "22" }}
           shadow={active ? "outline" : room && "lg"}
@@ -91,9 +93,7 @@ export default function Period({
                 fontFamily={"Poppins, sans-serif"}
                 as={motion.h2}
                 layout
-                color={
-                  !room && useColorModeValue("blackAlpha.700", "whiteAlpha.700")
-                }
+                color={!room && grayedOutTextColour}
               >
                 {!transition && name}
               </Heading>
@@ -102,9 +102,7 @@ export default function Period({
                 fontWeight={"semibold"}
                 as={motion.p}
                 layout
-                color={
-                  !room && useColorModeValue("blackAlpha.700", "whiteAlpha.700")
-                }
+                color={!room && grayedOutTextColour}
               >
                 {!transition && (room ?? time ?? "")}
               </Text>

@@ -9,6 +9,7 @@ const compareObjects = (a, b) => {
 
   if (keysA.length != keysB.length) return false;
 
+  // eslint-disable-next-line no-loops/no-loops
   for (let key of keysA) {
     if (!keysB.includes(key)) return false;
 
