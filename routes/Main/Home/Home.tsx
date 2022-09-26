@@ -37,14 +37,14 @@ const HomeView = ({
   const [countdown, setCountdown] = useState("");
   const periods =
     data?.periods ??
-    Array(11).fill({
+    Array(7).fill({
       name: "Loading... Loading... Loading",
       room: 605,
     });
 
   const initialPeriods =
     initialData?.periods ??
-    Array(11).fill({
+    Array(7).fill({
       name: "Loading... Loading... Loading",
       room: 605,
     });
