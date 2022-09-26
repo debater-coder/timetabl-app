@@ -8,9 +8,11 @@ import {
   useColorModeValue,
   useToken,
   Text,
+  Tooltip,
 } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import { DateTime } from "luxon";
+import { useState } from "react";
 import { TimetablPeriod } from "../../../hooks/useSBHSQuery";
 import useSettings from "../../../hooks/useSettings";
 
@@ -32,9 +34,7 @@ export default function Period({
   transition = false,
 }: PeriodProps) {
   const { expanded: defaultExpanded } = useSettings();
-  const [expanded, { toggle: toggleExpanded }] = useBoolean(
-    defaultExpanded === "true"
-  );
+  const [expanded, setExpanded] = useBoolean(defaultExpanded === "true");
   const { periodColours }: { periodColours: string } = useSettings();
 
   const { room, colour, name, time, teacher, endTime } = periodData;
@@ -50,6 +50,11 @@ export default function Period({
     "blackAlpha.700",
     "whiteAlpha.700"
   );
+
+  const [hoverTimeout, setHoverTimeout] = useState<ReturnType<
+    typeof setTimeout
+  > | null>(null);
+
   return (
     <Skeleton
       rounded={5}
@@ -59,68 +64,91 @@ export default function Period({
       w={upcoming && "full"}
     >
       <Flex align="center" gap={3} w={"full"} as={motion.div} layout>
-        <Flex
-          m={0.5}
-          bg={upcoming ? periodBg : "transparent"}
-          rounded={10}
-          _hover={{ bg: useToken("colors", "gray.400") + "22" }}
-          shadow={active ? "outline" : room && "lg"}
-          onClick={toggleExpanded}
-          as={motion.div}
-          w={"full"}
-          layout
-          cursor={room && "pointer"}
+        <Tooltip
+          label={<Text fontSize={"xs"}>Keep hovering to expand</Text>}
+          placement="right"
+          isOpen={!!hoverTimeout && !!room}
         >
-          <Box
-            w={2}
-            roundedLeft={10}
-            bg={
-              room &&
-              { default: colour, primary: "primary.500", none: "transparent" }[
-                periodColours
-              ]
-            }
-          />
           <Flex
-            direction={"column"}
-            px={3}
-            py={!transition && (room || upcoming) && 3}
-            w="full"
+            m={0.5}
+            bg={upcoming ? periodBg : "transparent"}
+            rounded={10}
+            _hover={{ bg: useToken("colors", "gray.400") + "22" }}
+            shadow={active ? "outline" : room && "lg"}
+            onClick={setExpanded.toggle}
+            onMouseEnter={() => {
+              setHoverTimeout(
+                setTimeout(() => {
+                  setHoverTimeout(null);
+                  setExpanded.on();
+                }, 500)
+              );
+            }}
+            onMouseLeave={() => {
+              if (hoverTimeout) {
+                clearTimeout(hoverTimeout);
+              }
+              setHoverTimeout(null);
+              setExpanded.off();
+            }}
+            as={motion.div}
+            w={"full"}
+            layout
+            cursor={room && "pointer"}
           >
-            <Flex gap={6} align="center" w="full">
-              <Heading
-                size={upcoming ? "lg" : "xs"}
-                fontFamily={"Poppins, sans-serif"}
-                as={motion.h2}
-                layout
-                color={!room && grayedOutTextColour}
-              >
-                {!transition && name}
-              </Heading>
-              <Spacer />
+            <Box
+              w={2}
+              roundedLeft={10}
+              bg={
+                room &&
+                {
+                  default: colour,
+                  primary: "primary.500",
+                  none: "transparent",
+                }[periodColours]
+              }
+            />
+            <Flex
+              direction={"column"}
+              px={3}
+              py={!transition && (room || upcoming) && 3}
+              w="full"
+            >
+              <Flex gap={6} align="center" w="full">
+                <Heading
+                  size={upcoming ? "lg" : "xs"}
+                  fontFamily={"Poppins, sans-serif"}
+                  as={motion.h2}
+                  layout
+                  color={!room && grayedOutTextColour}
+                >
+                  {!transition && name}
+                </Heading>
+                <Spacer />
+                <Text
+                  fontWeight={"semibold"}
+                  as={motion.p}
+                  layout
+                  color={!room && grayedOutTextColour}
+                >
+                  {!transition && (room ?? time ?? "")}
+                </Text>
+              </Flex>
               <Text
-                fontWeight={"semibold"}
+                fontWeight={!upcoming && "semibold"}
+                fontSize={upcoming ? "lg" : "xs"}
                 as={motion.p}
                 layout
-                color={!room && grayedOutTextColour}
               >
-                {!transition && (room ?? time ?? "")}
+                {(room && expanded) || !isLoaded
+                  ? time + " " + teacher
+                  : upcoming
+                  ? `IN ${countdown}`
+                  : ""}
               </Text>
             </Flex>
-            <Text
-              fontWeight={!upcoming && "semibold"}
-              fontSize={upcoming ? "lg" : "xs"}
-              as={motion.p}
-              layout
-            >
-              {(room && expanded) || !isLoaded
-                ? time + " " + teacher
-                : upcoming
-                ? `IN ${countdown}`
-                : ""}
-            </Text>
           </Flex>
-        </Flex>
+        </Tooltip>
       </Flex>
     </Skeleton>
   );
