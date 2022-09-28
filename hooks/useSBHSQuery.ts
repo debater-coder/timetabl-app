@@ -190,3 +190,29 @@ export const useStudentID = <TData>(
   useProfile(enabled, ({ studentId }) =>
     select ? select(studentId) : studentId
   );
+
+type APINotice = {
+  title: string;
+  content: string;
+};
+
+type APINotices = {
+  notices: APINotice[];
+};
+
+export type TimetablNotices = APINotice[];
+
+export const useDailyNotices = <TData = TimetablNotices>(
+  date?: string,
+  enabled = true,
+  select?: (data: TimetablNotices) => TData
+) =>
+  useSBHSQuery<APINotices, Error, TData>(
+    "dailynews/list.json",
+    { date },
+    enabled,
+    (data) => {
+      const result = data["notices"];
+      return select ? select(result) : (result as TData);
+    }
+  );
