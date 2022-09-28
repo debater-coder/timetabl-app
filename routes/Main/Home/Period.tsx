@@ -34,10 +34,12 @@ export default function Period({
   countdown = null,
   transition = false,
 }: PeriodProps) {
-  const { expanded: defaultExpanded } = useSettings();
+  const { expanded: defaultExpanded, hoverExpand } = useSettings();
   const [expanded, setExpanded] = useBoolean(defaultExpanded === "true");
   const { periodColours }: { periodColours: string } = useSettings();
   const [hoverable] = useMediaQuery("(any-hover: hover)");
+
+  console.log(hoverExpand);
 
   const { room, colour, name, time, teacher, endTime } = periodData;
   const active =
@@ -78,7 +80,7 @@ export default function Period({
           shadow={active ? "outline" : room && "lg"}
           onClick={setExpanded.toggle}
           onMouseEnter={
-            hoverable
+            hoverable && hoverExpand === "true"
               ? () => {
                   setHoverTimeout(
                     setTimeout(() => {
@@ -90,7 +92,7 @@ export default function Period({
               : undefined
           }
           onMouseLeave={
-            hoverable
+            hoverable && hoverExpand === "true"
               ? () => {
                   if (hoverTimeout) {
                     clearTimeout(hoverTimeout);

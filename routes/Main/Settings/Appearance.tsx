@@ -94,6 +94,8 @@ export default () => {
     setPeriodColours,
     setExpanded,
     expanded,
+    hoverExpand,
+    setHoverExpand,
   } = useSettings();
 
   return (
@@ -123,9 +125,20 @@ export default () => {
         <FormLabel mb="0">Expand periods by default</FormLabel>
         <Switch
           onChange={() => {
+            if (expanded === "false") setHoverExpand("false");
             setExpanded(expanded === "true" ? "false" : "true");
           }}
           isChecked={expanded === "true"}
+        />
+      </FormControl>
+      <FormControl display="flex" alignItems="center">
+        <FormLabel mb="0">Hover to expand</FormLabel>
+        <Switch
+          isChecked={hoverExpand === "true"}
+          onChange={() => {
+            setHoverExpand(hoverExpand === "true" ? "false" : "true");
+          }}
+          disabled={expanded === "true"}
         />
       </FormControl>
     </>
