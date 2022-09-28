@@ -13,12 +13,13 @@ import {
   RadioGroup,
   Radio,
   VStack,
+  UseRadioProps,
 } from "@chakra-ui/react";
 import { Check } from "phosphor-react";
 import useSettings from "../../../hooks/useSettings";
 import "@fontsource/poppins";
 
-const PrimaryColour = (props) => {
+const PrimaryColour = (props: UseRadioProps) => {
   const { state, getInputProps, getCheckboxProps } = useRadio(props);
 
   const input = getInputProps();
@@ -40,7 +41,7 @@ const PrimaryColour = (props) => {
         <Icon
           color={"white"}
           as={Check}
-          visibility={!state.isChecked && "hidden"}
+          visibility={state.isChecked ? "visible" : "hidden"}
           boxSize={5}
         />
       </Flex>
@@ -48,19 +49,25 @@ const PrimaryColour = (props) => {
   );
 };
 
-const ColourPicker = ({ value, onChange }) => {
-  const options = [
-    "red",
-    "orange",
-    "yellow",
-    "green",
-    "teal",
-    "blue",
-    "cyan",
-    "purple",
-    "pink",
-  ];
+const options = [
+  "red",
+  "orange",
+  "yellow",
+  "green",
+  "teal",
+  "blue",
+  "cyan",
+  "purple",
+  "pink",
+];
 
+const ColourPicker = ({
+  value,
+  onChange,
+}: {
+  value: string;
+  onChange: (nextValue: string) => void;
+}) => {
   const { getRootProps, getRadioProps } = useRadioGroup({
     onChange,
     value,
@@ -72,11 +79,7 @@ const ColourPicker = ({ value, onChange }) => {
     <SimpleGrid minChildWidth={20} spacing={5} {...group} w="full">
       {options.map((value) => {
         const radio = getRadioProps({ value });
-        return (
-          <PrimaryColour key={value} {...radio}>
-            {value}
-          </PrimaryColour>
-        );
+        return <PrimaryColour key={value} {...radio} />;
       })}
     </SimpleGrid>
   );
