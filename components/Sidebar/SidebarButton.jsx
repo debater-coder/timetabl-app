@@ -5,6 +5,7 @@ export default ({ name, icon: Icon, active, sidebar, mirrored }) => {
   const hoverColor = useColorModeValue("gray.100", "gray.700");
   const [secondary] = useToken("colors", ["primary.300"]);
   const MotionFlex = motion(Flex);
+
   return (
     <Flex
       _hover={{ bg: hoverColor }}
@@ -12,8 +13,9 @@ export default ({ name, icon: Icon, active, sidebar, mirrored }) => {
       pb={sidebar ? "0px" : "16px"}
       mb={sidebar ? "12px" : "0px"}
       h={sidebar ? "56px" : "64px"}
+      px={2}
+      minW={24}
       direction={"column"}
-      w="80px"
       align={"center"}
     >
       <MotionFlex

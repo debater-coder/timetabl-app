@@ -13,7 +13,7 @@ export default () => {
     if (!loggedIn && shouldRedirect) {
       navigate("/");
     }
-  }, [loggedIn, shouldRedirect]);
+  }, [loggedIn, shouldRedirect, navigate]);
 
   return (
     <Flex
@@ -23,6 +23,7 @@ export default () => {
       direction={{ base: "column-reverse", md: "row" }}
     >
       <Flex
+        minW={"fit-content"}
         w={{ base: "100%", md: "80px" }}
         h={{ base: "80px", md: "100%" }}
         direction={{ base: "row", md: "column" }}

@@ -39,8 +39,6 @@ export default function Period({
   const { periodColours }: { periodColours: string } = useSettings();
   const [hoverable] = useMediaQuery("(any-hover: hover)");
 
-  console.log(hoverExpand);
-
   const { room, colour, name, time, teacher, endTime } = periodData;
   const active =
     (DateTime.fromISO(`${date}T${time}`) < DateTime.now() &&

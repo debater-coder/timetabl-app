@@ -8,6 +8,7 @@ import Barcodes from "../../routes/Main/Barcodes";
 import General from "../../routes/Main/Settings/General";
 import Developers from "../../routes/Main/Settings/Developers";
 import About from "../../routes/Main/Settings/About";
+import Announcements from "../../routes/Main/Announcements";
 
 export default () => (
   <Routes>
@@ -22,6 +23,7 @@ export default () => (
           <Route index element={<Navigate to="general" replace={true} />} />
         </Route>
         <Route path={"barcodes"} element={<Barcodes />} />
+        <Route path={"announcements"} element={<Announcements />} />
       </Route>
     </Route>
   </Routes>
