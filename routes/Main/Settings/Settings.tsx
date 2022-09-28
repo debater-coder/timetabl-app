@@ -5,15 +5,26 @@ import {
   Icon,
   useColorModeValue,
 } from "@chakra-ui/react";
-import { Code, Info, PaintBrush } from "phosphor-react";
+import { Code, Gear, Info } from "phosphor-react";
 import { Outlet, Link, useLocation } from "react-router-dom";
 import "@fontsource/poppins";
 
-const MenuEntry = ({ active, to, name, icon }) => {
+const MenuEntry = ({
+  active,
+  to,
+  name,
+  icon,
+}: {
+  active: boolean;
+  to: string;
+  name: string;
+  icon: typeof Gear;
+}) => {
+  const highlightColor = useToken("colors", "primary.400") + "aa";
   return (
     <Link to={to}>
       <Flex
-        bg={active && useToken("colors", "primary.400") + "aa"}
+        bg={active && highlightColor}
         p={3}
         px={6}
         h="full"
@@ -41,10 +52,10 @@ export default () => {
     >
       <Flex direction="column" minW={"20vw"}>
         <MenuEntry
-          to="appearance"
-          name="Appearance"
-          icon={PaintBrush}
-          active={pathname === "/app/settings/appearance"}
+          to="general"
+          name="General"
+          icon={Gear}
+          active={pathname === "/app/settings/general"}
         />
         <MenuEntry
           to="developers"

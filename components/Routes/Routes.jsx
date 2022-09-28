@@ -5,7 +5,7 @@ import Main from "../../routes/Main/Main";
 import Home from "../../routes/Main/Home";
 import Settings from "../../routes/Main/Settings";
 import Barcodes from "../../routes/Main/Barcodes";
-import Appearance from "../../routes/Main/Settings/Appearance";
+import General from "../../routes/Main/Settings/General";
 import Developers from "../../routes/Main/Settings/Developers";
 import About from "../../routes/Main/Settings/About";
 
@@ -16,10 +16,10 @@ export default () => (
       <Route path={"app"} element={<Main />}>
         <Route index element={<Home />} />
         <Route path={"settings/*"} element={<Settings />}>
-          <Route path={"appearance"} element={<Appearance />} />
+          <Route path={"general"} element={<General />} />
           <Route path={"developers"} element={<Developers />} />
           <Route path={"about"} element={<About />} />
-          <Route index element={<Navigate to="appearance" replace={true} />} />
+          <Route index element={<Navigate to="general" replace={true} />} />
         </Route>
         <Route path={"barcodes"} element={<Barcodes />} />
       </Route>

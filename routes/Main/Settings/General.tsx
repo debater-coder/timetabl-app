@@ -121,6 +121,9 @@ export default () => {
           </VStack>
         </RadioGroup>
       </FormControl>
+      <Heading size={"md"} fontFamily={"Poppins, sans-serif"}>
+        Period Behaviour
+      </Heading>
       <FormControl display="flex" alignItems="center">
         <FormLabel mb="0">Expand periods by default</FormLabel>
         <Switch
