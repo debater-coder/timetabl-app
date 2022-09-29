@@ -61,7 +61,7 @@ export default function Period({
     <Skeleton
       rounded={5}
       mx={!transition && 1}
-      mb={!transition && 1}
+      mb={!transition && 0.5}
       isLoaded={isLoaded}
       w={upcoming && "full"}
     >
@@ -120,7 +120,7 @@ export default function Period({
           <Flex
             direction={"column"}
             px={3}
-            py={!transition && (room || upcoming) && 3}
+            py={!transition && (room || upcoming) && 2.5}
             w="full"
           >
             <Flex gap={6} align="center" w="full">
@@ -129,7 +129,7 @@ export default function Period({
                 fontFamily={"Poppins, sans-serif"}
                 as={motion.h2}
                 layout
-                color={!room && grayedOutTextColour}
+                color={!room && !upcoming && grayedOutTextColour}
               >
                 {!transition && name}
               </Heading>
@@ -138,7 +138,7 @@ export default function Period({
                 fontWeight={"semibold"}
                 as={motion.p}
                 layout
-                color={!room && grayedOutTextColour}
+                color={!room && !upcoming && grayedOutTextColour}
               >
                 {!transition && (room ?? time ?? "")}
               </Text>
