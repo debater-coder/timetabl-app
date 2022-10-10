@@ -6,7 +6,11 @@ import {
   useColorModeValue,
   useToken,
 } from "@chakra-ui/react";
-import { TimetablDTT, useDTT } from "../../../hooks/useSBHSQuery";
+import {
+  TimetablDTT,
+  TimetablPeriod,
+  useDTT,
+} from "../../../hooks/useSBHSQuery";
 import "@fontsource/poppins";
 import { motion, LayoutGroup, AnimatePresence } from "framer-motion";
 import QueriesHandler from "../../../components/QueriesHandler";
@@ -35,7 +39,7 @@ const HomeView = ({
   initialData,
 }: HomeViewProps) => {
   const [countdown, setCountdown] = useState("");
-  const periods =
+  const periods: TimetablPeriod[] =
     data?.periods ??
     Array(7).fill({
       name: "Loading... Loading... Loading",
