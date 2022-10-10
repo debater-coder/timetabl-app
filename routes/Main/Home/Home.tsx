@@ -130,7 +130,11 @@ const HomeView = ({
                 key={period["key"] ?? index + 100}
                 isLoaded={isLoaded}
                 date={date}
-                transition={period?.name == "Transition"}
+                transition={
+                  period?.name == "Transition" ||
+                  DateTime.fromISO("15:15") <= DateTime.fromISO(period.time) ||
+                  DateTime.fromISO(period.time) <= DateTime.fromISO("09:00")
+                }
               />
             ))
           ) : (
