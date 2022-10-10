@@ -84,7 +84,7 @@ export default function Period({
                     setTimeout(() => {
                       setHoverTimeout(null);
                       setExpanded.on();
-                    }, 500)
+                    }, 250)
                   );
                 }
               : undefined
