@@ -28,15 +28,15 @@ export default ({
   const nextPeriod = periods[activePeriod + 1];
 
   useEffect(() => {
-    const timer = setTimeout(() => {
+    const timer = setInterval(() => {
       setCountdown(
         DateTime.fromISO(`${date}T${nextPeriod.time}`)
           .diffNow()
           .toFormat("hh:mm:ss")
       );
-    }, 1000);
+    }, 500);
 
-    return () => clearTimeout(timer);
+    return () => clearInterval(timer);
   });
 
   return (
