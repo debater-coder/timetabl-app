@@ -5,9 +5,10 @@ import { useDailyNotices } from "../../../hooks/useSBHSQuery";
 export default function Announcements() {
   return (
     <QueriesHandler queries={{ notices: useDailyNotices() }}>
+      {/* eslint-disable-next-line @typescript-eslint/no-unused-vars */}
       {(isLoaded, { notices }) => (
         <Flex direction={"column"} align="center" gap={3}>
-          Annnouncements
+          Annnouncements are coming soon!
         </Flex>
       )}
     </QueriesHandler>
