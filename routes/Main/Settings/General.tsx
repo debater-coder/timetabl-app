@@ -14,6 +14,7 @@ import {
   Radio,
   VStack,
   UseRadioProps,
+  Button,
 } from "@chakra-ui/react";
 import { Check } from "phosphor-react";
 import useSettings from "../../../hooks/useSettings";
@@ -94,8 +95,9 @@ export default () => {
     setPeriodColours,
     setExpanded,
     expanded,
-    hoverExpand,
     setHoverExpand,
+    reset,
+    hoverExpand,
   } = useSettings();
 
   return (
@@ -143,6 +145,12 @@ export default () => {
           }}
           disabled={expanded === "true"}
         />
+      </FormControl>
+      <Heading size={"md"} fontFamily={"Poppins, sans-serif"}>
+        Recovery
+      </Heading>
+      <FormControl display="flex">
+        <Button onClick={reset}>Reset</Button>
       </FormControl>
     </>
   );

@@ -4,7 +4,7 @@ import contextualise from "../utils/contextualise";
 export const usePersistentState = (
   name: string,
   initalValue: string
-): [string, (value: string) => void] => {
+): [string, (value: string) => void, () => void] => {
   const [state, setState] = useState(localStorage.getItem(name) ?? initalValue);
 
   return [
@@ -13,18 +13,26 @@ export const usePersistentState = (
       localStorage.setItem(name, value);
       setState(value);
     },
+    () => {
+      localStorage.setItem(name, initalValue);
+      setState(initalValue);
+    },
   ];
 };
 
 const [useSettings, SettingsProvider] = contextualise(() => {
-  const [primary, setPrimary] = usePersistentState("primary", "blue");
-  const [periodColours, setPeriodColours] = usePersistentState(
-    "periodColours",
-    "default"
+  const [primary, setPrimary, resetPrimary] = usePersistentState(
+    "primary",
+    "blue"
   );
-  const [expanded, setExpanded] = usePersistentState("expanded", "false");
+  const [periodColours, setPeriodColours, resetPeriodColours] =
+    usePersistentState("periodColours", "default");
+  const [expanded, setExpanded, resetExpanded] = usePersistentState(
+    "expanded",
+    "false"
+  );
 
-  const [hoverExpand, setHoverExpand] = usePersistentState(
+  const [hoverExpand, setHoverExpand, resetHoverExpand] = usePersistentState(
     "hoverExpand",
     "false"
   );
@@ -38,6 +46,12 @@ const [useSettings, SettingsProvider] = contextualise(() => {
     setExpanded,
     hoverExpand,
     setHoverExpand,
+    reset: () => {
+      resetPrimary();
+      resetExpanded();
+      resetHoverExpand();
+      resetPeriodColours();
+    },
   };
 });
 
