@@ -8,7 +8,7 @@ export default function Announcements() {
       {/* eslint-disable-next-line @typescript-eslint/no-unused-vars */}
       {(isLoaded, { notices }) => (
         <Flex direction={"column"} align="center" gap={3}>
-          Annnouncements are coming soon!
+          Announcements are coming soon!
         </Flex>
       )}
     </QueriesHandler>
