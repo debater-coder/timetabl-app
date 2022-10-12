@@ -26,7 +26,7 @@ const [useSettings, SettingsProvider] = contextualise(() => {
 
   const [hoverExpand, setHoverExpand] = usePersistentState(
     "hoverExpand",
-    "true"
+    "false"
   );
 
   return {
