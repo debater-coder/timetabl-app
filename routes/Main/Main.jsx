@@ -24,8 +24,8 @@ export default () => {
     >
       <Flex
         minW={"fit-content"}
-        w={{ base: "100%", md: "80px" }}
-        h={{ base: "80px", md: "100%" }}
+        w={{ base: "100%", md: "auto" }}
+        h={{ base: "auto", md: "100%" }}
         direction={{ base: "row", md: "column" }}
         justify={"center"}
         position={"fixed"}
@@ -44,10 +44,10 @@ export default () => {
         align={"center"}
         width={"full"}
         height={"full"}
-        maxH={{ base: "calc(100% - 80px)", md: "100%" }}
-        mb={{ base: "80px", md: 0 }}
-        maxW={{ base: "100%", md: "calc(100% - 80px)" }}
-        ml={{ base: 0, md: "80px" }}
+        maxH={{ base: "calc(100% - 64px)", md: "100%" }}
+        mb={{ base: "64px", md: 0 }}
+        maxW={{ base: "100%", md: "calc(100% - 128px)" }}
+        ml={{ base: 0, md: "128px" }}
         overflowY={"auto"}
         bg={localStorage.getItem("debug") === "true" && "orange"}
       >

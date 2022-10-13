@@ -13,8 +13,7 @@ export default ({ name, icon: Icon, active, sidebar, mirrored }) => {
       pb={sidebar ? "0px" : "16px"}
       mb={sidebar ? "12px" : "0px"}
       h={sidebar ? "56px" : "64px"}
-      px={2}
-      minW={24}
+      w={32}
       direction={"column"}
       align={"center"}
     >
