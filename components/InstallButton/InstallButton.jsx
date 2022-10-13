@@ -1,7 +1,7 @@
 import { Button, Icon, Tooltip } from "@chakra-ui/react";
 import { useRef, useState } from "react";
 
-export default function installButton() {
+export default function InstallButton() {
   let deferredPrompt = useRef(null);
   const [showInstall, setShowInstall] = useState(false);
 

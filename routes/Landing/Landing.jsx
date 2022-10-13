@@ -24,7 +24,7 @@ export default () => {
     if (loggedIn && shouldRedirect) {
       navigate("/app");
     }
-  }, [loggedIn]);
+  }, [loggedIn, navigate, shouldRedirect]);
 
   return (
     <Flex align={"center"} mx="auto" maxW="80%" direction={"column"} gap={3}>
