@@ -10,6 +10,7 @@ import {
   Text,
   Tooltip,
   useMediaQuery,
+  As,
 } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import { DateTime } from "luxon";
@@ -100,7 +101,7 @@ export default function Period({
                 }
               : undefined
           }
-          as={motion.div}
+          as={motion.div as As}
           w={"full"}
           layout
           cursor={room && "pointer"}
@@ -127,7 +128,7 @@ export default function Period({
               <Heading
                 size={upcoming ? "lg" : "xs"}
                 fontFamily={"Poppins, sans-serif"}
-                as={motion.h2}
+                as={motion.h2 as As}
                 layout
                 color={!room && !upcoming && grayedOutTextColour}
               >
@@ -136,7 +137,7 @@ export default function Period({
               <Spacer />
               <Text
                 fontWeight={"semibold"}
-                as={motion.p}
+                as={motion.p as As}
                 layout
                 color={!room && !upcoming && grayedOutTextColour}
               >
@@ -146,7 +147,7 @@ export default function Period({
             <Text
               fontWeight={!upcoming && "semibold"}
               fontSize={upcoming ? "lg" : "xs"}
-              as={motion.p}
+              as={motion.p as As}
               layout
             >
               {upcoming
