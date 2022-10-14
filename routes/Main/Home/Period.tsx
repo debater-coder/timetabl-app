@@ -149,10 +149,10 @@ export default function Period({
               as={motion.p}
               layout
             >
-              {(room && expanded) || !isLoaded
-                ? time + " " + teacher
-                : upcoming
+              {upcoming
                 ? `IN ${countdown}`
+                : (room && expanded) || !isLoaded
+                ? time + " " + teacher
                 : ""}
             </Text>
           </Flex>
