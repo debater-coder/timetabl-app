@@ -52,6 +52,8 @@
     "workbox-window": "^6.5.3"
   },
   "devDependencies": {
+    "@types/luxon": "^3.0.1",
+    "@types/react": "^18.0.21",
     "@typescript-eslint/eslint-plugin": "^5.38.0",
     "@typescript-eslint/parser": "^5.38.0",
     "@vitejs/plugin-react": "^2.0.0",
