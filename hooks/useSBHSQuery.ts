@@ -105,6 +105,7 @@ export type TimetablPeriod = {
   endTime?: string;
   colour?: string;
   key?: string;
+  casual?: string | false;
 };
 
 export type TimetablDTT = {
