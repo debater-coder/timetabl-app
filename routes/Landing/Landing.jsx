@@ -10,7 +10,7 @@ import {
   Link,
   Text,
 } from "@chakra-ui/react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useAuth } from "../../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 import "@fontsource/poppins";
@@ -18,6 +18,7 @@ import { ExternalLinkIcon } from "@chakra-ui/icons";
 
 export default () => {
   const { login, loggedIn, shouldRedirect } = useAuth();
+  const [loggingIn, setLoggingIn] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -66,7 +67,16 @@ export default () => {
           unforeseen problems. Use at your own risk.
         </AlertDescription>
       </Alert>
-      <Button onClick={login}>Login</Button>
+      <Button
+        isLoading={loggingIn}
+        loadingText="Logging you in..."
+        onClick={() => {
+          setLoggingIn(true);
+          login();
+        }}
+      >
+        Login
+      </Button>
     </Flex>
   );
 };

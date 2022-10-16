@@ -15,6 +15,7 @@ import { useAuth } from "../../hooks/useAuth";
 import "@fontsource/poppins";
 import RefetchingIndicator from "../RefetchingIndicator";
 import InstallButton from "../InstallButton";
+import { useState } from "react";
 
 const TimetablLogo = ({ color, loggedIn }) => (
   <RouterLink to={loggedIn ? "/app" : "/"}>
@@ -87,18 +88,25 @@ const DarkModeBTN = ({ toggleColorMode, iconColor, icon }) => (
     colorScheme={"gray"}
   />
 );
-const LogoutBTN = ({ logout, iconColor }) => (
-  <Tooltip label={"Logout"}>
-    <IconButton
-      mr={1}
-      onClick={logout}
-      aria-label={"Logout"}
-      color={iconColor}
-      icon={<MdLogout />}
-      colorScheme={"gray"}
-    />
-  </Tooltip>
-);
+const LogoutBTN = ({ logout, iconColor }) => {
+  const [loggingOut, setLoggingOut] = useState(false);
+  return (
+    <Tooltip label={"Logout"}>
+      <IconButton
+        mr={1}
+        isLoading={loggingOut}
+        onClick={() => {
+          setLoggingOut(true);
+          logout();
+        }}
+        aria-label={"Logout"}
+        color={iconColor}
+        icon={<MdLogout />}
+        colorScheme={"gray"}
+      />
+    </Tooltip>
+  );
+};
 
 const SettingsBTN = ({ iconColor }) => (
   <Tooltip label={"Settings"}>
