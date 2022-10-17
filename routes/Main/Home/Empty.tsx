@@ -24,7 +24,8 @@ export default () => {
         No periods on this day
       </Heading>
       <Text color={"gray.500"} as={motion.p} layout>
-        Chill out, grab some Oporto, and enjoy your day off!
+        Chill out, grab some Oporto, and enjoy your day off!{" "}
+        {/* Or Subway :) */}
       </Text>
     </Box>
   );
