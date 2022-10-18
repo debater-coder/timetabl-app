@@ -28,6 +28,10 @@ export default ({ addBarcode, barcodes }) => (
 
       if (!values.value) {
         errors.value = "Required";
+      } else if (values.value.length > 100) {
+        errors.value = "Value cannot exceed 100 characters";
+      } else if (/[^ -~]+/.test(values.value)) {
+        errors.value = "Value cannot contain fancy characters";
       }
 
       return errors;
@@ -37,7 +41,7 @@ export default ({ addBarcode, barcodes }) => (
       <Flex gap={1} mt={6} mb={3}>
         <Field name="name">
           {({ field, form }) => (
-            <FormControl isInvalid={form.errors.name && form.touched.name}>
+            <FormControl isInvalid={!!form.errors.name && !!form.touched.name}>
               <Input {...field} placeholder="Name" variant={"filled"} />
               <FormErrorMessage>{form.errors.name}</FormErrorMessage>
             </FormControl>
