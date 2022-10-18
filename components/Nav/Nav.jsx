@@ -10,12 +10,13 @@ import {
   useToken,
 } from "@chakra-ui/react";
 import { FaGithub, FaMoon, FaSun, MdLogout, MdSettings } from "react-icons/all";
-import { Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink, useLocation } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 import "@fontsource/poppins";
 import RefetchingIndicator from "../RefetchingIndicator";
 import InstallButton from "../InstallButton";
 import { useState } from "react";
+import { CloseIcon } from "@chakra-ui/icons";
 
 const TimetablLogo = ({ color, loggedIn }) => (
   <RouterLink to={loggedIn ? "/app" : "/"}>
@@ -108,13 +109,19 @@ const LogoutBTN = ({ logout, iconColor }) => {
   );
 };
 
-const SettingsBTN = ({ iconColor }) => (
-  <Tooltip label={"Settings"}>
-    <RouterLink to={"/app/settings"}>
+const SettingsBTN = ({ iconColor, pathname }) => (
+  <Tooltip
+    label={pathname.startsWith("/app/settings") ? "Exit Settings" : "Settings"}
+  >
+    <RouterLink
+      to={pathname.startsWith("/app/settings") ? "/app" : "/app/settings"}
+    >
       <IconButton
         aria-label={"settings"}
         mr={1}
-        icon={<MdSettings />}
+        icon={
+          pathname.startsWith("/app/settings") ? <CloseIcon /> : <MdSettings />
+        }
         color={iconColor}
         colorScheme={"gray"}
       />
@@ -129,6 +136,7 @@ export default () => {
   const colorModeIcon = useColorModeValue(<FaMoon />, <FaSun />);
 
   const { loggedIn, logout } = useAuth();
+  const { pathname } = useLocation();
 
   return (
     <Flex
@@ -153,7 +161,7 @@ export default () => {
         {loggedIn ? (
           <>
             <InstallButton />
-            <SettingsBTN iconColor={iconColor} />
+            <SettingsBTN iconColor={iconColor} pathname={pathname} />
             <LogoutBTN logout={logout} iconColor={iconColor} />
           </>
         ) : (
