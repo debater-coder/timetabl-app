@@ -155,7 +155,6 @@ export default () => {
           onChange={() => {
               setShowTimesInsteadOfRooms(showTimesInsteadOfRooms === "true" ? "false" : "true");
           }}
-          disabled={expanded === "true"}
         />
       </FormControl>
       <Heading size={"md"} fontFamily={"Poppins, sans-serif"}>
