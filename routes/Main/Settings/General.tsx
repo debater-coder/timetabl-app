@@ -149,11 +149,13 @@ export default () => {
         />
       </FormControl>
       <FormControl display="flex" alignItems="center">
-        <FormLabel mb="0">Show Times Instead of Rooms</FormLabel>
+        <FormLabel mb="0">Show times instead of rooms</FormLabel>
         <Switch
           isChecked={showTimesInsteadOfRooms === "true"}
           onChange={() => {
-              setShowTimesInsteadOfRooms(showTimesInsteadOfRooms === "true" ? "false" : "true");
+            setShowTimesInsteadOfRooms(
+              showTimesInsteadOfRooms === "true" ? "false" : "true"
+            );
           }}
         />
       </FormControl>
