@@ -146,7 +146,7 @@ export default function Period({
             </Flex>
             <Text
               fontWeight={!upcoming && "semibold"}
-              fontSize={upcoming ? "lg" : "xs"}
+              fontSize={upcoming ? "xl" : "xs"}
               as={motion.p as As}
               layout
             >

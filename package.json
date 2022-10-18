@@ -8,7 +8,8 @@
     "build": "vite build",
     "preview": "vite preview",
     "prettier": "npx prettier --write .",
-    "vdev": "vercel dev --local-config ./vercel-dev.json"
+    "vdev": "vercel dev --local-config ./vercel-dev.json",
+    "prettier-watch": "onchange \"**/*\" -- prettier --write --ignore-unknown {{changed}}"
   },
   "repository": {
     "type": "git",
@@ -39,6 +40,7 @@
     "jsbarcode": "^3.11.5",
     "luxon": "^3.0.3",
     "node-fetch": "^2.6.7",
+    "onchange": "^7.1.0",
     "phosphor-react": "^1.4.1",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
