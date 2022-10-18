@@ -98,6 +98,8 @@ export default () => {
     setHoverExpand,
     reset,
     hoverExpand,
+    showTimesInsteadOfRooms,
+    setShowTimesInsteadOfRooms,
   } = useSettings();
 
   return (
@@ -146,11 +148,21 @@ export default () => {
           disabled={expanded === "true"}
         />
       </FormControl>
+      <FormControl display="flex" alignItems="center">
+        <FormLabel mb="0">Show Times Instead of Rooms</FormLabel>
+        <Switch
+          isChecked={showTimesInsteadOfRooms === "true"}
+          onChange={() => {
+              setShowTimesInsteadOfRooms(showTimesInsteadOfRooms === "true" ? "false" : "true");
+          }}
+          disabled={expanded === "true"}
+        />
+      </FormControl>
       <Heading size={"md"} fontFamily={"Poppins, sans-serif"}>
         Recovery
       </Heading>
       <FormControl display="flex">
-        <Button onClick={reset}>Reset</Button>
+        <Button onClick={reset}>Reset all settings</Button>
       </FormControl>
     </>
   );

@@ -35,7 +35,11 @@ export default function Period({
   countdown = null,
   transition = false,
 }: PeriodProps) {
-  const { expanded: defaultExpanded, hoverExpand } = useSettings();
+  const {
+    expanded: defaultExpanded,
+    hoverExpand,
+    showTimesInsteadOfRooms,
+  } = useSettings();
   const [expanded, setExpanded] = useBoolean(defaultExpanded === "true");
   const { periodColours }: { periodColours: string } = useSettings();
   const [hoverable] = useMediaQuery("(any-hover: hover)");
@@ -141,7 +145,10 @@ export default function Period({
                 layout
                 color={!room && !upcoming && grayedOutTextColour}
               >
-                {!transition && (room ?? time ?? "")}
+                {!transition &&
+                  ((showTimesInsteadOfRooms !== "true" ? room : time) ??
+                    time ??
+                    "")}
               </Text>
             </Flex>
             <Text
@@ -153,7 +160,9 @@ export default function Period({
               {upcoming
                 ? `IN ${countdown}`
                 : (room && expanded) || !isLoaded
-                ? time + " " + teacher
+                ? (showTimesInsteadOfRooms !== "true" ? time : room) +
+                  " " +
+                  teacher
                 : ""}
             </Text>
           </Flex>

@@ -37,6 +37,12 @@ const [useSettings, SettingsProvider] = contextualise(() => {
     "false"
   );
 
+  const [
+    showTimesInsteadOfRooms,
+    setShowTimesInsteadOfRooms,
+    resetShowTimesInsteadOfRooms,
+  ] = usePersistentState("showTimesInsteadOfRooms", "false");
+
   return {
     primary,
     setPrimary,
@@ -46,11 +52,14 @@ const [useSettings, SettingsProvider] = contextualise(() => {
     setExpanded,
     hoverExpand,
     setHoverExpand,
+    showTimesInsteadOfRooms,
+    setShowTimesInsteadOfRooms,
     reset: () => {
       resetPrimary();
       resetExpanded();
       resetHoverExpand();
       resetPeriodColours();
+      resetShowTimesInsteadOfRooms();
     },
   };
 });
