@@ -1,4 +1,12 @@
-import { Avatar, Flex, Heading, Skeleton } from "@chakra-ui/react";
+import {
+  Avatar,
+  Button,
+  Collapse,
+  Flex,
+  Heading,
+  Skeleton,
+  useDisclosure,
+} from "@chakra-ui/react";
 import QueriesHandler from "../../../components/QueriesHandler";
 import { useDailyNotices } from "../../../hooks/useSBHSQuery";
 import { TimetablNotices } from "../../../hooks/useSBHSQuery";
@@ -16,21 +24,28 @@ function Announcement({
   content?: string;
   authorName?: string;
 }) {
+  const { isOpen, onToggle } = useDisclosure();
+
   return (
-    <Flex direction={"column"}>
+    <Flex direction={"column"} align="left">
       <Heading fontFamily={"Poppins, sans-serif"} size="md">
         {title}
       </Heading>
-      <Prose>
-        <div
-          dangerouslySetInnerHTML={{
-            __html: linkifyHtml(DOMPurify.sanitize(content), {
-              defaultProtocol: "https",
-            }),
-          }}
-        />
-      </Prose>
+      <Collapse in={isOpen} animateOpacity startingHeight={28}>
+        <Prose>
+          <div
+            dangerouslySetInnerHTML={{
+              __html: linkifyHtml(DOMPurify.sanitize(content), {
+                defaultProtocol: "https",
+              }),
+            }}
+          />
+        </Prose>
+      </Collapse>
       <Flex gap={2} align="center">
+        <Button size="sm" variant="outline" onClick={onToggle}>
+          Show {isOpen ? "less" : "more"}
+        </Button>
         <Avatar size="sm" name={authorName} />
         <Heading size="sm">{authorName}</Heading>
       </Flex>
