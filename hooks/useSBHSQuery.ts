@@ -195,6 +195,7 @@ export const useStudentID = <TData>(
 type APINotice = {
   title: string;
   content: string;
+  authorName: string;
 };
 
 type APINotices = {

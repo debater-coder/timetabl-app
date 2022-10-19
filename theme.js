@@ -1,4 +1,5 @@
 import { extendTheme, theme, withDefaultColorScheme } from "@chakra-ui/react";
+import { withProse } from "@nikolovlazar/chakra-ui-prose";
 
 const config = {
   initialColorMode: "system",
@@ -13,7 +14,8 @@ const themeGen = (primary) =>
         primary: theme.colors[primary],
       },
     },
-    withDefaultColorScheme({ colorScheme: "primary" })
+    withDefaultColorScheme({ colorScheme: "primary" }),
+    withProse({ baseStyle: { p: { margin: 1 } } })
   );
 
 export default themeGen;
