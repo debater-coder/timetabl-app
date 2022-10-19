@@ -11,6 +11,7 @@ import {
   Tooltip,
   useMediaQuery,
   As,
+  Collapse,
 } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import { DateTime } from "luxon";
@@ -151,20 +152,20 @@ export default function Period({
                     "")}
               </Text>
             </Flex>
-            <Text
-              fontWeight={!upcoming && "semibold"}
-              fontSize={upcoming ? "xl" : "xs"}
-              as={motion.p as As}
-              layout
-            >
-              {upcoming
-                ? `IN ${countdown}`
-                : (room && expanded) || !isLoaded
-                ? (showTimesInsteadOfRooms !== "true" ? time : room) +
-                  " " +
-                  teacher
-                : ""}
-            </Text>
+            <Collapse in={upcoming || expanded || !isLoaded} animateOpacity>
+              <Text
+                fontWeight={!upcoming && "semibold"}
+                fontSize={upcoming ? "xl" : "xs"}
+              >
+                {upcoming
+                  ? `IN ${countdown}`
+                  : (room && expanded) || !isLoaded
+                  ? (showTimesInsteadOfRooms !== "true" ? time : room) +
+                    " " +
+                    teacher
+                  : ""}
+              </Text>
+            </Collapse>
           </Flex>
         </Flex>
       </Tooltip>
