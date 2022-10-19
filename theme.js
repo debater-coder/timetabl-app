@@ -15,7 +15,7 @@ const themeGen = (primary) =>
       },
     },
     withDefaultColorScheme({ colorScheme: "primary" }),
-    withProse({ baseStyle: { p: { margin: 1 } } })
+    withProse({ baseStyle: { p: { margin: 1 }, a: { color: "primary.500" } } })
   );
 
 export default themeGen;

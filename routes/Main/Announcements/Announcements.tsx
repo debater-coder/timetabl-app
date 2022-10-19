@@ -5,6 +5,7 @@ import { TimetablNotices } from "../../../hooks/useSBHSQuery";
 import "@fontsource/poppins";
 import { Prose } from "@nikolovlazar/chakra-ui-prose";
 import DOMPurify from "dompurify";
+import linkifyHtml from "linkify-html";
 
 function Announcement({
   title,
@@ -23,7 +24,9 @@ function Announcement({
       <Prose>
         <div
           dangerouslySetInnerHTML={{
-            __html: DOMPurify.sanitize(content),
+            __html: linkifyHtml(DOMPurify.sanitize(content), {
+              defaultProtocol: "https",
+            }),
           }}
         />
       </Prose>

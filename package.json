@@ -40,6 +40,8 @@
     "framer-motion": "^6.3.11",
     "idb-keyval": "^6.2.0",
     "jsbarcode": "^3.11.5",
+    "linkify-html": "^4.0.2",
+    "linkifyjs": "^4.0.2",
     "luxon": "^3.0.3",
     "node-fetch": "^2.6.7",
     "onchange": "^7.1.0",
