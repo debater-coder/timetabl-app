@@ -3,14 +3,11 @@ import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { Flex, useBreakpointValue, useColorModeValue } from "@chakra-ui/react";
 import { useAuth } from "../../hooks/useAuth";
 import Sidebar from "../../components/Sidebar";
-import { prefetchQuery } from "../../hooks/useSBHSQuery";
-import { useQueryClient } from "@tanstack/react-query";
 
 export default () => {
-  const { loggedIn, shouldRedirect, refresh } = useAuth();
+  const { loggedIn, shouldRedirect } = useAuth();
   const navigate = useNavigate();
   const { pathname } = useLocation();
-  const queryClient = useQueryClient();
 
   useEffect(() => {
     if (!loggedIn && shouldRedirect) {
