@@ -31,7 +31,7 @@ function Announcement({
       <Heading fontFamily={"Poppins, sans-serif"} size="md">
         {title}
       </Heading>
-      <Collapse in={isOpen} animateOpacity startingHeight={28}>
+      <Collapse in={isOpen} animateOpacity startingHeight={32}>
         <Prose>
           <div
             dangerouslySetInnerHTML={{
