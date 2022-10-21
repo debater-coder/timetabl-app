@@ -3,7 +3,7 @@ import HTTPError from "../errors/HTTPError";
 import NetworkError from "../errors/NetworkError";
 import { useAuth } from "./useAuth";
 
-const fetchSBHSApi = async <T>(
+export const fetchSBHSApi = async <T>(
   endpoint: string,
   options: Record<string, unknown>,
   refresh: () => void,
@@ -39,6 +39,16 @@ const fetchSBHSApi = async <T>(
   const json = await res.json();
   return json;
 };
+
+export const prefetchQuery = async (
+  queryClient: QueryClient,
+  refresh: () => void,
+  endpoint: string,
+  options: Record<string, unknown> = {}
+) =>
+  await queryClient.prefetchQuery(["sbhs", endpoint, {}], ({ signal }) => {
+    return fetchSBHSApi(endpoint, options, refresh, signal, queryClient);
+  });
 
 export const useSBHSQuery = <TQueryFnData, TError, TData = TQueryFnData>(
   endpoint: string,
