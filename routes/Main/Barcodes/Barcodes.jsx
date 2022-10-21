@@ -4,8 +4,6 @@ import {
   Flex,
   Heading,
   useColorModeValue,
-  Box,
-  Text,
 } from "@chakra-ui/react";
 import "@fontsource/poppins";
 import { useState } from "react";
@@ -15,27 +13,28 @@ import { Barcode as BarcodeIcon } from "phosphor-react";
 import SavedBarcode from "./SavedBarcode";
 import YourBarcode from "./YourBarcode";
 import SaveBarcodeForm from "./SaveBarcodeForm";
+import Empty from "../../../components/Empty";
 
-const Empty = () => {
-  return (
-    <Box textAlign="center" py={10} px={6}>
-      <Icon boxSize={"50px"} color={"primary.500"} as={BarcodeIcon} />
-      <Heading
-        as="h2"
-        size="xl"
-        mt={1}
-        mb={2}
-        fontFamily={"Poppins, sans-serif"}
-      >
-        You have no saved barcodes.
-      </Heading>
-      <Text color={"gray.500"}>
-        Type in a name for your barcode and its value, then click the{" "}
-        <b>Add Barcode</b> button to save it.
-      </Text>
-    </Box>
-  );
-};
+// const Empty = () => {
+//   return (
+//     <Box textAlign="center" py={10} px={6}>
+//       <Icon boxSize={"50px"} color={"primary.500"} as={BarcodeIcon} />
+//       <Heading
+//         as="h2"
+//         size="xl"
+//         mt={1}
+//         mb={2}
+//         fontFamily={"Poppins, sans-serif"}
+//       >
+//         You have no saved barcodes.
+//       </Heading>
+//       <Text color={"gray.500"}>
+//         Type in a name for your barcode and its value, then click the{" "}
+//         <b>Add Barcode</b> button to save it.
+//       </Text>
+//     </Box>
+//   );
+// };
 
 export default () => {
   const addBarcode = async (name, value) => {
@@ -124,7 +123,18 @@ export default () => {
             />
           ))
         ) : (
-          <Empty />
+          <Empty
+            icon={BarcodeIcon}
+            colour="primary.500"
+            heading="You have no saved barcodes."
+            size="xl"
+            text={
+              <>
+                Type in a name for your barcode and its value, then click the{" "}
+                <b>Add Barcode</b> button to save it.
+              </>
+            }
+          />
         )}
       </Flex>
       <Flex

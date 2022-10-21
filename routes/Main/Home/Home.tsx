@@ -1,4 +1,5 @@
 import {
+  As,
   Button,
   Flex,
   IconButton,
@@ -19,7 +20,8 @@ import { ArrowLeft, ArrowRight } from "phosphor-react";
 import { DateTime } from "luxon";
 import Period from "./Period";
 import NextPeriod from "./NextPeriod";
-import Empty from "./Empty";
+import Empty from "./../../../components/Empty";
+import { GiFrenchFries } from "react-icons/gi";
 
 type HomeViewProps = {
   isLoaded: boolean;
@@ -61,7 +63,7 @@ const HomeView = ({
 
   return (
     <LayoutGroup>
-      <Flex direction={"column"} align="center" gap={3}>
+      <Flex direction={"column"} align="center" gap={1.5}>
         {initialDate === DateTime.now().toISODate() && (
           <NextPeriod
             {...{
@@ -138,7 +140,13 @@ const HomeView = ({
               />
             ))
           ) : (
-            <Empty />
+            <Empty
+              icon={GiFrenchFries as As}
+              colour="yellow.500"
+              size="xl"
+              heading="No periods on this day"
+              text="Chill out, grab some Oporto, and enjoy your day off!"
+            />
           )}
         </Flex>
       </Flex>
