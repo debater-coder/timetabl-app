@@ -5,7 +5,13 @@ import {
   Flex,
   Heading,
   Skeleton,
+  Tab,
+  TabList,
+  TabPanel,
+  TabPanels,
+  Tabs,
   useDisclosure,
+  Text,
 } from "@chakra-ui/react";
 import QueriesHandler from "../../../components/QueriesHandler";
 import { useDailyNotices } from "../../../hooks/useSBHSQuery";
@@ -14,33 +20,34 @@ import "@fontsource/poppins";
 import { Prose } from "@nikolovlazar/chakra-ui-prose";
 import DOMPurify from "dompurify";
 import linkifyHtml from "linkify-html";
-import { useRef } from "react";
+import { useState } from "react";
+import { DateTime } from "luxon";
 
 function Announcement({
   title,
   content,
   authorName,
+  date,
 }: {
   title?: string;
   content?: string;
   authorName?: string;
+  date?: string;
 }) {
   const { isOpen, onToggle } = useDisclosure();
-  const contentRef = useRef<HTMLDivElement>(null);
-
-  const numberOfLines = contentRef.current?.offsetHeight / 24 ?? false;
-
-  console.log(numberOfLines);
+  const [showShowMoreBtn, setShowShowMoreBtn] = useState(true);
 
   return (
-    <Flex direction={"column"} align="left">
+    <Flex direction={"column"} align="left" w="full">
       <Heading fontFamily={"Poppins, sans-serif"} size="md">
         {title}
       </Heading>
       <Collapse in={isOpen} animateOpacity startingHeight={32}>
         <Prose>
           <div
-            ref={contentRef}
+            ref={(content) =>
+              setShowShowMoreBtn((content?.offsetHeight / 24 ?? 0) > 1)
+            }
             dangerouslySetInnerHTML={{
               __html: linkifyHtml(DOMPurify.sanitize(content), {
                 defaultProtocol: "https",
@@ -50,19 +57,22 @@ function Announcement({
         </Prose>
       </Collapse>
       <Flex gap={2} align="center">
-        {numberOfLines > 1 && (
+        {showShowMoreBtn && (
           <Button size="sm" variant="outline" onClick={onToggle}>
             Show {isOpen ? "less" : "more"}
           </Button>
         )}
         <Avatar size="sm" name={authorName} />
         <Heading size="sm">{authorName}</Heading>
+        <Text>
+          {date && DateTime.fromISO(date).toLocaleString(DateTime.DATE_FULL)}
+        </Text>
       </Flex>
     </Flex>
   );
 }
 
-export default function Announcements() {
+function DailyNotices() {
   return (
     <QueriesHandler queries={{ notices: useDailyNotices() }}>
       {(isLoaded, { notices }: { notices: TimetablNotices }) => (
@@ -82,5 +92,31 @@ export default function Announcements() {
         </Flex>
       )}
     </QueriesHandler>
+  );
+}
+
+export default function Announcements() {
+  return (
+    <Tabs w="full" variant="solid-rounded">
+      <TabList>
+        <Tab>Daily Notices</Tab>
+        <Tab>Timetabl News</Tab>
+      </TabList>
+      <TabPanels>
+        <TabPanel>
+          <DailyNotices />
+        </TabPanel>
+        <TabPanel>
+          <Flex direction={"column"} align="left" w="full">
+            <Announcement
+              title="Welcome to Timetabl News!"
+              content="Keep checking back here for the latest news."
+              authorName="Hamzah Ahmed"
+              date="2022-10-21"
+            />
+          </Flex>
+        </TabPanel>
+      </TabPanels>
+    </Tabs>
   );
 }
