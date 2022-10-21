@@ -14,6 +14,7 @@ import "@fontsource/poppins";
 import { Prose } from "@nikolovlazar/chakra-ui-prose";
 import DOMPurify from "dompurify";
 import linkifyHtml from "linkify-html";
+import { useRef } from "react";
 
 function Announcement({
   title,
@@ -25,6 +26,11 @@ function Announcement({
   authorName?: string;
 }) {
   const { isOpen, onToggle } = useDisclosure();
+  const contentRef = useRef<HTMLDivElement>(null);
+
+  const numberOfLines = contentRef.current?.offsetHeight / 24 ?? false;
+
+  console.log(numberOfLines);
 
   return (
     <Flex direction={"column"} align="left">
@@ -34,6 +40,7 @@ function Announcement({
       <Collapse in={isOpen} animateOpacity startingHeight={32}>
         <Prose>
           <div
+            ref={contentRef}
             dangerouslySetInnerHTML={{
               __html: linkifyHtml(DOMPurify.sanitize(content), {
                 defaultProtocol: "https",
@@ -43,9 +50,11 @@ function Announcement({
         </Prose>
       </Collapse>
       <Flex gap={2} align="center">
-        <Button size="sm" variant="outline" onClick={onToggle}>
-          Show {isOpen ? "less" : "more"}
-        </Button>
+        {numberOfLines > 1 && (
+          <Button size="sm" variant="outline" onClick={onToggle}>
+            Show {isOpen ? "less" : "more"}
+          </Button>
+        )}
         <Avatar size="sm" name={authorName} />
         <Heading size="sm">{authorName}</Heading>
       </Flex>
