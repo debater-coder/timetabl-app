@@ -139,7 +139,7 @@ export const useDTT = <TData = TimetablDTT>(
           .map((bell, index, bells) => {
             const timetable = data?.["timetable"];
             const subjects = timetable?.["subjects"];
-            const period =
+            const period: APIPeriod =
               timetable?.["timetable"]?.["periods"]?.[bell["bell"]];
 
             let subject = null;
@@ -203,16 +203,48 @@ export const useStudentID = <TData>(
   );
 
 type APINotice = {
-  title: string;
-  content: string;
-  authorName: string;
+  title?: string;
+  content?: string;
+  authorName?: string;
+  years?: string[];
 };
 
 type APINotices = {
   notices: APINotice[];
 };
 
-export type TimetablNotices = APINotice[];
+export enum NoticeYear {
+  ALL,
+  YEAR7,
+  YEAR8,
+  YEAR9,
+  YEAR10,
+  YEAR11,
+  YEAR12,
+  STAFF,
+  UNKNOWN,
+}
+
+const yearMapping: Record<string, NoticeYear> = {
+  "7": NoticeYear.YEAR7,
+  "8": NoticeYear.YEAR8,
+  "9": NoticeYear.YEAR9,
+  "10": NoticeYear.YEAR10,
+  "11": NoticeYear.YEAR11,
+  "12": NoticeYear.YEAR12,
+  staff: NoticeYear.STAFF,
+  Staff: NoticeYear.STAFF,
+};
+
+export type TimetablNotice = {
+  title?: string;
+  content?: string;
+  authorName?: string;
+  years?: NoticeYear[];
+  date?: string;
+};
+
+export type TimetablNotices = TimetablNotice[];
 
 export const useDailyNotices = <TData = TimetablNotices>(
   date?: string,
@@ -224,7 +256,12 @@ export const useDailyNotices = <TData = TimetablNotices>(
     { date },
     enabled,
     (data) => {
-      const result = data["notices"];
+      const result = data["notices"].map((notice) => ({
+        ...notice,
+        years: notice?.years.map(
+          (year) => yearMapping?.[year] ?? NoticeYear.UNKNOWN
+        ),
+      }));
       return select ? select(result) : (result as TData);
     }
   );
