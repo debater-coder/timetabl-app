@@ -6,7 +6,7 @@ const config = {
   useSystemColorMode: false,
 };
 
-const themeGen = (primary) =>
+const themeGen = (primary: keyof typeof theme.colors) =>
   extendTheme(
     {
       config,
