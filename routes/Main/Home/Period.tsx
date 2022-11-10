@@ -12,6 +12,7 @@ import {
   useMediaQuery,
   As,
   Collapse,
+  chakra,
 } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import { DateTime } from "luxon";
@@ -45,7 +46,7 @@ export default function Period({
   const { periodColours }: { periodColours: string } = useSettings();
   const [hoverable] = useMediaQuery("(any-hover: hover)");
 
-  const { room, colour, name, time, teacher, endTime } = periodData;
+  const { room, colour, name, time, teacher, endTime, casual } = periodData;
   const active =
     (DateTime.fromISO(`${date}T${time}`) < DateTime.now() &&
       DateTime.now() < DateTime.fromISO(`${date}T${endTime}`)) ??
@@ -63,6 +64,7 @@ export default function Period({
     typeof setTimeout
   > | null>(null);
 
+  const invertedTextColour = useColorModeValue("gray.100", "gray.700");
   return (
     <Skeleton
       rounded={5}
@@ -157,13 +159,23 @@ export default function Period({
                 fontWeight={!upcoming && "semibold"}
                 fontSize={upcoming ? "xl" : "xs"}
               >
-                {upcoming
-                  ? `IN ${countdown}`
-                  : (room && expanded) || !isLoaded
-                  ? (showTimesInsteadOfRooms !== "true" ? time : room) +
-                    " " +
-                    teacher
-                  : ""}
+                {upcoming ? (
+                  <>IN {countdown}</>
+                ) : (room && expanded) || !isLoaded ? (
+                  <>
+                    {showTimesInsteadOfRooms !== "true" ? time : room}{" "}
+                    <chakra.span
+                      bg={casual && "primary.100"}
+                      p={casual && 1}
+                      color={casual && invertedTextColour}
+                      rounded={casual && "40%"}
+                    >
+                      {casual ?? teacher}
+                    </chakra.span>
+                  </>
+                ) : (
+                  ""
+                )}
               </Text>
             </Collapse>
           </Flex>

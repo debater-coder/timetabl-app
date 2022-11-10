@@ -105,6 +105,20 @@ type APIDTT = {
     };
   };
   date?: string;
+  classVariations?: Record<
+    string,
+    {
+      period?: string;
+      year?: string;
+      title?: string;
+      teacher?: string;
+      type?: string;
+      casual?: string;
+      casualSurname?: string;
+      roomFrom?: string;
+      roomTo?: string;
+    }
+  >;
 };
 
 export type TimetablPeriod = {
@@ -134,52 +148,63 @@ export const useDTT = <TData = TimetablDTT>(
     enabled,
     (data): TData => {
       // console.log(data);
+      const classVariations = data?.classVariations;
+
       const result = {
-        periods: (data?.["bells"] ?? [])
+        periods: (data?.bells ?? [])
           .map((bell, index, bells) => {
-            const timetable = data?.["timetable"];
-            const subjects = timetable?.["subjects"];
+            const timetable = data?.timetable;
+            const subjects = timetable?.subjects;
             const period: APIPeriod =
-              timetable?.["timetable"]?.["periods"]?.[bell["bell"]];
+              timetable?.timetable?.periods?.[bell?.bell];
 
             let subject = null;
+            let casual = null;
 
-            let name = bell["bellDisplay"];
-            const teacher = period?.["fullTeacher"] ?? period?.["teacher"];
+            let name = bell?.bellDisplay;
+            const teacher = period?.fullTeacher ?? period?.teacher;
 
-            if (period?.["title"]) {
-              name = period["title"];
+            if (period?.title) {
+              name = period?.title;
 
-              if (period?.["year"]) {
-                name = period["year"] + name;
+              if (period?.year) {
+                name = period?.year + name;
                 subject = subjects?.[name] ?? subject;
-                name = subject?.["title"] ?? name;
+                name = subject?.title ?? name;
               }
+            }
+
+            if (classVariations?.[bell?.period]) {
+              casual =
+                classVariations?.[bell?.period]?.casual ??
+                "" + classVariations?.[bell?.period]?.casualSurname ??
+                "";
             }
 
             return [
               {
                 name: "Transition",
-                endTime: bell?.["startTime"],
-                time: bells?.[index - 1]?.["endTime"] ?? "00:00",
+                endTime: bell?.startTime,
+                time: bells?.[index - 1]?.endTime ?? "00:00",
               },
               {
                 name,
-                room: period?.["room"],
+                room: period?.room,
                 teacher,
-                time: bell?.["startTime"],
-                endTime: bell?.["endTime"],
+                time: bell?.startTime,
+                endTime: bell?.endTime,
                 colour:
-                  subject?.["colour"] && period?.["room"]
-                    ? `#${subject?.["colour"]}`
+                  subject?.colour && period?.room
+                    ? `#${subject?.colour}`
                     : "transparent",
-                key: bell["bell"],
+                key: bell?.bell,
+                casual,
               },
             ];
           })
           .flat()
           .filter((period) => period?.time !== period?.endTime),
-        date: data?.["date"],
+        date: data?.date,
       };
       return select ? select(result) : (result as TData);
     }
@@ -256,7 +281,7 @@ export const useDailyNotices = <TData = TimetablNotices>(
     { date },
     enabled,
     (data) => {
-      const result = data["notices"].map((notice) => ({
+      const result = data?.notices.map((notice) => ({
         ...notice,
         years: notice?.years.map(
           (year) => yearMapping?.[year] ?? NoticeYear.UNKNOWN
