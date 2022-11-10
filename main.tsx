@@ -17,7 +17,7 @@ import { sendToVercelAnalytics } from "./vitals";
 import useSettings, { SettingsProvider } from "./hooks/useSettings";
 
 if (window.location.host === "timetabl.vercel.app") {
-  window.location = "https://www.timetabl.app";
+  window.location.href = "https://www.timetabl.app";
 }
 
 const { ToastContainer, toast } = createStandaloneToast();
@@ -33,7 +33,7 @@ const queryClient = new QueryClient({
     },
   },
   queryCache: new QueryCache({
-    onError: (error) =>
+    onError: (error: Error) =>
       toast({
         title:
           "Something went wrong, try logging in and out if the issue persists.",
