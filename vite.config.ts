@@ -5,6 +5,9 @@ import react from "@vitejs/plugin-react";
 
 export default defineConfig({
   plugins: [
+    // This makes typescript angry but it works (I don't want to mess with build files)
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     injectManifest({
       swSrc: "sw.js",
       swDest: "dist/sw.js",
