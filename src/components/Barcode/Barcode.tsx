@@ -1,8 +1,8 @@
 import JsBarcode from "jsbarcode";
 import { chakra } from "@chakra-ui/react";
 
-export default ({ value }) => {
-  const barcodeCallback = (el) => {
+export default ({ value }: { value: string }) => {
+  const barcodeCallback = (el: Element) => {
     if (el) {
       JsBarcode(el, value);
     }
