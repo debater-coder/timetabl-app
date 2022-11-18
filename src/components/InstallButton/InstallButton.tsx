@@ -34,7 +34,5 @@ export default function InstallButton() {
         Install
       </Button>
     </>
-  ) : (
-    ""
-  );
+  ) : null;
 }

@@ -15,10 +15,16 @@ import { useAuth } from "../../hooks/useAuth";
 import "@fontsource/poppins";
 import RefetchingIndicator from "../RefetchingIndicator";
 import InstallButton from "../InstallButton";
-import { useState } from "react";
+import React, { useState } from "react";
 import { CloseIcon } from "@chakra-ui/icons";
 
-const TimetablLogo = ({ color, loggedIn }) => (
+const TimetablLogo = ({
+  color,
+  loggedIn,
+}: {
+  color: string;
+  loggedIn: boolean;
+}) => (
   <RouterLink to={loggedIn ? "/app" : "/"}>
     <Flex align={"center"}>
       <Icon viewBox="0 0 1000 1000" boxSize={"2rem"} mr={2}>
@@ -68,7 +74,7 @@ const TimetablLogo = ({ color, loggedIn }) => (
     </Flex>
   </RouterLink>
 );
-const GithubBTN = ({ iconColor }) => (
+const GithubBTN = ({ iconColor }: { iconColor: string }) => (
   <a href="https://github.com/debater-coder/timetabl-app">
     <IconButton
       mr={1}
@@ -79,7 +85,15 @@ const GithubBTN = ({ iconColor }) => (
     />
   </a>
 );
-const DarkModeBTN = ({ toggleColorMode, iconColor, icon }) => (
+const DarkModeBTN = ({
+  toggleColorMode,
+  iconColor,
+  icon,
+}: {
+  toggleColorMode: () => void;
+  iconColor: string;
+  icon: React.ReactElement;
+}) => (
   <IconButton
     onClick={toggleColorMode}
     aria-label="Dark mode"
@@ -89,7 +103,13 @@ const DarkModeBTN = ({ toggleColorMode, iconColor, icon }) => (
     colorScheme={"gray"}
   />
 );
-const LogoutBTN = ({ logout, iconColor }) => {
+const LogoutBTN = ({
+  logout,
+  iconColor,
+}: {
+  logout: () => void;
+  iconColor: string;
+}) => {
   const [loggingOut, setLoggingOut] = useState(false);
   return (
     <Tooltip label={"Logout"}>
@@ -109,7 +129,13 @@ const LogoutBTN = ({ logout, iconColor }) => {
   );
 };
 
-const SettingsBTN = ({ iconColor, pathname }) => (
+const SettingsBTN = ({
+  iconColor,
+  pathname,
+}: {
+  iconColor: string;
+  pathname: string;
+}) => (
   <Tooltip
     label={pathname.startsWith("/app/settings") ? "Exit Settings" : "Settings"}
   >
