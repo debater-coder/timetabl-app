@@ -35,6 +35,9 @@ export function Compose(props: {
   );
 }
 
+/**
+ * Create a new component which adds props to an existing component.
+ */
 export function withProps(
   Component: React.JSXElementConstructor<React.PropsWithChildren<unknown>>,
   addedProps: Record<string, unknown>
