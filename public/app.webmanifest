@@ -4,17 +4,17 @@
   "start_url": "/",
   "icons": [
     {
-      "src": "favicon.svg",
+      "src": "logos/favicon.svg",
       "sizes": "any",
       "purpose": "any"
     },
     {
-      "src": "maskable_icon.png",
+      "src": "logos/maskable_icon.png",
       "sizes": "1024x1024",
       "purpose": "maskable"
     },
     {
-      "src": "maskable_icon_x512.png",
+      "src": "logos/maskable_icon_x512.png",
       "sizes": "512x512",
       "purpose": "maskable"
     }
@@ -27,19 +27,22 @@
       "name": "Open Home",
       "short_name": "Home",
       "description": "View the periods you have today",
-      "url": "/app"
+      "url": "/app",
+      "icons": [{ "src": "/icons/home.png", "sizes": "96x96" }]
     },
     {
       "name": "Open Barcodes",
       "short_name": "Barcodes",
       "description": "Displays your barcodes for scanning in to the school",
-      "url": "/app/barcodes"
+      "url": "/app/barcodes",
+      "icons": [{ "src": "/icons/barcodes.png", "sizes": "96x96" }]
     },
     {
       "name": "Open Announcements",
       "short_name": "Announcements",
       "description": "View your Daily Notices and Timetabl News",
-      "url": "/app/announcements"
+      "url": "/app/announcements",
+      "icons": [{ "src": "/icons/announcements.png", "sizes": "96x96" }]
     }
   ]
 }
