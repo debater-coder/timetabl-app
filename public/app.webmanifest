@@ -1,7 +1,7 @@
 {
   "name": "Timetabl",
   "display": "standalone",
-  "start_url": "/",
+  "start_url": "/app",
   "icons": [
     {
       "src": "logos/favicon.svg",
