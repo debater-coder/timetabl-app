@@ -9,7 +9,7 @@ export default <T,>(
 ): [() => T, (props: T) => JSX.Element] => {
   const Context = createContext(defaultValue);
 
-  const Provider = withProps(Context.Provider, hook());
+  const Provider = withProps(Context.Provider, { value: hook() });
 
   return [() => useContext(Context), Provider];
 };
@@ -18,29 +18,26 @@ export default <T,>(
  *
  *  Credit to: https://stackoverflow.com/questions/51504506/too-many-react-context-providers
  */
-export const Compose = ({
-  components = [],
-  children,
-}: {
-  components: React.JSXElementConstructor<{ children: React.ReactNode }>[];
+export function Compose(props: {
+  components: Array<
+    React.JSXElementConstructor<React.PropsWithChildren<unknown>>
+  >;
   children: React.ReactNode;
-}) => (
-  <>
-    {components.reduceRight(
-      (
-        acc,
-        Comp: React.JSXElementConstructor<{ children: React.ReactNode }>
-      ) => {
-        return <Comp>{acc}</Comp>;
-      },
-      children
-    )}
-  </>
-);
+}) {
+  const { components = [], children } = props;
 
-export const withProps = <P,>(
-  Component: (arg0: unknown) => React.ReactElement,
-  addedProps: P
-) => {
-  return (props: P) => <Component {...props} {...addedProps} />;
-};
+  return (
+    <>
+      {components.reduceRight((acc, Comp) => {
+        return <Comp>{acc}</Comp>;
+      }, children)}
+    </>
+  );
+}
+
+export function withProps(
+  Component: React.JSXElementConstructor<React.PropsWithChildren<unknown>>,
+  addedProps: Record<string, unknown>
+) {
+  return () => <Component {...addedProps} />;
+}
