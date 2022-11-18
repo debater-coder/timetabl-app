@@ -1,3 +1,4 @@
+import type { VercelRequest, VercelResponse } from "@vercel/node";
 /* eslint-disable @typescript-eslint/no-var-requires */
 const fetch = require("node-fetch");
 
@@ -7,7 +8,7 @@ const fetch = require("node-fetch");
 // UNAUTHORISED: User is not authorised to access the API, prompt the user to log in again
 // OTHER_ERROR: Some other error has occurred, tell the user to try again or try logging out and in again
 
-export default async function handler(req, res) {
+export default async function handler(req: VercelRequest, res: VercelResponse) {
   const { access_token, refresh_token } = req.cookies;
   const { endpoint, options } = req.body;
 

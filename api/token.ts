@@ -1,8 +1,12 @@
+import type { VercelRequest, VercelResponse } from "@vercel/node";
 /* eslint-disable @typescript-eslint/no-var-requires */
 const fetch = require("node-fetch");
 const cookie = require("cookie");
 
-export default async function handler(request, response) {
+export default async function handler(
+  request: VercelRequest,
+  response: VercelResponse
+) {
   switch (request.method) {
     case "POST":
       try {
@@ -133,7 +137,7 @@ export default async function handler(request, response) {
         }),
       ]);
 
-      response.status(200).send();
+      response.status(200).send("");
       break;
     }
   }
