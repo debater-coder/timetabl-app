@@ -1,12 +1,7 @@
-import type { VercelRequest, VercelResponse } from "@vercel/node";
-/* eslint-disable @typescript-eslint/no-var-requires */
-const fetch = require("node-fetch");
-const cookie = require("cookie");
+import fetch from "node-fetch";
+import cookie from "cookie";
 
-export default async function handler(
-  request: VercelRequest,
-  response: VercelResponse
-) {
+export default async function handler(request, response) {
   switch (request.method) {
     case "POST":
       try {
