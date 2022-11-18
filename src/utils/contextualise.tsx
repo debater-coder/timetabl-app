@@ -1,4 +1,4 @@
-import React, { createContext, ReactNode, useContext } from "react";
+import React, { createContext, useContext } from "react";
 
 /**
  * 'Globalises' a hook by wrapping it in a context provider.
@@ -6,10 +6,10 @@ import React, { createContext, ReactNode, useContext } from "react";
 export default <T,>(
   hook: () => T,
   defaultValue?: T
-): [() => T, (props: T) => JSX.Element] => {
+): [() => T, (props: { children: React.ReactNode }) => JSX.Element] => {
   const Context = createContext(defaultValue);
-  const Provider = (props: { children: ReactNode }) => (
-    <Context.Provider value={hook()}>{props.children}</Context.Provider>
+  const Provider = ({ children }: { children: React.ReactNode }) => (
+    <Context.Provider value={hook()}>{children}</Context.Provider>
   );
   return [() => useContext(Context), Provider];
 };
