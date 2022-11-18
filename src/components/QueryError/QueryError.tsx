@@ -6,7 +6,7 @@ import {
   Flex,
 } from "@chakra-ui/react";
 
-export default ({ error }) => (
+export default ({ error }: { error: { message: string } }) => (
   <Flex>
     <Alert status="error" rounded={5} m={6}>
       <AlertIcon />
