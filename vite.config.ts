@@ -29,5 +29,4 @@ export default defineConfig({
     react(),
   ],
   build: { sourcemap: true },
-  root: "src",
 });
