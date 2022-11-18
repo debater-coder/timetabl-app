@@ -1,0 +1,45 @@
+{
+  "name": "Timetabl",
+  "display": "standalone",
+  "start_url": "/",
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "sizes": "any",
+      "purpose": "any"
+    },
+    {
+      "src": "maskable_icon.png",
+      "sizes": "1024x1024",
+      "purpose": "maskable"
+    },
+    {
+      "src": "maskable_icon_x512.png",
+      "sizes": "512x512",
+      "purpose": "maskable"
+    }
+  ],
+  "background_color": "#6eb3ee",
+  "theme_colour": "#6eb3ee",
+  "description": "Timetabl is one place for your timetable, daily notices and homework.",
+  "shortcuts": [
+    {
+      "name": "Open Home",
+      "short_name": "Home",
+      "description": "View the periods you have today",
+      "url": "/app"
+    },
+    {
+      "name": "Open Barcodes",
+      "short_name": "Barcodes",
+      "description": "Displays your barcodes for scanning in to the school",
+      "url": "/app/barcodes"
+    },
+    {
+      "name": "Open Announcements",
+      "short_name": "Announcements",
+      "description": "View your Daily Notices and Timetabl News",
+      "url": "/app/announcements"
+    }
+  ]
+}
