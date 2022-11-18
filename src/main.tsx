@@ -63,7 +63,7 @@ const persister = createSyncStoragePersister({
 const ChakraWrapper = ({ ...props }) => {
   const { primary } = useSettings();
 
-  const theme = themeGen(primary);
+  const theme = themeGen(primary as keyof typeof themeGen);
 
   return <ChakraProvider theme={theme} {...props} />;
 };
