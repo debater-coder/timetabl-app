@@ -1,14 +1,16 @@
+import { CLSMetric } from "web-vitals";
+
 const vitalsUrl = "https://vitals.vercel-analytics.com/v1/vitals";
 
 function getConnectionSpeed() {
-  return "connection" in navigator &&
-    navigator["connection"] &&
-    "effectiveType" in navigator["connection"]
-    ? navigator["connection"]["effectiveType"]
-    : "";
+  // This line makes all of my tools angry, and I can't find any type definitions for this, so I just got them to ignore it.
+  // prettier-ignore
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  return "connection" in navigator && "effectiveType" in navigator["connection"] ? navigator["connection"]["effectiveType"] : "";
 }
 
-export function sendToVercelAnalytics(metric) {
+export function sendToVercelAnalytics(metric: CLSMetric) {
   const analyticsId = import.meta.env.VITE_VERCEL_ANALYTICS_ID;
   if (!analyticsId) {
     return;
