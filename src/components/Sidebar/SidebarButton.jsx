@@ -1,7 +1,7 @@
 import { Box, Flex, Text, useColorModeValue, useToken } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 
-export default ({ name, icon: Icon, active, sidebar, mirrored }) => {
+export default ({ name, icon: Icon, active, sidebar, mirrored = false }) => {
   const hoverColor = useColorModeValue("gray.100", "gray.700");
   const [secondary] = useToken("colors", ["primary.300"]);
   const MotionFlex = motion(Flex);

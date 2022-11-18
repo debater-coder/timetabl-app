@@ -2,7 +2,13 @@ import { Link } from "react-router-dom";
 import SidebarButton from "./SidebarButton";
 import { Barcode, House, Megaphone } from "phosphor-react";
 
-export default ({ pathname, sidebar }) => (
+export default ({
+  pathname,
+  sidebar,
+}: {
+  pathname: string;
+  sidebar: boolean;
+}) => (
   <>
     <Link to={"/app"}>
       <SidebarButton
