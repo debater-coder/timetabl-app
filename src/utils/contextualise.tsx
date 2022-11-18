@@ -8,9 +8,7 @@ export default <T,>(
   defaultValue?: T
 ): [() => T, (props: T) => JSX.Element] => {
   const Context = createContext(defaultValue);
-
   const Provider = withProps(Context.Provider, { value: hook() });
-
   return [() => useContext(Context), Provider];
 };
 
