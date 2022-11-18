@@ -8,33 +8,11 @@ import {
 import "@fontsource/poppins";
 import { useState } from "react";
 import { get, update } from "idb-keyval";
-import compareObjects from "../../../utils/compareObjects";
 import { Barcode as BarcodeIcon } from "phosphor-react";
 import SavedBarcode from "./SavedBarcode";
 import YourBarcode from "./YourBarcode";
 import SaveBarcodeForm from "./SaveBarcodeForm";
 import Empty from "../../../components/Empty";
-
-// const Empty = () => {
-//   return (
-//     <Box textAlign="center" py={10} px={6}>
-//       <Icon boxSize={"50px"} color={"primary.500"} as={BarcodeIcon} />
-//       <Heading
-//         as="h2"
-//         size="xl"
-//         mt={1}
-//         mb={2}
-//         fontFamily={"Poppins, sans-serif"}
-//       >
-//         You have no saved barcodes.
-//       </Heading>
-//       <Text color={"gray.500"}>
-//         Type in a name for your barcode and its value, then click the{" "}
-//         <b>Add Barcode</b> button to save it.
-//       </Text>
-//     </Box>
-//   );
-// };
 
 export default () => {
   const addBarcode = async (name, value) => {
@@ -54,9 +32,7 @@ export default () => {
 
   const getBarcodes = async () => {
     const newBarcodes = await get("barcodes");
-    if (!compareObjects(newBarcodes, barcodes)) {
-      setBarcodes(newBarcodes ?? []);
-    }
+    setBarcodes(newBarcodes ?? []);
   };
 
   const deleteBarcode = async (name) => {
