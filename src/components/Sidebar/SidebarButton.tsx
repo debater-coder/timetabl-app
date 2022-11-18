@@ -1,5 +1,6 @@
 import { Box, Flex, Text, useColorModeValue, useToken } from "@chakra-ui/react";
 import { motion } from "framer-motion";
+import { IconWeight } from "phosphor-react";
 
 export default ({
   name,
@@ -13,7 +14,7 @@ export default ({
     React.PropsWithChildren<{
       size: string | number;
       mirrored: boolean;
-      weight: string;
+      weight: IconWeight;
     }>
   >;
   active?: boolean;

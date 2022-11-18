@@ -9,7 +9,8 @@
     "preview": "vite preview",
     "prettier": "npx prettier --write .",
     "vdev": "vercel dev --local-config ./vercel-dev.json",
-    "prettier-watch": "onchange \"**/*\" -- prettier --write --ignore-unknown {{changed}}"
+    "prettier-watch": "onchange \"**/*\" -- prettier --write --ignore-unknown {{changed}}",
+    "compile": "tsc --pretty"
   },
   "repository": {
     "type": "git",
