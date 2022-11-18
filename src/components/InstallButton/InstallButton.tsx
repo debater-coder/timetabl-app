@@ -2,14 +2,17 @@ import { Button, Icon, Tooltip } from "@chakra-ui/react";
 import { useRef, useState } from "react";
 
 export default function InstallButton() {
-  let deferredPrompt = useRef(null);
+  const deferredPrompt = useRef<BeforeInstallPromptEvent>(null);
   const [showInstall, setShowInstall] = useState(false);
 
-  window.addEventListener("beforeinstallprompt", (e) => {
-    e.preventDefault();
-    deferredPrompt.current = e;
-    setShowInstall(true);
-  });
+  window.addEventListener(
+    "beforeinstallprompt",
+    (e: BeforeInstallPromptEvent) => {
+      e.preventDefault();
+      deferredPrompt.current = e;
+      setShowInstall(true);
+    }
+  );
 
   return showInstall ? (
     <>
@@ -23,7 +26,9 @@ export default function InstallButton() {
         mr={1}
         onClick={async () => {
           deferredPrompt.current.prompt();
+          await deferredPrompt.current.userChoice;
           deferredPrompt.current = null;
+          setShowInstall(false);
         }}
       >
         Install
