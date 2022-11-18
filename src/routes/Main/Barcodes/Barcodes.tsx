@@ -14,8 +14,15 @@ import YourBarcode from "./YourBarcode";
 import SaveBarcodeForm from "./SaveBarcodeForm";
 import Empty from "../../../components/Empty";
 
+export type Barcode = {
+  name: string;
+  value: string;
+};
+
 export default () => {
-  const addBarcode = async (name, value) => {
+  const [barcodes, setBarcodes] = useState<Barcode[]>([]);
+
+  const addBarcode = async (name: string, value: string) => {
     setBarcodes((barcodes) => [...barcodes, { name, value }]);
     await update("barcodes", (barcodes) => {
       if (!barcodes) {
@@ -35,16 +42,14 @@ export default () => {
     setBarcodes(newBarcodes ?? []);
   };
 
-  const deleteBarcode = async (name) => {
+  const deleteBarcode = async (name: string) => {
     setBarcodes((barcodes) =>
       barcodes.filter((barcode) => barcode.name !== name)
     );
-    await update("barcodes", (barcodes) =>
+    await update("barcodes", (barcodes: Barcode[]) =>
       barcodes.filter((barcode) => barcode.name !== name)
     );
   };
-
-  const [barcodes, setBarcodes] = useState([]);
 
   getBarcodes();
 

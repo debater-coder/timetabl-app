@@ -21,14 +21,24 @@ import { useRef } from "react";
 import Barcode from "../../../components/Barcode";
 import useDownloadBarcode from "../../../hooks/useDownloadBarcode";
 
-export default ({ name, value, onDelete, readOnly }) => {
+export default ({
+  name,
+  value,
+  onDelete,
+  readOnly = false,
+}: {
+  name: string;
+  value: string;
+  onDelete?: (name: string) => void;
+  readOnly?: boolean;
+}) => {
   const wakeLock = useRef(null);
 
   const { isOpen, onOpen, onClose } = useDisclosure({
     onOpen: async () => {
       if ("wakeLock" in navigator) {
         try {
-          wakeLock.current = await navigator.wakeLock.request();
+          wakeLock.current = await navigator.wakeLock.request("screen");
         } catch (err) {
           console.error(`${err.name}, ${err.message}`);
         }
@@ -53,12 +63,14 @@ export default ({ name, value, onDelete, readOnly }) => {
               ml={2}
               icon={<ArrowsOutSimple size={20} />}
               onClick={onOpen}
+              aria-label="Fullscreen"
             />
             <IconButton
               variant={"outline"}
               mx={2}
               icon={<Download />}
               onClick={() => useDownloadBarcode(value)}
+              aria-label="Download"
             />
             {!readOnly && <CloseButton onClick={() => onDelete(name)} />}
           </Flex>

@@ -4,7 +4,8 @@
     "moduleResolution": "Node",
     "target": "ES2020",
     "jsx": "react-jsx",
-    "noImplicitAny": true
+    "noImplicitAny": true,
+    "types": ["dom-screen-wake-lock"]
   },
   "include": ["src"]
 }

@@ -220,7 +220,7 @@ export const useProfile = <TData>(
 ) => useSBHSQuery("details/userinfo.json", {}, enabled, select);
 
 export const useStudentID = <TData>(
-  enabled: boolean,
+  enabled?: boolean,
   select?: (studentId: string) => TData
 ) =>
   useProfile(enabled, ({ studentId }) =>

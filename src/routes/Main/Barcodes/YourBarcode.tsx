@@ -5,7 +5,7 @@ import SavedBarcode from "./SavedBarcode";
 
 export default () => (
   <QueriesHandler queries={{ studentID: useStudentID() }}>
-    {(isLoaded, { studentID }) => (
+    {(isLoaded, { studentID }: { studentID: string }) => (
       <Flex direction={"column"} align="center" gap={3}>
         <Skeleton isLoaded={isLoaded} rounded={5} minH={10}>
           <SavedBarcode name="My ID" value={studentID} readOnly />
