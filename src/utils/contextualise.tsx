@@ -42,5 +42,7 @@ export function withProps(
   Component: React.JSXElementConstructor<React.PropsWithChildren<unknown>>,
   addedProps: Record<string, unknown>
 ) {
-  return () => <Component {...addedProps} />;
+  return (props: Record<string, unknown>) => (
+    <Component {...addedProps} {...props} />
+  );
 }
