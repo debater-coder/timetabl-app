@@ -186,7 +186,12 @@ export default function Announcements() {
           />
         </InputGroup>
         <Spacer />
-        <FormControl maxW={"fit-content"} display={"flex"} alignItems="center">
+        <FormControl
+          maxW={"fit-content"}
+          display={"flex"}
+          alignItems="center"
+          ml={"10px"}
+        >
           <FormLabel mb="0">Filter</FormLabel>
           <Select
             onChange={(event) => setFilter(event.target.value)}
