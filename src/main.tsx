@@ -24,9 +24,10 @@ if (window.location.host === "timetabl.vercel.app") {
   window.location.href = "https://www.timetabl.app";
 }
 
-/**
- * QUERY CLIENT INITIALISATION
- */
+// ===========================
+// QUERY CLIENT INITIALISATION
+// ===========================
+
 const { ToastContainer, toast } = createStandaloneToast();
 
 export { toast };
@@ -57,9 +58,9 @@ const persister = createSyncStoragePersister({
   storage: window.localStorage,
 });
 
-/**
- * RENDER ROOT
- */
+// ===========
+// RENDER ROOT
+// ===========
 
 /**
  * A wrapper around the `ChakraProvider` component which generates the theme from settings and passes it to the the `ChakraProvider`.
@@ -100,9 +101,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   </Compose>
 );
 
-/**
- * POST RENDER TASKS
- */
+// =================
+// POST RENDER TASKS
+// =================
 
 // Register service worker
 registerSW();

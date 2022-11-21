@@ -7,9 +7,9 @@ import HTTPError from "../errors/HTTPError";
 import _ from "lodash";
 
 const useAuth = () => {
-  /**
-   * STATE
-   */
+  // =====
+  // STATE
+  // =====
   const [loggedIn, setLoggedIn] = useState(false);
   const [loading, setLoading] = useState(false);
   const [shouldRedirect, setShouldRedirect] = useState(false);
@@ -17,9 +17,10 @@ const useAuth = () => {
   const [shouldLogin, setShouldLogin] = useState(false);
   const queryClient = useQueryClient();
 
-  /**
-   * PKCE HELPERS
-   */
+  // ============
+  // PKCE HELPERS
+  // ============
+
   // Generate a secure random string using the browser crypto functions
   const generateRandomString = () => {
     const array = new Uint32Array(28);
@@ -55,9 +56,9 @@ const useAuth = () => {
     return base64urlencode(hashed);
   };
 
-  /**
-   * PUBLIC FUNCTIONS
-   */
+  // ================
+  // PUBLIC FUNCTIONS
+  // ================
 
   const login = async () => {
     // Create and store a random "state" value
@@ -126,9 +127,9 @@ const useAuth = () => {
     }
   }, 1000 * 60);
 
-  /**
-   * COMPONENT_DID_MOUNT
-   */
+  // ===================
+  // COMPONENT_DID_MOUNT
+  // ===================
   useEffect(() => {
     // Get query
     const query = Object.fromEntries(
