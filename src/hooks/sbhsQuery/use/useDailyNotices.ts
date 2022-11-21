@@ -34,7 +34,7 @@ export type TimetablNotice = {
 
 export const useDailyNotices = (enabled?: boolean) =>
   useSBHSQuery(
-    "details/userinfo.json",
+    "dailynews/list.json",
     fetchDailyNews,
     {},
     (data) =>
