@@ -7,9 +7,12 @@ import {
   AlertTitle,
   AlertDescription,
   Box,
+  Button,
 } from "@chakra-ui/react";
+import { useAuth } from "../../../hooks/useAuth";
 
 export default () => {
+  const { refresh } = useAuth();
   return (
     <>
       <Alert status="warning" rounded={10}>
@@ -42,6 +45,7 @@ export default () => {
           isChecked={localStorage.getItem("debug") === "true"}
         />
       </FormControl>
+      <Button onClick={refresh}>Force Refresh Token</Button>
     </>
   );
 };

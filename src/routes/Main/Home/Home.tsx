@@ -7,11 +7,6 @@ import {
   useColorModeValue,
   useToken,
 } from "@chakra-ui/react";
-import {
-  TimetablDTT,
-  TimetablPeriod,
-  useDTT,
-} from "../../../hooks/useSBHSQuery";
 import "@fontsource/poppins";
 import { motion, LayoutGroup, AnimatePresence } from "framer-motion";
 import QueriesHandler from "../../../components/QueriesHandler";
@@ -22,6 +17,11 @@ import Period from "./Period";
 import NextPeriod from "./NextPeriod";
 import Empty from "./../../../components/Empty";
 import { GiFrenchFries } from "react-icons/gi";
+import { useDTT } from "../../../hooks/sbhsQuery/use";
+import {
+  TimetablDTT,
+  TimetablPeriod,
+} from "../../../hooks/sbhsQuery/use/useDTT";
 
 type HomeViewProps = {
   isLoaded: boolean;
@@ -158,7 +158,7 @@ export default function Home() {
   const [date, setDate] = useState<string | undefined>();
 
   return (
-    <QueriesHandler queries={{ dtt: useDTT(date), initialDtt: useDTT() }}>
+    <QueriesHandler queries={{ dtt: useDTT(true, date), initialDtt: useDTT() }}>
       {(
         isLoaded: boolean,
         data: {

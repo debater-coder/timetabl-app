@@ -1,6 +1,6 @@
 import { DateTime } from "luxon";
 import { useEffect } from "react";
-import { TimetablPeriod } from "../../../hooks/useSBHSQuery";
+import { TimetablPeriod } from "../../../hooks/sbhsQuery/use/useDTT";
 import Period from "./Period";
 
 type NextPeriodProps = {

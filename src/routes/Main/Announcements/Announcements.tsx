@@ -23,8 +23,6 @@ import {
   FormControl,
 } from "@chakra-ui/react";
 import QueriesHandler from "../../../components/QueriesHandler";
-import { NoticeYear, useDailyNotices } from "../../../hooks/useSBHSQuery";
-import { TimetablNotices } from "../../../hooks/useSBHSQuery";
 import "@fontsource/poppins";
 import { Prose } from "@nikolovlazar/chakra-ui-prose";
 import DOMPurify from "dompurify";
@@ -32,8 +30,13 @@ import linkifyHtml from "linkify-html";
 import { useState } from "react";
 import { DateTime } from "luxon";
 import { Search2Icon } from "@chakra-ui/icons";
+import {
+  TimetablNotice,
+  NoticeYear,
+  useDailyNotices,
+} from "../../../hooks/sbhsQuery/use/useDailyNotices";
 
-const timetablNews: TimetablNotices = [
+const timetablNews: TimetablNotice[] = [
   {
     title: "Welcome to Timetabl News!",
     content: "Keep checking back here for the latest news.",
@@ -52,7 +55,7 @@ const timetablNews: TimetablNotices = [
 ];
 
 const filterNotices = (
-  notices: TimetablNotices,
+  notices: TimetablNotice[],
   filter: NoticeYear,
   query: string
 ) =>
@@ -135,7 +138,7 @@ function DailyNotices({
 }) {
   return (
     <QueriesHandler queries={{ notices: useDailyNotices() }}>
-      {(isLoaded, { notices }: { notices: TimetablNotices }) => (
+      {(isLoaded, { notices }: { notices: TimetablNotice[] }) => (
         <Skeleton isLoaded={isLoaded} rounded={5} minH={10} minW={40}>
           <Flex direction={"column"} align="center" gap={8}>
             {filterNotices(notices, filter, query)?.map((notice, index) => (

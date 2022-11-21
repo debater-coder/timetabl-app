@@ -17,7 +17,7 @@ import {
 import { motion } from "framer-motion";
 import { DateTime } from "luxon";
 import { useState } from "react";
-import { TimetablPeriod } from "../../../hooks/useSBHSQuery";
+import { TimetablPeriod } from "../../../hooks/sbhsQuery/use/useDTT";
 import useSettings from "../../../hooks/useSettings";
 
 type PeriodProps = {

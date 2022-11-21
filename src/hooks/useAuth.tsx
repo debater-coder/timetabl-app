@@ -4,6 +4,7 @@ import config from "../config.js";
 import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "../main";
 import HTTPError from "../errors/HTTPError";
+import _ from "lodash";
 
 const useAuth = () => {
   /**
@@ -96,7 +97,7 @@ const useAuth = () => {
     setLoggedIn(false);
   };
 
-  const refresh = async () => {
+  const refresh = _.throttle(async () => {
     setRefreshing(true);
     try {
       const res = await fetch("/api/token", {
@@ -122,7 +123,7 @@ const useAuth = () => {
     } finally {
       setRefreshing(false);
     }
-  };
+  }, 1000 * 60);
 
   /**
    * COMPONENT_DID_MOUNT
