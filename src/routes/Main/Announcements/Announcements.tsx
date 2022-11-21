@@ -35,6 +35,7 @@ import {
   NoticeYear,
   useDailyNotices,
 } from "../../../hooks/sbhsQuery/use/useDailyNotices";
+import { usePersistentState } from "../../../hooks/useSettings";
 
 const timetablNews: TimetablNotice[] = [
   {
@@ -157,7 +158,10 @@ export default function Announcements() {
     setTabIndex(index);
   };
 
-  const [filter, setFilter] = useState(NoticeYear.ALL);
+  const [filter, setFilter] = usePersistentState(
+    "announcementsFilter",
+    "" + NoticeYear.ALL
+  );
   const [query, setQuery] = useState("");
 
   return (
@@ -185,7 +189,7 @@ export default function Announcements() {
         <FormControl maxW={"fit-content"} display={"flex"} alignItems="center">
           <FormLabel mb="0">Filter</FormLabel>
           <Select
-            onChange={(event) => setFilter(parseInt(event.target.value))}
+            onChange={(event) => setFilter(event.target.value)}
             value={filter}
           >
             <option value={NoticeYear.ALL}>All</option>
@@ -214,14 +218,14 @@ export default function Announcements() {
             <TabPanel key={tab}>
               {tab === 1 ? (
                 <Flex direction={"column"} align="center" gap={8}>
-                  {filterNotices(timetablNews, filter, query)?.map(
+                  {filterNotices(timetablNews, parseInt(filter), query)?.map(
                     (notice, index) => (
                       <Announcement key={index} {...notice} query={query} />
                     )
                   )}
                 </Flex>
               ) : (
-                <DailyNotices filter={filter} query={query} />
+                <DailyNotices filter={parseInt(filter)} query={query} />
               )}
             </TabPanel>
           ))}
