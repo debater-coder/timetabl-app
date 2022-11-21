@@ -49,7 +49,6 @@ export default () => {
         maxW={{ base: "100%", md: "calc(100% - 128px)" }}
         ml={{ base: 0, md: "128px" }}
         overflowY={"auto"}
-        bg={localStorage.getItem("debug") === "true" && "orange"}
       >
         <Outlet />
       </Flex>

@@ -16,6 +16,7 @@ import reportWebVitals from "./reportWebVitals";
 import { sendToVercelAnalytics } from "./vitals";
 import useSettings, { SettingsProvider } from "./hooks/useSettings";
 import { inject } from "@vercel/analytics";
+import { log } from "./utils/log";
 
 // Redirect to new domain if using old domain
 if (window.location.host === "timetabl.vercel.app") {
@@ -110,3 +111,18 @@ reportWebVitals(sendToVercelAnalytics);
 inject({
   beforeSend: (event) => ({ ...event, url: "https://www.timetabl.app" }),
 });
+
+// Render welcome message for devs
+log(
+  "%cWelcome to Timetabl",
+  `color: white; border-radius: 10px; background-color: #448ae6; padding: 5px; font-size: 2rem`
+);
+
+log(
+  "%cSource code can be found on https://github.com/debater-coder/timetabl-app",
+  "font-size: 1rem"
+);
+
+console.log(
+  "SELF-XSS WARNING - PLEASE DON'T DO PASTE ANYTHING INTO HERE FROM PLACES YOU DON'T TRUST!!!"
+);
