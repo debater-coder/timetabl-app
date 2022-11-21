@@ -6,6 +6,9 @@ import { toast } from "../main";
 import HTTPError from "../errors/HTTPError";
 import _ from "lodash";
 
+/**
+ * A hook to access authentication related state, and perform authentication operations (e.g. login, logout)
+ */
 const useAuth = () => {
   // =====
   // STATE

@@ -1,6 +1,9 @@
 import { useState } from "react";
 import contextualise from "../utils/contextualise";
 
+/**
+ * Creates state which persists in `localStorage`
+ */
 export const usePersistentState = (
   name: string,
   initalValue: string

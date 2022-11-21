@@ -1,5 +1,8 @@
 import JsBarcode from "jsbarcode";
 
+/**
+ * Download a `png` image of a barcode from a string
+ */
 export default (value: string) => {
   const canvas = document.createElement("canvas");
   JsBarcode(canvas, value, {
