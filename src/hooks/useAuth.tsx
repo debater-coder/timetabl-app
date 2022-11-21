@@ -14,6 +14,7 @@ const useAuth = () => {
   const [loading, setLoading] = useState(false);
   const [shouldRedirect, setShouldRedirect] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
+  const [shouldLogin, setShouldLogin] = useState(false);
   const queryClient = useQueryClient();
 
   /**
@@ -206,6 +207,8 @@ const useAuth = () => {
     shouldRedirect,
     refresh,
     refreshing,
+    shouldLogin,
+    setShouldLogin,
   };
 };
 

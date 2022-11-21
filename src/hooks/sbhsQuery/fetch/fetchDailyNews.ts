@@ -21,11 +21,13 @@ export type APIDailyNews = {
 export const fetchDailyNews = async (
   options: Record<string, unknown>,
   refresh: () => void,
-  signal: AbortSignal
+  signal: AbortSignal,
+  setShouldLogin?: (shouldLogin: boolean) => void
 ) =>
   await fetchSBHSAPI<APIDailyNews>(
     "dailynews/list.json",
     options,
     refresh,
-    signal
+    signal,
+    setShouldLogin
   );

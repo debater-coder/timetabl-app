@@ -14,7 +14,7 @@ import { Link as RouterLink, useLocation } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 import "@fontsource/poppins";
 import RefetchingIndicator from "../RefetchingIndicator";
-import InstallButton from "../InstallButton";
+import { NavButton } from "../NavButton";
 import React, { useState } from "react";
 import { CloseIcon } from "@chakra-ui/icons";
 
@@ -186,7 +186,7 @@ export default () => {
       <Flex align="center">
         {loggedIn ? (
           <>
-            <InstallButton />
+            <NavButton />
             <SettingsBTN iconColor={iconColor} pathname={pathname} />
             <LogoutBTN logout={logout} iconColor={iconColor} />
           </>

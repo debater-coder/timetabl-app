@@ -1,7 +1,8 @@
 import { Button, Icon, Tooltip } from "@chakra-ui/react";
 import { useRef, useState } from "react";
+import { useAuth } from "../../hooks/useAuth";
 
-export default function InstallButton() {
+const InstallButton = () => {
   const deferredPrompt = useRef<BeforeInstallPromptEvent>(null);
   const [showInstall, setShowInstall] = useState(false);
 
@@ -35,4 +36,16 @@ export default function InstallButton() {
       </Button>
     </>
   ) : null;
-}
+};
+
+export const NavButton = () => {
+  const { shouldLogin, login } = useAuth();
+
+  return shouldLogin ? (
+    <Button size="xs" mr={2} colorScheme="orange" onClick={login}>
+      Log in for the latest info
+    </Button>
+  ) : (
+    <InstallButton />
+  );
+};

@@ -14,11 +14,13 @@ export type APIProfile = {
 export const fetchUserinfo = async (
   options?: Record<string, unknown>,
   refresh?: () => void,
-  signal?: AbortSignal
+  signal?: AbortSignal,
+  setShouldLogin?: (shouldLogin: boolean) => void
 ) =>
   await fetchSBHSAPI<APIProfile>(
     "details/userinfo.json",
     options,
     refresh,
-    signal
+    signal,
+    setShouldLogin
   );

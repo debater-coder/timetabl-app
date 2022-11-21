@@ -1,5 +1,6 @@
 import HTTPError from "../../../errors/HTTPError";
 import NetworkError from "../../../errors/NetworkError";
+import { UnauthorizedError } from "../../../errors/UnauthorisedError";
 
 /**
  * Possible SBHS API endpoints
@@ -28,7 +29,9 @@ export const fetchSBHSAPI = async <TSBHSAPIData>(
   endpoint: SBHSAPIEndpoint,
   options?: Record<string, unknown>,
   refresh?: () => void,
-  signal?: AbortSignal
+  signal?: AbortSignal,
+  setShouldLogin?: (shouldLogin: boolean) => void,
+  depth = 0
 ): Promise<Awaited<TSBHSAPIData>> => {
   let res;
 
@@ -50,7 +53,20 @@ export const fetchSBHSAPI = async <TSBHSAPIData>(
     const errorText = await res.text();
 
     if (errorText === "REFRESH_TOKEN") {
-      refresh();
+      await refresh();
+      if (depth < 1) {
+        return fetchSBHSAPI(
+          endpoint,
+          options,
+          refresh,
+          signal,
+          setShouldLogin,
+          depth + 1
+        );
+      }
+    } else if (res.status === 401) {
+      setShouldLogin(true);
+      throw new UnauthorizedError();
     }
 
     throw new HTTPError(res.status);

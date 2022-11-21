@@ -17,6 +17,7 @@ import { sendToVercelAnalytics } from "./vitals";
 import useSettings, { SettingsProvider } from "./hooks/useSettings";
 import { inject } from "@vercel/analytics";
 import { log } from "./utils/log";
+import { UnauthorizedError } from "./errors/UnauthorisedError";
 
 // Redirect to new domain if using old domain
 if (window.location.host === "timetabl.vercel.app") {
@@ -39,14 +40,16 @@ const queryClient = new QueryClient({
     },
   },
   queryCache: new QueryCache({
-    onError: (error: Error) =>
-      toast({
-        title:
-          "Something went wrong, try logging in and out if the issue persists.",
-        description: error.message,
-        status: "error",
-        isClosable: true,
-      }),
+    onError: (error: Error) => {
+      if (!(error instanceof UnauthorizedError))
+        toast({
+          title:
+            "Something went wrong, try logging in and out if the issue persists.",
+          description: error.message,
+          status: "error",
+          isClosable: true,
+        });
+    },
   }),
 });
 

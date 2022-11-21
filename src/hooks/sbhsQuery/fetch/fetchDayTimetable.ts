@@ -60,11 +60,13 @@ export type APIDTT = {
 export const fetchDayTimetable = async (
   options: Record<string, unknown>,
   refresh: () => void,
-  signal: AbortSignal
+  signal: AbortSignal,
+  setShouldLogin?: (shouldLogin: boolean) => void
 ) =>
   await fetchSBHSAPI<APIDTT>(
     "timetable/daytimetable.json",
     options,
     refresh,
-    signal
+    signal,
+    setShouldLogin
   );
