@@ -59,7 +59,7 @@ export default () => {
           } catch (error) {
             toast({
               title: "Error refreshing token",
-              details: error.message,
+              description: error instanceof Error ? error.message : "",
               status: "error",
             });
           }
