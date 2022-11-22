@@ -68,6 +68,7 @@ export const DTTPeriod = ({
         </>
       }
       expandable={!!period.room}
+      clickable={!!period.room}
       expanded={!!period.room && expanded}
       onClick={setExpanded.toggle}
       expandedSize={"xs"}

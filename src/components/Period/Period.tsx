@@ -33,6 +33,7 @@ export type PeriodProps = {
   expanded?: boolean;
   expandedWeight?: string;
   width?: string;
+  clickable?: boolean;
 };
 
 export const Period = ({
@@ -54,6 +55,7 @@ export const Period = ({
   expanded,
   expandedWeight,
   width,
+  clickable,
 }: PeriodProps) => {
   const grayedOutTextColour = useColorModeValue(
     "blackAlpha.700",
@@ -84,7 +86,7 @@ export const Period = ({
           as={motion.div as As}
           w={"full"}
           layout
-          cursor={expandable && "pointer"}
+          cursor={clickable && "pointer"}
         >
           <Box w={2} roundedLeft={10} bg={colour} />
           <Flex
