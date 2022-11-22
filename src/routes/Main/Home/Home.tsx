@@ -13,8 +13,6 @@ import QueriesHandler from "../../../components/QueriesHandler";
 import { useEffect, useState } from "react";
 import { ArrowLeft, ArrowRight } from "phosphor-react";
 import { DateTime } from "luxon";
-import Period from "./Period";
-import NextPeriod from "./NextPeriod";
 import Empty from "./../../../components/Empty";
 import { GiFrenchFries } from "react-icons/gi";
 import { useDTT } from "../../../hooks/sbhsQuery/use";
@@ -22,6 +20,8 @@ import {
   TimetablDTT,
   TimetablPeriod,
 } from "../../../hooks/sbhsQuery/use/useDTT";
+import { DTTPeriod } from "../../../components/DTTPeriod";
+import NextPeriod from "./NextPeriod";
 
 type HomeViewProps = {
   isLoaded: boolean;
@@ -40,7 +40,6 @@ const HomeView = ({
   initialDate,
   initialData,
 }: HomeViewProps) => {
-  const [countdown, setCountdown] = useState("");
   const periods: TimetablPeriod[] =
     data?.periods ??
     Array(7).fill({
@@ -60,6 +59,8 @@ const HomeView = ({
       onDateChange();
     }
   }, [initialDate, date, onDateChange]);
+
+  const [countdown, setCountdown] = useState("");
 
   return (
     <LayoutGroup>
@@ -127,16 +128,10 @@ const HomeView = ({
         >
           {periods.length ? (
             periods.map((period, index) => (
-              <Period
-                periodData={period}
-                key={period["key"] ?? index + 100}
+              <DTTPeriod
+                period={period}
+                key={period.key ?? index + 100}
                 isLoaded={isLoaded}
-                date={date}
-                transition={
-                  period?.name == "Transition" ||
-                  DateTime.fromISO("15:15") <= DateTime.fromISO(period.time) ||
-                  DateTime.fromISO(period.time) <= DateTime.fromISO("09:00")
-                }
               />
             ))
           ) : (

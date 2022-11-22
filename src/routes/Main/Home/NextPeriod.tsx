@@ -1,7 +1,8 @@
 import { DateTime } from "luxon";
 import { useEffect } from "react";
 import { TimetablPeriod } from "../../../hooks/sbhsQuery/use/useDTT";
-import Period from "./Period";
+import { Period } from "../../../components/Period/Period";
+import useSettings from "../../../hooks/useSettings";
 
 type NextPeriodProps = {
   periods: TimetablPeriod[];
@@ -39,12 +40,30 @@ export default ({
     return () => clearInterval(timer);
   });
 
+  const { showTimesInsteadOfRooms, periodColours } = useSettings();
+
   return (
     <Period
       isLoaded={isLoaded}
-      periodData={nextPeriod}
-      upcoming
-      countdown={countdown}
+      colour={
+        nextPeriod.room &&
+        {
+          default: nextPeriod.colour,
+          primary: "primary.500",
+          none: "transparent",
+        }[periodColours]
+      }
+      leftContent={nextPeriod.name}
+      leftContentSize={"xs"}
+      rightContent={
+        showTimesInsteadOfRooms === "true"
+          ? nextPeriod.time
+          : nextPeriod.room ?? nextPeriod.time
+      }
+      expandedContent={<>IN {countdown}</>}
+      expandedSize={"xl"}
+      expanded
+      expandable
     />
   );
 };
