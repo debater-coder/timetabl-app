@@ -32,6 +32,7 @@ export type PeriodProps = {
   leftContentSize?: string;
   expanded?: boolean;
   expandedWeight?: string;
+  width?: string;
 };
 
 export const Period = ({
@@ -52,6 +53,7 @@ export const Period = ({
   leftContentSize,
   expanded,
   expandedWeight,
+  width,
 }: PeriodProps) => {
   const grayedOutTextColour = useColorModeValue(
     "blackAlpha.700",
@@ -63,6 +65,7 @@ export const Period = ({
       mx={!transition && 1}
       mb={!transition && 0.5}
       isLoaded={isLoaded}
+      width={width}
     >
       <Tooltip
         label={<Text fontSize={"xs"}>Keep hovering to expand</Text>}

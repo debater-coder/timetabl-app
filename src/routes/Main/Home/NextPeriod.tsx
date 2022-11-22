@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { TimetablPeriod } from "../../../hooks/sbhsQuery/use/useDTT";
 import { Period } from "../../../components/Period/Period";
 import useSettings from "../../../hooks/useSettings";
+import { useToken, useColorModeValue } from "@chakra-ui/react";
 
 type NextPeriodProps = {
   periods: TimetablPeriod[];
@@ -54,7 +55,7 @@ export default ({
         }[periodColours]
       }
       leftContent={nextPeriod.name}
-      leftContentSize={"xs"}
+      leftContentSize={"lg"}
       rightContent={
         showTimesInsteadOfRooms === "true"
           ? nextPeriod.time
@@ -64,6 +65,10 @@ export default ({
       expandedSize={"xl"}
       expanded
       expandable
+      width="full"
+      periodBg={
+        useToken("colors", useColorModeValue("gray.300", "gray.500")) + "33"
+      }
     />
   );
 };
