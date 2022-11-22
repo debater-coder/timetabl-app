@@ -8,11 +8,14 @@ import {
   AlertDescription,
   Box,
   Button,
+  useToast,
 } from "@chakra-ui/react";
 import { useAuth } from "../../../hooks/useAuth";
 
 export default () => {
-  const { refresh } = useAuth();
+  const { refresh, refreshing } = useAuth();
+  const toast = useToast();
+
   return (
     <>
       <Alert status="warning" rounded={10}>
@@ -45,7 +48,26 @@ export default () => {
           isChecked={localStorage.getItem("debug") === "true"}
         />
       </FormControl>
-      <Button onClick={refresh}>Force Refresh Token</Button>
+      <Button
+        onClick={async () => {
+          try {
+            await refresh();
+            toast({
+              title: "Successfully refreshed token",
+              status: "success",
+            });
+          } catch (error) {
+            toast({
+              title: "Error refreshing token",
+              details: error.message,
+              status: "error",
+            });
+          }
+        }}
+        isLoading={refreshing}
+      >
+        Force Refresh Token
+      </Button>
     </>
   );
 };

@@ -114,10 +114,14 @@ const useAuth = () => {
           "Content-Type": "application/json; charset=UTF-8",
         },
       });
+
       if (!res.ok) {
         throw new HTTPError(res.status);
       }
+
+      setRefreshing(false);
     } catch (error) {
+      setRefreshing(false);
       toast({
         title:
           "Something went wrong, try logging in and out if the issue persists.",
@@ -125,8 +129,7 @@ const useAuth = () => {
         status: "error",
         isClosable: true,
       });
-    } finally {
-      setRefreshing(false);
+      throw error;
     }
   }, 1000 * 60);
 
