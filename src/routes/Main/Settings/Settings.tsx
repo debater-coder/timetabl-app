@@ -82,6 +82,7 @@ export default () => {
         w="full"
         h="full"
         mb={20}
+        overflowY="auto"
       >
         <Outlet />
       </Flex>

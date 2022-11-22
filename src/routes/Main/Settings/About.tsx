@@ -60,7 +60,7 @@ export default () => {
             <AccordionIcon />
           </AccordionButton>
           <AccordionPanel>
-            <Text mb={20} whiteSpace="pre-line">
+            <Text whiteSpace="pre-line">
               {
                 'MIT License\n \
 \n \
