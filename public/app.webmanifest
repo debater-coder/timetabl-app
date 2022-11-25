@@ -19,8 +19,8 @@
       "purpose": "maskable"
     }
   ],
-  "background_color": "#6eb3ee",
-  "theme_colour": "#6eb3ee",
+  "background_color": "#97cdf5",
+  "theme_color": "#97cdf5",
   "description": "Timetabl is one place for your timetable, daily notices and homework.",
   "shortcuts": [
     {
