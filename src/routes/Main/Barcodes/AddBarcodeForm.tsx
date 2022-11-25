@@ -8,7 +8,7 @@ import {
 import { Field, FieldProps, Form, Formik } from "formik";
 import { Barcode } from "./Barcodes";
 
-export default ({
+export const AddBarcodeForm = ({
   addBarcode,
   barcodes,
 }: {
@@ -63,7 +63,7 @@ export default ({
           )}
         </Field>
       </Flex>
-      <Button type={"submit"}>Save Barcode</Button>
+      <Button type={"submit"}>Add Barcode</Button>
     </Form>
   </Formik>
 );

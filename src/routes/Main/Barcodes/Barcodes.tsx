@@ -11,7 +11,7 @@ import { get, update } from "idb-keyval";
 import { Barcode as BarcodeIcon } from "phosphor-react";
 import SavedBarcode from "./SavedBarcode";
 import YourBarcode from "./YourBarcode";
-import SaveBarcodeForm from "./SaveBarcodeForm";
+import { AddBarcodeForm } from "./AddBarcodeForm";
 import Empty from "../../../components/Empty";
 
 export type Barcode = {
@@ -127,7 +127,7 @@ export default () => {
         roundedTop={10}
         shadow={"outline"}
       >
-        <SaveBarcodeForm addBarcode={addBarcode} barcodes={barcodes} />
+        <AddBarcodeForm addBarcode={addBarcode} barcodes={barcodes} />
       </Flex>
     </Flex>
   );
