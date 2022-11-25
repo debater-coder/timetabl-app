@@ -10,7 +10,8 @@ export type TimetablPeriod = {
   endTime?: string;
   colour?: string;
   key?: string;
-  casual?: string | false;
+  casual?: string;
+  roomTo?: string;
 };
 
 export type TimetablDTT = {
@@ -43,6 +44,7 @@ export const useDTT = (enabled?: boolean, date?: string) =>
     { date },
     (data) => {
       const classVariations = data?.classVariations;
+      const roomVariations = data?.roomVariations;
 
       const result = {
         periods: (data?.bells ?? [])
@@ -54,6 +56,7 @@ export const useDTT = (enabled?: boolean, date?: string) =>
 
             let subject = null;
             let casual = null;
+            let roomTo = null;
 
             let name = bell?.bellDisplay;
             const teacher = period?.fullTeacher ?? period?.teacher;
@@ -75,6 +78,10 @@ export const useDTT = (enabled?: boolean, date?: string) =>
                 "No one";
             }
 
+            if (roomVariations?.[bell?.period]) {
+              roomTo = roomVariations?.[bell?.period]?.roomTo ?? "-";
+            }
+
             return [
               {
                 name: "Transition",
@@ -93,6 +100,7 @@ export const useDTT = (enabled?: boolean, date?: string) =>
                     : "transparent",
                 key: bell?.bell,
                 casual,
+                roomTo,
               },
             ];
           })

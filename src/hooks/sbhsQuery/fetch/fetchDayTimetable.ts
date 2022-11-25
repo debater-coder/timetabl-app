@@ -44,7 +44,11 @@ export type APIDTT = {
       type?: string;
       casual?: string;
       casualSurname?: string;
-      roomFrom?: string;
+    }
+  >;
+  roomVariations?: Record<
+    string,
+    {
       roomTo?: string;
     }
   >;

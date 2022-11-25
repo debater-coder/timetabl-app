@@ -50,9 +50,20 @@ export const DTTPeriod = ({
       }
       isLoaded={isLoaded}
       rightContent={
-        showTimesInsteadOfRooms === "true"
-          ? period.time
-          : period.room ?? period.time
+        showTimesInsteadOfRooms === "true" ? (
+          period.time
+        ) : period.room ? (
+          <chakra.span
+            bg={period.roomTo && "primary.100"}
+            p={period.roomTo && 1}
+            color={period.roomTo && "gray.700"}
+            rounded={period.roomTo && "10%"}
+          >
+            {period.roomTo ?? period.room}
+          </chakra.span>
+        ) : (
+          period.time
+        )
       }
       expandedContent={
         <>
@@ -62,7 +73,7 @@ export const DTTPeriod = ({
             bg={period.casual && "primary.100"}
             p={period.casual && 1}
             color={period.casual && "gray.700"}
-            rounded={period.casual && "40%"}
+            rounded={period.casual && "full"}
           >
             {period?.casual ?? period?.teacher ?? "No one"}
           </chakra.span>
