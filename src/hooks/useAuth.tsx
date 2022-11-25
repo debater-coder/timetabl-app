@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import contextualise from "../utils/contextualise";
-import config from "../config.js";
+import config from "../../config.js";
 import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "../main";
 import HTTPError from "../errors/HTTPError";
