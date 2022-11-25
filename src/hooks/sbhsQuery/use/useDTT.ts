@@ -18,6 +18,19 @@ export type TimetablDTT = {
   date: string;
 };
 
+// Thanks Andrew!
+const formatCasual = (casual?: string) => {
+  if (!casual) return null;
+  if (casual.length === 0) return casual;
+  if (casual.length === 1) return `${casual.toUpperCase()}.`;
+
+  return `${casual[
+    casual.length - 1
+  ].toUpperCase()} ${casual[0].toUpperCase()}${casual
+    .substring(1, casual.length - 1)
+    .toLowerCase()}.`;
+};
+
 /**
  * Hook to get the daily timetable.
  * @param enabled Whether to enable the query
@@ -57,9 +70,9 @@ export const useDTT = (enabled?: boolean, date?: string) =>
 
             if (classVariations?.[bell?.period]) {
               casual =
-                classVariations?.[bell?.period]?.casual ??
-                "" + classVariations?.[bell?.period]?.casualSurname ??
-                "";
+                classVariations?.[bell?.period]?.casualSurname ??
+                formatCasual(classVariations?.[bell?.period]?.casual) ??
+                "No one";
             }
 
             return [

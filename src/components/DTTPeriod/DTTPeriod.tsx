@@ -56,14 +56,15 @@ export const DTTPeriod = ({
       }
       expandedContent={
         <>
-          {showTimesInsteadOfRooms !== "true" ? period.time : period.room}{" "}
+          at {showTimesInsteadOfRooms !== "true" ? period.time : period.room}{" "}
+          with{" "}
           <chakra.span
             bg={period.casual && "primary.100"}
             p={period.casual && 1}
             color={period.casual && "gray.700"}
             rounded={period.casual && "40%"}
           >
-            {period.casual ?? period.teacher}
+            {period?.casual ?? period?.teacher ?? "No one"}
           </chakra.span>
         </>
       }
