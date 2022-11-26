@@ -1,6 +1,7 @@
 import HTTPError from "../../../errors/HTTPError";
 import NetworkError from "../../../errors/NetworkError";
 import { UnauthorizedError } from "../../../errors/UnauthorisedError";
+import { log } from "../../../utils/log";
 
 /**
  * Possible SBHS API endpoints
@@ -46,29 +47,45 @@ export const fetchSBHSAPI = async <TSBHSAPIData>(
       signal,
     });
   } catch {
+    log("Network error");
+    document.dispatchEvent(
+      new CustomEvent("onlinechange", { detail: { online: false } })
+    );
     throw new NetworkError("Failed to fetch");
   }
+
+  document.dispatchEvent(
+    new CustomEvent("onlinechange", { detail: { online: true } })
+  );
 
   if (!res.ok) {
     const errorText = await res.text();
 
-    if (errorText === "REFRESH_TOKEN") {
-      await refresh();
-      if (depth < 1) {
-        return fetchSBHSAPI(
-          endpoint,
-          options,
-          refresh,
-          signal,
-          setShouldLogin,
-          depth + 1
+    switch (errorText) {
+      case "REFRESH_TOKEN":
+        await refresh();
+        if (depth < 1) {
+          return fetchSBHSAPI(
+            endpoint,
+            options,
+            refresh,
+            signal,
+            setShouldLogin,
+            depth + 1
+          );
+        }
+        break;
+      case "SERVER_NOT_AVAILABLE":
+        document.dispatchEvent(
+          new CustomEvent("onlinechange", { detail: { online: false } })
         );
-      }
-    } else if (res.status === 401) {
-      setShouldLogin(true);
-      throw new UnauthorizedError();
+        throw new NetworkError("SBHS API server is not available");
+      default:
+        if (res.status === 401) {
+          setShouldLogin(true);
+          throw new UnauthorizedError();
+        }
     }
-
     throw new HTTPError(res.status);
   }
   const json = await res.json();

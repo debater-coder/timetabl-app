@@ -18,6 +18,7 @@ import useSettings, { SettingsProvider } from "./hooks/useSettings";
 import { inject } from "@vercel/analytics";
 import { log } from "./utils/log";
 import { UnauthorizedError } from "./errors/UnauthorisedError";
+import NetworkError from "./errors/NetworkError";
 
 // Redirect to new domain if using old domain
 if (window.location.host === "timetabl.vercel.app") {
@@ -38,11 +39,16 @@ const queryClient = new QueryClient({
       cacheTime: Infinity,
       refetchInterval: 5 * 60 * 1000, // 5 minutes
       refetchIntervalInBackground: true,
+      networkMode: "always",
     },
   },
   queryCache: new QueryCache({
-    onError: (error: Error) => {
-      if (!(error instanceof UnauthorizedError))
+    onError: (error) => {
+      if (
+        error instanceof Error &&
+        !(error instanceof UnauthorizedError) &&
+        !(error instanceof NetworkError)
+      ) {
         toast({
           title:
             "Something went wrong, try logging in and out if the issue persists.",
@@ -50,6 +56,7 @@ const queryClient = new QueryClient({
           status: "error",
           isClosable: true,
         });
+      }
     },
   }),
 });

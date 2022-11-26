@@ -1,13 +1,20 @@
 import { Flex, Spinner, Icon, Tooltip } from "@chakra-ui/react";
-import { onlineManager, useIsFetching } from "@tanstack/react-query";
+import { useIsFetching } from "@tanstack/react-query";
 import { CloudCheck, WifiX } from "phosphor-react";
 import { useState } from "react";
+import { log } from "../../utils/log";
 
 export default () => {
   const isFetching = useIsFetching();
   const [online, setOnline] = useState(true);
 
-  onlineManager.subscribe(() => setOnline(onlineManager.isOnline()));
+  document.addEventListener(
+    "onlinechange",
+    ({ detail: { online } }: CustomEvent<{ online: boolean }>) => {
+      log(`Online status change detected - Online: ${online}`);
+      return setOnline(online);
+    }
+  );
 
   return (
     <Flex p={2} rounded="full" align={"center"} gap={3}>
