@@ -46,12 +46,14 @@ export const fetchSBHSAPI = async <TSBHSAPIData>(
       body: JSON.stringify({ endpoint, options }),
       signal,
     });
-  } catch {
-    log("Network error");
-    document.dispatchEvent(
-      new CustomEvent("onlinechange", { detail: { online: false } })
-    );
-    throw new NetworkError("Failed to fetch");
+  } catch (error) {
+    log(`Network error ${error}`);
+    if (error instanceof TypeError) {
+      document.dispatchEvent(
+        new CustomEvent("onlinechange", { detail: { online: false } })
+      );
+    }
+    throw new NetworkError(error.message);
   }
 
   document.dispatchEvent(
