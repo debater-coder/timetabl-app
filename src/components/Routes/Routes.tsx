@@ -9,6 +9,18 @@ import General from "../../routes/Main/Settings/General";
 import Developers from "../../routes/Main/Settings/Developers";
 import About from "../../routes/Main/Settings/About";
 import Announcements from "../../routes/Main/Announcements";
+import Empty from "../Empty";
+import { SmileyXEyes } from "phosphor-react";
+
+const PageNotFound = () => (
+  <Empty
+    icon={SmileyXEyes}
+    heading={"Page not found"}
+    text={"Sorry, we couldn't find the page you were looking for."}
+    colour={"primary.500"}
+    size={"xl"}
+  />
+);
 
 export default () => (
   <Routes>
@@ -24,7 +36,9 @@ export default () => (
         </Route>
         <Route path={"barcodes"} element={<Barcodes />} />
         <Route path={"announcements"} element={<Announcements />} />
+        <Route path="*" element={<PageNotFound />} />
       </Route>
+      <Route path="*" element={<PageNotFound />} />
     </Route>
   </Routes>
 );
