@@ -33,6 +33,8 @@ export default () => {
         left={0}
         zIndex={100}
         bg={useColorModeValue("white", "gray.800")}
+        border={"1px"}
+        borderColor={useColorModeValue("gray.200", "gray.700")}
       >
         <Sidebar
           pathname={pathname}
@@ -46,8 +48,8 @@ export default () => {
         height={"full"}
         maxH={{ base: "calc(100% - 64px)", md: "100%" }}
         mb={{ base: "64px", md: 0 }}
-        maxW={{ base: "100%", md: "calc(100% - 128px)" }}
-        ml={{ base: 0, md: "128px" }}
+        maxW={{ base: "100%", md: "calc(100% - 144px)" }}
+        ml={{ base: 0, md: "144px" }}
         overflowY={"auto"}
       >
         <Outlet />

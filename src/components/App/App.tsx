@@ -7,8 +7,8 @@ export default () => {
   return (
     <Flex direction={"column"} width={"100vw"} maxW="full" height={"100vh"}>
       <Nav />
-      <Box mt={"81px"} />
-      <Flex direction={"column"} w="full" h="full" maxH={"calc(100% - 81px)"}>
+      <Box mt={"100px"} />
+      <Flex direction={"column"} w="full" h="full" maxH={"calc(100% - 100px)"}>
         <Outlet />
       </Flex>
     </Flex>

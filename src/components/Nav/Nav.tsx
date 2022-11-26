@@ -179,6 +179,8 @@ export default () => {
       left={0}
       bg={useColorModeValue("white", "gray.800")}
       zIndex={999}
+      border={"1px"}
+      borderColor={useColorModeValue("gray.200", "gray.700")}
     >
       <TimetablLogo color={logoColor} loggedIn={loggedIn} />
       {loggedIn && <RefetchingIndicator />}
