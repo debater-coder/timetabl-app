@@ -1,7 +1,5 @@
 import { Route, Routes, Navigate } from "react-router-dom";
 import App from "../App/App";
-import Landing from "../../routes/Landing/Landing";
-import Main from "../../routes/Main/Main";
 import Home from "../../routes/Main/Home";
 import Settings from "../../routes/Main/Settings";
 import Barcodes from "../../routes/Main/Barcodes";
@@ -11,6 +9,11 @@ import About from "../../routes/Main/Settings/About";
 import Announcements from "../../routes/Main/Announcements";
 import Empty from "../Empty";
 import { SmileyXEyes } from "phosphor-react";
+import { lazy, ReactNode, Suspense } from "react";
+import { Flex, Spinner } from "@chakra-ui/react";
+
+const Main = lazy(() => import("../../routes/Main"));
+const Landing = lazy(() => import("../../routes/Landing"));
 
 const PageNotFound = () => (
   <Empty
@@ -22,11 +25,37 @@ const PageNotFound = () => (
   />
 );
 
+const SpinnerSuspense = ({ children }: { children: ReactNode }) => (
+  <Suspense
+    fallback={
+      <Flex w="full" h="full" align={"center"} justify="center">
+        <Spinner size="xl" />
+      </Flex>
+    }
+  >
+    {children}
+  </Suspense>
+);
+
 export default () => (
   <Routes>
     <Route path={"/"} element={<App />}>
-      <Route index element={<Landing />} />
-      <Route path={"app"} element={<Main />}>
+      <Route
+        index
+        element={
+          <SpinnerSuspense>
+            <Landing />
+          </SpinnerSuspense>
+        }
+      />
+      <Route
+        path={"app"}
+        element={
+          <SpinnerSuspense>
+            <Main />
+          </SpinnerSuspense>
+        }
+      >
         <Route index element={<Home />} />
         <Route path={"settings/*"} element={<Settings />}>
           <Route path={"general"} element={<General />} />
