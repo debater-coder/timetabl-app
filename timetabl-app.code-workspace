@@ -1,0 +1,16 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../timetabl-extension"
+		},
+		{
+			"path": "../timetabl-cms"
+		}
+	],
+	"settings": {
+		"task.allowAutomaticTasks": "on"
+	}
+}
