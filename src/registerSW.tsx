@@ -50,7 +50,7 @@ const registerSW = () => {
       // Implementing this is app-specific; some examples are:
       // https://open-ui.org/components/alert.research or
       // https://open-ui.org/components/toast.research
-      promptForUpdate(() => wb.messageSkipWaiting);
+      promptForUpdate(() => wb.messageSkipWaiting());
     };
 
     // Add an event listener to detect when the registered
