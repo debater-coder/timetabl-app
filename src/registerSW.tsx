@@ -11,7 +11,13 @@ const promptForUpdate = () =>
       render: () => (
         <Alert status="info">
           <AlertTitle> A new version is available! </AlertTitle>
-          <Button onClick={() => resolve(true)}>Reload</Button>
+          <Button
+            onClick={() => {
+              resolve(true);
+            }}
+          >
+            Reload
+          </Button>
         </Alert>
       ),
     });
@@ -50,6 +56,7 @@ const registerSW = () => {
       const updateAccepted = await promptForUpdate();
 
       if (updateAccepted) {
+        log("update accepted");
         wb.messageSkipWaiting();
       }
     };
