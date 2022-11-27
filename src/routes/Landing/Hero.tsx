@@ -90,7 +90,6 @@ export const Hero = () => {
             alt={"Hero Image"}
             align={"center"}
             w={"100%"}
-            h={"100%"}
             src={
               "https://user-images.githubusercontent.com/52619668/195273003-55225579-829c-46c4-bd5b-4b37680bb675.png"
             }
