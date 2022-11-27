@@ -19,6 +19,7 @@ export default defineConfig({
         "**/*.html",
         "**/*.woff",
         "**/*.woff2",
+        "**/*.svg",
       ],
       mode: "production", // this inlines the module imports when using yarn build
     }),
