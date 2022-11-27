@@ -1,6 +1,7 @@
 import { Alert, AlertTitle, Button } from "@chakra-ui/react";
 import { Workbox } from "workbox-window";
 import { toast } from "./main";
+import { log } from "./utils/log";
 
 const promptForUpdate = () =>
   new Promise((resolve) => {
@@ -56,6 +57,7 @@ const registerSW = () => {
     // Add an event listener to detect when the registered
     // service worker has installed but is waiting to activate.
     wb.addEventListener("waiting", () => {
+      log("A new service worker has installed, but is waiting to activate.");
       showSkipWaitingPrompt();
     });
 
