@@ -15,6 +15,7 @@ const promptForUpdate = (skipWaiting: () => void) => {
             log("update accepted");
             skipWaiting();
           }}
+          colorScheme="green"
         >
           Reload
         </Button>
