@@ -3,28 +3,25 @@ import { Workbox } from "workbox-window";
 import { toast } from "./main";
 import { log } from "./utils/log";
 
-const promptForUpdate = () =>
-  new Promise((resolve) => {
-    toast({
-      position: "bottom-left",
-      duration: 9000,
-      render: () => (
-        <Alert status="info">
-          <AlertTitle> A new version is available! </AlertTitle>
-          <Button
-            onClick={() => {
-              resolve(true);
-            }}
-          >
-            Reload
-          </Button>
-        </Alert>
-      ),
-    });
-    setTimeout(() => {
-      resolve(false);
-    }, 9000);
+const promptForUpdate = (skipWaiting: () => void) => {
+  toast({
+    position: "bottom-left",
+    duration: 9000,
+    render: () => (
+      <Alert status="info">
+        <AlertTitle> A new version is available! </AlertTitle>
+        <Button
+          onClick={() => {
+            log("update accepted");
+            skipWaiting();
+          }}
+        >
+          Reload
+        </Button>
+      </Alert>
+    ),
   });
+};
 
 const registerSW = () => {
   if ("serviceWorker" in navigator) {
@@ -53,12 +50,7 @@ const registerSW = () => {
       // Implementing this is app-specific; some examples are:
       // https://open-ui.org/components/alert.research or
       // https://open-ui.org/components/toast.research
-      const updateAccepted = await promptForUpdate();
-
-      if (updateAccepted) {
-        log("update accepted");
-        wb.messageSkipWaiting();
-      }
+      promptForUpdate(() => wb.messageSkipWaiting);
     };
 
     // Add an event listener to detect when the registered
