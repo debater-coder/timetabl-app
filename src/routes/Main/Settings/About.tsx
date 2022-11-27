@@ -11,12 +11,13 @@ import {
 } from "@chakra-ui/react";
 import { ExternalLinkIcon } from "@chakra-ui/icons";
 import "@fontsource/poppins";
+import { version } from "../../../../package.json";
 
 export default () => {
   return (
     <>
       <Heading size={"sm"} fontFamily="Poppins, sans-serif">
-        version 1.0.0-alpha
+        version {version}
       </Heading>
       <Text>
         Timetabl is a blazing fast, offline-enabled, installable timetable app
