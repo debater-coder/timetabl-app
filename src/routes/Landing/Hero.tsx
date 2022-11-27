@@ -1,11 +1,10 @@
 import {
   Heading as ChakraHeading,
   Button as ChakraButton,
-  Flex as ChakraFlex,
-  Box,
+  Flex,
   Stack,
   Text as ChakraText,
-  Image,
+  Image as ChakraImage,
 } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import { SignIn } from "phosphor-react";
@@ -15,7 +14,7 @@ import { useAuth } from "../../hooks/useAuth";
 const Heading = motion(ChakraHeading);
 const Text = motion(ChakraText);
 const Button = motion(ChakraButton);
-const Flex = motion(ChakraFlex);
+const Image = motion(ChakraImage);
 
 export const Hero = () => {
   const { login } = useAuth();
@@ -74,27 +73,20 @@ export const Hero = () => {
         align={"center"}
         position={"relative"}
         w={"full"}
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 2, delay: 0.3 }}
       >
-        <Box
-          position={"relative"}
-          height={"300px"}
+        <Image
+          alt={"Hero Image"}
+          align={"center"}
+          src={
+            "https://user-images.githubusercontent.com/52619668/195273003-55225579-829c-46c4-bd5b-4b37680bb675.png"
+          }
           rounded={"2xl"}
           boxShadow={"2xl"}
           width={"full"}
-          overflow={"hidden"}
-        >
-          <Image
-            alt={"Hero Image"}
-            align={"center"}
-            w={"100%"}
-            src={
-              "https://user-images.githubusercontent.com/52619668/195273003-55225579-829c-46c4-bd5b-4b37680bb675.png"
-            }
-          />
-        </Box>
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 2, delay: 0.3 }}
+        />
       </Flex>
     </Stack>
   );
