@@ -46,6 +46,7 @@
     "linkifyjs": "^4.0.2",
     "lodash": "^4.17.21",
     "luxon": "^3.0.3",
+    "micromark": "^3.1.0",
     "node-fetch": "^3.3.0",
     "onchange": "^7.1.0",
     "phosphor-react": "^1.4.1",
