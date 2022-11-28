@@ -23,14 +23,12 @@ export type SBHSAPIEndpoint =
  * @param endpoint The endpoint to fetch from
  * @param options Options to send to the API
  * @param refresh A function to refresh the token
- * @param signal Signal to abort the fetch
  * @returns A promise that resolves to the data from the API
  */
 export const fetchSBHSAPI = async <TSBHSAPIData>(
   endpoint: SBHSAPIEndpoint,
   options?: Record<string, unknown>,
   refresh?: () => void,
-  signal?: AbortSignal,
   setShouldLogin?: (shouldLogin: boolean) => void,
   depth = 0
 ): Promise<Awaited<TSBHSAPIData>> => {
@@ -44,7 +42,6 @@ export const fetchSBHSAPI = async <TSBHSAPIData>(
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ endpoint, options }),
-      signal,
     });
   } catch (error) {
     log(`Network error ${error}`);
@@ -71,7 +68,6 @@ export const fetchSBHSAPI = async <TSBHSAPIData>(
             endpoint,
             options,
             refresh,
-            signal,
             setShouldLogin,
             depth + 1
           );
