@@ -101,18 +101,18 @@ export default async function handler(request, response) {
 
       let data;
 
+      if (!res.ok) {
+        response.status(500).send("Bad response from server.");
+        return;
+      }
+
       try {
         data = await res.json();
       } catch {
-        if (!res.ok) {
-          if (data && data?.["error"] == "invalid_grant") {
-            response.status(500).send("INVALID GRANT");
-            return;
-          }
+        if (data && data?.["error"] == "invalid_grant") {
+          response.status(500).send("INVALID GRANT");
+          return;
         }
-
-        response.status(500).send("Bad response from server.");
-        return;
       }
 
       response.setHeader("Set-Cookie", [
