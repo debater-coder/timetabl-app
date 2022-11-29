@@ -20,6 +20,33 @@ export const Hero = () => {
   const { login } = useAuth();
   const [loggingIn, setLoggingIn] = useState(false);
 
+  const gradients = [
+    "linear-gradient(to right, #F56565, #C53030)",
+    "linear-gradient(to right, #ED8936, #C05621)",
+    "linear-gradient(to right, #ECC94B, #B7791F)",
+    "linear-gradient(to right, #48BB78, #2F855A)",
+    "linear-gradient(to right, #38B2AC, #2C7A7B)",
+    "linear-gradient(to right, #4299e1, #2b6cb0)",
+    "linear-gradient(to right, #0BC5EA, #00A3C4)",
+    "linear-gradient(to right, #9F7AEA, #6B46C1)",
+    "linear-gradient(to right, #ED64A6, #B83280)",
+  ];
+
+  const variants = {
+    visible: {
+      opacity: 1,
+      y: 0,
+      background: gradients,
+      backgroundClip: "text",
+      WebkitBackgroundClip: "text",
+      transition: {
+        delay: 1,
+        duration: 20,
+        repeat: Infinity,
+      },
+    },
+  };
+
   return (
     <Stack
       align={"center"}
@@ -33,11 +60,10 @@ export const Hero = () => {
           fontFamily="Poppins, sans-serif"
           bgClip={"text"}
           pb={"5px"} // Fix clipping bug
-          bgGradient="linear(to-r, primary.400, primary.600)"
           as={motion.h2}
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 2 }}
+          variants={variants}
+          initial={"hidden"}
+          animate={"visible"}
         >
           Never be late again.
         </Heading>
