@@ -4,17 +4,17 @@ import {
   Flex,
   Stack,
   Text as ChakraText,
-  Image as ChakraImage,
 } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import { SignIn } from "phosphor-react";
-import { useState } from "react";
+import { lazy, Suspense, useState } from "react";
 import { useAuth } from "../../hooks/useAuth";
+
+const HeroExperience = lazy(() => import("./HeroExperience"));
 
 const Heading = motion(ChakraHeading);
 const Text = motion(ChakraText);
 const Button = motion(ChakraButton);
-const Image = motion(ChakraImage);
 
 export const Hero = () => {
   const { login } = useAuth();
@@ -99,20 +99,11 @@ export const Hero = () => {
         align={"center"}
         position={"relative"}
         w={"full"}
+        h="60vh"
       >
-        <Image
-          alt={"Hero Image"}
-          align={"center"}
-          src={
-            "https://user-images.githubusercontent.com/52619668/195273003-55225579-829c-46c4-bd5b-4b37680bb675.png"
-          }
-          rounded={"2xl"}
-          boxShadow={"2xl"}
-          width={"full"}
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 2, delay: 0.3 }}
-        />
+        <Suspense fallback={null}>
+          <HeroExperience />
+        </Suspense>
       </Flex>
     </Stack>
   );

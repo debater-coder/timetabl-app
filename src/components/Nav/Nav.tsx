@@ -18,7 +18,7 @@ import { NavButton } from "../NavButton";
 import React, { useState } from "react";
 import { CloseIcon } from "@chakra-ui/icons";
 
-const TimetablLogo = ({
+export const TimetablLogo = ({
   color,
   loggedIn,
 }: {
@@ -103,7 +103,7 @@ const DarkModeBTN = ({
     colorScheme={"gray"}
   />
 );
-const LogoutBTN = ({
+export const LogoutBTN = ({
   logout,
   iconColor,
 }: {
@@ -129,7 +129,7 @@ const LogoutBTN = ({
   );
 };
 
-const SettingsBTN = ({
+export const SettingsBTN = ({
   iconColor,
   pathname,
 }: {
