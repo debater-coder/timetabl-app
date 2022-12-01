@@ -28,11 +28,10 @@ export default ({
   return (
     <Flex
       _hover={{ bg: hoverColor }}
-      pt={sidebar ? "0px" : "12px"}
-      pb={sidebar ? "0px" : "16px"}
-      mb={sidebar ? "12px" : "0px"}
-      h={sidebar ? "56px" : "64px"}
-      w={32}
+      p={"12px"}
+      h={"64px"}
+      w="100%"
+      flexGrow={1}
       direction={"column"}
       align={"center"}
     >
