@@ -178,7 +178,7 @@ export default () => {
       top={0}
       left={0}
       bg={useColorModeValue("white", "gray.800")}
-      zIndex={999}
+      zIndex={99999999999999}
       border={"1px"}
       borderColor={useColorModeValue("gray.200", "gray.700")}
     >

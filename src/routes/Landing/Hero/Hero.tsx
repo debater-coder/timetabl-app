@@ -8,7 +8,7 @@ import {
 import { motion } from "framer-motion";
 import { SignIn } from "phosphor-react";
 import { lazy, Suspense, useState } from "react";
-import { useAuth } from "../../hooks/useAuth";
+import { useAuth } from "../../../hooks/useAuth";
 
 const HeroExperience = lazy(() => import("./HeroExperience"));
 

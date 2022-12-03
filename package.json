@@ -24,7 +24,7 @@
   "homepage": "https://github.com/debater-coder/timetabl-app#readme",
   "dependencies": {
     "@chakra-ui/icons": "^2.0.11",
-    "@chakra-ui/react": "^2.3.7",
+    "@chakra-ui/react": "^2.4.2",
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
     "@fontsource/poppins": "^4.5.8",
