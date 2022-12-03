@@ -104,9 +104,8 @@ export const Features = () => (
         </Heading>
       </CardHeader>
       <CardBody>
-        Get a bird&apos;s eye view of your timetable, and see what&apos;s
-        coming. View your sport from Clipboard, see when you assignments are due
-        from Canvas and more.
+        Organise like a boss &mdash; record your homework, set due dates and get
+        reminders for what homework to do and when.
       </CardBody>
     </Card>
   </SimpleGrid>
