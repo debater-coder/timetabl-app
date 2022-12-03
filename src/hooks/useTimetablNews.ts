@@ -7,7 +7,7 @@ const fetchTimetablNews = async () => {
   let res;
   try {
     res = await fetch(
-      "http://localhost:1337/api/announcements?populate[0]=createdBy&sort=id:desc"
+      "https://cms.timetabl.app/api/announcements?populate[0]=createdBy&sort=id:desc"
     );
   } catch (error) {
     if (error instanceof TypeError) {
@@ -26,22 +26,38 @@ export const useTimetablNews = () =>
   useQuery(["timetablnews"], fetchTimetablNews, {
     select: (json) => {
       const { data } = json;
-      return data?.map((announcement) => ({
-        ...announcement.attributes,
-        years: [
-          NoticeYear.YEAR7,
-          NoticeYear.YEAR8,
-          NoticeYear.YEAR9,
-          NoticeYear.YEAR10,
-          NoticeYear.YEAR11,
-          NoticeYear.YEAR12,
-          NoticeYear.STAFF,
-        ],
-        authorName:
-          announcement.attributes.createdBy.data.attributes.firstname +
-          " " +
-          announcement.attributes.createdBy.data.attributes.lastname,
-        date: announcement.attributes.createdAt,
-      }));
+      return data?.map(
+        (announcement: {
+          attributes: {
+            title: string;
+            content: string;
+            createdAt: string;
+            createdBy: {
+              data: {
+                attributes: {
+                  firstname: string;
+                  lastname: string;
+                };
+              };
+            };
+          };
+        }) => ({
+          ...announcement.attributes,
+          years: [
+            NoticeYear.YEAR7,
+            NoticeYear.YEAR8,
+            NoticeYear.YEAR9,
+            NoticeYear.YEAR10,
+            NoticeYear.YEAR11,
+            NoticeYear.YEAR12,
+            NoticeYear.STAFF,
+          ],
+          authorName:
+            announcement.attributes.createdBy.data.attributes.firstname +
+            " " +
+            announcement.attributes.createdBy.data.attributes.lastname,
+          date: announcement.attributes.createdAt,
+        })
+      );
     },
   });
