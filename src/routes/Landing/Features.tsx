@@ -6,11 +6,12 @@ import {
   useToken,
   CardBody,
   Icon,
+  Badge,
 } from "@chakra-ui/react";
-import { House, Barcode, Megaphone } from "phosphor-react";
+import { House, Barcode, Megaphone, Calendar, Check } from "phosphor-react";
 
 export const Features = () => (
-  <SimpleGrid minChildWidth="150px" spacing="40px">
+  <SimpleGrid minChildWidth="270px" spacing="40px">
     <Card bg="transparent" shadow="xl">
       <CardHeader>
         <Heading size="md" display={"flex"} alignItems="center" gap={2}>
@@ -66,6 +67,46 @@ export const Features = () => (
       <CardBody>
         Access your daily notices, filter to your year group and search for
         specific notices.
+      </CardBody>
+    </Card>
+    <Card bg="transparent" shadow="xl">
+      <CardHeader>
+        <Heading size="md" display={"flex"} alignItems="center" gap={2}>
+          <Icon
+            rounded="full"
+            as={Calendar}
+            bg={useToken("colors", "primary.400") + "22"}
+            boxSize={10}
+            p={2}
+            color="primary.400"
+          />
+          Calendar<Badge>Coming soon</Badge>
+        </Heading>
+      </CardHeader>
+      <CardBody>
+        Get a bird&apos;s eye view of your timetable, and see what&apos;s
+        coming. View your sport from Clipboard, see when you assignments are due
+        from Canvas and more.
+      </CardBody>
+    </Card>
+    <Card bg="transparent" shadow="xl">
+      <CardHeader>
+        <Heading size="md" display={"flex"} alignItems="center" gap={2}>
+          <Icon
+            rounded="full"
+            as={Check}
+            bg={useToken("colors", "primary.400") + "22"}
+            boxSize={10}
+            p={2}
+            color="primary.400"
+          />
+          Timetabl Tasks<Badge>Coming soon</Badge>
+        </Heading>
+      </CardHeader>
+      <CardBody>
+        Get a bird&apos;s eye view of your timetable, and see what&apos;s
+        coming. View your sport from Clipboard, see when you assignments are due
+        from Canvas and more.
       </CardBody>
     </Card>
   </SimpleGrid>
