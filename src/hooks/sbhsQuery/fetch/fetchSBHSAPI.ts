@@ -87,5 +87,6 @@ export const fetchSBHSAPI = async <TSBHSAPIData>(
     throw new HTTPError(res.status);
   }
   const json = await res.json();
+  setShouldLogin(false);
   return json;
 };

@@ -122,6 +122,7 @@ const useAuth = () => {
       setRefreshing(false);
     } catch (error) {
       setRefreshing(false);
+      setShouldLogin(true);
       toast({
         title:
           "Something went wrong, try logging in and out if the issue persists.",
