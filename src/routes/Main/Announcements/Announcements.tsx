@@ -36,8 +36,24 @@ import {
   useDailyNotices,
 } from "../../../hooks/sbhsQuery/use/useDailyNotices";
 import { usePersistentState } from "../../../hooks/useSettings";
-import { useTimetablNews } from "../../../hooks/useTimetablNews";
-import { micromark } from "micromark";
+
+const timetablNews: TimetablNotice[] = [
+  {
+    title: "Welcome to Timetabl News!",
+    content: "Keep checking back here for the latest news.",
+    authorName: "Hamzah Ahmed",
+    date: "2022-10-21",
+    years: [
+      NoticeYear.YEAR7,
+      NoticeYear.YEAR8,
+      NoticeYear.YEAR9,
+      NoticeYear.YEAR10,
+      NoticeYear.YEAR11,
+      NoticeYear.YEAR12,
+      NoticeYear.STAFF,
+    ],
+  },
+];
 
 const filterNotices = (
   notices: TimetablNotice[],
@@ -58,14 +74,12 @@ function Announcement({
   authorName,
   date,
   query,
-  markdown,
 }: {
   title?: string;
   content?: string;
   authorName?: string;
   date?: string;
   query: string;
-  markdown?: boolean;
 }) {
   const { isOpen, onToggle } = useDisclosure();
   const [showShowMoreBtn, setShowShowMoreBtn] = useState(true);
@@ -87,12 +101,9 @@ function Announcement({
               setShowShowMoreBtn((content?.offsetHeight / 24 ?? 0) > 1)
             }
             dangerouslySetInnerHTML={{
-              __html: linkifyHtml(
-                DOMPurify.sanitize(markdown ? micromark(content) : content),
-                {
-                  defaultProtocol: "https",
-                }
-              ),
+              __html: linkifyHtml(DOMPurify.sanitize(content), {
+                defaultProtocol: "https",
+              }),
             }}
           />
         </Prose>
@@ -122,40 +133,18 @@ function Announcement({
 function DailyNotices({
   filter,
   query,
-  tab,
 }: {
   filter: NoticeYear;
   query: string;
-  tab: number;
 }) {
-  const dailyNotices = useDailyNotices();
-  const timetablNews = useTimetablNews();
-
   return (
-    <QueriesHandler queries={{ dailyNotices, timetablNews }}>
-      {(
-        isLoaded,
-        {
-          dailyNotices,
-          timetablNews,
-        }: { dailyNotices: TimetablNotice[]; timetablNews: TimetablNotice[] }
-      ) => (
+    <QueriesHandler queries={{ notices: useDailyNotices() }}>
+      {(isLoaded, { notices }: { notices: TimetablNotice[] }) => (
         <Skeleton isLoaded={isLoaded} rounded={5} minH={10} minW={40}>
           <Flex direction={"column"} align="center" gap={8}>
-            {filterNotices(
-              tab ? timetablNews : dailyNotices,
-              filter,
-              query
-            )?.map((notice, index) => {
-              return (
-                <Announcement
-                  key={index}
-                  {...notice}
-                  query={query}
-                  markdown={!!tab}
-                />
-              );
-            })}
+            {filterNotices(notices, filter, query)?.map((notice, index) => (
+              <Announcement key={index} {...notice} query={query} />
+            ))}
           </Flex>
         </Skeleton>
       )}
@@ -232,7 +221,17 @@ export default function Announcements() {
         <TabPanels>
           {[0, 1].map((tab) => (
             <TabPanel key={tab}>
-              <DailyNotices filter={parseInt(filter)} query={query} tab={tab} />
+              {tab === 1 ? (
+                <Flex direction={"column"} align="center" gap={8}>
+                  {filterNotices(timetablNews, parseInt(filter), query)?.map(
+                    (notice, index) => (
+                      <Announcement key={index} {...notice} query={query} />
+                    )
+                  )}
+                </Flex>
+              ) : (
+                <DailyNotices filter={parseInt(filter)} query={query} />
+              )}
             </TabPanel>
           ))}
         </TabPanels>

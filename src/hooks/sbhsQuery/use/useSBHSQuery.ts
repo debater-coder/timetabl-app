@@ -11,7 +11,6 @@ export const useSBHSQuery = <TOptions, TData, TSelect>(
   fetchFn: (
     options: TOptions,
     refresh: () => void,
-    signal: AbortSignal,
     setShouldLogin: (shouldLogin: boolean) => void
   ) => Promise<TData>,
   options: TOptions,
@@ -22,7 +21,7 @@ export const useSBHSQuery = <TOptions, TData, TSelect>(
 
   return useQuery(
     getSBHSAPIQueryKey(endpoint, options),
-    ({ signal }) => fetchFn(options, refresh, signal, setShouldLogin),
+    () => fetchFn(options, refresh, setShouldLogin),
     {
       enabled: !loading && enabled,
       select,

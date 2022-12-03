@@ -58,19 +58,16 @@ export type APIDTT = {
  * Fetches the daily timetable from the SBHS API.
  * @param options Options to send to the API
  * @param refresh A function to refresh the token
- * @param signal Signal to abort the fetch
  * @returns A promise that resolves to the data from the API
  */
 export const fetchDayTimetable = async (
   options: Record<string, unknown>,
   refresh: () => void,
-  signal: AbortSignal,
   setShouldLogin?: (shouldLogin: boolean) => void
 ) =>
   await fetchSBHSAPI<APIDTT>(
     "timetable/daytimetable.json",
     options,
     refresh,
-    signal,
     setShouldLogin
   );
