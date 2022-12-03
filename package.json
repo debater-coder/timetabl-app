@@ -13,7 +13,7 @@
     "check-format": "npm run prettier -- --list-different",
     "lint": "eslint --ignore-path .gitignore .",
     "check-types": "tsc --pretty",
-    "validate": "npm run check-types && npm run lint && npm run check-format",
+    "validate": "npm-run-all --parallel check-types lint check-format",
     "prepare": "husky install"
   },
   "repository": {
@@ -83,8 +83,10 @@
     "eslint-plugin-no-loops": "^0.3.0",
     "eslint-plugin-react": "^7.30.1",
     "eslint-plugin-react-hooks": "^4.6.0",
+    "husky": "^8.0.0",
+    "lint-staged": "^13.0.4",
+    "npm-run-all": "^4.1.5",
     "prettier": "2.6.2",
-    "vite": "^3.0.2",
-    "husky": "^8.0.0"
+    "vite": "^3.0.2"
   }
 }
