@@ -9,6 +9,7 @@ import {
   Badge,
 } from "@chakra-ui/react";
 import { House, Barcode, Megaphone, Calendar, Check } from "phosphor-react";
+import "@fontsource/poppins";
 
 export const Features = () => (
   <SimpleGrid minChildWidth="270px" spacing="40px">
@@ -107,6 +108,13 @@ export const Features = () => (
         Organise like a boss &mdash; record your homework, set due dates and get
         reminders for what homework to do and when.
       </CardBody>
+    </Card>
+    <Card bg="transparent" shadow="xl">
+      <CardHeader>
+        <Heading fontFamily={"Poppins, sans-serif"} size="md">
+          And plenty more features to come!
+        </Heading>
+      </CardHeader>
     </Card>
   </SimpleGrid>
 );
