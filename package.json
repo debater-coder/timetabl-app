@@ -7,10 +7,13 @@
     "start": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "prettier": "npx prettier --write .",
     "vdev": "vercel dev --local-config ./vercel-dev.json",
-    "prettier-watch": "onchange \"**/*\" -- prettier --write --ignore-unknown {{changed}}",
-    "compile": "tsc --pretty"
+    "prettier": "prettier --ignore-path .gitignore .",
+    "format": "npm run prettier -- --write",
+    "check-format": "npm run prettier -- --list-different",
+    "lint": "eslint --ignore-path .gitignore .",
+    "check-types": "tsc --pretty",
+    "validate": "npm run check-types && npm run lint && npm run check-format"
   },
   "repository": {
     "type": "git",
@@ -79,6 +82,7 @@
     "eslint-plugin-no-loops": "^0.3.0",
     "eslint-plugin-react": "^7.30.1",
     "eslint-plugin-react-hooks": "^4.6.0",
+    "husky": "^8.0.2",
     "prettier": "2.6.2",
     "vite": "^3.0.2"
   }
