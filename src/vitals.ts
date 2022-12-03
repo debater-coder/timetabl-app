@@ -1,5 +1,7 @@
 import { CLSMetric } from "web-vitals";
 
+DiCssdc;
+
 const vitalsUrl = "https://vitals.vercel-analytics.com/v1/vitals";
 
 function getConnectionSpeed() {
