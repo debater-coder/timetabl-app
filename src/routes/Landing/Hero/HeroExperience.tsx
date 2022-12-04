@@ -27,6 +27,7 @@ const Model = () => {
                 className="content"
                 position={[0, 0, -1]}
                 rotation-y={Math.PI}
+                zIndexRange={[100, 0]}
                 scale={2}
                 transform
                 occlude
