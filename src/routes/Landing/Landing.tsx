@@ -30,12 +30,10 @@ export default () => {
   return (
     <>
       <Container maxW={"7xl"}>
-        <Alert status="warning" rounded={"full"}>
+        <Alert status="info" rounded={"full"}>
           <AlertIcon />
-          <AlertTitle>Timetabl is currently in alpha testing.</AlertTitle>
-          <AlertDescription>
-            Some features may be missing or not work correctly.
-          </AlertDescription>
+          <AlertTitle>Timetabl is currently in beta testing.</AlertTitle>
+          <AlertDescription>Features are not yet complete.</AlertDescription>
         </Alert>
         <Hero />
       </Container>

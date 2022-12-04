@@ -1,9 +1,11 @@
 {
   "name": "timetabl-app",
-  "version": "1.0.5-alpha",
+  "version": "1.0.6-beta",
   "description": "",
   "main": "index.js",
   "scripts": {
+    "test:e2e": "start-server-and-test vdev http://localhost:3000 cy:dev",
+    "cy:dev": "cypress open",
     "start": "vite",
     "build": "vite build",
     "preview": "vite preview",
@@ -13,7 +15,7 @@
     "check-format": "npm run prettier -- --list-different",
     "lint": "eslint --ignore-path .gitignore .",
     "check-types": "tsc --pretty",
-    "validate": "npm-run-all --parallel check-types lint check-format",
+    "validate": "npm-run-all --parallel check-types lint check-format cy:dev",
     "prepare": "husky install"
   },
   "repository": {
@@ -78,8 +80,10 @@
     "@typescript-eslint/parser": "^5.38.0",
     "@vercel/node": "^2.6.3",
     "@vitejs/plugin-react": "^2.0.0",
+    "cypress": "^11.2.0",
     "eslint": "^8.23.1",
     "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-cypress": "^2.12.1",
     "eslint-plugin-no-loops": "^0.3.0",
     "eslint-plugin-react": "^7.30.1",
     "eslint-plugin-react-hooks": "^4.6.0",
@@ -87,6 +91,7 @@
     "lint-staged": "^13.0.4",
     "npm-run-all": "^4.1.5",
     "prettier": "2.6.2",
+    "start-server-and-test": "^1.14.0",
     "vite": "^3.0.2"
   }
 }
