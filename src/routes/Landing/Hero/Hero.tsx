@@ -1,9 +1,9 @@
 import {
   Heading as ChakraHeading,
-  Button as ChakraButton,
+  Button,
   Flex,
   Stack,
-  Text as ChakraText,
+  Text,
 } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import { SignIn } from "phosphor-react";
@@ -13,8 +13,6 @@ import { useAuth } from "../../../hooks/useAuth";
 const HeroExperience = lazy(() => import("./HeroExperience"));
 
 const Heading = motion(ChakraHeading);
-const Text = motion(ChakraText);
-const Button = motion(ChakraButton);
 
 export const Hero = () => {
   const { login } = useAuth();
@@ -67,13 +65,7 @@ export const Hero = () => {
         >
           Never be late again.
         </Heading>
-        <Text
-          fontSize={"xl"}
-          color="gray.500"
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 2, delay: 0.1 }}
-        >
+        <Text fontSize={"xl"} color="gray.500">
           Timetabl is a fast, reliable, timetable app for Sydney Boys High
           School students.
         </Text>
@@ -86,9 +78,6 @@ export const Hero = () => {
             setLoggingIn(true);
             login();
           }}
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 2, delay: 0.2 }}
         >
           Login with SBHS
         </Button>
