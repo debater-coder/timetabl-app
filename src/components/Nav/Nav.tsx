@@ -172,13 +172,13 @@ export default () => {
       w="100%"
       h="80px"
       maxH={"80px"}
+      zIndex={"sticky"}
       flexWrap="nowrap"
       p={4}
       pos="fixed"
       top={0}
       left={0}
       bg={useColorModeValue("white", "gray.800")}
-      zIndex={99999999999999}
       border={"1px"}
       borderColor={useColorModeValue("gray.200", "gray.700")}
     >
