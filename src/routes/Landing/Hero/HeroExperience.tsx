@@ -5,14 +5,55 @@ import {
   Html,
   PresentationControls,
   Float,
+  Loader,
 } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import { Suspense } from "react";
 
+const Model = () => {
+  const { nodes, materials } = useGLTF("/iphone_14_pro.glb");
+  return (
+    <group dispose={null}>
+      <group rotation={[-Math.PI / 2, 0, Math.PI]} scale={1}>
+        <group rotation={[Math.PI / 2, 0, 0]}>
+          <group scale={13.67}>
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.defaultMaterial.geometry}
+              material={materials.Material}
+            >
+              <Html
+                className="content"
+                position={[0, 0, -1]}
+                rotation-y={Math.PI}
+                scale={2}
+                transform
+                occlude
+                pointerEvents="none"
+              >
+                <Image
+                  w="325px"
+                  src={useColorModeValue(
+                    "/screenshots/light.jpeg",
+                    "/screenshots/dark.jpeg"
+                  )}
+                  h="710px"
+                  rounded="50px"
+                />
+              </Html>
+            </mesh>
+          </group>
+        </group>
+      </group>
+    </group>
+  );
+};
+
+useGLTF.preload("/iphone_14_pro.glb");
+
 // "Iphone 14 Pro" (https://skfb.ly/oyCED) by mister dude is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
 export default () => {
-  const { nodes, materials } = useGLTF("/iphone_14_pro.glb");
-
   return (
     <>
       <Canvas shadows dpr={[1, 2]} camera={{ fov: 50 }}>
@@ -35,47 +76,13 @@ title: Iphone 14 Pro
               {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
               {/* @ts-ignore */}
               <Float>
-                <group dispose={null}>
-                  <group rotation={[-Math.PI / 2, 0, Math.PI]} scale={1}>
-                    <group rotation={[Math.PI / 2, 0, 0]}>
-                      <group scale={13.67}>
-                        <mesh
-                          castShadow
-                          receiveShadow
-                          geometry={nodes.defaultMaterial.geometry}
-                          material={materials.Material}
-                        >
-                          <Html
-                            className="content"
-                            position={[0, 0, -1]}
-                            rotation-y={Math.PI}
-                            scale={2}
-                            transform
-                            occlude
-                            pointerEvents="none"
-                          >
-                            <Image
-                              w="325px"
-                              src={useColorModeValue(
-                                "/screenshots/light.jpeg",
-                                "/screenshots/dark.jpeg"
-                              )}
-                              h="710px"
-                              rounded="50px"
-                            />
-                          </Html>
-                        </mesh>
-                      </group>
-                    </group>
-                  </group>
-                </group>
+                <Model />
               </Float>
             </PresentationControls>
           </Stage>
         </Suspense>
       </Canvas>
+      <Loader />
     </>
   );
 };
-
-useGLTF.preload("/iphone_14_pro.glb");
