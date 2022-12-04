@@ -43,10 +43,6 @@ export default () => {
           <ExternalLinkIcon mx="2px" />
         </Link>
       </Text>
-      <Text fontSize={"sm"}>
-        This is an alpha release, meaning the software will have bugs and
-        unforeseen problems. Use at your own risk.
-      </Text>
       <Text>
         Built by Hamzah Ahmed, with React and Chakra UI. Hosted by Vercel.
       </Text>

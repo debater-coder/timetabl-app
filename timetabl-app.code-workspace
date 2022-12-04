@@ -1,16 +1,17 @@
 {
-	"folders": [
-		{
-			"path": "."
-		},
-		{
-			"path": "../timetabl-extension"
-		},
-		{
-			"path": "../timetabl-cms"
-		}
-	],
-	"settings": {
-		"task.allowAutomaticTasks": "on"
-	}
+  "folders": [
+    {
+      "path": "."
+    },
+    {
+      "path": "../timetabl-extension"
+    },
+    {
+      "path": "../timetabl-cms"
+    }
+  ],
+  "settings": {
+    "task.allowAutomaticTasks": "on",
+    "githubPullRequests.ignoredPullRequestBranches": ["main"]
+  }
 }
