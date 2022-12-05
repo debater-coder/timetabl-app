@@ -86,7 +86,7 @@ export const Features = () => (
       </CardHeader>
       <CardBody>
         Get a bird&apos;s eye view of your timetable, and see what&apos;s
-        coming. View your sport from Clipboard, see when you assignments are due
+        coming. View your sport from Clipboard, see when your assignments are due
         from Canvas and more.
       </CardBody>
     </Card>
