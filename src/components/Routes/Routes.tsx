@@ -65,9 +65,9 @@ export default () => (
         </Route>
         <Route path={"barcodes"} element={<Barcodes />} />
         <Route path={"announcements"} element={<Announcements />} />
-        <Route path="*" element={<PageNotFound />} />
+        <Route path="*" element={<PageNotFound />} status={404} />
       </Route>
-      <Route path="*" element={<PageNotFound />} />
+      <Route path="*" element={<PageNotFound />} status={404} />
     </Route>
   </Routes>
 );
