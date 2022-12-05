@@ -150,7 +150,11 @@ const useAuth = () => {
     try {
       // Error check
       if (query.error) {
-        throw new Error(query.error + "\n\n" + query.error_description);
+        toast({
+          title: query.error,
+          description: query.error_description,
+          status: "error",
+        });
       }
 
       // If the server returned an authorization code, attempt to exchange it for an access token
