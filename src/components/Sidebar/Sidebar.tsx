@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import SidebarButton from "./SidebarButton";
-import { Barcode, House, Megaphone } from "phosphor-react";
+import { Barcode, CalendarBlank, House, Megaphone } from "phosphor-react";
 import { Flex, useColorModeValue } from "@chakra-ui/react";
 
 export default ({
@@ -48,6 +48,15 @@ export default ({
         name={"Announcements"}
         active={pathname === "/app/announcements"}
         icon={Megaphone}
+        mirrored
+      />
+    </Link>
+    <Link to={"/app/calendar"}>
+      <SidebarButton
+        sidebar={sidebar}
+        name={"Calendar"}
+        active={pathname === "/app/calendar"}
+        icon={CalendarBlank}
         mirrored
       />
     </Link>

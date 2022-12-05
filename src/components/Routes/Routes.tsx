@@ -11,6 +11,7 @@ import Empty from "../Empty";
 import { SmileyXEyes } from "phosphor-react";
 import { lazy, ReactNode, Suspense } from "react";
 import { Flex, Spinner } from "@chakra-ui/react";
+import { Calendar } from "../../routes/Main/Calendar";
 
 const Main = lazy(() => import("../../routes/Main"));
 const Landing = lazy(() => import("../../routes/Landing"));
@@ -57,14 +58,15 @@ export default () => (
         }
       >
         <Route index element={<Home />} />
+        <Route path={"barcodes"} element={<Barcodes />} />
+        <Route path={"announcements"} element={<Announcements />} />
+        <Route path={"calendar"} element={<Calendar />} />
         <Route path={"settings/*"} element={<Settings />}>
           <Route path={"general"} element={<General />} />
           <Route path={"developers"} element={<Developers />} />
           <Route path={"about"} element={<About />} />
           <Route index element={<Navigate to="general" replace={true} />} />
         </Route>
-        <Route path={"barcodes"} element={<Barcodes />} />
-        <Route path={"announcements"} element={<Announcements />} />
         <Route path="*" element={<PageNotFound />} />
       </Route>
       <Route path="*" element={<PageNotFound />} />

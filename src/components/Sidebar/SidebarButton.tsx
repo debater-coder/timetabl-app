@@ -38,7 +38,7 @@ export default ({
       <MotionFlex
         justify={"center"}
         bg={active ? secondary + "40" : undefined}
-        animate={{ width: active ? (sidebar ? "56px" : "64px") : "0px" }}
+        animate={{ width: active ? (sidebar ? "48px" : "56px") : "0px" }}
         align={"center"}
         borderRadius={"16px"}
         h={"32px"}
@@ -51,7 +51,7 @@ export default ({
           />
         </Box>
       </MotionFlex>
-      <Text as={active ? "b" : "label"} fontSize={"sm"} mt="4px">
+      <Text as={active ? "b" : "label"} fontSize={"xs"} mt="4px">
         {name}
       </Text>
     </Flex>
