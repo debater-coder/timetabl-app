@@ -66,7 +66,7 @@ export const Features = () => (
         </Heading>
       </CardHeader>
       <CardBody>
-        Access your daily notices, filter to your year group and search for
+        Access your daily notices, filter for your year group and search for
         specific notices.
       </CardBody>
     </Card>
