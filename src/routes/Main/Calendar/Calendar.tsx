@@ -32,11 +32,9 @@ export const Calendar = () => {
         <CardBody>
           Calendar is currently in development. Please check back in a few days.
           Currently planned features:
-          <NodeList>
-            <Node>Get a bird&apos;s eye view of your timetable</Node>
-            <Node>View your sport from Clipboard</Node>
-            <Node>See when your Canvas assignments are due</Node>
-          </NodeList>
+            <Flex direction={"column"} align="left" w="full" maxW={"full"}>Get a bird&apos;s eye view of your timetable</Flex>
+            <Flex direction={"column"} align="left" w="full" maxW={"full"}>View your sport from Clipboard</Flex>
+            <Flex direction={"column"} align="left" w="full" maxW={"full"}>See when your Canvas assignments are due</Flex>
           If you have any suggestions, <Link
             href="https://github.com/debater-coder/timetabl-app/issues/new?assignees=debater-coder&labels=&template=feature_request.md&title=Feature%20Request%20for%20Calendar"
             color={"primary.500"}
