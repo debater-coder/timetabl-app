@@ -17,7 +17,7 @@ import { Calendar as CalendarIcon } from "phosphor-react";
 export const Calendar = () => (
 <Flex w={"full"} h="full" direction={"column"} align="center">
   <Card bg="transparent" shadow="xl">
-    <CardHeader padding="0px">
+    <CardHeader paddingBottom="0px" paddingTop="0px" paddingRight="0px">
       <Heading size="md" display={"flex"} alignItems="center" gap={2}>
         <Icon
           rounded="full"
