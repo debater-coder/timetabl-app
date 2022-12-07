@@ -7,7 +7,7 @@ import {
   Box,
   Heading,
   Link,
-  Text,cvbnhygf
+  Text,
 } from "@chakra-ui/react";
 import { ExternalLinkIcon } from "@chakra-ui/icons";
 import "@fontsource/poppins";
@@ -46,8 +46,8 @@ export default () => {
       <Text fontSize={"sm"}>
         This is an beta release, meaning the software is still incomplete. <Link
           href="https://github.com/debater-coder/timetabl-app/issues/new?assignees=&labels=&template=feature_request.md&title=Feature%20Request%20for%20Beta%20Release"
-          isExternal color={"primary.500"}> Please make a feature request <ExternalLinkIcon mx="2px" />
-        </Link> if you have anuy suggestions
+          isExternal color={"primary.500"}> Please send a feature request <ExternalLinkIcon mx="2px" />
+        </Link> if you have any suggestions
       </Text>
       <Text>
         Built by Hamzah Ahmed, with React and Chakra UI. Hosted by Vercel.
