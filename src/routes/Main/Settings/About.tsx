@@ -50,16 +50,6 @@ export default () => {
       <Text>
         Built by Hamzah Ahmed, with React and Chakra UI. Hosted by Vercel.
       </Text>
-
-    
-          
-            
-    
-
-          
-    
-    
-  
       <Accordion allowToggle>
         <AccordionItem>
           <AccordionButton>
