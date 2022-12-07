@@ -19,7 +19,7 @@ export const Calendar = () => {
     <Flex w={"full"} h="full" direction={"column"} align="center">
       <Card bg="transparent" shadow="xl">
         <CardHeader>
-          <Heading size="md" display={"ListItem"} alignItems="center" gap={2}>
+          <Heading size="md" display={"flex"} alignItems="center" gap={2}>
             <Icon
               rounded="full"
               as={CalendarIcon}
