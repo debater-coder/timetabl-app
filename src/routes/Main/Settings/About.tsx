@@ -12,6 +12,7 @@ import {
 import { ExternalLinkIcon } from "@chakra-ui/icons";
 import "@fontsource/poppins";
 import { version } from "../../../../package.json";
+
 export default () => {
   return (
     <>
