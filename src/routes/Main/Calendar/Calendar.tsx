@@ -7,6 +7,8 @@ import {
   CardBody,
   Icon,
   Flex,
+  UnorderedList,
+  ListItem,
   Link
 } from "@chakra-ui/react";
 
@@ -17,7 +19,7 @@ export const Calendar = () => {
     <Flex w={"full"} h="full" direction={"column"} align="center">
       <Card bg="transparent" shadow="xl">
         <CardHeader>
-          <Heading size="md" display={"flex"} alignItems="center" gap={2}>
+          <Heading size="md" display={"ListItem"} alignItems="center" gap={2}>
             <Icon
               rounded="full"
               as={CalendarIcon}
@@ -32,9 +34,11 @@ export const Calendar = () => {
         <CardBody>
           Calendar is currently in development. Please check back in a few days.
           Currently planned features:
-            <Flex direction={"column"} align="left" w="full" maxW={"full"}>Get a bird&apos;s eye view of your timetable</Flex>
-            <Flex direction={"column"} align="left" w="full" maxW={"full"}>View your sport from Clipboard</Flex>
-            <Flex direction={"column"} align="left" w="full" maxW={"full"}>See when your Canvas assignments are due</Flex>
+          <UnorderedList>
+            <ListItem>Get a bird&apos;s eye view of your timetable</ListItem>
+            <ListItem>View your sport from Clipboard</ListItem>
+            <ListItem>See when your Canvas assignments are due</ListItem>
+          </UnorderedList>
           If you have any suggestions, <Link
             href="https://github.com/debater-coder/timetabl-app/issues/new?assignees=debater-coder&labels=&template=feature_request.md&title=Feature%20Request%20for%20Calendar"
             color={"primary.500"}
