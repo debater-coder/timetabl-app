@@ -12,7 +12,6 @@ import {
 import { ExternalLinkIcon } from "@chakra-ui/icons";
 import "@fontsource/poppins";
 import { version } from "../../../../package.json";
-
 export default () => {
   return (
     <>
@@ -43,9 +42,23 @@ export default () => {
           <ExternalLinkIcon mx="2px" />
         </Link>
       </Text>
+      <Text fontSize={"sm"}>
+        This is an beta release, meaning the software may have bugs and
+        unforeseen problems.
+      </Text>
       <Text>
         Built by Hamzah Ahmed, with React and Chakra UI. Hosted by Vercel.
       </Text>
+
+    
+          
+            
+    
+
+          
+    
+    
+  
       <Accordion allowToggle>
         <AccordionItem>
           <AccordionButton>
