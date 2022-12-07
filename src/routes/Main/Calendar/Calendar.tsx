@@ -26,7 +26,7 @@ export const Calendar = () => {
               p={2}
               color="primary.400"
             />
-            Calendar<Badge>Coming soon</Badge>
+            Calendar <Badge>Coming soon</Badge>
           </Heading>
         </CardHeader>
         <CardBody>
