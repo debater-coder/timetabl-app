@@ -7,6 +7,7 @@ import {
   CardBody,
   Icon,
   Flex,
+  Link
 } from "@chakra-ui/react";
 
 import { Calendar as CalendarIcon } from "phosphor-react";
