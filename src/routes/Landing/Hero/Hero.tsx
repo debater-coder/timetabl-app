@@ -8,6 +8,7 @@ import {
 import { motion } from "framer-motion";
 import { SignIn } from "phosphor-react";
 import { lazy, Suspense, useState } from "react";
+import { ErrorBoundary } from "../../../components/ErrorBoundary";
 import { useAuth } from "../../../hooks/useAuth";
 
 const HeroExperience = lazy(() => import("./HeroExperience"));
@@ -89,9 +90,12 @@ export const Hero = () => {
         position={"relative"}
         w={"full"}
         h="60vh"
+        display={{ base: "none", md: "block" }}
       >
         <Suspense fallback={null}>
-          <HeroExperience />
+          <ErrorBoundary>
+            <HeroExperience />
+          </ErrorBoundary>
         </Suspense>
       </Flex>
     </Stack>

@@ -19,6 +19,7 @@ import { inject } from "@vercel/analytics";
 import { log } from "./utils/log";
 import { UnauthorizedError } from "./errors/UnauthorisedError";
 import NetworkError from "./errors/NetworkError";
+import { ErrorBoundary } from "./components/ErrorBoundary";
 
 // Redirect to new domain if using old domain
 if (window.location.host === "timetabl.vercel.app") {
@@ -100,9 +101,11 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     ]}
   >
     <ColorModeScript initialColorMode={themeGen().config.initialColorMode} />
-    <BrowserRouter>
-      <Routes />
-    </BrowserRouter>
+    <ErrorBoundary>
+      <BrowserRouter>
+        <Routes />
+      </BrowserRouter>
+    </ErrorBoundary>
     <ToastContainer />
     <ReactQueryDevtools initialIsOpen={false} />
   </Compose>
