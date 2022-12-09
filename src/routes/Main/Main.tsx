@@ -4,11 +4,13 @@ import { Flex, useBreakpointValue } from "@chakra-ui/react";
 import { useAuth } from "../../hooks/useAuth";
 import Sidebar from "../../components/Sidebar";
 import { ErrorBoundary } from "../../components/ErrorBoundary";
+import { BottomNavSheet } from "../../components/BottomNavSheet";
 
 export default () => {
   const { loggedIn, shouldRedirect } = useAuth();
   const navigate = useNavigate();
   const { pathname } = useLocation();
+  const isLargerThanMd = useBreakpointValue({ base: false, md: true });
 
   useEffect(() => {
     if (!loggedIn && shouldRedirect) {
@@ -23,10 +25,11 @@ export default () => {
       height={"full"}
       direction={{ base: "column-reverse", md: "row" }}
     >
-      <Sidebar
-        pathname={pathname}
-        sidebar={useBreakpointValue({ base: false, md: true })}
-      />
+      {isLargerThanMd ? (
+        <Sidebar pathname={pathname} />
+      ) : (
+        <BottomNavSheet pathname={pathname} />
+      )}
       <Flex
         direction={"column"}
         align={"center"}
