@@ -31,7 +31,6 @@ export default ({
       p={"12px"}
       h={"64px"}
       w="100%"
-      flexGrow={1}
       direction={"column"}
       align={"center"}
     >

@@ -1,7 +1,7 @@
-import { Link } from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
 import SidebarButton from "./SidebarButton";
 import { Barcode, CalendarBlank, House, Megaphone } from "phosphor-react";
-import { Flex, useColorModeValue } from "@chakra-ui/react";
+import { Flex, useColorModeValue, Box } from "@chakra-ui/react";
 
 export default ({
   pathname,
@@ -11,11 +11,9 @@ export default ({
   sidebar: boolean;
 }) => (
   <Flex
-    minW={"fit-content"}
-    w={{ base: "100%", md: "auto" }}
+    w={{ base: "100%", md: "100px" }}
     h={{ base: "auto", md: "100%" }}
     direction={{ base: "row", md: "column" }}
-    justify={{ base: "space-evenly", md: "flex-start" }}
     position={"fixed"}
     top={{ md: "80px", base: "auto" }}
     bottom={{ base: 0, md: "auto" }}
@@ -23,35 +21,35 @@ export default ({
     zIndex={100}
     bg={useColorModeValue("white", "gray.800")}
     border={"1px"}
-    borderTop="none"
+    borderTop={{ md: "none" }}
     borderColor={useColorModeValue("gray.200", "gray.700")}
   >
-    <Link to={"/app"}>
+    <Box as={RouterLink} to={"/app"} w="full">
       <SidebarButton
         sidebar={sidebar}
         name={"Home"}
         active={pathname === "/app"}
         icon={House}
       />
-    </Link>
-    <Link to={"/app/barcodes"}>
+    </Box>
+    <Box as={RouterLink} to={"/app/barcodes"} w="full">
       <SidebarButton
         sidebar={sidebar}
         name={"Barcodes"}
         active={pathname === "/app/barcodes"}
         icon={Barcode}
       />
-    </Link>
-    <Link to={"/app/announcements"}>
+    </Box>
+    <Box as={RouterLink} to={"/app/announcements"} w="full">
       <SidebarButton
         sidebar={sidebar}
-        name={"Announcements"}
+        name={"Notices"}
         active={pathname === "/app/announcements"}
         icon={Megaphone}
         mirrored
       />
-    </Link>
-    <Link to={"/app/calendar"}>
+    </Box>
+    <Box as={RouterLink} to={"/app/calendar"} w="full">
       <SidebarButton
         sidebar={sidebar}
         name={"Calendar"}
@@ -59,6 +57,6 @@ export default ({
         icon={CalendarBlank}
         mirrored
       />
-    </Link>
+    </Box>
   </Flex>
 );
