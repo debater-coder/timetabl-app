@@ -14,6 +14,8 @@ const Flex = motion(ChakraFlex);
 export const BottomNavSheet = ({ pathname }: BottomNavSheetProps) => {
   const [height, setHeight] = useState(80);
 
+  const close = () => setHeight(80);
+
   return (
     <Flex
       w={"100%"}
@@ -43,9 +45,9 @@ export const BottomNavSheet = ({ pathname }: BottomNavSheetProps) => {
         _event: MouseEvent | TouchEvent | PointerEvent,
         info: PanInfo
       ) => {
-        if (info.velocity.y > 150) {
+        if (info.velocity.y > 100) {
           setHeight(80);
-        } else if (info.velocity.y < -150) {
+        } else if (info.velocity.y < -100) {
           setHeight(300);
         }
       }}
@@ -60,7 +62,7 @@ export const BottomNavSheet = ({ pathname }: BottomNavSheetProps) => {
         _active={{ cursor: "grabbing" }}
       />
       <Flex w="full">
-        <Box as={RouterLink} to={"/app"} w="full">
+        <Box as={RouterLink} to={"/app"} w="full" onClick={close}>
           <SidebarButton
             sidebar
             name={"Home"}
@@ -68,7 +70,7 @@ export const BottomNavSheet = ({ pathname }: BottomNavSheetProps) => {
             icon={House}
           />
         </Box>
-        <Box as={RouterLink} to={"/app/barcodes"} w="full">
+        <Box as={RouterLink} to={"/app/barcodes"} w="full" onClick={close}>
           <SidebarButton
             sidebar
             name={"Barcodes"}
@@ -76,7 +78,7 @@ export const BottomNavSheet = ({ pathname }: BottomNavSheetProps) => {
             icon={Barcode}
           />
         </Box>
-        <Box as={RouterLink} to={"/app/announcements"} w="full">
+        <Box as={RouterLink} to={"/app/announcements"} w="full" onClick={close}>
           <SidebarButton
             sidebar
             name={"Notices"}
@@ -85,7 +87,7 @@ export const BottomNavSheet = ({ pathname }: BottomNavSheetProps) => {
             mirrored
           />
         </Box>
-        <Box as={RouterLink} to={"/app/calendar"} w="full">
+        <Box as={RouterLink} to={"/app/calendar"} w="full" onClick={close}>
           <SidebarButton
             sidebar
             name={"Calendar"}
