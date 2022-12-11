@@ -43,9 +43,9 @@ export const BottomNavSheet = ({ pathname }: BottomNavSheetProps) => {
         _event: MouseEvent | TouchEvent | PointerEvent,
         info: PanInfo
       ) => {
-        if (info.velocity.y > 200) {
+        if (info.velocity.y > 150) {
           setHeight(80);
-        } else if (info.velocity.y < -200) {
+        } else if (info.velocity.y < -150) {
           setHeight(300);
         }
       }}
