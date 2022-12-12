@@ -62,6 +62,13 @@ const HomeView = ({
 
   const [countdown, setCountdown] = useState("");
 
+  const activeIndex = periods.findIndex(
+    ({ time, endTime }: { time: string; endTime: string }) =>
+      (DateTime.fromISO(`${date}T${time}`) < DateTime.now() &&
+        DateTime.now() < DateTime.fromISO(`${date}T${endTime}`)) ??
+      false
+  );
+
   return (
     <LayoutGroup>
       <Flex direction={"column"} align="center" gap={1.5}>
@@ -129,6 +136,7 @@ const HomeView = ({
           {periods.length ? (
             periods.map((period, index) => (
               <DTTPeriod
+                active={activeIndex === index}
                 period={period}
                 key={period.key ?? index + 100}
                 isLoaded={isLoaded}

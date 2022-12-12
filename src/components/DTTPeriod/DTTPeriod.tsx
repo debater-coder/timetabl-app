@@ -8,11 +8,11 @@ import { Period } from "../Period";
 export const DTTPeriod = ({
   period,
   isLoaded,
-  date,
+  active,
 }: {
   period: TimetablPeriod;
   isLoaded: boolean;
-  date?: string;
+  active: boolean;
 }) => {
   const {
     showTimesInsteadOfRooms,
@@ -28,11 +28,7 @@ export const DTTPeriod = ({
 
   return (
     <Period
-      active={
-        (DateTime.fromISO(`${date}T${period.time}`) < DateTime.now() &&
-          DateTime.now() < DateTime.fromISO(`${date}T${period.endTime}`)) ??
-        false
-      }
+      active={active}
       colour={
         period.room &&
         {
