@@ -1,9 +1,8 @@
-import { Link as RouterLink } from "react-router-dom";
 import { Flex as ChakraFlex, useColorModeValue, Box } from "@chakra-ui/react";
 import { House, Barcode, Megaphone, CalendarBlank } from "phosphor-react";
 import SidebarButton from "../Sidebar/SidebarButton";
 import { motion, PanInfo } from "framer-motion";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export interface BottomNavSheetProps {
   pathname: string;
@@ -14,7 +13,19 @@ const Flex = motion(ChakraFlex);
 export const BottomNavSheet = ({ pathname }: BottomNavSheetProps) => {
   const [height, setHeight] = useState(80);
 
-  const close = () => setHeight(80);
+  const isMountedRef = useRef(false);
+  useEffect(() => {
+    isMountedRef.current = true;
+    return () => {
+      isMountedRef.current = false;
+    };
+  }, []);
+
+  const close = () => {
+    if (isMountedRef.current) {
+      setHeight(80);
+    }
+  };
 
   return (
     <Flex
@@ -62,40 +73,36 @@ export const BottomNavSheet = ({ pathname }: BottomNavSheetProps) => {
         _active={{ cursor: "grabbing" }}
       />
       <Flex w="full">
-        <Box as={RouterLink} to={"/app"} w="full" onClick={close}>
-          <SidebarButton
-            sidebar
-            name={"Home"}
-            active={pathname === "/app"}
-            icon={House}
-          />
-        </Box>
-        <Box as={RouterLink} to={"/app/barcodes"} w="full" onClick={close}>
-          <SidebarButton
-            sidebar
-            name={"Barcodes"}
-            active={pathname === "/app/barcodes"}
-            icon={Barcode}
-          />
-        </Box>
-        <Box as={RouterLink} to={"/app/announcements"} w="full" onClick={close}>
-          <SidebarButton
-            sidebar
-            name={"Notices"}
-            active={pathname === "/app/announcements"}
-            icon={Megaphone}
-            mirrored
-          />
-        </Box>
-        <Box as={RouterLink} to={"/app/calendar"} w="full" onClick={close}>
-          <SidebarButton
-            sidebar
-            name={"Calendar"}
-            active={pathname === "/app/calendar"}
-            icon={CalendarBlank}
-            mirrored
-          />
-        </Box>
+        <SidebarButton
+          to={"/app"}
+          name={"Home"}
+          active={pathname === "/app"}
+          icon={House}
+          onClick={close}
+        />
+        <SidebarButton
+          name={"Barcodes"}
+          active={pathname === "/app/barcodes"}
+          icon={Barcode}
+          to={"/app/barcodes"}
+          onClick={close}
+        />
+        <SidebarButton
+          name={"Notices"}
+          active={pathname === "/app/announcements"}
+          icon={Megaphone}
+          mirrored
+          to={"/app/announcements"}
+          onClick={close}
+        />
+        <SidebarButton
+          name={"Calendar"}
+          active={pathname === "/app/calendar"}
+          icon={CalendarBlank}
+          mirrored
+          to={"/app/calendar"}
+          onClick={close}
+        />
       </Flex>
     </Flex>
   );
