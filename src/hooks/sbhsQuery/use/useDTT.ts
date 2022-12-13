@@ -1,3 +1,4 @@
+import { DateTime } from "luxon";
 import { fetchDayTimetable } from "../fetch";
 import { APIPeriod } from "../fetch/fetchDayTimetable";
 import { useSBHSQuery } from "./useSBHSQuery";
@@ -85,15 +86,23 @@ export const useDTT = (enabled?: boolean, date?: string) =>
             return [
               {
                 name: "Transition",
-                endTime: bell?.startTime,
-                time: bells?.[index - 1]?.endTime ?? "00:00",
+                endTime: DateTime.fromISO(bell?.startTime).toLocaleString(
+                  DateTime.TIME_SIMPLE
+                ),
+                time: DateTime.fromISO(
+                  bells?.[index - 1]?.endTime ?? "00:00"
+                ).toLocaleString(DateTime.TIME_SIMPLE),
               },
               {
                 name,
                 room: period?.room,
                 teacher,
-                time: bell?.startTime,
-                endTime: bell?.endTime,
+                time: DateTime.fromISO(bell?.startTime).toLocaleString(
+                  DateTime.TIME_SIMPLE
+                ),
+                endTime: DateTime.fromISO(bell?.endTime).toLocaleString(
+                  DateTime.TIME_SIMPLE
+                ),
                 colour:
                   subject?.colour && period?.room
                     ? `#${subject?.colour}`
