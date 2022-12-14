@@ -62,9 +62,13 @@ const HomeView = ({
 
   const [countdown, setCountdown] = useState("");
 
-  const activeIndex = periods.findIndex(
-    ({ time, endTime }) => (time < DateTime.now() && endTime) ?? false
-  );
+  const activeIndex =
+    date === initialDate
+      ? periods.findIndex(
+          ({ time, endTime }) =>
+            time < DateTime.now() && DateTime.now() < endTime
+        )
+      : -1;
 
   return (
     <LayoutGroup>
@@ -157,8 +161,6 @@ const HomeView = ({
 
 export default function Home() {
   const [date, setDate] = useState<string | undefined>();
-
-  console.log(date);
 
   return (
     <QueriesHandler queries={{ dtt: useDTT(true, date), initialDtt: useDTT() }}>
