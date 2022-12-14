@@ -1,6 +1,6 @@
 import SidebarButton from "./SidebarButton";
-import { Barcode, CalendarBlank, House, Megaphone } from "phosphor-react";
 import { Flex, useColorModeValue } from "@chakra-ui/react";
+import { routes } from "../../routes";
 
 export default ({ pathname }: { pathname: string }) => (
   <Flex
@@ -17,31 +17,15 @@ export default ({ pathname }: { pathname: string }) => (
     borderTop={"none"}
     borderColor={useColorModeValue("gray.200", "gray.700")}
   >
-    <SidebarButton
-      to={"/app"}
-      name={"Home"}
-      active={pathname === "/app"}
-      icon={House}
-    />
-    <SidebarButton
-      name={"Barcodes"}
-      active={pathname === "/app/barcodes"}
-      icon={Barcode}
-      to={"/app/barcodes"}
-    />
-    <SidebarButton
-      name={"Notices"}
-      active={pathname === "/app/announcements"}
-      icon={Megaphone}
-      mirrored
-      to={"/app/announcements"}
-    />
-    <SidebarButton
-      name={"Calendar"}
-      active={pathname === "/app/calendar"}
-      icon={CalendarBlank}
-      mirrored
-      to={"/app/calendar"}
-    />
+    {routes.map((routes) => (
+      <SidebarButton
+        key={routes.path}
+        name={routes.name}
+        active={pathname === routes.path}
+        icon={routes.icon}
+        mirrored={routes.mirrored}
+        to={routes.path}
+      />
+    ))}
   </Flex>
 );

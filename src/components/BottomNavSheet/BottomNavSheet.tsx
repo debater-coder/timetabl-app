@@ -1,8 +1,8 @@
 import { Flex as ChakraFlex, useColorModeValue, Box } from "@chakra-ui/react";
-import { House, Barcode, Megaphone, CalendarBlank } from "phosphor-react";
 import SidebarButton from "../Sidebar/SidebarButton";
 import { motion, PanInfo } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
+import { routes } from "../../routes";
 
 export interface BottomNavSheetProps {
   pathname: string;
@@ -72,37 +72,23 @@ export const BottomNavSheet = ({ pathname }: BottomNavSheetProps) => {
         cursor={"grab"}
         _active={{ cursor: "grabbing" }}
       />
-      <Flex w="full">
-        <SidebarButton
-          to={"/app"}
-          name={"Home"}
-          active={pathname === "/app"}
-          icon={House}
-          onClick={close}
-        />
-        <SidebarButton
-          name={"Barcodes"}
-          active={pathname === "/app/barcodes"}
-          icon={Barcode}
-          to={"/app/barcodes"}
-          onClick={close}
-        />
-        <SidebarButton
-          name={"Notices"}
-          active={pathname === "/app/announcements"}
-          icon={Megaphone}
-          mirrored
-          to={"/app/announcements"}
-          onClick={close}
-        />
-        <SidebarButton
-          name={"Calendar"}
-          active={pathname === "/app/calendar"}
-          icon={CalendarBlank}
-          mirrored
-          to={"/app/calendar"}
-          onClick={close}
-        />
+      <Flex
+        w="full"
+        border={"1px"}
+        borderTop="none"
+        borderColor={useColorModeValue("gray.200", "gray.700")}
+      >
+        {routes.map((routes) => (
+          <SidebarButton
+            key={routes.path}
+            name={routes.name}
+            active={pathname === routes.path}
+            icon={routes.icon}
+            mirrored={routes.mirrored}
+            to={routes.path}
+            onClick={close}
+          />
+        ))}
       </Flex>
     </Flex>
   );

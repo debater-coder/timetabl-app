@@ -1,4 +1,4 @@
-import { Barcode, House, IconWeight } from "phosphor-react";
+import { Barcode, CalendarBlank, House, IconWeight } from "phosphor-react";
 
 export type TimetablRoute = {
   path: string;
@@ -33,9 +33,9 @@ export const routes: TimetablRoute[] = [
     mirrored: false,
   },
   {
-    path: "/app",
-    name: "Home",
-    icon: House,
+    path: "/app/calendar",
+    name: "Calendar",
+    icon: CalendarBlank,
     mirrored: false,
   },
 ];

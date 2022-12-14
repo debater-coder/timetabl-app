@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import contextualise from "../utils/contextualise";
 import config from "../../config.js";
 import { useQueryClient } from "@tanstack/react-query";
-import { toast } from "../main";
+import { toast } from "../toast";
 import HTTPError from "../errors/HTTPError";
 import _ from "lodash";
 

@@ -11,7 +11,6 @@ import { QueryClient, QueryCache } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { PersistQueryClientProvider } from "@tanstack/react-query-persist-client";
 import { createSyncStoragePersister } from "@tanstack/query-sync-storage-persister";
-import { createStandaloneToast } from "@chakra-ui/toast";
 import reportWebVitals from "./reportWebVitals";
 import { sendToVercelAnalytics } from "./vitals";
 import useSettings, { SettingsProvider } from "./hooks/useSettings";
@@ -20,19 +19,12 @@ import { log } from "./utils/log";
 import { UnauthorizedError } from "./errors/UnauthorisedError";
 import NetworkError from "./errors/NetworkError";
 import { ErrorBoundary } from "./components/ErrorBoundary";
+import { toast, ToastContainer } from "./toast";
 
 // Redirect to new domain if using old domain
 if (window.location.host === "timetabl.vercel.app") {
   window.location.href = "https://www.timetabl.app";
 }
-
-// ===========================
-// QUERY CLIENT INITIALISATION
-// ===========================
-
-const { ToastContainer, toast } = createStandaloneToast();
-
-export { toast };
 
 const queryClient = new QueryClient({
   defaultOptions: {
