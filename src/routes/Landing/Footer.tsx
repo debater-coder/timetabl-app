@@ -5,6 +5,7 @@ import {
   ButtonGroup,
   IconButton,
   Link,
+  Box,
 } from "@chakra-ui/react";
 import { TimetablLogo } from "../../components/Nav/Nav";
 import { FaGithub } from "react-icons/fa";
@@ -44,6 +45,27 @@ export const Footer = () => {
           MIT License.
         </Link>
       </Text>
+      <Box
+        mt="6"
+        fontSize="sm"
+        fontWeight="semibold"
+        display="inline-block"
+        bg="black"
+        color="white"
+        px="4"
+        py="2"
+        rounded="lg"
+        alignSelf={"center"}
+        as="a"
+        target="_blank"
+        href="https://vercel.com"
+      >
+        Deployed by{" "}
+        <span role="img" aria-label="Vercel logo">
+          ▲
+        </span>{" "}
+        Vercel
+      </Box>
     </Stack>
   );
 };
