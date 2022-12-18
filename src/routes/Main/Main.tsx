@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import { Flex, useBreakpointValue } from "@chakra-ui/react";
 import { useAuth } from "../../hooks/useAuth";
 import Sidebar from "../../components/Sidebar";
@@ -9,7 +9,6 @@ import { BottomNavSheet } from "../../components/BottomNavSheet";
 export default () => {
   const { loggedIn, shouldRedirect } = useAuth();
   const navigate = useNavigate();
-  const { pathname } = useLocation();
   const isLargerThanMd = useBreakpointValue({ base: false, md: true });
 
   useEffect(() => {
@@ -25,11 +24,7 @@ export default () => {
       height={"full"}
       direction={{ base: "column-reverse", md: "row" }}
     >
-      {isLargerThanMd ? (
-        <Sidebar pathname={pathname} />
-      ) : (
-        <BottomNavSheet pathname={pathname} />
-      )}
+      {isLargerThanMd ? <Sidebar /> : <BottomNavSheet />}
       <Flex
         direction={"column"}
         align={"center"}

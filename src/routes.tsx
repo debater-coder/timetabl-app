@@ -1,4 +1,10 @@
-import { Barcode, CalendarBlank, House, IconWeight } from "phosphor-react";
+import {
+  Barcode,
+  CalendarBlank,
+  House,
+  IconWeight,
+  Megaphone,
+} from "phosphor-react";
 import Announcements from "./routes/Main/Announcements";
 import Barcodes from "./routes/Main/Barcodes";
 import { Calendar } from "./routes/Main/Calendar";
@@ -36,8 +42,8 @@ export const routes: TimetablRoute[] = [
   {
     path: "announcements",
     name: "Notices",
-    icon: House,
-    mirrored: false,
+    icon: Megaphone,
+    mirrored: true,
     element: <Announcements />,
   },
   {

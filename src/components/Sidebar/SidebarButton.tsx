@@ -1,7 +1,7 @@
 import { Box, Flex, Text, useColorModeValue, useToken } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import { IconWeight } from "phosphor-react";
-import { Link as RouterLink, LinkProps } from "react-router-dom";
+import { Link as RouterLink, useMatch } from "react-router-dom";
 import React from "react";
 
 export default React.memo(
@@ -14,15 +14,15 @@ export default React.memo(
         weight: IconWeight;
       }>
     >;
-    active?: boolean;
     mirrored?: boolean;
-    to: LinkProps["to"];
+    to: string;
     onClick?: () => void;
   }) => {
-    const { name, icon: Icon, active, mirrored = false, to, onClick } = props;
+    const { name, icon: Icon, mirrored = false, to, onClick } = props;
     const hoverColor = useColorModeValue("gray.100", "gray.700");
     const [secondary] = useToken("colors", ["primary.300"]);
     const MotionFlex = motion(Flex);
+    const active = Boolean(useMatch(to));
 
     return (
       <Box as={RouterLink} w="full" to={to} onClick={onClick}>

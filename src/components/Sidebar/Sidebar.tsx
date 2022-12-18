@@ -2,7 +2,7 @@ import SidebarButton from "./SidebarButton";
 import { Flex, useColorModeValue } from "@chakra-ui/react";
 import { routes } from "../../routes";
 
-export default ({ pathname }: { pathname: string }) => (
+export default () => (
   <Flex
     w={"100px"}
     h={"100%"}
@@ -21,7 +21,6 @@ export default ({ pathname }: { pathname: string }) => (
       <SidebarButton
         key={routes.path}
         name={routes.name}
-        active={pathname === `/app/${routes.path}`}
         icon={routes.icon}
         mirrored={routes.mirrored}
         to={`/app/${routes.path}`}

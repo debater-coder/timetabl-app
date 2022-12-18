@@ -4,13 +4,9 @@ import { motion, PanInfo } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { routes } from "../../routes";
 
-export interface BottomNavSheetProps {
-  pathname: string;
-}
-
 const Flex = motion(ChakraFlex);
 
-export const BottomNavSheet = ({ pathname }: BottomNavSheetProps) => {
+export const BottomNavSheet = () => {
   const [height, setHeight] = useState(80);
 
   const isMountedRef = useRef(false);
@@ -82,7 +78,6 @@ export const BottomNavSheet = ({ pathname }: BottomNavSheetProps) => {
           <SidebarButton
             key={routes.path}
             name={routes.name}
-            active={pathname === `/app/${routes.path}`}
             icon={routes.icon}
             mirrored={routes.mirrored}
             to={`/app/${routes.path}`}
