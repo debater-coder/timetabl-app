@@ -71,6 +71,7 @@
     "workbox-window": "^6.5.3"
   },
   "devDependencies": {
+    "@tanstack/eslint-plugin-query": "^4.20.2",
     "@types/cookie": "^0.5.1",
     "@types/dom-screen-wake-lock": "^1.0.0",
     "@types/dompurify": "^2.4.0",

@@ -23,7 +23,9 @@ const fetchTimetablNews = async () => {
 };
 
 export const useTimetablNews = () =>
-  useQuery(["timetablnews"], fetchTimetablNews, {
+  useQuery({
+    queryKey: ["timetablnews"],
+    queryFn: fetchTimetablNews,
     select: (json) => {
       const { data } = json;
       return data?.map(

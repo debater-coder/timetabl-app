@@ -10,8 +10,9 @@
     "plugin:@typescript-eslint/recommended",
     "plugin:react/recommended",
     "plugin:react/jsx-runtime",
-    "prettier",
-    "plugin:react-hooks/recommended"
+    "plugin:react-hooks/recommended",
+    "plugin:@tanstack/eslint-plugin-query/recommended",
+    "prettier"
   ],
   "parserOptions": {
     "ecmaFeatures": {
@@ -20,7 +21,13 @@
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
-  "plugins": ["no-loops", "@typescript-eslint", "react"],
+  "plugins": [
+    "no-loops",
+    "@typescript-eslint",
+    "react",
+    "react-hooks",
+    "@tanstack/eslint-plugin-query"
+  ],
   "rules": {
     "react/display-name": "off",
     "react/prop-types": "off",
