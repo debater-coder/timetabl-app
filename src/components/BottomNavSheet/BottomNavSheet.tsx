@@ -82,10 +82,10 @@ export const BottomNavSheet = ({ pathname }: BottomNavSheetProps) => {
           <SidebarButton
             key={routes.path}
             name={routes.name}
-            active={pathname === routes.path}
+            active={pathname === `/app/${routes.path}`}
             icon={routes.icon}
             mirrored={routes.mirrored}
-            to={routes.path}
+            to={`/app/${routes.path}`}
             onClick={close}
           />
         ))}
