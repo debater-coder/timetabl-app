@@ -1,4 +1,9 @@
-import { Route, Routes, Navigate } from "react-router-dom";
+import {
+  Route,
+  Navigate,
+  createBrowserRouter,
+  createRoutesFromElements,
+} from "react-router-dom";
 import App from "../App/App";
 import Settings from "../../routes/Main/Settings";
 import General from "../../routes/Main/Settings/General";
@@ -35,8 +40,8 @@ const SpinnerSuspense = ({ children }: { children: ReactNode }) => (
   </Suspense>
 );
 
-export default () => (
-  <Routes>
+export const router = createBrowserRouter(
+  createRoutesFromElements(
     <Route path={"/"} element={<App />}>
       <Route
         index
@@ -68,5 +73,5 @@ export default () => (
       </Route>
       <Route path="*" element={<PageNotFound />} />
     </Route>
-  </Routes>
+  )
 );

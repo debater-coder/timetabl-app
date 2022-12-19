@@ -1,12 +1,11 @@
 import { StrictMode } from "react";
 import ReactDOM from "react-dom/client";
-import { BrowserRouter } from "react-router-dom";
+import { RouterProvider } from "react-router-dom";
 import { ChakraProvider, ColorModeScript } from "@chakra-ui/react";
 import themeGen from "./theme";
 import registerSW from "./registerSW";
 import { Compose, withProps } from "./utils/contextualise";
 import { AuthProvider } from "./hooks/useAuth";
-import Routes from "./components/Routes";
 import { QueryClient, QueryCache } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { PersistQueryClientProvider } from "@tanstack/react-query-persist-client";
@@ -21,6 +20,7 @@ import NetworkError from "./errors/NetworkError";
 import { ErrorBoundary } from "./components/ErrorBoundary";
 import { toast, ToastContainer } from "./toast";
 import "@fontsource/poppins";
+import { router } from "./components/Routes/Routes";
 
 // Redirect to new domain if using old domain
 if (window.location.host === "timetabl.vercel.app") {
@@ -95,9 +95,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   >
     <ColorModeScript initialColorMode={themeGen().config.initialColorMode} />
     <ErrorBoundary>
-      <BrowserRouter>
-        <Routes />
-      </BrowserRouter>
+      <RouterProvider router={router} />
     </ErrorBoundary>
     <ToastContainer />
     <ReactQueryDevtools initialIsOpen={false} />
