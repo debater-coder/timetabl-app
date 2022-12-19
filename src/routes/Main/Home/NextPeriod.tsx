@@ -15,27 +15,20 @@ type NextPeriodProps = {
 
 export default ({
   periods,
-  date,
   countdown,
   setCountdown,
   isLoaded,
 }: NextPeriodProps) => {
   const activePeriod = periods.findIndex(
-    ({ time, endTime }: { time: string; endTime: string }) =>
-      (DateTime.fromISO(`${date}T${time}`) < DateTime.now() &&
-        DateTime.now() < DateTime.fromISO(`${date}T${endTime}`)) ??
-      false
+    ({ time, endTime }) =>
+      (time < DateTime.now() && DateTime.now() < endTime) ?? false
   );
 
   const nextPeriod = periods[activePeriod + 1];
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setCountdown(
-        DateTime.fromISO(`${date}T${nextPeriod.time}`)
-          .diffNow()
-          .toFormat("hh:mm:ss")
-      );
+      setCountdown(nextPeriod.time.diffNow().toFormat("hh:mm:ss"));
     }, 500);
 
     return () => clearInterval(timer);
@@ -58,8 +51,9 @@ export default ({
       leftContentSize={"lg"}
       rightContent={
         showTimesInsteadOfRooms === "true"
-          ? nextPeriod.time
-          : nextPeriod.room ?? nextPeriod.time
+          ? nextPeriod?.time?.toLocaleString(DateTime.TIME_SIMPLE)
+          : nextPeriod.room ??
+            nextPeriod?.time?.toLocaleString(DateTime.TIME_SIMPLE)
       }
       expandedContent={<>IN {countdown}</>}
       expandedSize={"xl"}

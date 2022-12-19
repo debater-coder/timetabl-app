@@ -1,0 +1,43 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "commitConvention": "angular",
+  "contributors": [
+    {
+      "login": "wensenfriendandextra",
+      "name": "Wansen Dong",
+      "avatar_url": "https://avatars.githubusercontent.com/u/23128324?v=4",
+      "profile": "https://github.com/wensenfriendandextra",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "debater-coder",
+      "name": "debater-coder",
+      "avatar_url": "https://avatars.githubusercontent.com/u/52619668?v=4",
+      "profile": "https://github.com/debater-coder",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "ZZZooHaq",
+      "name": "ZZZooHaq",
+      "avatar_url": "https://avatars.githubusercontent.com/u/88522048?v=4",
+      "profile": "https://github.com/ZZZooHaq",
+      "contributions": [
+        "ideas"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "skipCi": true,
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "projectName": "timetabl-app",
+  "projectOwner": "debater-coder"
+}

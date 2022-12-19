@@ -8,11 +8,11 @@ import { Period } from "../Period";
 export const DTTPeriod = ({
   period,
   isLoaded,
-  date,
+  active,
 }: {
   period: TimetablPeriod;
   isLoaded: boolean;
-  date?: string;
+  active: boolean;
 }) => {
   const {
     showTimesInsteadOfRooms,
@@ -28,11 +28,7 @@ export const DTTPeriod = ({
 
   return (
     <Period
-      active={
-        (DateTime.fromISO(`${date}T${period.time}`) < DateTime.now() &&
-          DateTime.now() < DateTime.fromISO(`${date}T${period.endTime}`)) ??
-        false
-      }
+      active={active}
       colour={
         period.room &&
         {
@@ -44,14 +40,14 @@ export const DTTPeriod = ({
       leftContent={period.name}
       leftContentSize={"xs"}
       transition={
-        period?.name == "Transition" ||
-        DateTime.fromISO("15:15") <= DateTime.fromISO(period.time) ||
-        DateTime.fromISO(period.time) <= DateTime.fromISO("09:00")
+        period?.name === "Transition" ||
+        DateTime.fromISO(`${period?.date}T15:15`) <= period.time ||
+        period.time <= DateTime.fromISO(`${period?.date}T09:00`)
       }
       isLoaded={isLoaded}
       rightContent={
         showTimesInsteadOfRooms === "true" ? (
-          period.time
+          period?.time?.toLocaleString(DateTime.TIME_SIMPLE)
         ) : period.room ? (
           <chakra.span
             bg={period.roomTo && "primary.100"}
@@ -62,12 +58,15 @@ export const DTTPeriod = ({
             {period.roomTo ?? period.room}
           </chakra.span>
         ) : (
-          period.time
+          period?.time?.toLocaleString(DateTime.TIME_SIMPLE)
         )
       }
       expandedContent={
         <>
-          at {showTimesInsteadOfRooms !== "true" ? period.time : period.room}{" "}
+          at{" "}
+          {showTimesInsteadOfRooms !== "true"
+            ? period?.time?.toLocaleString(DateTime.TIME_SIMPLE)
+            : period.room}{" "}
           with{" "}
           <chakra.span
             bg={period.casual && "primary.100"}

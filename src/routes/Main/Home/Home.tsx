@@ -10,7 +10,7 @@ import {
 import "@fontsource/poppins";
 import { motion, LayoutGroup, AnimatePresence } from "framer-motion";
 import QueriesHandler from "../../../components/QueriesHandler";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { ArrowLeft, ArrowRight } from "phosphor-react";
 import { DateTime } from "luxon";
 import Empty from "./../../../components/Empty";
@@ -54,13 +54,21 @@ const HomeView = ({
       room: 605,
     });
 
-  useEffect(() => {
-    if (initialDate === date) {
-      onDateChange();
-    }
-  }, [initialDate, date, onDateChange]);
+  // useEffect(() => {
+  //   if (initialDate === date) {
+  //     onDateChange();
+  //   }
+  // }, [initialDate, date, onDateChange]);
 
   const [countdown, setCountdown] = useState("");
+
+  const activeIndex =
+    date === initialDate
+      ? periods.findIndex(
+          ({ time, endTime }) =>
+            time < DateTime.now() && DateTime.now() < endTime
+        )
+      : -1;
 
   return (
     <LayoutGroup>
@@ -118,9 +126,10 @@ const HomeView = ({
         </Flex>
         <Flex
           direction={"column"}
-          bg={
-            useToken("colors", useColorModeValue("gray.300", "gray.500")) + "33"
-          }
+          bg={`${useToken(
+            "colors",
+            useColorModeValue("gray.300", "gray.500")
+          )}33`}
           minW={"50vw"}
           rounded={10}
           as={motion.div}
@@ -129,6 +138,7 @@ const HomeView = ({
           {periods.length ? (
             periods.map((period, index) => (
               <DTTPeriod
+                active={activeIndex === index}
                 period={period}
                 key={period.key ?? index + 100}
                 isLoaded={isLoaded}

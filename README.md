@@ -1,4 +1,7 @@
 # [Timetabl](https://www.timetabl.app)
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors-)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fdebater-coder%2Ftimetabl-app&env=VITE_CLIENT_ID&envDescription=The%20client%20id%20you%20entered%20in%20the%20student%20portal.)
 
@@ -20,6 +23,33 @@ Timetabl is built on three principles:
 
 3. **Be secure**
    Unlike other bell time apps, Timetabl stores your tokens in HTTPS-only cookies instead of `localStorage`, so that even in the event of an XSS attack, the tokens are secure.
+   
+## Contributors
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<table>
+  <tbody>
+    <tr>
+      <td align="center"><a href="https://github.com/wensenfriendandextra"><img src="https://avatars.githubusercontent.com/u/23128324?v=4?s=100" width="100px;" alt="Wansen Dong"/><br /><sub><b>Wansen Dong</b></sub></a><br /><a href="https://github.com/debater-coder/timetabl-app/commits?author=wensenfriendandextra" title="Code">💻</a></td>
+      <td align="center"><a href="https://github.com/debater-coder"><img src="https://avatars.githubusercontent.com/u/52619668?v=4?s=100" width="100px;" alt="debater-coder"/><br /><sub><b>debater-coder</b></sub></a><br /><a href="https://github.com/debater-coder/timetabl-app/commits?author=debater-coder" title="Code">💻</a></td>
+      <td align="center"><a href="https://github.com/ZZZooHaq"><img src="https://avatars.githubusercontent.com/u/88522048?v=4?s=100" width="100px;" alt="ZZZooHaq"/><br /><sub><b>ZZZooHaq</b></sub></a><br /><a href="#ideas-ZZZooHaq" title="Ideas, Planning, & Feedback">🤔</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
 
 ## For Contributors
 

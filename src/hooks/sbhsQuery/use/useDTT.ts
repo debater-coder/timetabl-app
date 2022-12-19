@@ -1,17 +1,19 @@
+import { DateTime } from "luxon";
 import { fetchDayTimetable } from "../fetch";
-import { APIPeriod } from "../fetch/fetchDayTimetable";
+import { APIDTT, APIPeriod } from "../fetch/fetchDayTimetable";
 import { useSBHSQuery } from "./useSBHSQuery";
 
 export type TimetablPeriod = {
   name?: string;
   room?: string;
   teacher?: string;
-  time?: string;
-  endTime?: string;
+  time?: DateTime;
+  endTime?: DateTime;
   colour?: string;
   key?: string;
   casual?: string;
   roomTo?: string;
+  date?: string;
 };
 
 export type TimetablDTT = {
@@ -38,7 +40,7 @@ const formatCasual = (casual?: string) => {
  * @returns Query result for daily timetable.
  */
 export const useDTT = (enabled?: boolean, date?: string) =>
-  useSBHSQuery(
+  useSBHSQuery<{ date: string }, APIDTT, TimetablDTT>(
     "timetable/daytimetable.json",
     fetchDayTimetable,
     { date },
@@ -48,7 +50,7 @@ export const useDTT = (enabled?: boolean, date?: string) =>
 
       const result = {
         periods: (data?.bells ?? [])
-          .map((bell, index, bells) => {
+          .flatMap((bell, index, bells) => {
             const timetable = data?.timetable;
             const subjects = timetable?.subjects;
             const period: APIPeriod =
@@ -85,15 +87,16 @@ export const useDTT = (enabled?: boolean, date?: string) =>
             return [
               {
                 name: "Transition",
-                endTime: bell?.startTime,
-                time: bells?.[index - 1]?.endTime ?? "00:00",
+                endTime: DateTime.fromISO(`${data?.date}T${bell?.startTime}`),
+                time: DateTime.fromISO(bells?.[index - 1]?.endTime ?? "00:00"),
+                date: data?.date,
               },
               {
                 name,
                 room: period?.room,
                 teacher,
-                time: bell?.startTime,
-                endTime: bell?.endTime,
+                time: DateTime.fromISO(`${data?.date}T${bell?.startTime}`),
+                endTime: DateTime.fromISO(`${data?.date}T${bell?.endTime}`),
                 colour:
                   subject?.colour && period?.room
                     ? `#${subject?.colour}`
@@ -101,10 +104,10 @@ export const useDTT = (enabled?: boolean, date?: string) =>
                 key: bell?.bell,
                 casual,
                 roomTo,
+                date: data?.date,
               },
             ];
           })
-          .flat()
           .filter((period) => period?.time !== period?.endTime),
         date: data?.date,
       };
