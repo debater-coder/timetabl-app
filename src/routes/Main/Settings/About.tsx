@@ -10,7 +10,6 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { ExternalLinkIcon } from "@chakra-ui/icons";
-import "@fontsource/poppins";
 import { version } from "../../../../package.json";
 
 export default () => {

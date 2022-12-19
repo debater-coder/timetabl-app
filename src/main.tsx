@@ -20,6 +20,7 @@ import { UnauthorizedError } from "./errors/UnauthorisedError";
 import NetworkError from "./errors/NetworkError";
 import { ErrorBoundary } from "./components/ErrorBoundary";
 import { toast, ToastContainer } from "./toast";
+import "@fontsource/poppins";
 
 // Redirect to new domain if using old domain
 if (window.location.host === "timetabl.vercel.app") {

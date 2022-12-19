@@ -23,7 +23,6 @@ import {
   FormControl,
 } from "@chakra-ui/react";
 import QueriesHandler from "../../../components/QueriesHandler";
-import "@fontsource/poppins";
 import { Prose } from "@nikolovlazar/chakra-ui-prose";
 import DOMPurify from "dompurify";
 import linkifyHtml from "linkify-html";

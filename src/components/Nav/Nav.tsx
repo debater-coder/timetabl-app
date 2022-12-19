@@ -12,7 +12,6 @@ import {
 import { FaGithub, FaMoon, FaSun, MdLogout, MdSettings } from "react-icons/all";
 import { Link as RouterLink, useLocation } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
-import "@fontsource/poppins";
 import RefetchingIndicator from "../RefetchingIndicator";
 import { NavButton } from "../NavButton";
 import React, { useState } from "react";

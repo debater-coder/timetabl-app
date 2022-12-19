@@ -18,7 +18,6 @@ import {
 } from "@chakra-ui/react";
 import { Check } from "phosphor-react";
 import useSettings from "../../../hooks/useSettings";
-import "@fontsource/poppins";
 
 const PrimaryColour = (props: UseRadioProps) => {
   const { state, getInputProps, getCheckboxProps } = useRadio(props);

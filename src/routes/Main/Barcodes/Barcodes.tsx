@@ -5,7 +5,6 @@ import {
   Heading,
   useColorModeValue,
 } from "@chakra-ui/react";
-import "@fontsource/poppins";
 import { useState } from "react";
 import { get, update } from "idb-keyval";
 import { Barcode as BarcodeIcon } from "phosphor-react";

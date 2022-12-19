@@ -9,7 +9,6 @@ import {
   Badge,
 } from "@chakra-ui/react";
 import { House, Barcode, Megaphone, Calendar, Check } from "phosphor-react";
-import "@fontsource/poppins";
 
 export const Features = () => (
   <SimpleGrid minChildWidth="270px" spacing="40px">
@@ -86,8 +85,8 @@ export const Features = () => (
       </CardHeader>
       <CardBody>
         Get a bird&apos;s eye view of your timetable, and see what&apos;s
-        coming. View your sport from Clipboard, see when your assignments are due
-        from Canvas and more.
+        coming. View your sport from Clipboard, see when your assignments are
+        due from Canvas and more.
       </CardBody>
     </Card>
     <Card bg="transparent" shadow="xl">

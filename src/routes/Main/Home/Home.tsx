@@ -7,7 +7,6 @@ import {
   useColorModeValue,
   useToken,
 } from "@chakra-ui/react";
-import "@fontsource/poppins";
 import { motion, LayoutGroup, AnimatePresence } from "framer-motion";
 import QueriesHandler from "../../../components/QueriesHandler";
 import { useState } from "react";

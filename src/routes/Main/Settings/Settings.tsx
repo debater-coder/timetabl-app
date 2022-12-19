@@ -7,7 +7,6 @@ import {
 } from "@chakra-ui/react";
 import { Code, Gear, Info } from "phosphor-react";
 import { Outlet, Link, useLocation } from "react-router-dom";
-import "@fontsource/poppins";
 import { ErrorBoundary } from "../../../components/ErrorBoundary";
 
 const MenuEntry = ({

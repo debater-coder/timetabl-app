@@ -18,7 +18,7 @@ export const Feedback = () => {
       as="form"
       onSubmit={handleSubmit}
       w="full"
-      pr={8}
+      p={8}
       maxW="2xl"
       direction={"column"}
       gap={4}
