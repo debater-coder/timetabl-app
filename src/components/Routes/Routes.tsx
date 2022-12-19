@@ -1,17 +1,14 @@
 import { Route, Routes, Navigate } from "react-router-dom";
 import App from "../App/App";
-import Home from "../../routes/Main/Home";
 import Settings from "../../routes/Main/Settings";
-import Barcodes from "../../routes/Main/Barcodes";
 import General from "../../routes/Main/Settings/General";
 import Developers from "../../routes/Main/Settings/Developers";
 import About from "../../routes/Main/Settings/About";
-import Announcements from "../../routes/Main/Announcements";
 import Empty from "../Empty";
 import { SmileyXEyes } from "phosphor-react";
 import { lazy, ReactNode, Suspense } from "react";
 import { Flex, Spinner } from "@chakra-ui/react";
-import { Calendar } from "../../routes/Main/Calendar";
+import { routes } from "../../routes";
 
 const Main = lazy(() => import("../../routes/Main"));
 const Landing = lazy(() => import("../../routes/Landing"));
@@ -57,10 +54,10 @@ export default () => (
           </SpinnerSuspense>
         }
       >
-        <Route index element={<Home />} />
-        <Route path={"barcodes"} element={<Barcodes />} />
-        <Route path={"announcements"} element={<Announcements />} />
-        <Route path={"calendar"} element={<Calendar />} />
+        <Route index element={<Navigate to="home" replace={true} />} />
+        {[...routes.pinned, ...routes.unpinned].map((route) => (
+          <Route key={route.path} path={route.path} element={route.element} />
+        ))}
         <Route path={"settings/*"} element={<Settings />}>
           <Route path={"general"} element={<General />} />
           <Route path={"developers"} element={<Developers />} />

@@ -19,12 +19,10 @@ export const useSBHSQuery = <TOptions, TData, TSelect>(
 ) => {
   const { refresh, loading, setShouldLogin } = useAuth();
 
-  return useQuery(
-    getSBHSAPIQueryKey(endpoint, options),
-    () => fetchFn(options, refresh, setShouldLogin),
-    {
-      enabled: !loading && enabled,
-      select,
-    }
-  );
+  return useQuery({
+    queryKey: getSBHSAPIQueryKey(endpoint, options),
+    queryFn: () => fetchFn(options, refresh, setShouldLogin),
+    enabled: !loading && enabled,
+    select,
+  });
 };

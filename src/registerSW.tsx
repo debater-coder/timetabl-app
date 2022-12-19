@@ -1,6 +1,6 @@
 import { Alert, AlertTitle, Button } from "@chakra-ui/react";
 import { Workbox } from "workbox-window";
-import { toast } from "./main";
+import { toast } from "./toast";
 import { log } from "./utils/log";
 
 const promptForUpdate = (skipWaiting: () => void) => {
