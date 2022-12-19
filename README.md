@@ -1,6 +1,6 @@
 # [Timetabl](https://www.timetabl.app)
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fdebater-coder%2Ftimetabl-app&env=VITE_CLIENT_ID&envDescription=The%20client%20id%20you%20entered%20in%20the%20student%20portal.)
@@ -33,6 +33,7 @@ Timetabl is built on three principles:
   <tbody>
     <tr>
       <td align="center"><a href="https://github.com/wensenfriendandextra"><img src="https://avatars.githubusercontent.com/u/23128324?v=4?s=100" width="100px;" alt="Wansen Dong"/><br /><sub><b>Wansen Dong</b></sub></a><br /><a href="https://github.com/debater-coder/timetabl-app/commits?author=wensenfriendandextra" title="Code">💻</a></td>
+      <td align="center"><a href="https://github.com/debater-coder"><img src="https://avatars.githubusercontent.com/u/52619668?v=4?s=100" width="100px;" alt="debater-coder"/><br /><sub><b>debater-coder</b></sub></a><br /><a href="https://github.com/debater-coder/timetabl-app/commits?author=debater-coder" title="Code">💻</a></td>
     </tr>
   </tbody>
 </table>
