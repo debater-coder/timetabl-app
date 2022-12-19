@@ -55,7 +55,7 @@ export default () => (
         }
       >
         <Route index element={<Navigate to="home" replace={true} />} />
-        {routes.map((route) => (
+        {[...routes.pinned, ...routes.unpinned].map((route) => (
           <Route key={route.path} path={route.path} element={route.element} />
         ))}
         <Route path={"settings/*"} element={<Settings />}>

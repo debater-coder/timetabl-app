@@ -5,7 +5,8 @@ import { routes } from "../../routes";
 export default () => (
   <Flex
     w={"100px"}
-    h={"100%"}
+    h={"full"}
+    maxH="calc(100% - 80px)"
     direction={"column"}
     position={"fixed"}
     top={"80px"}
@@ -17,7 +18,7 @@ export default () => (
     borderTop={"none"}
     borderColor={useColorModeValue("gray.200", "gray.700")}
   >
-    {routes.map((routes) => (
+    {routes.pinned.map((routes) => (
       <SidebarButton
         key={routes.path}
         name={routes.name}
@@ -26,5 +27,21 @@ export default () => (
         to={`/app/${routes.path}`}
       />
     ))}
+    <Flex
+      direction="column"
+      borderTop={"1px"}
+      borderColor={useColorModeValue("gray.200", "gray.700")}
+      overflowY="auto"
+    >
+      {routes.unpinned.map((routes) => (
+        <SidebarButton
+          key={routes.path}
+          name={routes.name}
+          icon={routes.icon}
+          mirrored={routes.mirrored}
+          to={`/app/${routes.path}`}
+        />
+      ))}
+    </Flex>
   </Flex>
 );

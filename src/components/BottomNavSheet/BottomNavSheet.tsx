@@ -1,4 +1,9 @@
-import { Flex as ChakraFlex, useColorModeValue, Box } from "@chakra-ui/react";
+import {
+  Flex as ChakraFlex,
+  useColorModeValue,
+  Box,
+  SimpleGrid,
+} from "@chakra-ui/react";
 import SidebarButton from "../Sidebar/SidebarButton";
 import { motion, PanInfo } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
@@ -62,6 +67,7 @@ export const BottomNavSheet = () => {
       <Box
         bg="gray.500"
         h="5px"
+        minH={"5px"}
         w="30px"
         my="5px"
         rounded="full"
@@ -74,7 +80,7 @@ export const BottomNavSheet = () => {
         borderTop="none"
         borderColor={useColorModeValue("gray.200", "gray.700")}
       >
-        {routes.map((routes) => (
+        {routes.pinned.map((routes) => (
           <SidebarButton
             key={routes.path}
             name={routes.name}
@@ -85,6 +91,18 @@ export const BottomNavSheet = () => {
           />
         ))}
       </Flex>
+      <SimpleGrid columns={4} w="full">
+        {routes.unpinned.map((routes) => (
+          <SidebarButton
+            key={routes.path}
+            name={routes.name}
+            icon={routes.icon}
+            mirrored={routes.mirrored}
+            to={`/app/${routes.path}`}
+            onClick={close}
+          />
+        ))}
+      </SimpleGrid>
     </Flex>
   );
 };
