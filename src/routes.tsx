@@ -13,6 +13,7 @@ import {
 import Announcements from "./routes/Main/Announcements";
 import Barcodes from "./routes/Main/Barcodes";
 import { Calendar } from "./routes/Main/Calendar";
+import { Feedback } from "./routes/Main/Feedback";
 import Home from "./routes/Main/Home";
 
 const ComingSoon = () => <>Coming soon...</>;
@@ -89,7 +90,7 @@ export const routes: { pinned: TimetablRoute[]; unpinned: TimetablRoute[] } = {
       name: "Feedback",
       icon: ChatsTeardrop,
       mirrored: false,
-      element: <ComingSoon />,
+      element: <Feedback />,
     },
 
     {
