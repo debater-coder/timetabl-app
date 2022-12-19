@@ -1,0 +1,25 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "commitConvention": "angular",
+  "contributors": [
+    {
+      "login": "wensenfriendandextra",
+      "name": "Wansen Dong",
+      "avatar_url": "https://avatars.githubusercontent.com/u/23128324?v=4",
+      "profile": "https://github.com/wensenfriendandextra",
+      "contributions": [
+        "code"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "skipCi": true,
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "projectName": "timetabl-app",
+  "projectOwner": "debater-coder"
+}
