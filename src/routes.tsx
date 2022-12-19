@@ -15,6 +15,7 @@ import Barcodes from "./routes/Main/Barcodes";
 import { Calendar } from "./routes/Main/Calendar";
 import { Feedback } from "./routes/Main/Feedback";
 import Home from "./routes/Main/Home";
+import { Publications } from "./routes/Publications";
 
 const ComingSoon = () => <>Coming soon...</>;
 
@@ -83,7 +84,7 @@ export const routes: { pinned: TimetablRoute[]; unpinned: TimetablRoute[] } = {
       name: "Publications",
       icon: BookBookmark,
       mirrored: false,
-      element: <ComingSoon />,
+      element: <Publications />,
     },
     {
       path: "feedback",

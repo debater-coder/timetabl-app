@@ -32,8 +32,8 @@ export default () => {
         height={"full"}
         maxH={{ base: "calc(100% - 64px)", md: "100%" }}
         mb={{ base: "64px", md: 0 }}
-        maxW={{ base: "100%", md: "calc(100% - 144px)" }}
-        ml={{ base: 0, md: "144px" }}
+        maxW={{ base: "100%", md: "calc(100% - 100px)" }}
+        ml={{ base: 0, md: "100px" }}
         overflowY={"auto"}
       >
         <ErrorBoundary>

@@ -11,11 +11,9 @@ import {
 import { useEffect } from "react";
 import { useAuth } from "../../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
-import "@fontsource/poppins";
 import { Hero } from "./Hero";
 import { Features } from "./Features";
 import { Footer } from "./Footer";
-import "@fontsource/poppins";
 
 export default () => {
   const navigate = useNavigate();
