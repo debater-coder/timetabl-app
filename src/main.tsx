@@ -20,6 +20,7 @@ import NetworkError from "./errors/NetworkError";
 import { toast, ToastContainer } from "./toast";
 import "@fontsource/poppins";
 import { createRouter } from "./createRouter";
+import { Auth } from "./Auth";
 
 // Redirect to new domain if using old domain
 if (window.location.host === "timetabl.vercel.app") {
@@ -59,6 +60,8 @@ const persister = createSyncStoragePersister({
   storage: window.localStorage,
 });
 
+const auth = new Auth(queryClient);
+
 // ===========
 // RENDER ROOT
 // ===========
@@ -88,9 +91,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           },
         },
       }),
-      SettingsProvider,
+      withProps(SettingsProvider, { initialArgs: [] }),
       ChakraWrapper,
-      AuthProvider,
+      withProps(AuthProvider, { initialArgs: [auth] }),
     ]}
   >
     <ColorModeScript initialColorMode={themeGen().config.initialColorMode} />
