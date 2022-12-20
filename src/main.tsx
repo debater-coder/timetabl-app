@@ -6,61 +6,23 @@ import themeGen from "./theme";
 import registerSW from "./registerSW";
 import { Compose, withProps } from "./utils/contextualise";
 import { AuthProvider } from "./hooks/useAuth";
-import { QueryClient, QueryCache } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { PersistQueryClientProvider } from "@tanstack/react-query-persist-client";
-import { createSyncStoragePersister } from "@tanstack/query-sync-storage-persister";
 import reportWebVitals from "./reportWebVitals";
 import { sendToVercelAnalytics } from "./vitals";
 import useSettings, { SettingsProvider } from "./hooks/useSettings";
 import { inject } from "@vercel/analytics";
 import { log } from "./utils/log";
-import { UnauthorizedError } from "./errors/UnauthorisedError";
-import NetworkError from "./errors/NetworkError";
-import { toast, ToastContainer } from "./toast";
+import { ToastContainer } from "./toast";
 import "@fontsource/poppins";
 import { createRouter } from "./createRouter";
-import { Auth } from "./Auth";
+import { persister, queryClient } from "./createQueryClient";
+import { auth } from "./createAuth";
 
 // Redirect to new domain if using old domain
 if (window.location.host === "timetabl.vercel.app") {
   window.location.href = "https://www.timetabl.app";
 }
-
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      cacheTime: Infinity,
-      refetchInterval: 5 * 60 * 1000, // 5 minutes
-      refetchIntervalInBackground: true,
-      networkMode: "always",
-      useErrorBoundary: true,
-    },
-  },
-  queryCache: new QueryCache({
-    onError: (error) => {
-      if (
-        error instanceof Error &&
-        !(error instanceof UnauthorizedError) &&
-        !(error instanceof NetworkError)
-      ) {
-        toast({
-          title:
-            "Something went wrong, try logging in and out if the issue persists.",
-          description: error.message,
-          status: "error",
-          isClosable: true,
-        });
-      }
-    },
-  }),
-});
-
-const persister = createSyncStoragePersister({
-  storage: window.localStorage,
-});
-
-const auth = new Auth(queryClient);
 
 // ===========
 // RENDER ROOT
