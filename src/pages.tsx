@@ -15,11 +15,11 @@ import Barcodes from "./routes/Main/Barcodes";
 import { Calendar } from "./routes/Main/Calendar";
 import { Feedback } from "./routes/Main/Feedback";
 import Home from "./routes/Main/Home";
-import { Publications } from "./routes/Publications";
+import { Publications } from "./routes/Main/Publications";
 
 const ComingSoon = () => <>Coming soon...</>;
 
-export type TimetablRoute = {
+export type TimetablPage = {
   path: string;
   name: string;
   icon: React.JSXElementConstructor<
@@ -33,7 +33,7 @@ export type TimetablRoute = {
   element: JSX.Element;
 };
 
-export const routes: { pinned: TimetablRoute[]; unpinned: TimetablRoute[] } = {
+export const pages: { pinned: TimetablPage[]; unpinned: TimetablPage[] } = {
   pinned: [
     {
       path: "home",

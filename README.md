@@ -1,6 +1,9 @@
 # [Timetabl](https://www.timetabl.app)
+
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+
 [![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors-)
+
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fdebater-coder%2Ftimetabl-app&env=VITE_CLIENT_ID&envDescription=The%20client%20id%20you%20entered%20in%20the%20student%20portal.)
@@ -23,7 +26,7 @@ Timetabl is built on three principles:
 
 3. **Be secure**
    Unlike other bell time apps, Timetabl stores your tokens in HTTPS-only cookies instead of `localStorage`, so that even in the event of an XSS attack, the tokens are secure.
-   
+
 ## Contributors
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->

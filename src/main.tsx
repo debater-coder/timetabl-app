@@ -17,10 +17,9 @@ import { inject } from "@vercel/analytics";
 import { log } from "./utils/log";
 import { UnauthorizedError } from "./errors/UnauthorisedError";
 import NetworkError from "./errors/NetworkError";
-import { ErrorBoundary } from "./components/ErrorBoundary";
 import { toast, ToastContainer } from "./toast";
 import "@fontsource/poppins";
-import { router } from "./components/Routes/Routes";
+import { createRouter } from "./createRouter";
 
 // Redirect to new domain if using old domain
 if (window.location.host === "timetabl.vercel.app") {
@@ -34,6 +33,7 @@ const queryClient = new QueryClient({
       refetchInterval: 5 * 60 * 1000, // 5 minutes
       refetchIntervalInBackground: true,
       networkMode: "always",
+      useErrorBoundary: true,
     },
   },
   queryCache: new QueryCache({
@@ -94,9 +94,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     ]}
   >
     <ColorModeScript initialColorMode={themeGen().config.initialColorMode} />
-    <ErrorBoundary>
-      <RouterProvider router={router} />
-    </ErrorBoundary>
+    <RouterProvider router={createRouter()} />
     <ToastContainer />
     <ReactQueryDevtools initialIsOpen={false} />
   </Compose>
