@@ -24,6 +24,7 @@ const useAuth = (auth: Auth) => {
     shouldLogin: auth.shouldLogin,
     setShouldLogin: (shouldLogin: boolean) => {
       auth.shouldLogin = shouldLogin;
+      rerender();
     },
   };
 };
