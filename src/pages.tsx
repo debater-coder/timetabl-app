@@ -12,10 +12,10 @@ import {
 } from "phosphor-react";
 import Announcements from "./routes/Main/Announcements";
 import Barcodes from "./routes/Main/Barcodes";
-import { Calendar } from "./routes/Main/Calendar";
-import { Feedback } from "./routes/Main/Feedback";
+import Calendar from "./routes/Main/Calendar";
+import Feedback from "./routes/Main/Feedback";
 import Home from "./routes/Main/Home";
-import { Publications } from "./routes/Main/Publications";
+import Publications from "./routes/Main/Publications";
 
 const ComingSoon = () => <>Coming soon...</>;
 

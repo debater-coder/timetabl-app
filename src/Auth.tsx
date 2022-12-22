@@ -98,17 +98,17 @@ export class Auth {
       "&code_challenge_method=S256";
   }
 
-  async logout(rerender: () => void) {
+  async logout(rerender?: () => void) {
     await fetch("/api/token", {
       method: "DELETE",
     });
     localStorage.setItem("loggedIn", "false");
     this.queryClient.clear();
     this.loggedIn = false;
-    rerender();
+    rerender?.();
   }
 
-  refresh = _.throttle(async (rerender: () => void) => {
+  refresh = _.throttle(async (rerender?: () => void) => {
     this.refreshing = true;
     try {
       const res = await fetch("/api/token", {
@@ -138,11 +138,11 @@ export class Auth {
       });
       throw error;
     } finally {
-      rerender();
+      rerender?.();
     }
   }, 1000 * 60);
 
-  handleRedirect(rerender: () => void) {
+  handleRedirect(rerender?: () => void) {
     // Get query
     const query = Object.fromEntries(
       new URLSearchParams(window.location.search).entries()
@@ -176,7 +176,7 @@ export class Auth {
         this.shouldRedirect = true;
         this.loading = true;
 
-        rerender();
+        rerender?.();
 
         // Exchange code for access token
         fetch("/api/token", {
@@ -199,11 +199,11 @@ export class Auth {
             // Persist logged in state and stop loading
             localStorage.setItem("loggedIn", "true");
             this.loading = false;
-            rerender();
+            rerender?.();
           })
           .catch(() => {
             this.loading = false;
-            rerender();
+            rerender?.();
           });
       }
     } finally {
@@ -218,6 +218,6 @@ export class Auth {
     }
 
     this.shouldRedirect = true;
-    rerender();
+    rerender?.();
   }
 }

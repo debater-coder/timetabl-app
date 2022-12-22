@@ -1,6 +1,4 @@
 import { Flex, Skeleton } from "@chakra-ui/react";
-import QueriesHandler from "../../../components/QueriesHandler";
-import { useStudentID } from "../../../hooks/sbhsQuery/use";
 import SavedBarcode from "./SavedBarcode";
 
 export default () => (

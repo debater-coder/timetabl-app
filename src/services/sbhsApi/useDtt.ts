@@ -1,25 +1,8 @@
 import { DateTime } from "luxon";
-import { fetchDayTimetable } from "../fetch";
-import { APIDTT, APIPeriod } from "../fetch/fetchDayTimetable";
-import { useSBHSQuery } from "./useSBHSQuery";
-
-export type TimetablPeriod = {
-  name?: string;
-  room?: string;
-  teacher?: string;
-  time?: DateTime;
-  endTime?: DateTime;
-  colour?: string;
-  key?: string;
-  casual?: string;
-  roomTo?: string;
-  date?: string;
-};
-
-export type TimetablDTT = {
-  periods: TimetablPeriod[];
-  date: string;
-};
+import { createQuery } from "react-query-kit";
+import { useAuth } from "../../hooks/useAuth";
+import { fetchSbhsApi } from "./fetchSbhsApi";
+import { ApiDtt, TimetablDtt } from "./types";
 
 // Thanks Andrew!
 const formatCasual = (casual?: string) => {
@@ -34,17 +17,19 @@ const formatCasual = (casual?: string) => {
     .toLowerCase()}.`;
 };
 
-/**
- * Hook to get the daily timetable.
- * @param enabled Whether to enable the query
- * @returns Query result for daily timetable.
- */
-export const useDTT = (enabled?: boolean, date?: string) =>
-  useSBHSQuery<{ date: string }, APIDTT, TimetablDTT>(
-    "timetable/daytimetable.json",
-    fetchDayTimetable,
-    { date },
-    (data) => {
+export const dttQuery = createQuery<ApiDtt, { date: string }>({
+  primaryKey: "/sbhs/timetable/daytimetable.json",
+  queryFn: ({ queryKey: [, variables] }) => {
+    return fetchSbhsApi("timetable/daytimetable.json", variables);
+  },
+});
+
+export const useDtt = (date: string) => {
+  const { loading } = useAuth();
+  return dttQuery({
+    variables: { date },
+    enabled: !loading,
+    select: (data): TimetablDtt => {
       const classVariations = data?.classVariations;
       const roomVariations = data?.roomVariations;
 
@@ -53,8 +38,7 @@ export const useDTT = (enabled?: boolean, date?: string) =>
           .flatMap((bell, index, bells) => {
             const timetable = data?.timetable;
             const subjects = timetable?.subjects;
-            const period: APIPeriod =
-              timetable?.timetable?.periods?.[bell?.bell];
+            const period = timetable?.timetable?.periods?.[bell?.bell];
 
             let subject = null;
             let casual = null;
@@ -113,5 +97,5 @@ export const useDTT = (enabled?: boolean, date?: string) =>
       };
       return result;
     },
-    enabled
-  );
+  });
+};

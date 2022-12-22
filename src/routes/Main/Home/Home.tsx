@@ -8,19 +8,12 @@ import {
   useToken,
 } from "@chakra-ui/react";
 import { motion, LayoutGroup, AnimatePresence } from "framer-motion";
-import QueriesHandler from "../../../components/QueriesHandler";
 import { useState } from "react";
 import { ArrowLeft, ArrowRight } from "phosphor-react";
 import { DateTime } from "luxon";
 import Empty from "./../../../components/Empty";
 import { GiFrenchFries } from "react-icons/gi";
-import { useDTT } from "../../../hooks/sbhsQuery/use";
-import {
-  TimetablDTT,
-  TimetablPeriod,
-} from "../../../hooks/sbhsQuery/use/useDTT";
 import { DTTPeriod } from "../../../components/DTTPeriod";
-import NextPeriod from "./NextPeriod";
 
 type HomeViewProps = {
   isLoaded: boolean;

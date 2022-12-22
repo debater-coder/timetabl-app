@@ -14,7 +14,7 @@ import { SmileyXEyes } from "phosphor-react";
 import { lazy, ReactNode, Suspense } from "react";
 import { Flex, Spinner } from "@chakra-ui/react";
 import { pages } from "./pages";
-import QueryError from "./components/QueryError";
+import ErrorAlert from "./components/ErrorAlert.tsx";
 
 const Main = lazy(() => import("./routes/Main"));
 const Landing = lazy(() => import("./routes/Landing"));
@@ -44,11 +44,7 @@ const SpinnerSuspense = ({ children }: { children: ReactNode }) => (
 export const createRouter = () =>
   createBrowserRouter(
     createRoutesFromElements(
-      <Route
-        path={"/"}
-        element={<App />}
-        errorElement={<QueryError error={{ message: "error" }} />}
-      >
+      <Route path={"/"} element={<App />} errorElement={<ErrorAlert />}>
         <Route
           index
           element={
@@ -64,7 +60,7 @@ export const createRouter = () =>
               <Main />
             </SpinnerSuspense>
           }
-          errorElement={<QueryError error={{ message: "error" }} />}
+          errorElement={<ErrorAlert />}
         >
           <Route index element={<Navigate to="home" replace={true} />} />
           {[...pages.pinned, ...pages.unpinned].map((route) => (
@@ -72,33 +68,33 @@ export const createRouter = () =>
               key={route.path}
               path={route.path}
               element={route.element}
-              errorElement={<QueryError error={{ message: "error" }} />}
+              errorElement={<ErrorAlert />}
             />
           ))}
           <Route
             path={"settings/*"}
             element={<Settings />}
-            errorElement={<QueryError error={{ message: "error" }} />}
+            errorElement={<ErrorAlert />}
           >
             <Route
               path={"general"}
               element={<General />}
-              errorElement={<QueryError error={{ message: "error" }} />}
+              errorElement={<ErrorAlert />}
             />
             <Route
               path={"developers"}
               element={<Developers />}
-              errorElement={<QueryError error={{ message: "error" }} />}
+              errorElement={<ErrorAlert />}
             />
             <Route
               path={"about"}
               element={<About />}
-              errorElement={<QueryError error={{ message: "error" }} />}
+              errorElement={<ErrorAlert />}
             />
             <Route
               index
               element={<Navigate to="general" replace={true} />}
-              errorElement={<QueryError error={{ message: "error" }} />}
+              errorElement={<ErrorAlert />}
             />
           </Route>
           <Route path="*" element={<PageNotFound />} />

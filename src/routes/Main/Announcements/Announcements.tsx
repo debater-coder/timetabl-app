@@ -22,20 +22,12 @@ import {
   Highlight,
   FormControl,
 } from "@chakra-ui/react";
-import QueriesHandler from "../../../components/QueriesHandler";
 import { Prose } from "@nikolovlazar/chakra-ui-prose";
 import DOMPurify from "dompurify";
 import linkifyHtml from "linkify-html";
 import { useState } from "react";
 import { DateTime } from "luxon";
 import { Search2Icon } from "@chakra-ui/icons";
-import {
-  TimetablNotice,
-  NoticeYear,
-  useDailyNotices,
-} from "../../../hooks/sbhsQuery/use/useDailyNotices";
-import { usePersistentState } from "../../../hooks/useSettings";
-import { useTimetablNews } from "../../../hooks/useTimetablNews";
 import { micromark } from "micromark";
 
 const filterNotices = (
