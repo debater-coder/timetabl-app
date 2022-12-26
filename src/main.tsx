@@ -59,7 +59,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     ]}
   >
     <ColorModeScript initialColorMode={themeGen().config.initialColorMode} />
-    <RouterProvider router={createRouter()} />
+    <RouterProvider router={createRouter(queryClient)} />
     <ToastContainer />
     <ReactQueryDevtools initialIsOpen={false} />
   </Compose>

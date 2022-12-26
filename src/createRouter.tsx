@@ -15,6 +15,7 @@ import { lazy, ReactNode, Suspense } from "react";
 import { Flex, Spinner } from "@chakra-ui/react";
 import { pages } from "./pages";
 import ErrorAlert from "./components/ErrorAlert.tsx";
+import { QueryClient } from "@tanstack/react-query";
 
 const Main = lazy(() => import("./routes/Main"));
 const Landing = lazy(() => import("./routes/Landing"));
@@ -41,7 +42,7 @@ const SpinnerSuspense = ({ children }: { children: ReactNode }) => (
   </Suspense>
 );
 
-export const createRouter = () =>
+export const createRouter = (queryClient: QueryClient) =>
   createBrowserRouter(
     createRoutesFromElements(
       <Route path={"/"} element={<App />} errorElement={<ErrorAlert />}>
@@ -69,6 +70,7 @@ export const createRouter = () =>
               path={route.path}
               element={route.element}
               errorElement={<ErrorAlert />}
+              loader={route.loader?.(queryClient)}
             />
           ))}
           <Route

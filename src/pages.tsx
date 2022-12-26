@@ -1,3 +1,4 @@
+import { QueryClient } from "@tanstack/react-query";
 import {
   Barcode,
   BookBookmark,
@@ -10,14 +11,26 @@ import {
   Megaphone,
   Palette,
 } from "phosphor-react";
+import React, { Suspense } from "react";
+import { LoaderFunction } from "react-router-dom";
 import Announcements from "./routes/Main/Announcements";
 import Barcodes from "./routes/Main/Barcodes";
 import Calendar from "./routes/Main/Calendar";
 import Feedback from "./routes/Main/Feedback";
-import Home from "./routes/Main/Home";
+import * as Home from "./routes/Main/Home/Home";
 import Publications from "./routes/Main/Publications";
 
 const ComingSoon = () => <>Coming soon...</>;
+
+const Page = ({ component }: { component: ReturnType<typeof React.lazy> }) => {
+  const Comp = component;
+
+  return (
+    <Suspense>
+      <Comp />
+    </Suspense>
+  );
+};
 
 export type TimetablPage = {
   path: string;
@@ -31,6 +44,7 @@ export type TimetablPage = {
   >;
   mirrored: boolean;
   element: JSX.Element;
+  loader?: (queryClient: QueryClient) => LoaderFunction;
 };
 
 export const pages: { pinned: TimetablPage[]; unpinned: TimetablPage[] } = {
@@ -40,7 +54,10 @@ export const pages: { pinned: TimetablPage[]; unpinned: TimetablPage[] } = {
       name: "Home",
       icon: House,
       mirrored: false,
-      element: <Home />,
+      element: (
+        <Page component={React.lazy(() => import("./routes/Main/Home/"))} />
+      ),
+      loader: Home.loader,
     },
     {
       path: "barcodes",

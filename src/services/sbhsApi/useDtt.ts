@@ -17,19 +17,23 @@ const formatCasual = (casual?: string) => {
     .toLowerCase()}.`;
 };
 
-export const dttQuery = createQuery<ApiDtt, { date: string }>({
+export const dttQuery = createQuery<ApiDtt, { date?: string }>({
   primaryKey: "/sbhs/timetable/daytimetable.json",
   queryFn: ({ queryKey: [, variables] }) => {
     return fetchSbhsApi("timetable/daytimetable.json", variables);
   },
 });
 
-export const useDtt = (date: string) => {
+export const useDtt = (
+  options?: Parameters<typeof dttQuery>[0],
+  date?: string
+) => {
   const { loading } = useAuth();
-  return dttQuery({
+  return dttQuery<TimetablDtt>({
+    ...options,
     variables: { date },
     enabled: !loading,
-    select: (data): TimetablDtt => {
+    select: (data) => {
       const classVariations = data?.classVariations;
       const roomVariations = data?.roomVariations;
 
