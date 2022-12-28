@@ -11,9 +11,10 @@ export const queryClient = new QueryClient({
       refetchInterval: 5 * 60 * 1000, // 5 minutes
       refetchIntervalInBackground: true,
       networkMode: "always",
-      useErrorBoundary: (error) =>
+      useErrorBoundary: (error, query) =>
         !(error instanceof UnauthorizedError) &&
-        !(error instanceof NetworkError),
+        !(error instanceof NetworkError) &&
+        !query.state.data,
     },
   },
   queryCache: new QueryCache({

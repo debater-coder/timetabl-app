@@ -11,14 +11,11 @@ import {
   Megaphone,
   Palette,
 } from "phosphor-react";
-import React, { Suspense } from "react";
+import React from "react";
 import { LoaderFunction } from "react-router-dom";
-import Announcements from "./routes/Main/Announcements";
-import Barcodes from "./routes/Main/Barcodes";
-import Calendar from "./routes/Main/Calendar";
-import Feedback from "./routes/Main/Feedback";
+import SpinnerSuspense from "./components/SpinnerSuspense";
 import * as Home from "./routes/Main/Home/Home";
-import Publications from "./routes/Main/Publications";
+import * as Barcodes from "./routes/Main/Barcodes/Barcodes";
 
 const ComingSoon = () => <>Coming soon...</>;
 
@@ -26,9 +23,9 @@ const Page = ({ component }: { component: ReturnType<typeof React.lazy> }) => {
   const Comp = component;
 
   return (
-    <Suspense>
+    <SpinnerSuspense>
       <Comp />
-    </Suspense>
+    </SpinnerSuspense>
   );
 };
 
@@ -64,21 +61,30 @@ export const pages: { pinned: TimetablPage[]; unpinned: TimetablPage[] } = {
       name: "Barcodes",
       icon: Barcode,
       mirrored: false,
-      element: <Barcodes />,
+      element: (
+        <Page component={React.lazy(() => import("./routes/Main/Barcodes/"))} />
+      ),
+      loader: Barcodes.loader,
     },
     {
       path: "announcements",
       name: "Notices",
       icon: Megaphone,
       mirrored: true,
-      element: <Announcements />,
+      element: (
+        <Page
+          component={React.lazy(() => import("./routes/Main/Announcements/"))}
+        />
+      ),
     },
     {
       path: "calendar",
       name: "Calendar",
       icon: CalendarBlank,
       mirrored: false,
-      element: <Calendar />,
+      element: (
+        <Page component={React.lazy(() => import("./routes/Main/Calendar/"))} />
+      ),
     },
   ],
   unpinned: [
@@ -101,14 +107,20 @@ export const pages: { pinned: TimetablPage[]; unpinned: TimetablPage[] } = {
       name: "Publications",
       icon: BookBookmark,
       mirrored: false,
-      element: <Publications />,
+      element: (
+        <Page
+          component={React.lazy(() => import("./routes/Main/Publications/"))}
+        />
+      ),
     },
     {
       path: "feedback",
       name: "Feedback",
       icon: ChatsTeardrop,
       mirrored: false,
-      element: <Feedback />,
+      element: (
+        <Page component={React.lazy(() => import("./routes/Main/Feedback/"))} />
+      ),
     },
 
     {

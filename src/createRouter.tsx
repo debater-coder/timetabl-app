@@ -11,11 +11,11 @@ import Developers from "./routes/Main/Settings/Developers";
 import About from "./routes/Main/Settings/About";
 import Empty from "./components/Empty";
 import { SmileyXEyes } from "phosphor-react";
-import { lazy, ReactNode, Suspense } from "react";
-import { Flex, Spinner } from "@chakra-ui/react";
+import { lazy } from "react";
 import { pages } from "./pages";
 import ErrorAlert from "./components/ErrorAlert.tsx";
 import { QueryClient } from "@tanstack/react-query";
+import SpinnerSuspense from "./components/SpinnerSuspense";
 
 const Main = lazy(() => import("./routes/Main"));
 const Landing = lazy(() => import("./routes/Landing"));
@@ -28,18 +28,6 @@ const PageNotFound = () => (
     colour={"primary.500"}
     size={"xl"}
   />
-);
-
-const SpinnerSuspense = ({ children }: { children: ReactNode }) => (
-  <Suspense
-    fallback={
-      <Flex w="full" h="full" align={"center"} justify="center">
-        <Spinner size="xl" />
-      </Flex>
-    }
-  >
-    {children}
-  </Suspense>
 );
 
 export const createRouter = (queryClient: QueryClient) =>

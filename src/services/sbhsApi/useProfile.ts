@@ -10,10 +10,11 @@ export const profileQuery = createQuery<ApiProfile>({
   },
 });
 
-export const useDailyNotices = () => {
+export const useProfile = (options?: Parameters<typeof profileQuery>[0]) => {
   const { loading } = useAuth();
 
   return profileQuery({
+    ...options,
     enabled: !loading,
   });
 };
