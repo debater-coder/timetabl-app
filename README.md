@@ -3,8 +3,6 @@
 [![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fdebater-coder%2Ftimetabl-app&env=VITE_CLIENT_ID&envDescription=The%20client%20id%20you%20entered%20in%20the%20student%20portal.)
-
 ![GitHub deployments](https://img.shields.io/github/deployments/debater-coder/timetabl-app/production?label=vercel&logo=vercel)
 
 ### Timetabl is a blazing fast, offline-enabled, installable timetable app for SBHS!
