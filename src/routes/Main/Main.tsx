@@ -3,6 +3,7 @@ import { Outlet, useNavigate } from "react-router-dom";
 import { Flex, useBreakpointValue } from "@chakra-ui/react";
 import { useAuth } from "../../hooks/useAuth";
 import Sidebar from "../../components/Sidebar";
+import { ErrorBoundary } from "../../components/ErrorBoundary";
 import { BottomNavSheet } from "../../components/BottomNavSheet";
 
 export default () => {
@@ -35,7 +36,9 @@ export default () => {
         ml={{ base: 0, md: "100px" }}
         overflowY={"auto"}
       >
-        <Outlet />
+        <ErrorBoundary>
+          <Outlet />
+        </ErrorBoundary>
       </Flex>
     </Flex>
   );
