@@ -15,21 +15,20 @@ import Empty from "../../../components/Empty";
 import { createLoader } from "../../../utils/createLoader";
 import { profileQuery, useProfile } from "../../../services/sbhsApi/useProfile";
 import { useLoaderData } from "react-router-dom";
+import { ApiProfile } from "../../../services/sbhsApi/types";
 
 export type Barcode = {
   name: string;
   value: string;
 };
 
-export const loader = createLoader(profileQuery);
+export const loader = createLoader({ queryHook: profileQuery });
 
 export default () => {
   const [barcodes, setBarcodes] = useState<Barcode[]>([]);
 
   const { data, isLoading } = useProfile({
-    initialData: useLoaderData() as Awaited<
-      ReturnType<ReturnType<typeof loader>>
-    >,
+    initialData: (useLoaderData() as [ApiProfile])[0],
   });
 
   const addBarcode = async (name: string, value: string) => {

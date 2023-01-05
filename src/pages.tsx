@@ -16,6 +16,7 @@ import { LoaderFunction } from "react-router-dom";
 import SpinnerSuspense from "./components/SpinnerSuspense";
 import * as Home from "./routes/Main/Home/Home";
 import * as Barcodes from "./routes/Main/Barcodes/Barcodes";
+import * as Announcements from "./routes/Main/Announcements/Announcements";
 
 const ComingSoon = () => <>Coming soon...</>;
 
@@ -76,6 +77,7 @@ export const pages: { pinned: TimetablPage[]; unpinned: TimetablPage[] } = {
           component={React.lazy(() => import("./routes/Main/Announcements/"))}
         />
       ),
+      loader: Announcements.loader,
     },
     {
       path: "calendar",

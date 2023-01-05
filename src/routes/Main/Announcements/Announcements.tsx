@@ -29,6 +29,32 @@ import { useState } from "react";
 import { DateTime } from "luxon";
 import { Search2Icon } from "@chakra-ui/icons";
 import { micromark } from "micromark";
+import { usePersistentState } from "../../../hooks/useSettings";
+import {
+  TimetablNotice,
+  NoticeYear,
+  ApiDailyNews,
+} from "../../../services/sbhsApi/types";
+import { createLoader } from "../../../utils/createLoader";
+import {
+  TimetablCmsAnnouncement,
+  timetablNewsQuery,
+  useTimetablNews,
+} from "../../../services/timetablCms/useTimetablNews";
+import { useLoaderData } from "react-router-dom";
+import {
+  dailyNoticesQuery,
+  useDailyNotices,
+} from "../../../services/sbhsApi/useDailyNotices";
+import Empty from "../../../components/Empty";
+import { MegaphoneSimple } from "phosphor-react";
+
+export const loader = createLoader(
+  { queryHook: timetablNewsQuery },
+  {
+    queryHook: dailyNoticesQuery,
+  }
+);
 
 const filterNotices = (
   notices: TimetablNotice[],
@@ -114,47 +140,60 @@ function DailyNotices({
   filter,
   query,
   tab,
+  isLoaded,
+  dailyNotices,
+  timetablNews,
 }: {
   filter: NoticeYear;
   query: string;
   tab: number;
+  isLoaded: boolean;
+  dailyNotices: TimetablNotice[];
+  timetablNews: TimetablNotice[];
 }) {
-  const dailyNotices = useDailyNotices();
-  const timetablNews = useTimetablNews();
+  const notices = filterNotices(
+    tab ? timetablNews : dailyNotices,
+    filter,
+    query
+  );
 
   return (
-    <QueriesHandler queries={{ dailyNotices, timetablNews }}>
-      {(
-        isLoaded,
-        {
-          dailyNotices,
-          timetablNews,
-        }: { dailyNotices: TimetablNotice[]; timetablNews: TimetablNotice[] }
-      ) => (
-        <Skeleton isLoaded={isLoaded} rounded={5} minH={10} minW={40}>
-          <Flex direction={"column"} align="center" gap={8}>
-            {filterNotices(
-              tab ? timetablNews : dailyNotices,
-              filter,
-              query
-            )?.map((notice, index) => {
-              return (
-                <Announcement
-                  key={index}
-                  {...notice}
-                  query={query}
-                  markdown={!!tab}
-                />
-              );
-            })}
-          </Flex>
-        </Skeleton>
-      )}
-    </QueriesHandler>
+    <Skeleton isLoaded={isLoaded} rounded={5} minH={10} minW={40}>
+      <Flex direction={"column"} align="center" gap={8}>
+        {notices.length ? (
+          notices?.map((notice, index) => {
+            return (
+              <Announcement
+                key={index}
+                {...notice}
+                query={query}
+                markdown={!!tab}
+              />
+            );
+          })
+        ) : (
+          <Empty
+            icon={MegaphoneSimple}
+            text={"Keep checking back for the latest notices."}
+            heading={"No notices for now"}
+            colour={"primary.500"}
+            size={"xl"}
+          />
+        )}
+      </Flex>
+    </Skeleton>
   );
 }
 
 export default function Announcements() {
+  const { data: timetablNews } = useTimetablNews({
+    initialData: (useLoaderData() as [{ data: TimetablCmsAnnouncement[] }])[0],
+  });
+
+  const { data: dailyNotices } = useDailyNotices({
+    initialData: (useLoaderData() as [unknown, ApiDailyNews])[1],
+  });
+
   const [tabIndex, setTabIndex] = useState(0);
   const handleTabsChange = (index: number) => {
     setTabIndex(index);
@@ -223,7 +262,14 @@ export default function Announcements() {
         <TabPanels>
           {[0, 1].map((tab) => (
             <TabPanel key={tab}>
-              <DailyNotices filter={parseInt(filter)} query={query} tab={tab} />
+              <DailyNotices
+                filter={parseInt(filter)}
+                query={query}
+                tab={tab}
+                timetablNews={timetablNews}
+                isLoaded
+                dailyNotices={dailyNotices}
+              />
             </TabPanel>
           ))}
         </TabPanels>
