@@ -8,37 +8,32 @@ import {
   useToken,
 } from "@chakra-ui/react";
 import { motion, LayoutGroup, AnimatePresence } from "framer-motion";
-import QueriesHandler from "../../../components/QueriesHandler";
 import { useState } from "react";
 import { ArrowLeft, ArrowRight } from "phosphor-react";
 import { DateTime } from "luxon";
 import Empty from "./../../../components/Empty";
 import { GiFrenchFries } from "react-icons/gi";
-import { useDTT } from "../../../hooks/sbhsQuery/use";
-import {
-  TimetablDTT,
-  TimetablPeriod,
-} from "../../../hooks/sbhsQuery/use/useDTT";
 import { DTTPeriod } from "../../../components/DTTPeriod";
+import { ApiDtt, TimetablPeriod } from "../../../services/sbhsApi/types";
 import NextPeriod from "./NextPeriod";
+import { dttQuery, useDtt } from "../../../services/sbhsApi/useDtt";
+import { useLoaderData } from "react-router-dom";
+import { createLoader } from "../../../utils/createLoader";
 
-type HomeViewProps = {
-  isLoaded: boolean;
-  data: TimetablDTT;
-  onDateChange: (date?: string) => void;
-  date: string;
-  initialDate: string;
-  initialData: TimetablDTT;
-};
+export const loader = createLoader({ queryHook: dttQuery });
 
-const HomeView = ({
-  isLoaded,
-  data,
-  onDateChange,
-  date,
-  initialDate,
-  initialData,
-}: HomeViewProps) => {
+export default function Home() {
+  const { data: initialData, isLoading } = useDtt({
+    initialData: (useLoaderData() as [ApiDtt])[0],
+    variables: {},
+  });
+  const [date, setDate] = useState<string | undefined>();
+  const { data } = useDtt({
+    variables: { date },
+  });
+
+  const initialDate = initialData?.date;
+
   const periods: TimetablPeriod[] =
     data?.periods ??
     Array(7).fill({
@@ -53,11 +48,7 @@ const HomeView = ({
       room: 605,
     });
 
-  // useEffect(() => {
-  //   if (initialDate === date) {
-  //     onDateChange();
-  //   }
-  // }, [initialDate, date, onDateChange]);
+  const isLoaded = !isLoading;
 
   const [countdown, setCountdown] = useState("");
 
@@ -88,16 +79,14 @@ const HomeView = ({
             icon={<ArrowLeft />}
             variant="outline"
             onClick={() =>
-              onDateChange(
-                DateTime.fromISO(date).minus({ days: 1 }).toISODate()
-              )
+              setDate(DateTime.fromISO(date).minus({ days: 1 }).toISODate())
             }
             aria-label="Previous day"
           />
           <Input
             type="date"
             value={date ?? initialDate ?? ""}
-            onChange={({ target: { value } }) => onDateChange(value)}
+            onChange={({ target: { value } }) => setDate(value)}
             focusBorderColor="primary.200"
             as={motion.input}
             layout
@@ -106,7 +95,7 @@ const HomeView = ({
             {date !== initialDate && (
               <Button
                 variant="outline"
-                onClick={() => onDateChange()}
+                onClick={() => setDate(undefined)}
                 as={motion.button}
                 layout
               >
@@ -118,7 +107,7 @@ const HomeView = ({
             icon={<ArrowRight />}
             variant="outline"
             onClick={() =>
-              onDateChange(DateTime.fromISO(date).plus({ days: 1 }).toISODate())
+              setDate(DateTime.fromISO(date).plus({ days: 1 }).toISODate())
             }
             aria-label="Next day"
           />
@@ -155,32 +144,5 @@ const HomeView = ({
         </Flex>
       </Flex>
     </LayoutGroup>
-  );
-};
-
-export default function Home() {
-  const [date, setDate] = useState<string | undefined>();
-
-  return (
-    <QueriesHandler queries={{ dtt: useDTT(true, date), initialDtt: useDTT() }}>
-      {(
-        isLoaded: boolean,
-        data: {
-          dtt: TimetablDTT;
-          initialDtt: TimetablDTT;
-        }
-      ) => (
-        <HomeView
-          isLoaded={isLoaded}
-          data={data?.dtt}
-          onDateChange={(date) => {
-            setDate(date);
-          }}
-          date={date ?? data?.dtt?.date}
-          initialDate={data?.initialDtt?.date}
-          initialData={data?.initialDtt}
-        />
-      )}
-    </QueriesHandler>
   );
 }

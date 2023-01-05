@@ -12,14 +12,24 @@ import SavedBarcode from "./SavedBarcode";
 import YourBarcode from "./YourBarcode";
 import { AddBarcodeForm } from "./AddBarcodeForm";
 import Empty from "../../../components/Empty";
+import { createLoader } from "../../../utils/createLoader";
+import { profileQuery, useProfile } from "../../../services/sbhsApi/useProfile";
+import { useLoaderData } from "react-router-dom";
+import { ApiProfile } from "../../../services/sbhsApi/types";
 
 export type Barcode = {
   name: string;
   value: string;
 };
 
+export const loader = createLoader({ queryHook: profileQuery });
+
 export default () => {
   const [barcodes, setBarcodes] = useState<Barcode[]>([]);
+
+  const { data, isLoading } = useProfile({
+    initialData: (useLoaderData() as [ApiProfile])[0],
+  });
 
   const addBarcode = async (name: string, value: string) => {
     setBarcodes((barcodes) => [...barcodes, { name, value }]);
@@ -70,7 +80,7 @@ export default () => {
           />
         </Tooltip>
       </Flex>
-      <YourBarcode />
+      <YourBarcode {...{ data, isLoading }} />
       <Flex align="center" mt={6}>
         <Heading fontFamily={"Poppins, sans-serif"} fontSize="xl" mr={3}>
           Saved barcodes

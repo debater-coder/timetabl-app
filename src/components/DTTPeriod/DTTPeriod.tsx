@@ -1,8 +1,8 @@
 import { chakra, useBoolean, useMediaQuery } from "@chakra-ui/react";
 import { DateTime } from "luxon";
 import { useState } from "react";
-import { TimetablPeriod } from "../../hooks/sbhsQuery/use/useDTT";
 import useSettings from "../../hooks/useSettings";
+import { TimetablPeriod } from "../../services/sbhsApi/types";
 import { Period } from "../Period";
 
 export const DTTPeriod = ({
