@@ -7,6 +7,7 @@ import {
 } from "@chakra-ui/react";
 import { Code, Gear, Info } from "phosphor-react";
 import { Outlet, Link, useLocation } from "react-router-dom";
+import { ErrorBoundary } from "../../../components/ErrorBoundary";
 
 const MenuEntry = ({
   active,
@@ -83,7 +84,9 @@ export default () => {
         mb={20}
         overflowY="auto"
       >
-        <Outlet />
+        <ErrorBoundary>
+          <Outlet />
+        </ErrorBoundary>
       </Flex>
     </Flex>
   );

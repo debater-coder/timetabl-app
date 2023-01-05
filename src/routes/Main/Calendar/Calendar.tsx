@@ -14,7 +14,7 @@ import {
 import { Link as RouterLink } from "react-router-dom";
 import { Calendar as CalendarIcon } from "phosphor-react";
 
-export default () => (
+export const Calendar = () => (
   <Flex w={"full"} h="full" direction={"column"} align="center">
     <Card bg="transparent" shadow="xl">
       <CardHeader paddingBottom="0px" paddingTop="0px" paddingRight="0px">

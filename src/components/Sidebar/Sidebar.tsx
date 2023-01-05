@@ -1,6 +1,6 @@
 import SidebarButton from "./SidebarButton";
 import { Flex, useColorModeValue } from "@chakra-ui/react";
-import { pages } from "../../pages";
+import { routes } from "../../routes";
 
 export default () => (
   <Flex
@@ -18,7 +18,7 @@ export default () => (
     borderTop={"none"}
     borderColor={useColorModeValue("gray.200", "gray.700")}
   >
-    {pages.pinned.map((routes) => (
+    {routes.pinned.map((routes) => (
       <SidebarButton
         key={routes.path}
         name={routes.name}
@@ -33,7 +33,7 @@ export default () => (
       borderColor={useColorModeValue("gray.200", "gray.700")}
       overflowY="auto"
     >
-      {pages.unpinned.map((routes) => (
+      {routes.unpinned.map((routes) => (
         <SidebarButton
           key={routes.path}
           name={routes.name}

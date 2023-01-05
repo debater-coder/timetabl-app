@@ -1,9 +1,9 @@
 import { DateTime } from "luxon";
 import { useEffect } from "react";
+import { TimetablPeriod } from "../../../hooks/sbhsQuery/use/useDTT";
 import { Period } from "../../../components/Period/Period";
 import useSettings from "../../../hooks/useSettings";
 import { useToken, useColorModeValue } from "@chakra-ui/react";
-import { TimetablPeriod } from "../../../services/sbhsApi/types";
 
 type NextPeriodProps = {
   periods: TimetablPeriod[];

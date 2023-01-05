@@ -1,11 +1,9 @@
-import { createQuery } from "react-query-kit";
-import HTTPError from "../../errors/HTTPError";
-import NetworkError from "../../errors/NetworkError";
-import { NoticeYear, TimetablNotice } from "../sbhsApi/types";
+import { useQuery } from "@tanstack/react-query";
+import HTTPError from "../errors/HTTPError";
+import NetworkError from "../errors/NetworkError";
+import { NoticeYear } from "./sbhsQuery/use/useDailyNotices";
 
-const fetchTimetablNews = async (): Promise<
-  Awaited<{ data: TimetablCmsAnnouncement[] }>
-> => {
+const fetchTimetablNews = async () => {
   let res;
   try {
     res = await fetch(
@@ -24,34 +22,10 @@ const fetchTimetablNews = async (): Promise<
   return res.json();
 };
 
-export type TimetablCmsAnnouncement = {
-  attributes: {
-    title: string;
-    content: string;
-    createdAt: string;
-    createdBy: {
-      data: {
-        attributes: {
-          firstname: string;
-          lastname: string;
-        };
-      };
-    };
-  };
-};
-
-export const timetablNewsQuery = createQuery<{
-  data: TimetablCmsAnnouncement[];
-}>({
-  primaryKey: "/cms/news",
-  queryFn: fetchTimetablNews,
-});
-
-export const useTimetablNews = (
-  options: Parameters<typeof timetablNewsQuery>[0]
-) =>
-  timetablNewsQuery<TimetablNotice[]>({
-    ...options,
+export const useTimetablNews = () =>
+  useQuery({
+    queryKey: ["timetablnews"],
+    queryFn: fetchTimetablNews,
     select: (json) => {
       const { data } = json;
       return data?.map(

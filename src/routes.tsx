@@ -1,4 +1,3 @@
-import { QueryClient } from "@tanstack/react-query";
 import {
   Barcode,
   BookBookmark,
@@ -11,26 +10,16 @@ import {
   Megaphone,
   Palette,
 } from "phosphor-react";
-import React from "react";
-import { LoaderFunction } from "react-router-dom";
-import SpinnerSuspense from "./components/SpinnerSuspense";
-import * as Home from "./routes/Main/Home/Home";
-import * as Barcodes from "./routes/Main/Barcodes/Barcodes";
-import * as Announcements from "./routes/Main/Announcements/Announcements";
+import Announcements from "./routes/Main/Announcements";
+import Barcodes from "./routes/Main/Barcodes";
+import { Calendar } from "./routes/Main/Calendar";
+import { Feedback } from "./routes/Main/Feedback";
+import Home from "./routes/Main/Home";
+import { Publications } from "./routes/Publications";
 
 const ComingSoon = () => <>Coming soon...</>;
 
-const Page = ({ component }: { component: ReturnType<typeof React.lazy> }) => {
-  const Comp = component;
-
-  return (
-    <SpinnerSuspense>
-      <Comp />
-    </SpinnerSuspense>
-  );
-};
-
-export type TimetablPage = {
+export type TimetablRoute = {
   path: string;
   name: string;
   icon: React.JSXElementConstructor<
@@ -42,51 +31,37 @@ export type TimetablPage = {
   >;
   mirrored: boolean;
   element: JSX.Element;
-  loader?: (queryClient: QueryClient) => LoaderFunction;
 };
 
-export const pages: { pinned: TimetablPage[]; unpinned: TimetablPage[] } = {
+export const routes: { pinned: TimetablRoute[]; unpinned: TimetablRoute[] } = {
   pinned: [
     {
       path: "home",
       name: "Home",
       icon: House,
       mirrored: false,
-      element: (
-        <Page component={React.lazy(() => import("./routes/Main/Home/"))} />
-      ),
-      loader: Home.loader,
+      element: <Home />,
     },
     {
       path: "barcodes",
       name: "Barcodes",
       icon: Barcode,
       mirrored: false,
-      element: (
-        <Page component={React.lazy(() => import("./routes/Main/Barcodes/"))} />
-      ),
-      loader: Barcodes.loader,
+      element: <Barcodes />,
     },
     {
       path: "announcements",
       name: "Notices",
       icon: Megaphone,
       mirrored: true,
-      element: (
-        <Page
-          component={React.lazy(() => import("./routes/Main/Announcements/"))}
-        />
-      ),
-      loader: Announcements.loader,
+      element: <Announcements />,
     },
     {
       path: "calendar",
       name: "Calendar",
       icon: CalendarBlank,
       mirrored: false,
-      element: (
-        <Page component={React.lazy(() => import("./routes/Main/Calendar/"))} />
-      ),
+      element: <Calendar />,
     },
   ],
   unpinned: [
@@ -109,20 +84,14 @@ export const pages: { pinned: TimetablPage[]; unpinned: TimetablPage[] } = {
       name: "Publications",
       icon: BookBookmark,
       mirrored: false,
-      element: (
-        <Page
-          component={React.lazy(() => import("./routes/Main/Publications/"))}
-        />
-      ),
+      element: <Publications />,
     },
     {
       path: "feedback",
       name: "Feedback",
       icon: ChatsTeardrop,
       mirrored: false,
-      element: (
-        <Page component={React.lazy(() => import("./routes/Main/Feedback/"))} />
-      ),
+      element: <Feedback />,
     },
 
     {

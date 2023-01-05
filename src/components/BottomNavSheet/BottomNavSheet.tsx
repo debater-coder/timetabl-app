@@ -7,7 +7,7 @@ import {
 import SidebarButton from "../Sidebar/SidebarButton";
 import { motion, PanInfo } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
-import { pages } from "../../pages";
+import { routes } from "../../routes";
 
 const Flex = motion(ChakraFlex);
 
@@ -80,7 +80,7 @@ export const BottomNavSheet = () => {
         borderTop="none"
         borderColor={useColorModeValue("gray.200", "gray.700")}
       >
-        {pages.pinned.map((routes) => (
+        {routes.pinned.map((routes) => (
           <SidebarButton
             key={routes.path}
             name={routes.name}
@@ -92,7 +92,7 @@ export const BottomNavSheet = () => {
         ))}
       </Flex>
       <SimpleGrid columns={4} w="full">
-        {pages.unpinned.map((routes) => (
+        {routes.unpinned.map((routes) => (
           <SidebarButton
             key={routes.path}
             name={routes.name}

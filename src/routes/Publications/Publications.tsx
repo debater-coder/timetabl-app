@@ -1,6 +1,6 @@
 import { chakra, Heading, Link } from "@chakra-ui/react";
 
-export default () => (
+export const Publications = () => (
   <>
     <Heading fontFamily="Poppins, sans-serif" size="md">
       Latest High Notes
