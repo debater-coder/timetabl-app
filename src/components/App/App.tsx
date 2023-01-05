@@ -2,7 +2,6 @@ import Nav from "../Nav";
 import { Outlet } from "react-router-dom";
 import { Flex } from "@chakra-ui/react";
 import { Box } from "@chakra-ui/react";
-import { ErrorBoundary } from "../ErrorBoundary";
 
 export default () => {
   return (
@@ -10,9 +9,7 @@ export default () => {
       <Nav />
       <Box mt={"100px"} />
       <Flex direction={"column"} w="full" h="full" maxH={"calc(100% - 100px)"}>
-        <ErrorBoundary>
-          <Outlet />
-        </ErrorBoundary>
+        <Outlet />
       </Flex>
     </Flex>
   );
