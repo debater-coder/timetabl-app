@@ -140,14 +140,16 @@ function DailyNotices({
   filter,
   query,
   tab,
-  isLoaded,
+  dailyNoticesLoaded,
+  timetablNewsLoaded,
   dailyNotices,
   timetablNews,
 }: {
   filter: NoticeYear;
   query: string;
   tab: number;
-  isLoaded: boolean;
+  timetablNewsLoaded: boolean;
+  dailyNoticesLoaded: boolean;
   dailyNotices: TimetablNotice[];
   timetablNews: TimetablNotice[];
 }) {
@@ -158,7 +160,12 @@ function DailyNotices({
   );
 
   return (
-    <Skeleton isLoaded={isLoaded} rounded={5} minH={10} minW={40}>
+    <Skeleton
+      isLoaded={tab ? !timetablNewsLoaded : !dailyNoticesLoaded}
+      rounded={5}
+      minH={10}
+      minW={40}
+    >
       <Flex direction={"column"} align="center" gap={8}>
         {notices.length ? (
           notices?.map((notice, index) => {
@@ -186,13 +193,19 @@ function DailyNotices({
 }
 
 export default function Announcements() {
-  const { data: timetablNews } = useTimetablNews({
-    initialData: (useLoaderData() as [{ data: TimetablCmsAnnouncement[] }])[0],
-  });
+  const { data: timetablNews, isLoading: timetablNewsLoaded } = useTimetablNews(
+    {
+      initialData: (
+        useLoaderData() as [{ data: TimetablCmsAnnouncement[] }]
+      )[0],
+    }
+  );
 
-  const { data: dailyNotices } = useDailyNotices({
-    initialData: (useLoaderData() as [unknown, ApiDailyNews])[1],
-  });
+  const { data: dailyNotices, isLoading: dailyNoticesLoaded } = useDailyNotices(
+    {
+      initialData: (useLoaderData() as [unknown, ApiDailyNews])[1],
+    }
+  );
 
   const [tabIndex, setTabIndex] = useState(0);
   const handleTabsChange = (index: number) => {
@@ -267,8 +280,9 @@ export default function Announcements() {
                 query={query}
                 tab={tab}
                 timetablNews={timetablNews}
-                isLoaded
                 dailyNotices={dailyNotices}
+                timetablNewsLoaded={timetablNewsLoaded}
+                dailyNoticesLoaded={dailyNoticesLoaded}
               />
             </TabPanel>
           ))}
