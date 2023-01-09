@@ -54,7 +54,7 @@
     "linkify-html": "^4.0.2",
     "linkifyjs": "^4.0.2",
     "lodash": "^4.17.21",
-    "luxon": "^3.0.3",
+    "luxon": "^3.2.1",
     "micromark": "^3.1.0",
     "node-fetch": "^3.3.0",
     "onchange": "^7.1.0",
