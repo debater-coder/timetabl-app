@@ -77,7 +77,10 @@ reportWebVitals(sendToVercelAnalytics);
 
 // Inject analytics
 inject({
-  beforeSend: (event) => ({ ...event, url: "https://www.timetabl.app" }),
+  beforeSend: (event) => ({
+    ...event,
+    url: window.location.origin + window.location.pathname,
+  }),
 });
 
 // Render welcome message for devs
