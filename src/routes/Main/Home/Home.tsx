@@ -23,16 +23,39 @@ import { createLoader } from "../../../utils/createLoader";
 export const loader = createLoader({ queryHook: dttQuery });
 
 export default function Home() {
-  const { data: initialData, isLoading } = useDtt({
+  const { data: initialData, isLoading: initialIsLoading } = useDtt({
     initialData: (useLoaderData() as [ApiDtt])[0],
     variables: {},
   });
-  const [date, setDate] = useState<string | undefined>();
-  const { data } = useDtt({
-    variables: { date },
-  });
+  const initialDate = initialData?.date ?? DateTime.now().toISODate();
+  const [date, setDate] = useState<string>("initial");
+  const resetDate = () => setDate("initial");
+  const nextDay = () => {
+    setDate(
+      DateTime.fromISO(date === "initial" ? initialDate : date)
+        .plus({ days: 1 })
+        .toISODate()
+    );
+    if (date === initialDate) resetDate();
+  };
 
-  const initialDate = initialData?.date;
+  const previousDay = () => {
+    setDate(
+      DateTime.fromISO(date === "initial" ? initialDate : date)
+        .minus({ days: 1 })
+        .toISODate()
+    );
+    if (date === initialDate) resetDate();
+  };
+
+  const { data, isLoading } = useDtt(
+    {
+      variables: {},
+    },
+    date === "initial" ? undefined : date
+  );
+
+  console.log(data);
 
   const periods: TimetablPeriod[] =
     data?.periods ??
@@ -48,8 +71,6 @@ export default function Home() {
       room: 605,
     });
 
-  const isLoaded = !isLoading;
-
   const [countdown, setCountdown] = useState("");
 
   const activeIndex =
@@ -63,14 +84,14 @@ export default function Home() {
   return (
     <LayoutGroup>
       <Flex direction={"column"} align="center" gap={1.5}>
-        {initialDate === DateTime.now().toISODate() && (
+        {initialDate === DateTime.now().toISODate() && ( // Initial date === today
           <NextPeriod
             {...{
               periods: initialPeriods,
               date: initialDate,
               countdown,
               setCountdown,
-              isLoaded,
+              isLoaded: !initialIsLoading,
             }}
           />
         )}
@@ -78,24 +99,22 @@ export default function Home() {
           <IconButton
             icon={<ArrowLeft />}
             variant="outline"
-            onClick={() =>
-              setDate(DateTime.fromISO(date).minus({ days: 1 }).toISODate())
-            }
+            onClick={previousDay}
             aria-label="Previous day"
           />
           <Input
             type="date"
-            value={date ?? initialDate ?? ""}
+            value={date === "initial" ? initialDate : date}
             onChange={({ target: { value } }) => setDate(value)}
             focusBorderColor="primary.200"
             as={motion.input}
             layout
           />
           <AnimatePresence>
-            {date !== initialDate && (
+            {date !== "initial" && (
               <Button
                 variant="outline"
-                onClick={() => setDate(undefined)}
+                onClick={resetDate}
                 as={motion.button}
                 layout
               >
@@ -106,9 +125,7 @@ export default function Home() {
           <IconButton
             icon={<ArrowRight />}
             variant="outline"
-            onClick={() =>
-              setDate(DateTime.fromISO(date).plus({ days: 1 }).toISODate())
-            }
+            onClick={nextDay}
             aria-label="Next day"
           />
         </Flex>
@@ -129,7 +146,7 @@ export default function Home() {
                 active={activeIndex === index}
                 period={period}
                 key={period.key ?? index + 100}
-                isLoaded={isLoaded}
+                isLoaded={!isLoading}
               />
             ))
           ) : (

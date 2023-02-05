@@ -26,6 +26,8 @@ export default ({
 
   const nextPeriod = periods[activePeriod + 1];
 
+  if (!nextPeriod) return null;
+
   useEffect(() => {
     const timer = setInterval(() => {
       setCountdown(nextPeriod.time.diffNow().toFormat("hh:mm:ss"));
