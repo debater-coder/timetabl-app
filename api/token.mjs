@@ -2,6 +2,10 @@ import fetch from "node-fetch";
 import cookie from "cookie";
 
 export default async function handler(request, response) {
+  if (process.env.VERCEL_ENV === "development") {
+    console.log("Running in development mode...");
+  }
+
   switch (request.method) {
     case "POST":
       try {
@@ -102,17 +106,18 @@ export default async function handler(request, response) {
       let data;
 
       if (!res.ok) {
-        response.status(500).send("Bad response from server.");
-        return;
-      }
-
-      try {
-        data = await res.json();
-      } catch {
-        if (data && data?.["error"] == "invalid_grant") {
-          response.status(500).send("INVALID GRANT");
+        try {
+          const json = await res.json();
+          if (json["error"] == "invalid_grant") {
+            response.status(400).send("invalid_grant");
+            return;
+          }
+        } catch {
+          response.status(500).send("Bad json from server.");
           return;
         }
+        response.status(500).send("Bad response from server.");
+        return;
       }
 
       response.setHeader("Set-Cookie", [
@@ -132,7 +137,7 @@ export default async function handler(request, response) {
         }),
       ]);
 
-      response.status(200).send("");
+      response.status(200).send("Sucessfully refreshed token");
       break;
     }
   }

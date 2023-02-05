@@ -56,11 +56,10 @@ export const fetchSbhsApi = async <TSBHSAPIData>(
           new CustomEvent("onlinechange", { detail: { online: false } })
         );
         throw new NetworkError("SBHS API server is not available");
-      default:
-        if (res.status === 401) {
-          auth.shouldLogin = true;
-          throw new UnauthorizedError();
-        }
+    }
+    if (res.status === 401) {
+      auth.shouldLogin = true;
+      throw new UnauthorizedError();
     }
     throw new HTTPError(res.status);
   }

@@ -121,6 +121,20 @@ export class Auth {
         },
       });
 
+      try {
+        const error = await res.text();
+
+        if (error === "invalid_grant") {
+          console.log("invalid_grant");
+          this.shouldLogin = true;
+          this.refreshing = false;
+          rerender?.();
+          return;
+        }
+      } catch {
+        throw new Error("Can't read text from response");
+      }
+
       if (!res.ok) {
         throw new HTTPError(res.status);
       }

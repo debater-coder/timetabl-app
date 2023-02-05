@@ -23,6 +23,8 @@ export default defineConfig({
       ],
       mode: "production", // this inlines the module imports when using yarn build
     }),
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     replace({
       is_vite_preview: true, // this is used to conditionally call Workbox's precacheAndRoute function
       preventAssignment: true,
