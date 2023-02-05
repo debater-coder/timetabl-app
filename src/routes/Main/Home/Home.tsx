@@ -55,8 +55,6 @@ export default function Home() {
     date === "initial" ? undefined : date
   );
 
-  console.log(data);
-
   const periods: TimetablPeriod[] =
     data?.periods ??
     Array(7).fill({
