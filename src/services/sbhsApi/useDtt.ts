@@ -27,11 +27,9 @@ export const useDtt = (
   options?: Parameters<typeof dttQuery>[0],
   date?: string
 ) => {
-  const { loading } = useAuth();
   return dttQuery<TimetablDtt>({
     ...options,
     variables: { date },
-    enabled: !loading,
     select: (data) => {
       const classVariations = data?.classVariations;
       const roomVariations = data?.roomVariations;

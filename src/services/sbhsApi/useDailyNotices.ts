@@ -12,11 +12,8 @@ export const dailyNoticesQuery = createQuery<ApiDailyNews>({
 export const useDailyNotices = (
   options: Parameters<typeof dailyNoticesQuery>[0]
 ) => {
-  const { loading } = useAuth();
-
   return dailyNoticesQuery<TimetablNotice[]>({
     ...options,
-    enabled: !loading,
     select: (data): TimetablNotice[] =>
       data?.notices.map((notice) => ({
         ...notice,

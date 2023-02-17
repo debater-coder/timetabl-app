@@ -227,4 +227,46 @@ export const actions = {
       );
     }
   },
+  refresh: async () => {
+    useAuthStore.setState(
+      produce(useAuthStore.getState(), (draft) => {
+        draft.status = AuthStatus.REFRESHING;
+      })
+    );
+    try {
+      const res = await fetch("/api/token", {
+        method: "PATCH",
+        body: JSON.stringify({
+          client_id: config.client_id,
+        }),
+        headers: {
+          "Content-Type": "application/json; charset=UTF-8",
+        },
+      });
+
+      if (!res.ok) {
+        throw new HTTPError(res.status);
+      }
+
+      useAuthStore.setState(
+        produce(useAuthStore.getState(), (draft) => {
+          draft.status = AuthStatus.LOGGED_IN;
+        })
+      );
+    } catch (error) {
+      useAuthStore.setState(
+        produce(useAuthStore.getState(), (draft) => {
+          draft.status = AuthStatus.EXPIRED;
+        })
+      );
+      toast({
+        title:
+          "Something went wrong, try logging in and out if the issue persists.",
+        description: error.message,
+        status: "error",
+        isClosable: true,
+      });
+      throw error;
+    }
+  },
 };

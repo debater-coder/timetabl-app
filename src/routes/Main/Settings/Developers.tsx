@@ -10,9 +10,11 @@ import {
   Button,
   useToast,
 } from "@chakra-ui/react";
+import { actions, AuthStatus, useAuthStatus } from "../../../stores/auth";
 
 export default () => {
-  const { refresh, refreshing } = useAuth();
+  const { refresh } = actions;
+  const refreshing = useAuthStatus() === AuthStatus.REFRESHING;
   const toast = useToast();
 
   return (
