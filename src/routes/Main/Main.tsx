@@ -3,17 +3,18 @@ import { Outlet, useNavigate } from "react-router-dom";
 import { Flex, useBreakpointValue } from "@chakra-ui/react";
 import Sidebar from "../../components/Sidebar";
 import { BottomNavSheet } from "../../components/BottomNavSheet";
+import { useIsLoggedIn } from "../../stores/auth";
 
 export default () => {
-  const { loggedIn, shouldRedirect } = useAuth();
   const navigate = useNavigate();
+  const loggedIn = useIsLoggedIn();
   const isLargerThanMd = useBreakpointValue({ base: false, md: true });
 
   useEffect(() => {
-    if (!loggedIn && shouldRedirect) {
+    if (!loggedIn) {
       navigate("/");
     }
-  }, [loggedIn, shouldRedirect, navigate]);
+  }, [loggedIn, navigate]);
 
   return (
     <Flex

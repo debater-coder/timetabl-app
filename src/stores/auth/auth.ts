@@ -131,7 +131,6 @@ export const actions = {
       await fetch("/api/token", {
         method: "DELETE",
       });
-      localStorage.setItem("loggedIn", "false");
       queryClient.clear();
       useAuthStore.setState(
         produce(useAuthStore.getState(), (draft) => {
@@ -220,7 +219,7 @@ export const actions = {
           })
         );
       }
-    } else {
+    } else if (useAuthStore.getState().status === AuthStatus.PENDING) {
       useAuthStore.setState(
         produce(useAuthStore.getState(), (draft) => {
           draft.status = AuthStatus.LOGGED_OUT;
