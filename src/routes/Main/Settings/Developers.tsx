@@ -10,7 +10,6 @@ import {
   Button,
   useToast,
 } from "@chakra-ui/react";
-import { useAuth } from "../../../hooks/useAuth";
 
 export default () => {
   const { refresh, refreshing } = useAuth();

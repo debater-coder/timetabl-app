@@ -9,7 +9,7 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import { useEffect } from "react";
-import { useAuth } from "../../hooks/useAuth";
+import { AuthStatus, useAuthStatus } from "../../stores/auth";
 import { useNavigate } from "react-router-dom";
 import { Hero } from "./Hero";
 import { Features } from "./Features";
@@ -17,13 +17,13 @@ import { Footer } from "./Footer";
 
 export default () => {
   const navigate = useNavigate();
-  const { loggedIn, shouldRedirect } = useAuth();
+  const status = useAuthStatus();
 
   useEffect(() => {
-    if (loggedIn && shouldRedirect) {
+    if (status === AuthStatus.LOGGED_IN) {
       navigate("/app");
     }
-  }, [loggedIn, navigate, shouldRedirect]);
+  }, [status, navigate]);
 
   return (
     <>

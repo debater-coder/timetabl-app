@@ -1,6 +1,6 @@
 {
   "name": "timetabl-app",
-  "version": "1.4.0-beta",
+  "version": "1.4.1-beta",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -48,6 +48,7 @@
     "cookie": "^0.5.0",
     "dompurify": "^2.4.0",
     "framer-motion": "^7.6.19",
+    "immer": "^9.0.19",
     "jsbarcode": "^3.11.5",
     "linkify-html": "^4.0.2",
     "linkifyjs": "^4.0.2",
@@ -67,7 +68,8 @@
     "workbox-precaching": "^6.5.3",
     "workbox-routing": "^6.5.3",
     "workbox-strategies": "^6.5.3",
-    "workbox-window": "^6.5.3"
+    "workbox-window": "^6.5.3",
+    "zustand": "^4.3.2"
   },
   "devDependencies": {
     "@tanstack/eslint-plugin-query": "^4.20.2",

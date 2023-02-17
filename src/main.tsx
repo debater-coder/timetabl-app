@@ -5,7 +5,6 @@ import { ChakraProvider, ColorModeScript } from "@chakra-ui/react";
 import themeGen from "./theme";
 import registerSW from "./registerSW";
 import { Compose, withProps } from "./utils/contextualise";
-import { AuthProvider } from "./hooks/useAuth";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { PersistQueryClientProvider } from "@tanstack/react-query-persist-client";
 import reportWebVitals from "./reportWebVitals";
@@ -17,7 +16,7 @@ import { ToastContainer } from "./toast";
 import "@fontsource/poppins";
 import { createRouter } from "./createRouter";
 import { persister, queryClient } from "./createQueryClient";
-import { auth } from "./createAuth";
+import { actions } from "./stores/auth";
 
 // Redirect to new domain if using old domain
 if (window.location.host === "timetabl.vercel.app") {
@@ -55,7 +54,6 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       }),
       withProps(SettingsProvider, { initialArgs: [] }),
       ChakraWrapper,
-      withProps(AuthProvider, { initialArgs: [auth] }),
     ]}
   >
     <ColorModeScript initialColorMode={themeGen().config.initialColorMode} />
@@ -82,6 +80,9 @@ inject({
     url: window.location.origin + window.location.pathname,
   }),
 });
+
+// Resolve authentication
+actions.resolve();
 
 // Render welcome message for devs
 log(

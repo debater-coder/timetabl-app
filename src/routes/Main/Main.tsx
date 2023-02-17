@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { Flex, useBreakpointValue } from "@chakra-ui/react";
-import { useAuth } from "../../hooks/useAuth";
 import Sidebar from "../../components/Sidebar";
 import { BottomNavSheet } from "../../components/BottomNavSheet";
 

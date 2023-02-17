@@ -1,6 +1,5 @@
 import { DateTime } from "luxon";
 import { createQuery } from "react-query-kit";
-import { useAuth } from "../../hooks/useAuth";
 import { fetchSbhsApi } from "./fetchSbhsApi";
 import { ApiDtt, TimetablDtt } from "./types";
 

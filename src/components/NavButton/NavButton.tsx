@@ -1,6 +1,6 @@
 import { Button, Icon, Tooltip } from "@chakra-ui/react";
 import { useRef, useState } from "react";
-import { useAuth } from "../../hooks/useAuth";
+import { actions, AuthStatus, useAuthStatus } from "../../stores/auth";
 
 const InstallButton = () => {
   const deferredPrompt = useRef<BeforeInstallPromptEvent>(null);
@@ -39,10 +39,10 @@ const InstallButton = () => {
 };
 
 export const NavButton = () => {
-  const { shouldLogin, login } = useAuth();
+  const shouldLogin = useAuthStatus() === AuthStatus.EXPIRED;
 
   return shouldLogin ? (
-    <Button size="xs" mr={2} colorScheme="orange" onClick={login}>
+    <Button size="xs" mr={2} colorScheme="orange" onClick={actions.login}>
       Log in for the latest info
     </Button>
   ) : (

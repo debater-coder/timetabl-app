@@ -1,5 +1,4 @@
 import { createQuery } from "react-query-kit";
-import { useAuth } from "../../hooks/useAuth";
 import { fetchSbhsApi } from "./fetchSbhsApi";
 import { ApiDailyNews, NoticeYear, TimetablNotice, yearMapping } from "./types";
 

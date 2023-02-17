@@ -11,11 +11,12 @@ import {
 } from "@chakra-ui/react";
 import { FaGithub, FaMoon, FaSun, MdLogout, MdSettings } from "react-icons/all";
 import { Link as RouterLink, useLocation } from "react-router-dom";
-import { useAuth } from "../../hooks/useAuth";
 import RefetchingIndicator from "../RefetchingIndicator";
 import { NavButton } from "../NavButton";
 import React, { useState } from "react";
 import { CloseIcon } from "@chakra-ui/icons";
+import { actions, useIsLoggedIn } from "../../stores/auth";
+import { useQueryClient } from "@tanstack/react-query";
 
 export const TimetablLogo = ({
   color,
@@ -160,7 +161,9 @@ export default () => {
   const iconColor = useColorModeValue("black", "white");
   const colorModeIcon = useColorModeValue(<FaMoon />, <FaSun />);
 
-  const { loggedIn, logout } = useAuth();
+  const loggedIn = useIsLoggedIn();
+  const { logout } = actions;
+  const queryClient = useQueryClient();
   const { pathname } = useLocation();
 
   return (
@@ -189,7 +192,10 @@ export default () => {
           <>
             <NavButton />
             <SettingsBTN iconColor={iconColor} pathname={pathname} />
-            <LogoutBTN logout={logout} iconColor={iconColor} />
+            <LogoutBTN
+              logout={() => logout(queryClient)}
+              iconColor={iconColor}
+            />
           </>
         ) : (
           <>

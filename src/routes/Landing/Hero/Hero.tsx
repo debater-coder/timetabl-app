@@ -9,14 +9,14 @@ import { motion } from "framer-motion";
 import { SignIn } from "phosphor-react";
 import { lazy, Suspense, useState } from "react";
 import { ErrorBoundary } from "../../../components/ErrorBoundary";
-import { useAuth } from "../../../hooks/useAuth";
+import { actions } from "../../../stores/auth";
 
 const HeroExperience = lazy(() => import("./HeroExperience"));
 
 const Heading = motion(ChakraHeading);
 
 export const Hero = () => {
-  const { login } = useAuth();
+  const { login } = actions;
   const [loggingIn, setLoggingIn] = useState(false);
 
   const gradients = [

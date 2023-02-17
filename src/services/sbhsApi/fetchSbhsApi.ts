@@ -1,4 +1,3 @@
-import { auth } from "../../createAuth";
 import HTTPError from "../../errors/HTTPError";
 import NetworkError from "../../errors/NetworkError";
 import { UnauthorizedError } from "../../errors/UnauthorisedError";
