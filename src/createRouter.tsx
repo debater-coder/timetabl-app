@@ -58,7 +58,6 @@ export const createRouter = (queryClient: QueryClient) =>
               path={route.path}
               element={route.element}
               errorElement={<ErrorAlert />}
-              loader={route.loader?.(queryClient)}
             />
           ))}
           <Route

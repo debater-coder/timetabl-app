@@ -30,31 +30,11 @@ import { DateTime } from "luxon";
 import { Search2Icon } from "@chakra-ui/icons";
 import { micromark } from "micromark";
 import { usePersistentState } from "../../../hooks/useSettings";
-import {
-  TimetablNotice,
-  NoticeYear,
-  ApiDailyNews,
-} from "../../../services/sbhsApi/types";
-import { createLoader } from "../../../utils/createLoader";
-import {
-  TimetablCmsAnnouncement,
-  timetablNewsQuery,
-  useTimetablNews,
-} from "../../../services/timetablCms/useTimetablNews";
-import { useLoaderData } from "react-router-dom";
-import {
-  dailyNoticesQuery,
-  useDailyNotices,
-} from "../../../services/sbhsApi/useDailyNotices";
+import { TimetablNotice, NoticeYear } from "../../../services/sbhsApi/types";
+import { useTimetablNews } from "../../../services/timetablCms/useTimetablNews";
+import { useDailyNotices } from "../../../services/sbhsApi/useDailyNotices";
 import Empty from "../../../components/Empty";
 import { MegaphoneSimple } from "phosphor-react";
-
-export const loader = createLoader(
-  { queryHook: timetablNewsQuery },
-  {
-    queryHook: dailyNoticesQuery,
-  }
-);
 
 const filterNotices = (
   notices: TimetablNotice[],
@@ -194,18 +174,11 @@ function DailyNotices({
 
 export default function Announcements() {
   const { data: timetablNews, isLoading: timetablNewsLoaded } = useTimetablNews(
-    {
-      initialData: (
-        useLoaderData() as [{ data: TimetablCmsAnnouncement[] }]
-      )[0],
-    }
+    {}
   );
 
-  const { data: dailyNotices, isLoading: dailyNoticesLoaded } = useDailyNotices(
-    {
-      initialData: (useLoaderData() as [unknown, ApiDailyNews])[1],
-    }
-  );
+  const { data: dailyNotices, isLoading: dailyNoticesLoaded } =
+    useDailyNotices();
 
   const [tabIndex, setTabIndex] = useState(0);
   const handleTabsChange = (index: number) => {

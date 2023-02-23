@@ -14,17 +14,12 @@ import { DateTime } from "luxon";
 import Empty from "./../../../components/Empty";
 import { GiFrenchFries } from "react-icons/gi";
 import { DTTPeriod } from "../../../components/DTTPeriod";
-import { ApiDtt, TimetablPeriod } from "../../../services/sbhsApi/types";
+import { TimetablPeriod } from "../../../services/sbhsApi/types";
 import NextPeriod from "./NextPeriod";
-import { dttQuery, useDtt } from "../../../services/sbhsApi/useDtt";
-import { useLoaderData } from "react-router-dom";
-import { createLoader } from "../../../utils/createLoader";
-
-export const loader = createLoader({ queryHook: dttQuery });
+import { useDtt } from "../../../services/sbhsApi/useDtt";
 
 export default function Home() {
   const { data: initialData, isLoading: initialIsLoading } = useDtt({
-    initialData: (useLoaderData() as [ApiDtt])[0],
     variables: {},
   });
   const initialDate = initialData?.date ?? DateTime.now().toISODate();

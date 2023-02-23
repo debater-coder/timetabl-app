@@ -1,4 +1,3 @@
-import { QueryClient } from "@tanstack/react-query";
 import {
   Barcode,
   BookBookmark,
@@ -12,11 +11,7 @@ import {
   Palette,
 } from "phosphor-react";
 import React from "react";
-import { LoaderFunction } from "react-router-dom";
 import SpinnerSuspense from "./components/SpinnerSuspense";
-import * as Home from "./routes/Main/Home/Home";
-import * as Barcodes from "./routes/Main/Barcodes/Barcodes";
-import * as Announcements from "./routes/Main/Announcements/Announcements";
 
 const ComingSoon = () => <>Coming soon...</>;
 
@@ -42,7 +37,6 @@ export type TimetablPage = {
   >;
   mirrored: boolean;
   element: JSX.Element;
-  loader?: (queryClient: QueryClient) => LoaderFunction;
 };
 
 export const pages: { pinned: TimetablPage[]; unpinned: TimetablPage[] } = {
@@ -55,7 +49,6 @@ export const pages: { pinned: TimetablPage[]; unpinned: TimetablPage[] } = {
       element: (
         <Page component={React.lazy(() => import("./routes/Main/Home/"))} />
       ),
-      loader: Home.loader,
     },
     {
       path: "barcodes",
@@ -65,7 +58,6 @@ export const pages: { pinned: TimetablPage[]; unpinned: TimetablPage[] } = {
       element: (
         <Page component={React.lazy(() => import("./routes/Main/Barcodes/"))} />
       ),
-      loader: Barcodes.loader,
     },
     {
       path: "announcements",
@@ -77,7 +69,6 @@ export const pages: { pinned: TimetablPage[]; unpinned: TimetablPage[] } = {
           component={React.lazy(() => import("./routes/Main/Announcements/"))}
         />
       ),
-      loader: Announcements.loader,
     },
     {
       path: "calendar",

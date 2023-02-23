@@ -6,22 +6,15 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import YourBarcode from "./YourBarcode";
-import { createLoader } from "../../../utils/createLoader";
-import { profileQuery, useProfile } from "../../../services/sbhsApi/useProfile";
-import { useLoaderData } from "react-router-dom";
-import { ApiProfile } from "../../../services/sbhsApi/types";
+import { useProfile } from "../../../services/sbhsApi/useProfile";
 
 export type Barcode = {
   name: string;
   value: string;
 };
 
-export const loader = createLoader({ queryHook: profileQuery });
-
 export default () => {
-  const { data, isLoading } = useProfile({
-    initialData: (useLoaderData() as [ApiProfile])[0],
-  });
+  const { data, isLoading } = useProfile();
 
   return (
     <Flex direction={"column"} gap={3} align="center" textAlign={"center"}>
