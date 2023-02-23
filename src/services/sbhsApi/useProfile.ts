@@ -1,11 +1,11 @@
 import { createQuery } from "react-query-kit";
-import { fetchSbhsApi } from "./fetchSbhsApi";
+import { sbhsAuthActions } from "../../stores/auth";
 import { ApiProfile } from "./types";
 
 export const profileQuery = createQuery<ApiProfile>({
   primaryKey: "/sbhs/details/userinfo.json",
   queryFn: () => {
-    return fetchSbhsApi("details/userinfo.json");
+    return sbhsAuthActions.fetchAuthenticated("details/userinfo.json");
   },
 });
 

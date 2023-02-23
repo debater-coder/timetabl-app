@@ -16,7 +16,7 @@ import { ToastContainer } from "./toast";
 import "@fontsource/poppins";
 import { createRouter } from "./createRouter";
 import { persister, queryClient } from "./createQueryClient";
-import { actions } from "./stores/auth";
+import { sbhsAuthActions } from "./stores/auth";
 
 // Redirect to new domain if using old domain
 if (window.location.host === "timetabl.vercel.app") {
@@ -82,7 +82,7 @@ inject({
 });
 
 // Resolve authentication
-actions.resolve();
+sbhsAuthActions.resolve();
 
 // Render welcome message for devs
 log(

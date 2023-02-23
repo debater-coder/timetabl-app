@@ -147,7 +147,7 @@ function DailyNotices({
       minW={40}
     >
       <Flex direction={"column"} align="center" gap={8}>
-        {notices.length ? (
+        {notices?.length ? (
           notices?.map((notice, index) => {
             return (
               <Announcement
