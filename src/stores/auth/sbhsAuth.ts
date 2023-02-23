@@ -260,49 +260,6 @@ export const sbhsAuthActions = {
   refresh: async () => {
     // Check if valid state to refresh
     switch (useSbhsAuthStore.getState().status) {
-      case SbhsAuthStatus.LOGGED_IN:
-        // Set status to refreshing
-        useSbhsAuthStore.setState(
-          produce(useSbhsAuthStore.getState(), (draft) => {
-            draft.status = SbhsAuthStatus.REFRESHING;
-          })
-        );
-        try {
-          const res = await fetch("/api/token", {
-            method: "PATCH",
-            body: JSON.stringify({
-              client_id: config.client_id,
-            }),
-            headers: {
-              "Content-Type": "application/json; charset=UTF-8",
-            },
-          });
-
-          if (!res.ok) {
-            throw new HTTPError(res.status);
-          }
-
-          useSbhsAuthStore.setState(
-            produce(useSbhsAuthStore.getState(), (draft) => {
-              draft.status = SbhsAuthStatus.LOGGED_IN;
-            })
-          );
-        } catch (error) {
-          useSbhsAuthStore.setState(
-            produce(useSbhsAuthStore.getState(), (draft) => {
-              draft.status = SbhsAuthStatus.EXPIRED;
-            })
-          );
-          toast({
-            title:
-              "Something went wrong, try logging in and out if the issue persists.",
-            description: error.message,
-            status: "error",
-            isClosable: true,
-          });
-          throw error;
-        }
-        break;
       // If we are already refreshing, wait for the refresh to finish
       case SbhsAuthStatus.REFRESHING: {
         const promise = new Promise<void>((resolve, reject) => {
@@ -317,13 +274,49 @@ export const sbhsAuthActions = {
         });
         return promise;
       }
-      // Warn if invalid usage occurs
       default:
-        console.warn(
-          `Invalid usage of refresh action with auth status ${
-            useSbhsAuthStore.getState().status
-          }.`
-        );
+        if (logged_in_states.includes(useSbhsAuthStore.getState().status)) {
+          // Set status to refreshing
+          useSbhsAuthStore.setState(
+            produce(useSbhsAuthStore.getState(), (draft) => {
+              draft.status = SbhsAuthStatus.REFRESHING;
+            })
+          );
+          try {
+            const res = await fetch("/api/token", {
+              method: "PATCH",
+              body: JSON.stringify({
+                client_id: config.client_id,
+              }),
+              headers: {
+                "Content-Type": "application/json; charset=UTF-8",
+              },
+            });
+
+            if (!res.ok) {
+              throw new HTTPError(res.status);
+            }
+
+            useSbhsAuthStore.setState(
+              produce(useSbhsAuthStore.getState(), (draft) => {
+                draft.status = SbhsAuthStatus.LOGGED_IN;
+              })
+            );
+          } catch (error) {
+            useSbhsAuthStore.setState(
+              produce(useSbhsAuthStore.getState(), (draft) => {
+                draft.status = SbhsAuthStatus.EXPIRED;
+              })
+            );
+          }
+        } else {
+          // Warn if invalid usage occurs
+          console.warn(
+            `Invalid usage of refresh action with auth status ${
+              useSbhsAuthStore.getState().status
+            }.`
+          );
+        }
     }
   },
   fetchAuthenticated: async <TSbhsApiData>(
