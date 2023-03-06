@@ -29,3 +29,11 @@ interface BeforeInstallPromptEvent extends Event {
    */
   prompt(): Promise<void>;
 }
+
+interface WindowEventMap {
+  beforeinstallprompt: BeforeInstallPromptEvent;
+}
+
+interface DocumentEventMap {
+  onlinechange: CustomEvent<{ online: boolean }>;
+}

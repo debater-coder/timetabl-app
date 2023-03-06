@@ -7,7 +7,7 @@ import {
 } from "../../stores/auth";
 
 const InstallButton = () => {
-  const deferredPrompt = useRef<BeforeInstallPromptEvent>(null);
+  const deferredPrompt = useRef<BeforeInstallPromptEvent | null>(null);
   const [showInstall, setShowInstall] = useState(false);
 
   window.addEventListener(
@@ -30,8 +30,8 @@ const InstallButton = () => {
       <Button
         mr={1}
         onClick={async () => {
-          deferredPrompt.current.prompt();
-          await deferredPrompt.current.userChoice;
+          deferredPrompt.current?.prompt();
+          await deferredPrompt.current?.userChoice;
           deferredPrompt.current = null;
           setShowInstall(false);
         }}

@@ -8,13 +8,10 @@ export default () => {
   const isFetching = useIsFetching();
   const [online, setOnline] = useState(true);
 
-  document.addEventListener(
-    "onlinechange",
-    ({ detail: { online } }: CustomEvent<{ online: boolean }>) => {
-      log(`Online status change detected - Online: ${online}`);
-      return setOnline(online);
-    }
-  );
+  document.addEventListener("onlinechange", ({ detail: { online } }) => {
+    log(`Online status change detected - Online: ${online}`);
+    return setOnline(online);
+  });
 
   return (
     <Flex p={2} rounded="full" align={"center"} gap={3}>

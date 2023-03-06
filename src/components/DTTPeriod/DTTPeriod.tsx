@@ -40,9 +40,11 @@ export const DTTPeriod = ({
       leftContent={period.name}
       leftContentSize={"xs"}
       transition={
-        period?.name === "Transition" ||
-        DateTime.fromISO(`${period?.date}T15:15`) <= period.time ||
-        period.time <= DateTime.fromISO(`${period?.date}T09:00`)
+        period?.time
+          ? period?.name === "Transition" ||
+            DateTime.fromISO(`${period?.date}T15:15`) <= period?.time ||
+            period?.time <= DateTime.fromISO(`${period?.date}T09:00`)
+          : true
       }
       isLoaded={isLoaded}
       rightContent={
