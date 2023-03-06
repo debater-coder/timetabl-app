@@ -4,7 +4,6 @@ import { RouterProvider } from "react-router-dom";
 import { ChakraProvider, ColorModeScript } from "@chakra-ui/react";
 import themeGen from "./theme";
 import registerSW from "./registerSW";
-import { Compose, withProps } from "./utils/contextualise";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { PersistQueryClientProvider } from "@tanstack/react-query-persist-client";
 import reportWebVitals from "./reportWebVitals";
@@ -39,28 +38,29 @@ const ChakraWrapper = ({ ...props }) => {
 };
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <Compose
-    components={[
-      StrictMode,
-      withProps(PersistQueryClientProvider, {
-        client: queryClient,
-        persistOptions: {
-          persister,
-          maxAge: Infinity,
-          dehydrateOptions: {
-            shouldDehydrateQuery: () => true,
-          },
+  <StrictMode>
+    <PersistQueryClientProvider
+      client={queryClient}
+      persistOptions={{
+        persister,
+        maxAge: Infinity,
+        dehydrateOptions: {
+          shouldDehydrateQuery: () => true,
         },
-      }),
-      withProps(SettingsProvider, { initialArgs: [] }),
-      ChakraWrapper,
-    ]}
-  >
-    <ColorModeScript initialColorMode={themeGen().config.initialColorMode} />
-    <RouterProvider router={createRouter(queryClient)} />
-    <ToastContainer />
-    <ReactQueryDevtools initialIsOpen={false} />
-  </Compose>
+      }}
+    >
+      <SettingsProvider>
+        <ChakraWrapper>
+          <ColorModeScript
+            initialColorMode={themeGen().config.initialColorMode}
+          />
+          <RouterProvider router={createRouter(queryClient)} />
+          <ToastContainer />
+          <ReactQueryDevtools initialIsOpen={false} />
+        </ChakraWrapper>
+      </SettingsProvider>
+    </PersistQueryClientProvider>
+  </StrictMode>
 );
 
 // =================
