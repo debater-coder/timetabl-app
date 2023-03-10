@@ -26,21 +26,19 @@ export default function Home() {
   const [date, setDate] = useState<string>("initial");
   const resetDate = () => setDate("initial");
   const nextDay = () => {
-    setDate(
-      DateTime.fromISO(date === "initial" ? initialDate : date)
-        .plus({ days: 1 })
-        .toISODate()
-    );
-    if (date === initialDate) resetDate();
+    const newDate = DateTime.fromISO(date === "initial" ? initialDate : date)
+      .plus({ days: 1 })
+      .toISODate();
+    setDate(newDate);
+    if (newDate === initialDate) resetDate();
   };
 
   const previousDay = () => {
-    setDate(
-      DateTime.fromISO(date === "initial" ? initialDate : date)
-        .minus({ days: 1 })
-        .toISODate()
-    );
-    if (date === initialDate) resetDate();
+    const newDate = DateTime.fromISO(date === "initial" ? initialDate : date)
+      .minus({ days: 1 })
+      .toISODate();
+    setDate(newDate);
+    if (newDate === initialDate) resetDate();
   };
 
   const { data, isLoading } = useDtt(

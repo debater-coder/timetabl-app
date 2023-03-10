@@ -1,8 +1,8 @@
 import { chakra, useBoolean, useMediaQuery } from "@chakra-ui/react";
 import { DateTime } from "luxon";
 import { useState } from "react";
-import useSettings from "../../hooks/useSettings";
 import { TimetablPeriod } from "../../services/sbhsApi/types";
+import { useSettingsStore } from "../../stores/settings";
 import { Period } from "../Period";
 
 export const DTTPeriod = ({
@@ -14,13 +14,13 @@ export const DTTPeriod = ({
   isLoaded: boolean;
   active: boolean;
 }) => {
-  const {
-    showTimesInsteadOfRooms,
-    expanded: defaultExpanded,
-    hoverExpand,
-    periodColours,
-  } = useSettings();
-  const [expanded, setExpanded] = useBoolean(defaultExpanded === "true");
+  const showTimesInsteadOfRooms = useSettingsStore(
+    (state) => state.showTimesInsteadOfRooms
+  );
+  const defaultExpanded = useSettingsStore((state) => state.expanded);
+  const hoverExpand = useSettingsStore((state) => state.hoverExpand);
+  const periodColours = useSettingsStore((state) => state.periodColours);
+  const [expanded, setExpanded] = useBoolean(defaultExpanded);
   const [hoverable] = useMediaQuery("(any-hover: hover)");
   const [hoverTimeout, setHoverTimeout] = useState<ReturnType<
     typeof setTimeout
@@ -48,7 +48,7 @@ export const DTTPeriod = ({
       }
       isLoaded={isLoaded}
       rightContent={
-        showTimesInsteadOfRooms === "true" ? (
+        showTimesInsteadOfRooms ? (
           period?.time?.toLocaleString(DateTime.TIME_SIMPLE)
         ) : period.room ? (
           <chakra.span
@@ -66,7 +66,7 @@ export const DTTPeriod = ({
       expandedContent={
         <>
           at{" "}
-          {showTimesInsteadOfRooms !== "true"
+          {showTimesInsteadOfRooms
             ? period?.time?.toLocaleString(DateTime.TIME_SIMPLE)
             : period.room}{" "}
           with{" "}
@@ -87,7 +87,7 @@ export const DTTPeriod = ({
       expandedSize={"xs"}
       expandedWeight={"semibold"}
       onMouseEnter={
-        hoverable && hoverExpand === "true"
+        hoverable && hoverExpand
           ? () => {
               setHoverTimeout(
                 setTimeout(() => {
@@ -99,7 +99,7 @@ export const DTTPeriod = ({
           : undefined
       }
       onMouseLeave={
-        hoverable && hoverExpand === "true"
+        hoverable && hoverExpand
           ? () => {
               if (hoverTimeout) {
                 clearTimeout(hoverTimeout);

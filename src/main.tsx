@@ -8,7 +8,6 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { PersistQueryClientProvider } from "@tanstack/react-query-persist-client";
 import reportWebVitals from "./reportWebVitals";
 import { sendToVercelAnalytics } from "./vitals";
-import useSettings, { SettingsProvider } from "./hooks/useSettings";
 import { inject } from "@vercel/analytics";
 import { log } from "./utils/log";
 import { ToastContainer } from "./toast";
@@ -16,6 +15,7 @@ import "@fontsource/poppins";
 import { createRouter } from "./createRouter";
 import { persister, queryClient } from "./createQueryClient";
 import { sbhsAuthActions } from "./stores/auth";
+import { useSettingsStore } from "./stores/settings";
 
 // Redirect to new domain if using old domain
 if (window.location.host === "timetabl.vercel.app") {
@@ -30,9 +30,9 @@ if (window.location.host === "timetabl.vercel.app") {
  * A wrapper around the `ChakraProvider` component which generates the theme from settings and passes it to the the `ChakraProvider`.
  */
 const ChakraWrapper = ({ ...props }) => {
-  const { primary } = useSettings();
+  const primary = useSettingsStore((state) => state.primary);
 
-  const theme = themeGen(primary as keyof typeof themeGen);
+  const theme = themeGen(primary);
 
   return <ChakraProvider theme={theme} {...props} />;
 };
@@ -49,16 +49,14 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         },
       }}
     >
-      <SettingsProvider>
-        <ChakraWrapper>
-          <ColorModeScript
-            initialColorMode={themeGen().config.initialColorMode}
-          />
-          <RouterProvider router={createRouter(queryClient)} />
-          <ToastContainer />
-          <ReactQueryDevtools initialIsOpen={false} />
-        </ChakraWrapper>
-      </SettingsProvider>
+      <ChakraWrapper>
+        <ColorModeScript
+          initialColorMode={themeGen().config.initialColorMode}
+        />
+        <RouterProvider router={createRouter(queryClient)} />
+        <ToastContainer />
+        <ReactQueryDevtools initialIsOpen={false} />
+      </ChakraWrapper>
     </PersistQueryClientProvider>
   </StrictMode>
 );

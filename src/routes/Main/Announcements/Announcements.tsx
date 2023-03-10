@@ -29,12 +29,32 @@ import { useState } from "react";
 import { DateTime } from "luxon";
 import { Search2Icon } from "@chakra-ui/icons";
 import { micromark } from "micromark";
-import { usePersistentState } from "../../../hooks/useSettings";
 import { TimetablNotice, NoticeYear } from "../../../services/sbhsApi/types";
 import { useTimetablNews } from "../../../services/timetablCms/useTimetablNews";
 import { useDailyNotices } from "../../../services/sbhsApi/useDailyNotices";
 import Empty from "../../../components/Empty";
 import { MegaphoneSimple } from "phosphor-react";
+import { create } from "zustand";
+import { devtools, persist } from "zustand/middleware";
+
+type AnnouncementState = {
+  year: NoticeYear;
+  setYear: (year: NoticeYear) => void;
+};
+
+const useAnnouncementStore = create<AnnouncementState>()(
+  devtools(
+    persist(
+      (set): AnnouncementState => ({
+        year: NoticeYear.ALL,
+        setYear: (year) => set({ year }),
+      }),
+      {
+        name: "announcement-storage",
+      }
+    )
+  )
+);
 
 const filterNotices = (
   notices: TimetablNotice[],
@@ -173,6 +193,8 @@ function DailyNotices({
 }
 
 export default function Announcements() {
+  const { year, setYear } = useAnnouncementStore();
+
   const { data: timetablNews, isLoading: timetablNewsLoaded } = useTimetablNews(
     {}
   );
@@ -185,10 +207,6 @@ export default function Announcements() {
     setTabIndex(index);
   };
 
-  const [filter, setFilter] = usePersistentState(
-    "announcementsFilter",
-    "" + NoticeYear.ALL
-  );
   const [query, setQuery] = useState("");
 
   return (
@@ -221,8 +239,8 @@ export default function Announcements() {
         >
           <FormLabel mb="0">Filter</FormLabel>
           <Select
-            onChange={(event) => setFilter(event.target.value)}
-            value={filter}
+            onChange={(event) => setYear(parseInt(event.target.value))}
+            value={year}
           >
             <option value={NoticeYear.ALL}>All</option>
             <option value={NoticeYear.YEAR7}>Year 7</option>
@@ -249,7 +267,7 @@ export default function Announcements() {
           {[0, 1].map((tab) => (
             <TabPanel key={tab}>
               <DailyNotices
-                filter={parseInt(filter)}
+                filter={year}
                 query={query}
                 tab={tab}
                 timetablNews={timetablNews}

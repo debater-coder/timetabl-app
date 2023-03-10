@@ -1,9 +1,9 @@
 import { DateTime } from "luxon";
 import { useEffect } from "react";
 import { Period } from "../../../components/Period/Period";
-import useSettings from "../../../hooks/useSettings";
 import { useToken, useColorModeValue } from "@chakra-ui/react";
 import { TimetablPeriod } from "../../../services/sbhsApi/types";
+import { useSettingsStore } from "../../../stores/settings";
 
 type NextPeriodProps = {
   periods: TimetablPeriod[];
@@ -36,7 +36,10 @@ export default ({
     return () => clearInterval(timer);
   });
 
-  const { showTimesInsteadOfRooms, periodColours } = useSettings();
+  const showTimesInsteadOfRooms = useSettingsStore(
+    (state) => state.showTimesInsteadOfRooms
+  );
+  const periodColours = useSettingsStore((state) => state.periodColours);
 
   return (
     <Period
@@ -52,7 +55,7 @@ export default ({
       leftContent={nextPeriod.name}
       leftContentSize={"lg"}
       rightContent={
-        showTimesInsteadOfRooms === "true"
+        showTimesInsteadOfRooms
           ? nextPeriod?.time?.toLocaleString(DateTime.TIME_SIMPLE)
           : nextPeriod.room ??
             nextPeriod?.time?.toLocaleString(DateTime.TIME_SIMPLE)

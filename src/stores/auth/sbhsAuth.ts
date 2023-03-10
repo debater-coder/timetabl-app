@@ -57,11 +57,11 @@ const logged_in_states = [
   SbhsAuthStatus.EXPIRED,
 ];
 
-interface AuthState {
+type AuthState = {
   status: SbhsAuthStatus;
   pkceState: string;
   codeVerifier: string;
-}
+};
 
 const useSbhsAuthStore = create<AuthState>()(
   subscribeWithSelector(

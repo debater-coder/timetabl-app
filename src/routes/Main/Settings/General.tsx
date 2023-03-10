@@ -17,7 +17,7 @@ import {
   Button,
 } from "@chakra-ui/react";
 import { Check } from "phosphor-react";
-import useSettings from "../../../hooks/useSettings";
+import { useSettingsStore } from "../../../stores/settings";
 
 const PrimaryColour = (props: UseRadioProps) => {
   const { state, getInputProps, getCheckboxProps } = useRadio(props);
@@ -89,17 +89,19 @@ export default () => {
   const { colorMode, toggleColorMode } = useColorMode();
   const {
     primary,
-    setPrimary,
     periodColours,
-    setPeriodColours,
-    setExpanded,
     expanded,
-    setHoverExpand,
-    reset,
     hoverExpand,
     showTimesInsteadOfRooms,
-    setShowTimesInsteadOfRooms,
-  } = useSettings();
+    actions: {
+      setPrimary,
+      setExpanded,
+      setPeriodColours,
+      setHoverExpand,
+      setShowTimesInsteadOfRooms,
+      reset,
+    },
+  } = useSettingsStore();
 
   return (
     <>
@@ -131,30 +133,28 @@ export default () => {
         <FormLabel mb="0">Expand periods by default</FormLabel>
         <Switch
           onChange={() => {
-            if (expanded === "false") setHoverExpand("false");
-            setExpanded(expanded === "true" ? "false" : "true");
+            if (expanded) setHoverExpand(false);
+            setExpanded(!expanded);
           }}
-          isChecked={expanded === "true"}
+          isChecked={expanded}
         />
       </FormControl>
       <FormControl display="flex" alignItems="center">
         <FormLabel mb="0">Hover to expand</FormLabel>
         <Switch
-          isChecked={hoverExpand === "true"}
+          isChecked={hoverExpand}
           onChange={() => {
-            setHoverExpand(hoverExpand === "true" ? "false" : "true");
+            setHoverExpand(!hoverExpand);
           }}
-          disabled={expanded === "true"}
+          disabled={expanded}
         />
       </FormControl>
       <FormControl display="flex" alignItems="center">
         <FormLabel mb="0">Show times instead of rooms</FormLabel>
         <Switch
-          isChecked={showTimesInsteadOfRooms === "true"}
+          isChecked={showTimesInsteadOfRooms}
           onChange={() => {
-            setShowTimesInsteadOfRooms(
-              showTimesInsteadOfRooms === "true" ? "false" : "true"
-            );
+            setShowTimesInsteadOfRooms(!showTimesInsteadOfRooms);
           }}
         />
       </FormControl>
