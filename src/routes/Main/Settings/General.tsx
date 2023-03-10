@@ -70,10 +70,7 @@ const ColourPicker = ({
   onChange: (nextValue: string) => void;
 }) => {
   const { getRootProps, getRadioProps } = useRadioGroup({
-    onChange: (value) => {
-      onChange(value);
-      console.log(value);
-    },
+    onChange,
     value,
   });
 
