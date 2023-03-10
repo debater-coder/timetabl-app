@@ -1,5 +1,4 @@
 import {
-  As,
   Button,
   Flex,
   IconButton,
@@ -142,7 +141,7 @@ export default function Home() {
             ))
           ) : (
             <Empty
-              icon={GiFrenchFries as As}
+              icon={GiFrenchFries}
               colour="yellow.500"
               size="xl"
               heading="No periods on this day"

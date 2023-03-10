@@ -14,7 +14,6 @@ import { SmileyXEyes } from "phosphor-react";
 import { lazy } from "react";
 import { pages } from "./pages";
 import ErrorAlert from "./components/ErrorAlert.tsx";
-import { QueryClient } from "@tanstack/react-query";
 import SpinnerSuspense from "./components/SpinnerSuspense";
 
 const Main = lazy(() => import("./routes/Main"));
@@ -30,7 +29,7 @@ const PageNotFound = () => (
   />
 );
 
-export const createRouter = (queryClient: QueryClient) =>
+export const createRouter = () =>
   createBrowserRouter(
     createRoutesFromElements(
       <Route path={"/"} element={<App />} errorElement={<ErrorAlert />}>

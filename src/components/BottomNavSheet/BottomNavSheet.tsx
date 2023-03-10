@@ -1,15 +1,8 @@
-import {
-  Flex as ChakraFlex,
-  useColorModeValue,
-  Box,
-  SimpleGrid,
-} from "@chakra-ui/react";
+import { Flex, useColorModeValue, Box, SimpleGrid } from "@chakra-ui/react";
 import SidebarButton from "../Sidebar/SidebarButton";
 import { motion, PanInfo } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { pages } from "../../pages";
-
-const Flex = motion(ChakraFlex);
 
 export const BottomNavSheet = () => {
   const [height, setHeight] = useState(80);
@@ -46,6 +39,7 @@ export const BottomNavSheet = () => {
       style={{
         touchAction: "none",
       }}
+      as={motion.div}
       animate={{ height }}
       onPan={(
         _event: MouseEvent | TouchEvent | PointerEvent,

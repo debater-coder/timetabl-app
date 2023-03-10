@@ -16,8 +16,8 @@ export type SbhsApiEndpoint =
   | "timetable/timetable.json";
 
 export type ApiNotice = {
-  title?: string;
-  content?: string;
+  title: string;
+  content: string;
   authorName?: string;
   years?: string[];
 };
@@ -126,8 +126,8 @@ export const yearMapping: Record<string, NoticeYear> = {
 };
 
 export type TimetablNotice = {
-  title?: string;
-  content?: string;
+  title: string;
+  content: string;
   authorName?: string;
   years?: NoticeYear[];
   date?: string;

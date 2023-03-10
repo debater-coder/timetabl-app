@@ -3,11 +3,12 @@ import { CLSMetric } from "web-vitals";
 const vitalsUrl = "https://vitals.vercel-analytics.com/v1/vitals";
 
 function getConnectionSpeed() {
-  // This line makes all of my tools angry, and I can't find any type definitions for this, so I just got them to ignore it.
-  // prettier-ignore
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  return "connection" in navigator && "effectiveType" in navigator["connection"] ? navigator["connection"]["effectiveType"] : "";
+  return "connection" in navigator &&
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    "effectiveType" in (navigator as any)["connection"]
+    ? // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (navigator as any)["connection"]["effectiveType"]
+    : "";
 }
 
 export function sendToVercelAnalytics(metric: CLSMetric) {

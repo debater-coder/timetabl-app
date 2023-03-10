@@ -37,7 +37,7 @@ const ChakraWrapper = ({ ...props }) => {
   return <ChakraProvider theme={theme} {...props} />;
 };
 
-ReactDOM.createRoot(document.getElementById("root")).render(
+ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <StrictMode>
     <PersistQueryClientProvider
       client={queryClient}
@@ -53,7 +53,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <ColorModeScript
           initialColorMode={themeGen().config.initialColorMode}
         />
-        <RouterProvider router={createRouter(queryClient)} />
+        <RouterProvider router={createRouter()} />
         <ToastContainer />
         <ReactQueryDevtools initialIsOpen={false} />
       </ChakraWrapper>
@@ -69,7 +69,8 @@ ReactDOM.createRoot(document.getElementById("root")).render(
 registerSW();
 
 // Report web vitals
-reportWebVitals(sendToVercelAnalytics);
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+(reportWebVitals as any)(sendToVercelAnalytics);
 
 // Inject analytics
 inject({

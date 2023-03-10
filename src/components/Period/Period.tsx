@@ -3,7 +3,6 @@ import {
   Tooltip,
   Flex,
   useToken,
-  As,
   Box,
   Heading,
   Spacer,
@@ -64,8 +63,8 @@ export const Period = ({
   return (
     <Skeleton
       rounded={5}
-      mx={!transition && 1}
-      mb={!transition && 0.5}
+      mx={!transition ? 1 : undefined}
+      mb={!transition ? 0.5 : undefined}
       isLoaded={isLoaded}
       width={width}
     >
@@ -79,38 +78,38 @@ export const Period = ({
           bg={periodBg}
           rounded={10}
           _hover={{ bg: useToken("colors", "gray.400") + "22" }}
-          shadow={active ? "outline" : expandable && "lg"}
+          shadow={active ? "outline" : expandable ? "lg" : undefined}
           onClick={onClick}
           onMouseEnter={onMouseEnter}
           onMouseLeave={onMouseLeave}
-          as={motion.div as As}
+          as={motion.div}
           w={"full"}
           layout
-          cursor={clickable && "pointer"}
+          cursor={clickable ? "pointer" : undefined}
         >
           <Box w={2} roundedLeft={10} bg={colour} />
           <Flex
             direction={"column"}
             px={3}
-            py={!transition && expandable && 2.5}
+            py={!transition && expandable ? 2.5 : undefined}
             w="full"
           >
             <Flex gap={6} align="center" w="full">
               <Heading
                 size={leftContentSize}
                 fontFamily={"Poppins, sans-serif"}
-                as={motion.h2 as As}
+                as={motion.h2}
                 layout
-                color={!expandable && grayedOutTextColour}
+                color={!expandable ? grayedOutTextColour : undefined}
               >
                 {!transition && leftContent}
               </Heading>
               <Spacer />
               <Text
                 fontWeight={"semibold"}
-                as={motion.p as As}
+                as={motion.p}
                 layout
-                color={!expandable && grayedOutTextColour}
+                color={!expandable ? grayedOutTextColour : undefined}
               >
                 {!transition && rightContent}
               </Text>

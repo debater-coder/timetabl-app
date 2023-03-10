@@ -21,7 +21,6 @@ export default React.memo(
     const { name, icon: Icon, mirrored = false, to, onClick } = props;
     const hoverColor = useColorModeValue("gray.100", "gray.700");
     const [secondary] = useToken("colors", ["primary.300"]);
-    const MotionFlex = motion(Flex);
     const active = Boolean(useMatch(to));
 
     return (
@@ -34,7 +33,8 @@ export default React.memo(
           direction={"column"}
           align={"center"}
         >
-          <MotionFlex
+          <Flex
+            as={motion.div}
             justify={"center"}
             bg={active ? secondary + "40" : undefined}
             animate={{ width: active ? "56px" : "0px" }}
@@ -49,7 +49,7 @@ export default React.memo(
                 weight={active ? "fill" : "duotone"}
               />
             </Box>
-          </MotionFlex>
+          </Flex>
           <Text as={active ? "b" : "label"} fontSize={"xs"} mt="4px">
             {name}
           </Text>

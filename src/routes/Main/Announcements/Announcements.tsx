@@ -57,16 +57,16 @@ const useAnnouncementStore = create<AnnouncementState>()(
 );
 
 const filterNotices = (
-  notices: TimetablNotice[],
+  notices: TimetablNotice[] | undefined,
   filter: NoticeYear,
   query: string
 ) =>
   notices?.filter(
     (notice) =>
       [...(notice?.years ?? []), NoticeYear.ALL].includes(filter) &&
-      (notice?.content.toLowerCase().includes(query.toLowerCase()) ||
-        notice?.title.toLowerCase().includes(query.toLowerCase()) ||
-        notice?.authorName.toLowerCase().includes(query.toLowerCase()))
+      (notice?.content?.toLowerCase().includes(query.toLowerCase()) ||
+        notice?.title?.toLowerCase().includes(query.toLowerCase()) ||
+        notice?.authorName?.toLowerCase().includes(query.toLowerCase()))
   );
 
 function Announcement({
@@ -77,8 +77,8 @@ function Announcement({
   query,
   markdown,
 }: {
-  title?: string;
-  content?: string;
+  title: string;
+  content: string;
   authorName?: string;
   date?: string;
   query: string;
@@ -101,7 +101,7 @@ function Announcement({
         <Prose>
           <div
             ref={(content) =>
-              setShowShowMoreBtn((content?.offsetHeight / 24 ?? 0) > 1)
+              setShowShowMoreBtn((content?.offsetHeight ?? 0 / 24) > 1)
             }
             dangerouslySetInnerHTML={{
               __html: linkifyHtml(
@@ -126,7 +126,7 @@ function Announcement({
             query={query}
             styles={{ bg: "primary.100", rounded: "5px", p: 1 }}
           >
-            {authorName}
+            {authorName ?? ""}
           </Highlight>
         </Heading>
         <Text>
@@ -150,8 +150,8 @@ function DailyNotices({
   tab: number;
   timetablNewsLoaded: boolean;
   dailyNoticesLoaded: boolean;
-  dailyNotices: TimetablNotice[];
-  timetablNews: TimetablNotice[];
+  dailyNotices?: TimetablNotice[];
+  timetablNews?: TimetablNotice[];
 }) {
   const notices = filterNotices(
     tab ? timetablNews : dailyNotices,

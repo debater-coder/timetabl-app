@@ -1,10 +1,4 @@
-import {
-  Heading as ChakraHeading,
-  Button,
-  Flex,
-  Stack,
-  Text,
-} from "@chakra-ui/react";
+import { Heading, Button, Flex, Stack, Text } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import { SignIn } from "phosphor-react";
 import { lazy, Suspense, useState } from "react";
@@ -12,8 +6,6 @@ import { ErrorBoundary } from "../../../components/ErrorBoundary";
 import { sbhsAuthActions } from "../../../stores/auth";
 
 const HeroExperience = lazy(() => import("./HeroExperience"));
-
-const Heading = motion(ChakraHeading);
 
 export const Hero = () => {
   const { login } = sbhsAuthActions;
