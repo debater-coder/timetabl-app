@@ -146,7 +146,7 @@ export default function Home() {
               colour="yellow.500"
               size="xl"
               heading="No periods on this day"
-              text="Chill out, grab some Oporto, and enjoy your day off!"
+              text="Chill out, grab some snacks, and enjoy your day off!"
             />
           )}
         </Flex>
