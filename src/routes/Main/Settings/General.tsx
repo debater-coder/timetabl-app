@@ -17,6 +17,7 @@ import {
   Button,
 } from "@chakra-ui/react";
 import { Check } from "phosphor-react";
+import { useState } from "react";
 import { useSettingsStore } from "../../../stores/settings";
 
 const PrimaryColour = (props: UseRadioProps) => {
@@ -69,7 +70,10 @@ const ColourPicker = ({
   onChange: (nextValue: string) => void;
 }) => {
   const { getRootProps, getRadioProps } = useRadioGroup({
-    onChange,
+    onChange: (value) => {
+      onChange(value);
+      console.log(value);
+    },
     value,
   });
 
@@ -93,15 +97,15 @@ export default () => {
     expanded,
     hoverExpand,
     showTimesInsteadOfRooms,
-    actions: {
-      setPrimary,
-      setExpanded,
-      setPeriodColours,
-      setHoverExpand,
-      setShowTimesInsteadOfRooms,
-      reset,
-    },
+    setPrimary,
+    setExpanded,
+    setPeriodColours,
+    setHoverExpand,
+    setShowTimesInsteadOfRooms,
+    reset,
   } = useSettingsStore();
+
+  const [deleting, setDeleting] = useState(false);
 
   return (
     <>
@@ -162,7 +166,22 @@ export default () => {
         Recovery
       </Heading>
       <FormControl display="flex">
-        <Button onClick={reset}>Reset all settings</Button>
+        <Button
+          colorScheme={deleting ? "red" : undefined}
+          variant={deleting ? "outline" : undefined}
+          onClick={() => {
+            if (!deleting) {
+              setDeleting(true);
+              navigator.vibrate(20);
+            } else {
+              reset();
+              setDeleting(false);
+              navigator.vibrate(100);
+            }
+          }}
+        >
+          {deleting ? "Are you sure?" : "Reset all settings"}
+        </Button>
       </FormControl>
     </>
   );

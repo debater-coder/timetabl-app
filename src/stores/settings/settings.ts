@@ -17,10 +17,9 @@ export type SettingsState = {
   periodColours: "default" | "primary" | "none";
   hoverExpand: boolean;
   showTimesInsteadOfRooms: boolean;
-  actions: Actions;
 };
 
-export const initialState: Omit<SettingsState, "actions"> = {
+export const initialState: SettingsState = {
   primary: "blue",
   expanded: false,
   periodColours: "default",
@@ -28,23 +27,22 @@ export const initialState: Omit<SettingsState, "actions"> = {
   showTimesInsteadOfRooms: false,
 };
 
-export const useSettingsStore = create<SettingsState>()(
+export const useSettingsStore = create<SettingsState & Actions>()(
   devtools(
     persist(
-      (set): SettingsState => ({
+      (set): SettingsState & Actions => ({
         ...initialState,
-        actions: {
-          setPrimary: (primary) => set({ primary }),
-          setExpanded: (expanded) => set({ expanded }),
-          setPeriodColours: (periodColours) => set({ periodColours }),
-          setHoverExpand: (hoverExpand) => set({ hoverExpand }),
-          setShowTimesInsteadOfRooms: (showTimesInsteadOfRooms) =>
-            set({ showTimesInsteadOfRooms }),
-          reset: () => set(initialState),
-        },
+        setPrimary: (primary) => set({ primary }),
+        setExpanded: (expanded) => set({ expanded }),
+        setPeriodColours: (periodColours) => set({ periodColours }),
+        setHoverExpand: (hoverExpand) => set({ hoverExpand }),
+        setShowTimesInsteadOfRooms: (showTimesInsteadOfRooms) =>
+          set({ showTimesInsteadOfRooms }),
+        reset: () => set(initialState),
       }),
       {
         name: "settings-storage",
+        version: 1,
       }
     )
   )
