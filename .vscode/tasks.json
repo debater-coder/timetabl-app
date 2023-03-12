@@ -2,7 +2,7 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "type": "npm",
+      "type": "pnpm",
       "script": "vdev",
       "label": "Start vercel dev server",
       "group": "none",
