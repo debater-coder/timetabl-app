@@ -32,4 +32,7 @@ export default defineConfig({
     react(),
   ],
   build: { sourcemap: true },
+  server: {
+    port: 3000,
+  },
 });

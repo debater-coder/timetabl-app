@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { persist, devtools, subscribeWithSelector } from "zustand/middleware";
 import { produce } from "immer";
-import config from "../../../config";
+import config from "../../config";
 import { QueryClient } from "@tanstack/react-query";
 import { toast } from "../../toast";
 import HTTPError from "../../errors/HTTPError";

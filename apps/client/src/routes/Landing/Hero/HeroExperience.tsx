@@ -11,6 +11,7 @@ import { Canvas } from "@react-three/fiber";
 import { Suspense } from "react";
 
 const Model = () => {
+  // @ts-ignore
   const { nodes, materials } = useGLTF("/iphone_14_pro.glb");
   return (
     <group dispose={null}>
