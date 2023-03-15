@@ -66,7 +66,7 @@ export const DTTPeriod = ({
       expandedContent={
         <>
           at{" "}
-          {showTimesInsteadOfRooms
+          {!showTimesInsteadOfRooms
             ? period?.time?.toLocaleString(DateTime.TIME_SIMPLE)
             : period.room}{" "}
           with{" "}
