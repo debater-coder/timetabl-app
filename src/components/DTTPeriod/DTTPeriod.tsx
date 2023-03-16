@@ -67,8 +67,8 @@ export const DTTPeriod = ({
         <>
           at{" "}
           {showTimesInsteadOfRooms
-            ? period?.time?.toLocaleString(DateTime.TIME_SIMPLE)
-            : period.room}{" "}
+            ? period.room
+            : (period?.time?.toLocaleString(DateTime.TIME_SIMPLE))}{" "}
           with{" "}
           <chakra.span
             bg={period.casual && "primary.100"}
