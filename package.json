@@ -11,7 +11,9 @@
     "type": "git",
     "url": "git+https://github.com/debater-coder/timetabl-app.git"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "typescript": "^4.9.5"
+  },
   "packageManager": "pnpm@7.28.0",
   "scripts": {
     "build": "turbo run build",
