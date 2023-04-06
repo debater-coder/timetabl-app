@@ -1,3 +1,8 @@
+// Hello, from the past.
+// If you are in this file, you probably messed something up about authentication.
+// But luckily, I had the foresight to document all this code.
+// It is quite long but it should be bearable.
+
 import { create } from "zustand";
 import { persist, devtools, subscribeWithSelector } from "zustand/middleware";
 import { produce } from "immer";
@@ -7,6 +12,11 @@ import { toast } from "../../toast";
 import HTTPError from "../../errors/HTTPError";
 import { SbhsApiEndpoint } from "../../services/sbhsApi/types";
 import NetworkError from "../../errors/NetworkError";
+
+// ========================
+// Browser Crypto Functions
+// ========================
+// These functions are used to generate PKCE values.
 
 // Generate a secure random string using the browser crypto functions
 const generateRandomString = () => {
@@ -43,26 +53,41 @@ const pkceChallengeFromVerifier = async (v: string) => {
   return base64urlencode(hashed);
 };
 
+// ========================
+// Auth Store
+// ========================
+// This store is used to manage the authentication state of the application. Think of it like a state machine.
+
+/**
+ * The possible authentication statuses.
+ */
 export enum SbhsAuthStatus {
   LOGGED_OUT = "logged-out",
   LOGGED_IN = "logged-in",
-  EXPIRED = "expired",
-  REFRESHING = "refreshing",
-  PENDING = "pending",
+  EXPIRED = "expired", // Logged in but token has expired
+  REFRESHING = "refreshing", // Logged in but token is being refreshed
+  PENDING = "pending", // In-between state between logged in and logged out
 }
 
+/**
+ * The possible authentication statuses that are considered logged in.
+ */
 const logged_in_states = [
   SbhsAuthStatus.LOGGED_IN,
   SbhsAuthStatus.REFRESHING,
   SbhsAuthStatus.EXPIRED,
 ];
 
+/**
+ * The authentication store state.
+ */
 type AuthState = {
   status: SbhsAuthStatus;
   pkceState: string;
   codeVerifier: string;
 };
 
+// Create the store with the initial state
 const useSbhsAuthStore = create<AuthState>()(
   subscribeWithSelector(
     devtools(
@@ -80,13 +105,25 @@ const useSbhsAuthStore = create<AuthState>()(
   )
 );
 
+/**
+ * Selector to access the authentication status.
+ */
 export const useSbhsAuthStatus = () =>
   useSbhsAuthStore((state) => state.status);
 
+/**
+ * Selector to access whether logged in or not.
+ */
 export const useIsLoggedIn = () =>
   useSbhsAuthStore((state) => logged_in_states.includes(state.status));
 
+/**
+ * Actions to modify the authentication state.
+ */
 export const sbhsAuthActions = {
+  /**
+   * Log in to the application.
+   */
   login: async () => {
     switch (useSbhsAuthStore.getState().status) {
       // Check if valid state to login
