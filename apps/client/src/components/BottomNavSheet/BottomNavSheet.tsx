@@ -32,7 +32,7 @@ export const BottomNavSheet = () => {
       roundedTop="3xl"
       left={0}
       zIndex={100}
-      bg={useColorModeValue("white", "gray.800")}
+      bg={useColorModeValue("white", "gray.900")}
       border={"1px"}
       borderBottom="none"
       borderColor={useColorModeValue("gray.200", "gray.700")}

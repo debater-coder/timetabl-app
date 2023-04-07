@@ -10,10 +10,7 @@ export default () => {
       width={"100vw"}
       maxW="full"
       height={"100vh"}
-      bgGradient={`linear-gradient(330deg, ${useColorModeValue(
-        "primary.100",
-        "primary.900"
-      )} 0, transparent 30%, transparent 70%, ${useColorModeValue(
+      bgGradient={`linear-gradient(0deg, transparent 30%, transparent 80%, ${useColorModeValue(
         "primary.100",
         "primary.900"
       )} 100%)`}

@@ -180,7 +180,9 @@ export default () => {
       pos="fixed"
       top={0}
       left={0}
-      bg={useColorModeValue("white", "gray.800")}
+      bg={useColorModeValue("whiteAlpha.600", "blackAlpha.600")}
+      backdropFilter="auto"
+      backdropBlur="36px"
       border={"1px"}
       borderColor={useColorModeValue("gray.200", "gray.700")}
     >

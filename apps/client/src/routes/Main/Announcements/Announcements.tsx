@@ -213,7 +213,7 @@ export default function Announcements() {
     <Flex w="full" direction={"column"}>
       <Flex
         align="left"
-        bg={useColorModeValue("white", "gray.800")}
+        bg={useColorModeValue("white", "gray.900")}
         w="full"
         zIndex={1}
         p={"5px"}
