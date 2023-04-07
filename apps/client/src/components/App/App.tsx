@@ -11,11 +11,11 @@ export default () => {
       maxW="full"
       height={"100vh"}
       bgGradient={`linear-gradient(330deg, ${useColorModeValue(
-        "blue.100",
-        "blue.900"
+        "primary.100",
+        "primary.900"
       )} 0, transparent 30%, transparent 70%, ${useColorModeValue(
-        "blue.100",
-        "blue.900"
+        "primary.100",
+        "primary.900"
       )} 100%)`}
     >
       <Nav />
