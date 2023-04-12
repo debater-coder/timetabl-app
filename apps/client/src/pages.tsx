@@ -115,13 +115,5 @@ export const pages: { pinned: TimetablPage[]; unpinned: TimetablPage[] } = {
         <Page component={React.lazy(() => import("./routes/Main/Feedback/"))} />
       ),
     },
-
-    {
-      path: "themes",
-      name: "Themes",
-      icon: Palette,
-      mirrored: false,
-      element: <ComingSoon />,
-    },
   ],
 };
