@@ -12,7 +12,7 @@ import { House, Barcode, Megaphone, Calendar, Check } from "phosphor-react";
 
 export const Features = () => (
   <SimpleGrid minChildWidth="270px" spacing="40px">
-    <Card bg="transparent" shadow="xl">
+    <Card variant="outline" p={4}>
       <CardHeader>
         <Heading size="md" display={"flex"} alignItems="center" gap={2}>
           <Icon
@@ -30,7 +30,7 @@ export const Features = () => (
         View a colour coded timetable with a countdown for any day.
       </CardBody>
     </Card>
-    <Card bg="transparent" shadow="xl">
+    <Card variant="outline" p={4}>
       <CardHeader>
         <Heading size="md" display={"flex"} alignItems="center" gap={2}>
           <Icon
@@ -49,7 +49,7 @@ export const Features = () => (
         the barcode to print it out.
       </CardBody>
     </Card>
-    <Card bg="transparent" shadow="xl">
+    <Card variant="outline" p={4}>
       <CardHeader>
         <Heading size="md" display={"flex"} alignItems="center" gap={2}>
           <Icon
@@ -69,7 +69,7 @@ export const Features = () => (
         specific notices.
       </CardBody>
     </Card>
-    <Card bg="transparent" shadow="xl">
+    <Card variant="outline" p={4}>
       <CardHeader>
         <Heading size="md" display={"flex"} alignItems="center" gap={2}>
           <Icon
@@ -80,7 +80,7 @@ export const Features = () => (
             p={2}
             color="primary.400"
           />
-          Calendar<Badge>Coming soon</Badge>
+          Calendar
         </Heading>
       </CardHeader>
       <CardBody>
@@ -89,7 +89,7 @@ export const Features = () => (
         due from Canvas and more.
       </CardBody>
     </Card>
-    <Card bg="transparent" shadow="xl">
+    <Card variant="outline" p={4}>
       <CardHeader>
         <Heading size="md" display={"flex"} alignItems="center" gap={2}>
           <Icon
@@ -100,7 +100,7 @@ export const Features = () => (
             p={2}
             color="primary.400"
           />
-          Timetabl Tasks<Badge>Coming soon</Badge>
+          Timetabl Tasks
         </Heading>
       </CardHeader>
       <CardBody>
@@ -108,7 +108,7 @@ export const Features = () => (
         reminders for what homework to do and when.
       </CardBody>
     </Card>
-    <Card bg="transparent" shadow="xl">
+    <Card variant="outline" p={4}>
       <CardHeader>
         <Heading fontFamily={"Poppins, sans-serif"} size="md">
           And plenty more features to come!
