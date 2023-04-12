@@ -3,7 +3,7 @@ import { corsHeaders } from "../_shared/cors.ts";
 
 console.log(`Function "sbhs" up and running!`);
 
-serve(async (req) => {
+serve((req) => {
   if (req.method === "OPTIONS") {
     return new Response("ok", { headers: corsHeaders });
   }
