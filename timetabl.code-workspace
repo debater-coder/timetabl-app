@@ -1,15 +1,13 @@
 {
   "folders": [
-	{
-		"path": "."
-	},
-	{
-		"path": "apps/server/supabase"
-	}
-],
+    {
+      "path": "."
+    }
+  ],
   "settings": {
     "task.allowAutomaticTasks": "on",
     "typescript.tsdk": "node_modules/typescript/lib",
-    "deno.unstable": true
+    "deno.unstable": true,
+    "deno.enable": true
   }
 }
