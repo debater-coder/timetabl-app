@@ -23,6 +23,7 @@
     "@react-three/drei": "^9.45.1",
     "@react-three/fiber": "^8.9.1",
     "@rollup/plugin-replace": "^4.0.0",
+    "@supabase/supabase-js": "^2.20.0",
     "@tanstack/query-sync-storage-persister": "^4.0.10",
     "@tanstack/react-query": "^4.20.4",
     "@tanstack/react-query-devtools": "^4.0.10",

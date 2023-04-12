@@ -29,14 +29,20 @@ export default () => {
           type="email"
           id="email"
           name="email"
-          placeholder="hello@timetabl.app"
+          placeholder="your-email@example.com"
+          variant="filled"
         />
       </FormControl>
       <ValidationError prefix="Email" field="email" errors={state.errors} />
 
       <FormControl>
         <FormLabel>Message</FormLabel>
-        <Textarea id="message" name="message" placeholder="I love this app!" />
+        <Textarea
+          id="message"
+          name="message"
+          placeholder="Your feedback here..."
+          variant="filled"
+        />
       </FormControl>
       <ValidationError prefix="Message" field="message" errors={state.errors} />
 

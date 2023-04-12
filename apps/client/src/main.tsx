@@ -14,7 +14,7 @@ import { ToastContainer } from "./toast";
 import "@fontsource/poppins";
 import { createRouter } from "./createRouter";
 import { persister, queryClient } from "./createQueryClient";
-import { sbhsAuthActions } from "./stores/auth";
+import { sbhsAuthActions, useSbhsAuthStore } from "./stores/auth";
 import { useSettingsStore } from "./stores/settings";
 
 // Redirect to new domain if using old domain
@@ -97,3 +97,9 @@ log(
 console.log(
   "SELF-XSS WARNING - PLEASE DON'T DO PASTE ANYTHING INTO HERE FROM PLACES YOU DON'T TRUST!!!"
 );
+
+(window as any).timetabl = {
+  useSettingsStore,
+  sbhsAuthActions,
+  useSbhsAuthStore,
+};
