@@ -14,13 +14,15 @@
     "deno.codeLens.referencesAllFunctions": true,
     "deno.codeLens.test": true,
     "deno.enablePaths": ["apps/server/supabase/functions"],
-    "deno.inlayHints.enumMemberValues.enabled": true,
-    "deno.inlayHints.functionLikeReturnTypes.enabled": true,
-    "deno.inlayHints.parameterNames.enabled": "all",
-    "deno.inlayHints.parameterTypes.enabled": true,
-    "deno.inlayHints.propertyDeclarationTypes.enabled": true,
-    "deno.inlayHints.variableTypes.enabled": true,
+    "deno.inlayHints.enumMemberValues.enabled": false,
+    "deno.inlayHints.functionLikeReturnTypes.enabled": false,
+    "deno.inlayHints.parameterNames.enabled": "none",
+    "deno.inlayHints.parameterTypes.enabled": false,
+    "deno.inlayHints.propertyDeclarationTypes.enabled": false,
+    "deno.inlayHints.variableTypes.enabled": false,
     "deno.suggest.completeFunctionCalls": true,
-    "deno.importMap": "apps/server/supabase/functions/import_map.json"
+    "deno.importMap": "apps/server/supabase/functions/import_map.json",
+    "deno.inlayHints.parameterNames.suppressWhenArgumentMatchesName": false,
+    "deno.inlayHints.variableTypes.suppressWhenTypeMatchesName": false
   }
 }

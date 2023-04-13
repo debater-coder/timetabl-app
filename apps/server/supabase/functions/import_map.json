@@ -1,5 +1,6 @@
 {
   "imports": {
-    "server": "https://deno.land/std@0.168.0/http/server.ts"
+    "server": "https://deno.land/std@0.168.0/http/server.ts",
+    "zod": "https://deno.land/x/zod@v3.21.4/mod.ts"
   }
 }
