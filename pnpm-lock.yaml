@@ -10,6 +10,9 @@ importers:
 
   apps/client:
     dependencies:
+      '@badgateway/oauth2-client':
+        specifier: ^2.0.18
+        version: 2.0.18
       '@chakra-ui/icons':
         specifier: ^2.0.11
         version: 2.0.17(@chakra-ui/system@2.5.1)(react@18.2.0)
@@ -182,8 +185,6 @@ importers:
       vite:
         specifier: ^4.0.2
         version: 4.1.4(@types/node@14.18.33)
-
-  apps/server: {}
 
 packages:
 
@@ -1349,6 +1350,11 @@ packages:
       '@babel/helper-string-parser': 7.19.4
       '@babel/helper-validator-identifier': 7.19.1
       to-fast-properties: 2.0.0
+
+  /@badgateway/oauth2-client@2.0.18:
+    resolution: {integrity: sha512-vAO/zglhSxp2BOZp+C6Jpym77qK2QQauChcOr6N18XVPikQN7FUzkhNzzhNlbMhpCElEB+K1k2DLyJ9VaFQ4AQ==}
+    engines: {node: '>= 14'}
+    dev: false
 
   /@chakra-ui/accordion@2.1.9(@chakra-ui/system@2.5.1)(framer-motion@7.10.3)(react@18.2.0):
     resolution: {integrity: sha512-a9CKIAUHezc0f5FR/SQ4GVxnWuIb2HbDTxTEKTp58w/J9pecIbJaNrJ5TUZ0MVbDU9jkgO9RsZ29jkja8PomAw==}

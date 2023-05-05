@@ -22,8 +22,6 @@ Timetabl is built on three principles:
 2. **Always keep data fresh**
    This is why Timetabl automatically refetches data every 5 minutes, and in the future it may even perform background syncs.
 
-3. **Be secure**
-   Unlike other bell time apps, Timetabl stores your tokens in HTTPS-only cookies instead of `localStorage`, so that even in the event of an XSS attack, the tokens are secure.
 
 ## Contributors
 
