@@ -96,7 +96,7 @@ export default function Home() {
             type="date"
             value={date === "initial" ? initialDate : date}
             onChange={({ target: { value } }) => setDate(value)}
-            focusBorderColor="primary.200"
+            variant="filled"
             as={motion.input}
             layout
           />
