@@ -194,10 +194,7 @@ export default () => {
           <>
             <NavButton />
             <SettingsBTN iconColor={iconColor} pathname={pathname} />
-            <LogoutBTN
-              logout={() => logout(queryClient)}
-              iconColor={iconColor}
-            />
+            <LogoutBTN logout={() => logout()} iconColor={iconColor} />
           </>
         ) : (
           <>

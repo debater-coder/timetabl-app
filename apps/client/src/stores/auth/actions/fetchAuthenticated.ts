@@ -59,7 +59,14 @@ export const fetchAuthenticated = async <TSbhsApiData>(
     return new HTTPError(res.status);
   }
 
-  return res.json();
+  const json = await res.json();
+
+  // Yay we succeeded...
+  document.dispatchEvent(
+    new CustomEvent("onlinechange", { detail: { online: true } })
+  );
+  useAuthStore.setState({ status: AuthStatus.LOGGED_IN });
+  return json as TSbhsApiData;
 };
 
 (window as any).sbhsFetchAuthenticated = fetchAuthenticated;
