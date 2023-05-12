@@ -1,7 +1,7 @@
 import { DateTime } from "luxon";
 import { createQuery } from "react-query-kit";
-import { sbhsAuthActions } from "../../stores/auth";
-import { ApiDtt, TimetablDtt } from "./types";
+import { authActions } from "../../stores/auth";
+import { ApiDtt, TimetablDtt } from "./schemas";
 
 // Thanks Andrew!
 const formatCasual = (casual?: string) => {
@@ -18,8 +18,8 @@ const formatCasual = (casual?: string) => {
 
 export const dttQuery = createQuery<ApiDtt, { date?: string }>({
   primaryKey: "/sbhs/timetable/daytimetable.json",
-  queryFn: ({ queryKey: [, variables] }) => {
-    return sbhsAuthActions.fetchAuthenticated(
+  queryFn: async ({ queryKey: [, variables] }) => {
+    return await authActions.fetchAuthenticated(
       "timetable/daytimetable.json",
       variables
     );

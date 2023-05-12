@@ -24,7 +24,7 @@ export const generateRandomString = () => {
 /**
  * The possible authentication statuses.
  */
-export enum SbhsAuthStatus {
+export enum AuthStatus {
   LOGGED_OUT = "logged-out",
   LOGGED_IN = "logged-in",
   EXPIRED = "expired", // Logged in but token has expired
@@ -34,28 +34,25 @@ export enum SbhsAuthStatus {
 /**
  * The possible authentication statuses that are considered logged in.
  */
-export const logged_in_states = [
-  SbhsAuthStatus.LOGGED_IN,
-  SbhsAuthStatus.EXPIRED,
-];
+export const logged_in_states = [AuthStatus.LOGGED_IN, AuthStatus.EXPIRED];
 
 /**
  * The authentication store state.
  */
 type AuthState = {
-  status: SbhsAuthStatus;
+  status: AuthStatus;
   pkceState: string;
   codeVerifier: string;
   token: OAuth2Token | null;
 };
 
 // Create the store with the initial state
-export const useSbhsAuthStore = create<AuthState>()(
+export const useAuthStore = create<AuthState>()(
   subscribeWithSelector(
     devtools(
       persist(
         () => ({
-          status: SbhsAuthStatus.LOGGED_OUT,
+          status: AuthStatus.LOGGED_OUT,
           pkceState: "",
           codeVerifier: "",
           token: null,
@@ -72,11 +69,10 @@ export const useSbhsAuthStore = create<AuthState>()(
 /**
  * Selector to access the authentication status.
  */
-export const useSbhsAuthStatus = () =>
-  useSbhsAuthStore((state) => state.status);
+export const useAuthStatus = () => useAuthStore((state) => state.status);
 
 /**
  * Selector to access whether logged in or not.
  */
 export const useIsLoggedIn = () =>
-  useSbhsAuthStore((state) => logged_in_states.includes(state.status));
+  useAuthStore((state) => logged_in_states.includes(state.status));

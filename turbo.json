@@ -9,6 +9,8 @@
       "dependsOn": ["^build"],
       "outputs": ["dist/**"]
     },
-    "lint": {}
+    "lint": {},
+    "format": {},
+    "format:watch": {}
   }
 }

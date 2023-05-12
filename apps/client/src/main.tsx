@@ -14,7 +14,7 @@ import { ToastContainer } from "./toast";
 import "@fontsource/poppins";
 import { createRouter } from "./createRouter";
 import { persister, queryClient } from "./createQueryClient";
-import { sbhsAuthActions, useSbhsAuthStore } from "./stores/auth";
+import { authActions, useAuthStore } from "./stores/auth";
 import { useSettingsStore } from "./stores/settings";
 
 // Redirect to new domain if using old domain
@@ -81,7 +81,7 @@ inject({
 });
 
 // Resolve authentication
-sbhsAuthActions.resolve();
+authActions.resolve();
 
 // Render welcome message for devs
 log(
@@ -100,6 +100,6 @@ console.log(
 
 (window as any).timetabl = {
   useSettingsStore,
-  sbhsAuthActions,
-  useSbhsAuthStore,
+  sbhsAuthActions: authActions,
+  useSbhsAuthStore: useAuthStore,
 };

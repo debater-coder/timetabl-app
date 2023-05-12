@@ -1,5 +1,5 @@
 import { queryClient } from "../../../createQueryClient";
-import { useSbhsAuthStore, SbhsAuthStatus } from "../sbhsAuth";
+import { useAuthStore, AuthStatus } from "../auth";
 
 export const logout = () => {
   // Clear localstorage
@@ -9,5 +9,5 @@ export const logout = () => {
   queryClient.clear();
 
   // Set status to logged out
-  useSbhsAuthStore.setState({ status: SbhsAuthStatus.LOGGED_OUT });
+  useAuthStore.setState({ status: AuthStatus.LOGGED_OUT });
 };

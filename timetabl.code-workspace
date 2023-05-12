@@ -23,6 +23,8 @@
     "deno.suggest.completeFunctionCalls": true,
     "deno.importMap": "apps/server/supabase/functions/import_map.json",
     "deno.inlayHints.parameterNames.suppressWhenArgumentMatchesName": false,
-    "deno.inlayHints.variableTypes.suppressWhenTypeMatchesName": false
+    "deno.inlayHints.variableTypes.suppressWhenTypeMatchesName": false,
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
   }
 }

@@ -5,8 +5,8 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "format": "pnpm run prettier -- --write",
-    "check-format": "pnpm run prettier -- --list-different",
+    "format": "prettier . --write",
+    "check-format": "prettier . --list-different",
     "lint": "tsc --pretty",
     "validate": "npm-run-all --parallel check-types lint check-format"
   },
@@ -42,6 +42,7 @@
     "luxon": "^3.2.1",
     "micromark": "^3.1.0",
     "node-fetch": "^3.3.0",
+    "onchange": "^7.1.0",
     "phosphor-react": "^1.4.1",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",

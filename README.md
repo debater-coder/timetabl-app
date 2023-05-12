@@ -22,7 +22,6 @@ Timetabl is built on three principles:
 2. **Always keep data fresh**
    This is why Timetabl automatically refetches data every 5 minutes, and in the future it may even perform background syncs.
 
-
 ## Contributors
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->

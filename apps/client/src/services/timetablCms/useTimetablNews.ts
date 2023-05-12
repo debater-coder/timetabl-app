@@ -1,7 +1,7 @@
 import { createQuery } from "react-query-kit";
 import HTTPError from "../../errors/HTTPError";
 import NetworkError from "../../errors/NetworkError";
-import { NoticeYear, TimetablNotice } from "../sbhsApi/types";
+import { NoticeYear, TimetablNotice } from "../sbhsApi/schemas";
 
 const fetchTimetablNews = async (): Promise<
   Awaited<{ data: TimetablCmsAnnouncement[] }>

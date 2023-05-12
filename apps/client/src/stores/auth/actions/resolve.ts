@@ -1,6 +1,6 @@
 import config from "../../../config";
 import { toast } from "../../../toast";
-import { useSbhsAuthStore, SbhsAuthStatus } from "../sbhsAuth";
+import { useAuthStore, AuthStatus } from "../auth";
 import { client } from "../../../createOAuth2Client";
 
 export const resolve = async () => {
@@ -16,7 +16,7 @@ export const resolve = async () => {
       description: query.error_description,
       status: "error",
     });
-    useSbhsAuthStore.setState({ status: SbhsAuthStatus.LOGGED_OUT });
+    useAuthStore.setState({ status: AuthStatus.LOGGED_OUT });
     return;
   }
   // If the server returned an authorization code, attempt to exchange it for an access token
@@ -36,20 +36,20 @@ export const resolve = async () => {
          *
          * If set, it will verify that the server sent the exact same state back.
          */
-        state: useSbhsAuthStore.getState().pkceState,
-        codeVerifier: useSbhsAuthStore.getState().codeVerifier,
+        state: useAuthStore.getState().pkceState,
+        codeVerifier: useAuthStore.getState().codeVerifier,
       }
     );
 
     // Clear query string
     window.history.replaceState({}, null, location.pathname);
 
-    useSbhsAuthStore.setState({
+    useAuthStore.setState({
       token: oauth2Token,
-      status: SbhsAuthStatus.LOGGED_IN,
+      status: AuthStatus.LOGGED_IN,
     });
-  } else if (useSbhsAuthStore.getState().status === SbhsAuthStatus.PENDING) {
+  } else if (useAuthStore.getState().status === AuthStatus.PENDING) {
     // If the server did not return an authorization code, and we are still pending, set status to logged out
-    useSbhsAuthStore.setState({ status: SbhsAuthStatus.LOGGED_OUT });
+    useAuthStore.setState({ status: AuthStatus.LOGGED_OUT });
   }
 };

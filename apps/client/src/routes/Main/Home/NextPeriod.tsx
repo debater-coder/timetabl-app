@@ -2,7 +2,7 @@ import { DateTime } from "luxon";
 import { useEffect } from "react";
 import { Period } from "../../../components/Period/Period";
 import { useToken, useColorModeValue } from "@chakra-ui/react";
-import { TimetablPeriod } from "../../../services/sbhsApi/types";
+import { TimetablPeriod } from "../../../services/sbhsApi/schemas";
 import { useSettingsStore } from "../../../stores/settings";
 
 type NextPeriodProps = {

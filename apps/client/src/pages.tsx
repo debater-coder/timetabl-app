@@ -70,15 +70,6 @@ export const pages: { pinned: TimetablPage[]; unpinned: TimetablPage[] } = {
         />
       ),
     },
-    {
-      path: "calendar",
-      name: "Calendar",
-      icon: CalendarBlank,
-      mirrored: false,
-      element: (
-        <Page component={React.lazy(() => import("./routes/Main/Calendar/"))} />
-      ),
-    },
   ],
   unpinned: [
     {

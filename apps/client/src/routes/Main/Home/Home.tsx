@@ -13,7 +13,7 @@ import { DateTime } from "luxon";
 import Empty from "./../../../components/Empty";
 import { GiFrenchFries } from "react-icons/gi";
 import { DTTPeriod } from "../../../components/DTTPeriod";
-import { TimetablPeriod } from "../../../services/sbhsApi/types";
+import { TimetablPeriod } from "../../../services/sbhsApi/schemas";
 import NextPeriod from "./NextPeriod";
 import { useDtt } from "../../../services/sbhsApi/useDtt";
 

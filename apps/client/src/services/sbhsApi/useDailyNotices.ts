@@ -1,11 +1,16 @@
 import { createQuery } from "react-query-kit";
-import { sbhsAuthActions } from "../../stores/auth";
-import { ApiDailyNews, NoticeYear, TimetablNotice, yearMapping } from "./types";
+import { authActions } from "../../stores/auth";
+import {
+  ApiDailyNews,
+  NoticeYear,
+  TimetablNotice,
+  yearMapping,
+} from "./schemas";
 
 export const dailyNoticesQuery = createQuery<ApiDailyNews>({
   primaryKey: "/sbhs/dailynews/list.json",
-  queryFn: () => {
-    return sbhsAuthActions.fetchAuthenticated("dailynews/list.json");
+  queryFn: async () => {
+    return await authActions.fetchAuthenticated("dailynews/list.json");
   },
 });
 

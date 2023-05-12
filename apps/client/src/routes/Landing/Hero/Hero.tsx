@@ -3,12 +3,12 @@ import { motion } from "framer-motion";
 import { SignIn } from "phosphor-react";
 import { lazy, Suspense, useState } from "react";
 import { ErrorBoundary } from "../../../components/ErrorBoundary";
-import { sbhsAuthActions } from "../../../stores/auth";
+import { authActions } from "../../../stores/auth";
 
 const HeroExperience = lazy(() => import("./HeroExperience"));
 
 export const Hero = () => {
-  const { login } = sbhsAuthActions;
+  const { login } = authActions;
   const [loggingIn, setLoggingIn] = useState(false);
 
   const gradients = [

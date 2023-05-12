@@ -15,7 +15,7 @@ import RefetchingIndicator from "../RefetchingIndicator";
 import { NavButton } from "../NavButton";
 import React, { useState } from "react";
 import { CloseIcon } from "@chakra-ui/icons";
-import { sbhsAuthActions, useIsLoggedIn } from "../../stores/auth";
+import { authActions, useIsLoggedIn } from "../../stores/auth";
 import { useQueryClient } from "@tanstack/react-query";
 
 export const TimetablLogo = ({
@@ -162,7 +162,7 @@ export default () => {
   const colorModeIcon = useColorModeValue(<FaMoon />, <FaSun />);
 
   const loggedIn = useIsLoggedIn();
-  const { logout } = sbhsAuthActions;
+  const { logout } = authActions;
   const queryClient = useQueryClient();
   const { pathname } = useLocation();
 

@@ -1,5 +1,5 @@
 import { Flex, Skeleton } from "@chakra-ui/react";
-import { ApiProfile } from "../../../services/sbhsApi/types";
+import { ApiProfile } from "../../../services/sbhsApi/schemas";
 import SavedBarcode from "./SavedBarcode";
 
 export default ({
