@@ -211,13 +211,7 @@ export default function Announcements() {
 
   return (
     <Flex w="full" direction={"column"}>
-      <Flex
-        align="left"
-        bg={useColorModeValue("gray.50", "gray.900")}
-        w="full"
-        zIndex={1}
-        p={"5px"}
-      >
+      <Flex align="left" w="full" zIndex={1} p={"5px"}>
         <InputGroup maxW="fit-content">
           <InputLeftElement pointerEvents="none">
             <Search2Icon color="gray.300" />
@@ -227,6 +221,7 @@ export default function Announcements() {
               tabIndex ? "Timetabl News" : "Daily Notices"
             }`}
             value={query}
+            variant="filled"
             onChange={(event) => setQuery(event.target.value)}
           />
         </InputGroup>
@@ -241,6 +236,7 @@ export default function Announcements() {
           <Select
             onChange={(event) => setYear(parseInt(event.target.value))}
             value={year}
+            variant="filled"
           >
             <option value={NoticeYear.ALL}>All</option>
             <option value={NoticeYear.YEAR7}>Year 7</option>

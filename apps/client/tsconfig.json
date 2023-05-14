@@ -14,7 +14,9 @@
     "isolatedModules": true,
     "noEmit": true,
     "noImplicitAny": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "strict": true,
+    "noUncheckedIndexedAccess": true
   },
   "include": ["src", "src/config.ts"]
 }
