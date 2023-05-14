@@ -9,6 +9,8 @@ export type Actions = {
   setHoverExpand: (hoverExpande: boolean) => void;
   setShowTimesInsteadOfRooms: (showTimesInsteadOfRooms: boolean) => void;
   reset: () => void;
+  setBgImage: (bgImage: string) => void;
+  setDarkenBlur: (darkenBlur: boolean) => void;
 };
 
 export type SettingsState = {
@@ -17,6 +19,8 @@ export type SettingsState = {
   periodColours: "default" | "primary" | "none";
   hoverExpand: boolean;
   showTimesInsteadOfRooms: boolean;
+  bgImage: string;
+  darkenBlur: boolean;
 };
 
 export const initialState: SettingsState = {
@@ -25,6 +29,8 @@ export const initialState: SettingsState = {
   periodColours: "default",
   hoverExpand: false,
   showTimesInsteadOfRooms: false,
+  bgImage: "",
+  darkenBlur: true,
 };
 
 export const useSettingsStore = create<SettingsState & Actions>()(
@@ -38,6 +44,8 @@ export const useSettingsStore = create<SettingsState & Actions>()(
         setHoverExpand: (hoverExpand) => set({ hoverExpand }),
         setShowTimesInsteadOfRooms: (showTimesInsteadOfRooms) =>
           set({ showTimesInsteadOfRooms }),
+        setBgImage: (bgImage) => set({ bgImage }),
+        setDarkenBlur: (darkenBlur) => set({ darkenBlur }),
         reset: () => set(initialState),
       }),
       {

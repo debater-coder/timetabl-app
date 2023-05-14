@@ -15,10 +15,14 @@ import {
   VStack,
   UseRadioProps,
   Button,
+  Input,
+  Text,
+  Link,
 } from "@chakra-ui/react";
 import { Check } from "phosphor-react";
 import { useState } from "react";
 import { useSettingsStore } from "../../../stores/settings";
+import { ColourScheme } from "../../../theme";
 
 const PrimaryColour = (props: UseRadioProps) => {
   const { state, getInputProps, getCheckboxProps } = useRadio(props);
@@ -67,7 +71,7 @@ const ColourPicker = ({
   onChange,
 }: {
   value: string;
-  onChange: (nextValue: string) => void;
+  onChange: (nextValue: ColourScheme) => void;
 }) => {
   const { getRootProps, getRadioProps } = useRadioGroup({
     onChange,
@@ -100,6 +104,10 @@ export default () => {
     setHoverExpand,
     setShowTimesInsteadOfRooms,
     reset,
+    bgImage,
+    setBgImage,
+    darkenBlur,
+    setDarkenBlur,
   } = useSettingsStore();
 
   const [deleting, setDeleting] = useState(false);
@@ -156,6 +164,36 @@ export default () => {
           isChecked={showTimesInsteadOfRooms}
           onChange={() => {
             setShowTimesInsteadOfRooms(!showTimesInsteadOfRooms);
+          }}
+        />
+      </FormControl>
+      <FormControl display="flex" alignItems="center">
+        <FormLabel mb="0">Background Image</FormLabel>
+        <Input
+          variant="filled"
+          placeholder="https://url.to.image"
+          value={bgImage}
+          onChange={(e) => {
+            setBgImage(e.target.value);
+          }}
+        ></Input>
+      </FormControl>
+      <Text>
+        To use your own images, first upload them to an image hosting service
+        such as{" "}
+        <Link href="https://imgur.com/" color="primary.500">
+          imgur
+        </Link>
+        .
+      </Text>
+      <FormControl display="flex" alignItems="center">
+        <FormLabel mb="0">
+          Darken and blur background for better readability
+        </FormLabel>
+        <Switch
+          isChecked={darkenBlur}
+          onChange={() => {
+            setDarkenBlur(!darkenBlur);
           }}
         />
       </FormControl>
