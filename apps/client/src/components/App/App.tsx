@@ -24,8 +24,8 @@ export default () => {
         backgroundSize={"cover"}
         backgroundPosition={"center"}
         filter="auto"
-        blur={darkenBlur ? "5px" : undefined}
-        brightness={darkenBlur ? "0.3" : undefined}
+        blur={darkenBlur && bgImage ? "5px" : undefined}
+        brightness={darkenBlur && bgImage ? "0.3" : undefined}
         zIndex={-1}
       />
       <Nav />
