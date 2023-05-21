@@ -7,12 +7,9 @@ import {
   AlertTitle,
   AlertDescription,
   Box,
-  useToast,
 } from "@chakra-ui/react";
 
 export default () => {
-  const toast = useToast();
-
   return (
     <>
       <Alert status="warning" rounded={10}>
