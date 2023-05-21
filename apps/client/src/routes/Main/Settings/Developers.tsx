@@ -7,10 +7,8 @@ import {
   AlertTitle,
   AlertDescription,
   Box,
-  Button,
   useToast,
 } from "@chakra-ui/react";
-import { authActions, AuthStatus, useAuthStatus } from "../../../stores/auth";
 
 export default () => {
   const toast = useToast();
