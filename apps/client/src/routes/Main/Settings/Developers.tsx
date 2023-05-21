@@ -13,8 +13,6 @@ import {
 import { authActions, AuthStatus, useAuthStatus } from "../../../stores/auth";
 
 export default () => {
-  const { refresh } = authActions;
-  const refreshing = useAuthStatus() === AuthStatus.REFRESHING;
   const toast = useToast();
 
   return (
@@ -49,26 +47,6 @@ export default () => {
           isChecked={localStorage.getItem("debug") === "true"}
         />
       </FormControl>
-      <Button
-        onClick={async () => {
-          try {
-            await refresh();
-            toast({
-              title: "Successfully refreshed token",
-              status: "success",
-            });
-          } catch (error) {
-            toast({
-              title: "Error refreshing token",
-              description: error instanceof Error ? error.message : "",
-              status: "error",
-            });
-          }
-        }}
-        isLoading={refreshing}
-      >
-        Force Refresh Token
-      </Button>
     </>
   );
 };
