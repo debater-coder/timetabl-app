@@ -69,7 +69,7 @@ If you only wish to start the client server, run `npm start` instead of `npm run
 
 ## Contact
 
-If you wish to report a bug or have a feature request, or something else to say, please either post a GitHub issue, or join the [Timetabl Slack](https://join.slack.com/t/timetabl/shared_invite/zt-1dhr2v791-G0IDTb~kLRXT~0vjmyEtmw).
+If you wish to report a bug or have a feature request, or something else to say, please either post a GitHub issue, or join the [Timetabl Discord Server](https://discord.gg/Az3crshSZd).
 
 ## License
 
