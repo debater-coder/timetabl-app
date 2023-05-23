@@ -56,14 +56,7 @@ Timetabl is built on three principles:
 
 Feel free to open a PR for small changes, and for larger changes we would appreciate if you could open an issue to justify the change before starting work on a PR.
 
-To run Timetabl locally, you must first set the `VITE_CLIENT_ID` environment variable to the `client_id` you configured in the SBHS Apps section. To simulate the Vercel environment on your local machine, you must also install the [Vercel CLI](https://vercel.com/docs/cli). Then to start the vercel dev server run:
-
-```
-git clone https://github.com/debater-coder/timetabl-app.git
-cd timetabl-app
-npm install
-npm run vdev
-```
+See [CONTRIBUTING.md](./CONTRIBUTING.md)
 
 If you only wish to start the client server, run `npm start` instead of `npm run vdev`.
 
