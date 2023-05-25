@@ -1,40 +1,22 @@
-import {
-  Tooltip,
-  Icon,
-  Flex,
-  Heading,
-  useColorModeValue,
-} from "@chakra-ui/react";
-import YourBarcode from "./YourBarcode";
+import { Flex, Heading, Skeleton } from "@chakra-ui/react";
+import Barcode from "../../../components/Barcode";
 import { useProfile } from "../../../services/sbhsApi/useProfile";
 
-export type Barcode = {
-  name: string;
-  value: string;
-};
-
 export default () => {
-  const { data, isLoading } = useProfile();
+  const { data } = useProfile();
 
   return (
     <Flex direction={"column"} gap={3} align="center" textAlign={"center"}>
-      <Flex align="center" gap={3}>
-        <Heading fontSize={"xl"} fontFamily={"Poppins, sans-serif"}>
-          Your scan in barcode
-        </Heading>
-        <Tooltip
-          label={
-            "You can use this barcode to scan in with your phone or click the button on the right to download the barcode. If you are scanning using your phone, click the fullscreen icon and you must use the new scanners, like the ones outside the 600s or the ones outside Main Foyer opposite the Main Office."
+      <Heading fontSize={"xl"} fontFamily={"Poppins, sans-serif"}>
+        Scan on with your phone
+      </Heading>
+      <Flex direction={"column"} align="center" gap={3}>
+        <Skeleton isLoaded={!!data} rounded={5} minH={10}>
+          {
+            data && <Barcode value={data.studentId} /> // This is redundant but makes TS happy
           }
-          closeOnClick={false}
-        >
-          <Icon
-            boxSize={7}
-            color={useColorModeValue("primary.500", "primary.300")}
-          />
-        </Tooltip>
+        </Skeleton>
       </Flex>
-      <YourBarcode {...{ data, isLoading }} />
     </Flex>
   );
 };

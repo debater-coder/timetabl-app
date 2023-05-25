@@ -1,4 +1,3 @@
-import { createQuery } from "react-query-kit";
 import HTTPError from "../../errors/HTTPError";
 import NetworkError from "../../errors/NetworkError";
 import { NoticeYear, TimetablNotice } from "../sbhsApi/schemas";

@@ -1,4 +1,5 @@
 import { DateTime } from "luxon";
+import { z } from "zod";
 
 /**
  * Possible SBHS API endpoints
@@ -14,6 +15,20 @@ export type SbhsApiEndpoint =
   | "details/userinfo.json" // Used in Barcodes
   | "timetable/daytimetable.json" // Used in Home
   | "timetable/timetable.json";
+
+export const profileSchema = z.object({
+  username: z.string(),
+  studentId: z.string(),
+  givenName: z.string(),
+  surname: z.string(),
+  rollClass: z.string(),
+  yearGroup: z.string(),
+  role: z.string(), // may be valid for staff
+  department: z.string(), // may be valid for staff
+  office: z.string(), // may be valid for staff
+  email: z.string().email(),
+  decEmail: z.string().email(),
+});
 
 export type ApiNotice = {
   title: string;
@@ -80,10 +95,6 @@ export type ApiDtt = {
   >;
 };
 
-export type ApiProfile = {
-  studentId?: string;
-};
-
 export type TimetablPeriod = {
   name?: string;
   room?: string;
@@ -132,3 +143,8 @@ export type TimetablNotice = {
   years?: NoticeYear[];
   date?: string;
 };
+
+export const sbhsKey =
+  (endpoint: SbhsApiEndpoint) =>
+  <T extends Record<string, any>>(options?: T) =>
+    [`/sbhs/${endpoint}`, options] as const;

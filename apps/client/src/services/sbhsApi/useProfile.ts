@@ -1,16 +1,21 @@
-import { createQuery } from "react-query-kit";
+import { useQuery } from "@tanstack/react-query";
 import { authActions } from "../../stores/auth";
-import { ApiProfile } from "./schemas";
+import { profileSchema, sbhsKey } from "./schemas";
 
-export const profileQuery = createQuery<ApiProfile>({
-  primaryKey: "/sbhs/details/userinfo.json",
-  queryFn: async () => {
-    return await authActions.fetchAuthenticated("details/userinfo.json");
-  },
-});
+const queryFn = async () => {
+  return profileSchema.parse(
+    await authActions.fetchAuthenticated("details/userinfo.json")
+  );
+};
 
-export const useProfile = (options?: Parameters<typeof profileQuery>[0]) => {
-  return profileQuery({
-    ...options,
+const getQueryKey = sbhsKey("details/userinfo.json");
+
+export const useProfile = () => {
+  return useQuery({
+    queryKey: getQueryKey(),
+    queryFn,
   });
 };
+
+useProfile.getQueryKey = getQueryKey;
+useProfile.queryFn = queryFn;

@@ -1,4 +1,3 @@
-import { createQuery } from "react-query-kit";
 import { authActions } from "../../stores/auth";
 import {
   ApiDailyNews,
