@@ -1,29 +1,21 @@
+import { useQuery } from "@tanstack/react-query";
 import { authActions } from "../../stores/auth";
-import {
-  ApiDailyNews,
-  NoticeYear,
-  TimetablNotice,
-  yearMapping,
-} from "./schemas";
+import { noticesSchema, sbhsKey } from "./schemas";
 
-export const dailyNoticesQuery = createQuery<ApiDailyNews>({
-  primaryKey: "/sbhs/dailynews/list.json",
-  queryFn: async () => {
-    return await authActions.fetchAuthenticated("dailynews/list.json");
-  },
-});
+const queryFn = async () => {
+  return noticesSchema.parse(
+    await authActions.fetchAuthenticated("dailynews/list.json")
+  );
+};
 
-export const useDailyNotices = (
-  options: Parameters<typeof dailyNoticesQuery>[0]
-) => {
-  return dailyNoticesQuery<TimetablNotice[]>({
-    ...options,
-    select: (data): TimetablNotice[] =>
-      data?.notices.map((notice) => ({
-        ...notice,
-        years: notice?.years.map(
-          (year) => yearMapping?.[year] ?? NoticeYear.UNKNOWN
-        ),
-      })),
+const getQueryKey = sbhsKey("dailynews/list.json");
+
+export const useDailyNotices = () => {
+  return useQuery({
+    queryKey: getQueryKey(),
+    queryFn,
   });
 };
+
+useDailyNotices.getQueryKey = getQueryKey;
+useDailyNotices.queryFn = queryFn;

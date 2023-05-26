@@ -17,29 +17,87 @@ export type SbhsApiEndpoint =
   | "timetable/timetable.json";
 
 export const profileSchema = z.object({
-  username: z.string(),
-  studentId: z.string(),
-  givenName: z.string(),
-  surname: z.string(),
-  rollClass: z.string(),
-  yearGroup: z.string(),
-  role: z.string(), // may be valid for staff
-  department: z.string(), // may be valid for staff
-  office: z.string(), // may be valid for staff
-  email: z.string().email(),
-  decEmail: z.string().email(),
+  username: z.coerce.string(),
+  studentId: z.coerce.string(),
+  givenName: z.coerce.string(),
+  surname: z.coerce.string(),
+  rollClass: z.coerce.string(),
+  yearGroup: z.coerce.string(),
+  role: z.coerce.string(), // may be valid for staff
+  department: z.coerce.string(), // may be valid for staff
+  office: z.coerce.string(), // may be valid for staff
+  email: z.coerce.string().email(),
+  decEmail: z.coerce.string().email(),
 });
 
-export type ApiNotice = {
+export enum NoticeYear {
+  ALL,
+  YEAR7,
+  YEAR8,
+  YEAR9,
+  YEAR10,
+  YEAR11,
+  YEAR12,
+  STAFF,
+  UNKNOWN,
+}
+
+export const yearMapping: Record<string, NoticeYear> = {
+  "7": NoticeYear.YEAR7,
+  "8": NoticeYear.YEAR8,
+  "9": NoticeYear.YEAR9,
+  "10": NoticeYear.YEAR10,
+  "11": NoticeYear.YEAR11,
+  "12": NoticeYear.YEAR12,
+  staff: NoticeYear.STAFF,
+  Staff: NoticeYear.STAFF,
+};
+
+export type TimetablNotice = {
   title: string;
   content: string;
   authorName?: string;
-  years?: string[];
+  years?: NoticeYear[];
+  date?: string;
 };
 
-export type ApiDailyNews = {
-  notices?: ApiNotice[];
-};
+export const noticesSchema = z
+  .object({
+    date: z.coerce.number(), // UNIX timestamp
+    dayInfo: z.object({
+      date: z.coerce.string(), // YYYY-MM-DD
+      term: z.coerce.string(), // the school term
+      week: z.coerce.string().optional(), // the week of term
+      weekType: z.coerce.string().optional(), // the week type
+      dayNumber: z.coerce.string().optional(), // day in timetable cycle
+    }),
+    dateYesterday: z.coerce.number(), // previous school day. UNIX timestamp
+    dateTomorrow: z.coerce.number(), // next school day. UNIX timestamp
+    notices: z.array(
+      z.object({
+        // array of notices
+        title: z.coerce.string(), // title of the daily notice
+        content: z.coerce.string(), // body of the notice (HTML encoded)
+        years: z.array(z.coerce.string()), // applicable year groups for the notice
+        dates: z.array(z.coerce.string()), // array of dates (YYYY-MM-DD) notice will appear
+        relativeWeight: z.coerce.number(), // a priority indicator for the notice
+        isMeeting: z.coerce.number().transform((isMeeting) => !!isMeeting), // Boolean. Meetings have intrinsic +1 relative weight
+        meetingDate: z.coerce.string().optional(), // date of meeting (YYYY-MM-DD), null if not a meeting
+        meetingTimeParsed: z.coerce.string().optional(), // if parsable meeting time converted to HH:MM:SS
+        meetingTime: z.coerce.string().optional(), // "time" the user set the meeting for (string)
+        displayYears: z.coerce.string().optional(), // a nice way of showing message applicability
+        authorName: z.coerce.string().optional(), // display name of user who created message
+      })
+    ),
+  })
+  .transform((notices) => {
+    return notices.notices.map((notice) => ({
+      ...notice,
+      years: notice.years.map(
+        (year) => yearMapping?.[year] ?? NoticeYear.UNKNOWN
+      ),
+    }));
+  });
 
 export type ApiBell = {
   bell?: string;
@@ -111,37 +169,6 @@ export type TimetablPeriod = {
 export type TimetablDtt = {
   periods: TimetablPeriod[];
   date: string;
-};
-
-export enum NoticeYear {
-  ALL,
-  YEAR7,
-  YEAR8,
-  YEAR9,
-  YEAR10,
-  YEAR11,
-  YEAR12,
-  STAFF,
-  UNKNOWN,
-}
-
-export const yearMapping: Record<string, NoticeYear> = {
-  "7": NoticeYear.YEAR7,
-  "8": NoticeYear.YEAR8,
-  "9": NoticeYear.YEAR9,
-  "10": NoticeYear.YEAR10,
-  "11": NoticeYear.YEAR11,
-  "12": NoticeYear.YEAR12,
-  staff: NoticeYear.STAFF,
-  Staff: NoticeYear.STAFF,
-};
-
-export type TimetablNotice = {
-  title: string;
-  content: string;
-  authorName?: string;
-  years?: NoticeYear[];
-  date?: string;
 };
 
 export const sbhsKey =

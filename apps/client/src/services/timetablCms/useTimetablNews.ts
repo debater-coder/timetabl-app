@@ -1,10 +1,10 @@
+import { useQuery } from "@tanstack/react-query";
 import HTTPError from "../../errors/HTTPError";
 import NetworkError from "../../errors/NetworkError";
-import { NoticeYear, TimetablNotice } from "../sbhsApi/schemas";
+import { authActions } from "../../stores/auth";
+import { timetablNewsSchema } from "./schemas";
 
-const fetchTimetablNews = async (): Promise<
-  Awaited<{ data: TimetablCmsAnnouncement[] }>
-> => {
+export const fetchTimetablNews = async () => {
   let res;
   try {
     res = await fetch(
@@ -13,9 +13,10 @@ const fetchTimetablNews = async (): Promise<
   } catch (error) {
     if (error instanceof TypeError) {
       throw new NetworkError(error.message);
+    } else {
+      throw error;
     }
   }
-
   if (!res.ok) {
     throw new HTTPError(res.status);
   }
@@ -23,68 +24,18 @@ const fetchTimetablNews = async (): Promise<
   return res.json();
 };
 
-export type TimetablCmsAnnouncement = {
-  attributes: {
-    title: string;
-    content: string;
-    createdAt: string;
-    createdBy: {
-      data: {
-        attributes: {
-          firstname: string;
-          lastname: string;
-        };
-      };
-    };
-  };
+const queryFn = async () => {
+  return timetablNewsSchema.parse(await fetchTimetablNews());
 };
 
-export const timetablNewsQuery = createQuery<{
-  data: TimetablCmsAnnouncement[];
-}>({
-  primaryKey: "/cms/news",
-  queryFn: fetchTimetablNews,
-});
+const getQueryKey = () => ["/cms/news"];
 
-export const useTimetablNews = (
-  options: Parameters<typeof timetablNewsQuery>[0]
-) =>
-  timetablNewsQuery<TimetablNotice[]>({
-    ...options,
-    select: (json) => {
-      const { data } = json;
-      return data?.map(
-        (announcement: {
-          attributes: {
-            title: string;
-            content: string;
-            createdAt: string;
-            createdBy: {
-              data: {
-                attributes: {
-                  firstname: string;
-                  lastname: string;
-                };
-              };
-            };
-          };
-        }) => ({
-          ...announcement.attributes,
-          years: [
-            NoticeYear.YEAR7,
-            NoticeYear.YEAR8,
-            NoticeYear.YEAR9,
-            NoticeYear.YEAR10,
-            NoticeYear.YEAR11,
-            NoticeYear.YEAR12,
-            NoticeYear.STAFF,
-          ],
-          authorName:
-            announcement.attributes.createdBy.data.attributes.firstname +
-            " " +
-            announcement.attributes.createdBy.data.attributes.lastname,
-          date: announcement.attributes.createdAt,
-        })
-      );
-    },
+export const useTimetablNews = () => {
+  return useQuery({
+    queryKey: getQueryKey(),
+    queryFn,
   });
+};
+
+useTimetablNews.getQueryKey = getQueryKey;
+useTimetablNews.queryFn = queryFn;

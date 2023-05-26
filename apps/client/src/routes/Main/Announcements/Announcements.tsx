@@ -195,12 +195,13 @@ function DailyNotices({
 export default function Announcements() {
   const { year, setYear } = useAnnouncementStore();
 
-  const { data: timetablNews, isLoading: timetablNewsLoaded } = useTimetablNews(
-    {}
-  );
+  const { data: timetablNews, isLoading: timetablNewsLoaded } =
+    useTimetablNews();
 
   const { data: dailyNotices, isLoading: dailyNoticesLoaded } =
     useDailyNotices();
+
+  console.log(dailyNotices);
 
   const [tabIndex, setTabIndex] = useState(0);
   const handleTabsChange = (index: number) => {
