@@ -53,14 +53,6 @@ export const yearMapping: Record<string, NoticeYear> = {
   Staff: NoticeYear.STAFF,
 };
 
-export type TimetablNotice = {
-  title: string;
-  content: string;
-  authorName?: string;
-  years?: NoticeYear[];
-  date?: string;
-};
-
 export const noticesSchema = z
   .object({
     date: z.coerce.number(), // UNIX timestamp
@@ -79,14 +71,18 @@ export const noticesSchema = z
         title: z.coerce.string(), // title of the daily notice
         content: z.coerce.string(), // body of the notice (HTML encoded)
         years: z.array(z.coerce.string()), // applicable year groups for the notice
-        dates: z.array(z.coerce.string()), // array of dates (YYYY-MM-DD) notice will appear
-        relativeWeight: z.coerce.number(), // a priority indicator for the notice
-        isMeeting: z.coerce.number().transform((isMeeting) => !!isMeeting), // Boolean. Meetings have intrinsic +1 relative weight
+        dates: z.array(z.coerce.string()).optional(), // array of dates (YYYY-MM-DD) notice will appear
+        relativeWeight: z.coerce.number().optional(), // a priority indicator for the notice
+        isMeeting: z.coerce
+          .number()
+          .transform((isMeeting) => !!isMeeting)
+          .optional(), // Boolean. Meetings have intrinsic +1 relative weight
         meetingDate: z.coerce.string().optional(), // date of meeting (YYYY-MM-DD), null if not a meeting
         meetingTimeParsed: z.coerce.string().optional(), // if parsable meeting time converted to HH:MM:SS
         meetingTime: z.coerce.string().optional(), // "time" the user set the meeting for (string)
         displayYears: z.coerce.string().optional(), // a nice way of showing message applicability
         authorName: z.coerce.string().optional(), // display name of user who created message
+        date: z.coerce.string().optional(), // date notice was created (YYYY-MM-DD) (specific to Timetabl News Only)
       })
     ),
   })
@@ -99,77 +95,55 @@ export const noticesSchema = z
     }));
   });
 
-export type ApiBell = {
-  bell?: string;
-  bellDisplay?: string;
-  endTime?: string;
-  period?: string;
-  startTime?: string;
-  time?: string;
-};
+export type TimetablNotice = z.output<typeof noticesSchema>[0];
 
-export type ApiSubject = {
-  colour?: string;
-  fullTeacher?: string;
-  subject?: string;
-  title?: string;
-};
+export const bellSchema = z.object({
+  time: z.string(),
+  startTime: z.string(),
+  endTime: z.string(),
+  bell: z.string(),
+  bellDisplay: z.string(),
+  period: z.string(),
+});
 
-export type ApiPeriod = {
-  fullTeacher?: string;
-  teacher?: string;
-  title?: string;
-  year?: string;
-  room?: string;
-  date?: string;
-};
+export const subjectSchema = z.object({
+  colour: z.string(),
+  fullTeacher: z.string(),
+  subject: z.string(),
+  title: z.string(),
+});
 
-export type ApiDtt = {
-  bells?: ApiBell[];
-  timetable?: {
-    subjects?: Record<string, ApiSubject>;
-    timetable?: {
-      periods?: Record<string, ApiPeriod>;
-    };
-  };
-  date?: string;
-  classVariations?: Record<
-    string,
-    {
-      period?: string;
-      year?: string;
-      title?: string;
-      teacher?: string;
-      type?: string;
-      casual?: string;
-      casualSurname?: string;
-    }
-  >;
-  roomVariations?: Record<
-    string,
-    {
-      roomTo?: string;
-    }
-  >;
-};
+export const periodSchema = z.object({
+  fullTeacher: z.string().optional(),
+  teacher: z.string().optional(),
+  title: z.string(),
+  year: z.string().optional(),
+  room: z.string().optional(),
+  date: z.string(),
+});
 
-export type TimetablPeriod = {
-  name?: string;
-  room?: string;
-  teacher?: string;
-  time?: DateTime;
-  endTime?: DateTime;
-  colour?: string;
-  key?: string;
-  casual?: string;
-  roomTo?: string;
-  date?: string;
-};
-
-export type TimetablDtt = {
-  periods: TimetablPeriod[];
-  date: string;
-};
+export const dttSchema = z.object({
+  bells: z.array(bellSchema),
+  timetable: z.object({
+    subjects: z.record(subjectSchema),
+    timetable: z.object({
+      periods: z.record(periodSchema),
+    }),
+  }),
+  date: z.string(),
+  classVariations: z.object({
+    period: z.string(),
+    year: z.string(),
+    title: z.string(),
+    teacher: z.string(),
+    type: z.string(),
+    casual: z.string(),
+    casualSurname: z.string(),
+  }),
+  roomVariations: z.object({
+    roomTo: z.string(),
+  }),
+});
 
 export const sbhsKey =
   (endpoint: SbhsApiEndpoint) =>

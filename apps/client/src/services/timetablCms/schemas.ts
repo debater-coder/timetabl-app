@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { NoticeYear } from "../sbhsApi/schemas";
+import { NoticeYear, TimetablNotice } from "../sbhsApi/schemas";
 
 export const timetablNewsSchema = z
   .object({
@@ -22,37 +22,38 @@ export const timetablNewsSchema = z
     ),
   })
   .transform((data) => {
-    return data.data.map(
-      (announcement: {
-        attributes: {
-          title: string;
-          content: string;
-          createdAt: string;
-          createdBy: {
-            data: {
-              attributes: {
-                firstname: string;
-                lastname: string;
-              };
-            };
-          };
-        };
-      }) => ({
-        ...announcement.attributes,
-        years: [
-          NoticeYear.YEAR7,
-          NoticeYear.YEAR8,
-          NoticeYear.YEAR9,
-          NoticeYear.YEAR10,
-          NoticeYear.YEAR11,
-          NoticeYear.YEAR12,
-          NoticeYear.STAFF,
-        ],
-        authorName:
-          announcement.attributes.createdBy.data.attributes.firstname +
-          " " +
-          announcement.attributes.createdBy.data.attributes.lastname,
-        date: announcement.attributes.createdAt,
-      })
-    );
+    const transformed = data.data.map((announcement) => ({
+      years: [
+        NoticeYear.YEAR7,
+        NoticeYear.YEAR8,
+        NoticeYear.YEAR9,
+        NoticeYear.YEAR10,
+        NoticeYear.YEAR11,
+        NoticeYear.YEAR12,
+        NoticeYear.STAFF,
+      ],
+      title: announcement.attributes.title,
+      content: announcement.attributes.content,
+      authorName:
+        announcement.attributes.createdBy.data.attributes.firstname +
+        " " +
+        announcement.attributes.createdBy.data.attributes.lastname,
+      date: announcement.attributes.createdAt,
+    }));
+
+    return transformed;
   });
+
+// type TimetablNotice = {
+//   years: NoticeYear[];
+//   title: string;
+//   content: string;
+//   dates: string[];
+//   relativeWeight: number;
+//   isMeeting: boolean;
+//   meetingDate?: string | undefined;
+//   meetingTimeParsed?: string | undefined;
+//   meetingTime?: string | undefined;
+//   displayYears?: string | undefined;
+//   authorName?: string | undefined;
+// }

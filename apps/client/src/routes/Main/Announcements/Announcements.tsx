@@ -15,7 +15,6 @@ import {
   Input,
   InputGroup,
   InputLeftElement,
-  useColorModeValue,
   Spacer,
   Select,
   FormLabel,
@@ -29,7 +28,7 @@ import { useState } from "react";
 import { DateTime } from "luxon";
 import { Search2Icon } from "@chakra-ui/icons";
 import { micromark } from "micromark";
-import { TimetablNotice, NoticeYear } from "../../../services/sbhsApi/schemas";
+import { NoticeYear, TimetablNotice } from "../../../services/sbhsApi/schemas";
 import { useTimetablNews } from "../../../services/timetablCms/useTimetablNews";
 import { useDailyNotices } from "../../../services/sbhsApi/useDailyNotices";
 import Empty from "../../../components/Empty";

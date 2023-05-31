@@ -1,7 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import HTTPError from "../../errors/HTTPError";
 import NetworkError from "../../errors/NetworkError";
-import { authActions } from "../../stores/auth";
 import { timetablNewsSchema } from "./schemas";
 
 export const fetchTimetablNews = async () => {
