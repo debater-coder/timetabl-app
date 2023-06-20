@@ -4,9 +4,14 @@ import { dttSchema, sbhsKey } from "./schemas";
 
 const queryFn = async (date?: string) => {
   return dttSchema.parse(
-    await authActions.fetchAuthenticated("timetable/daytimetable.json", {
-      date: date,
-    })
+    await authActions.fetchAuthenticated(
+      "timetable/daytimetable.json",
+      date
+        ? {
+            date: date,
+          }
+        : undefined
+    )
   );
 };
 

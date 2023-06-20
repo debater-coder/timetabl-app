@@ -2,7 +2,7 @@ import { StrictMode } from "react";
 import ReactDOM from "react-dom/client";
 import { RouterProvider } from "react-router-dom";
 import { ChakraProvider, ColorModeScript } from "@chakra-ui/react";
-import themeGen from "./theme";
+import themeGen, { config } from "./theme";
 import registerSW from "./registerSW";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { PersistQueryClientProvider } from "@tanstack/react-query-persist-client";
@@ -50,9 +50,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
       }}
     >
       <ChakraWrapper>
-        <ColorModeScript
-          initialColorMode={themeGen().config.initialColorMode}
-        />
+        <ColorModeScript initialColorMode={config.initialColorMode} />
         <RouterProvider router={createRouter()} />
         <ToastContainer />
         <ReactQueryDevtools initialIsOpen={false} />

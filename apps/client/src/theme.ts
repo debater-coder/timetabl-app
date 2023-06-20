@@ -8,14 +8,14 @@ import {
 import { withProse } from "@nikolovlazar/chakra-ui-prose";
 import { mode } from "@chakra-ui/theme-tools";
 
-const config = {
+export const config = {
   initialColorMode: "system",
   useSystemColorMode: false,
-};
+} as const;
 
 export type ColourScheme = keyof typeof theme.colors;
 
-const themeGen = (primary?: ColourScheme) =>
+const themeGen = (primary: ColourScheme) =>
   extendTheme(
     {
       config,

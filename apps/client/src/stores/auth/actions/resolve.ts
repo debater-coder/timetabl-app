@@ -42,7 +42,7 @@ export const resolve = async () => {
     );
 
     // Clear query string
-    window.history.replaceState({}, null, location.pathname);
+    window.history.replaceState({}, "", location.pathname);
 
     useAuthStore.setState({
       token: oauth2Token,

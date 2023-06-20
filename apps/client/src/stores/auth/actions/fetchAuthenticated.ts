@@ -53,6 +53,8 @@ export const fetchAuthenticated = async <TSbhsApiData>(
       );
       throw new NetworkError(error.message);
     }
+
+    throw error;
   }
 
   if (!res.ok) {
