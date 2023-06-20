@@ -171,10 +171,10 @@ function DailyNotices({
             return (
               <Announcement
                 key={index}
-                {...notice}
                 query={query}
                 markdown={!!tab}
-              />
+                {...notice}
+                />
             );
           })
         ) : (

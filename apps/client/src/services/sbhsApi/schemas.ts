@@ -81,8 +81,8 @@ export const noticesSchema = z
         meetingTimeParsed: z.coerce.string().nullish(), // if parsable meeting time converted to HH:MM:SS
         meetingTime: z.coerce.string().nullish(), // "time" the user set the meeting for (string)
         displayYears: z.coerce.string().nullish(), // a nice way of showing message applicability
-        authorName: z.coerce.string().nullish(), // display name of user who created message
-        date: z.coerce.string().nullish(), // date notice was created (YYYY-MM-DD) (specific to Timetabl News Only)
+        authorName: z.coerce.string(), // display name of user who created message
+        date: z.coerce.string().optional(), // date notice was created (YYYY-MM-DD) (specific to Timetabl News Only)
       })
     ),
   })

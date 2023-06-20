@@ -23,7 +23,7 @@ const MenuEntry = ({
   return (
     <Link to={to}>
       <Flex
-        bg={active && highlightColor}
+        bg={active ? highlightColor : undefined}
         p={3}
         px={6}
         h="full"

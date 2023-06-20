@@ -29,7 +29,7 @@ const fetchWrapper = new OAuth2Fetch({
  */
 export const fetchAuthenticated = async <TSbhsApiData>(
   endpoint: SbhsApiEndpoint,
-  options?: Record<string, string | undefined>
+  options?: Record<string, string>
 ) => {
   let res: Response;
   try {
