@@ -51,7 +51,7 @@ export const useAuthStore = create<AuthState>()(
   subscribeWithSelector(
     devtools(
       persist(
-        () => ({
+        (): AuthState => ({
           status: AuthStatus.LOGGED_OUT,
           pkceState: "",
           codeVerifier: "",
