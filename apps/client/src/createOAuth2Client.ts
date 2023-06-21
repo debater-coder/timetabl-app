@@ -1,4 +1,4 @@
-import { OAuth2Client, OAuth2Fetch } from "@badgateway/oauth2-client";
+import { OAuth2Client } from "@badgateway/oauth2-client";
 import config from "./config";
 
 export const client = new OAuth2Client({

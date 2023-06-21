@@ -16,7 +16,6 @@ import { NavButton } from "../NavButton";
 import React, { useState } from "react";
 import { CloseIcon } from "@chakra-ui/icons";
 import { authActions, useIsLoggedIn } from "../../stores/auth";
-import { useQueryClient } from "@tanstack/react-query";
 
 export const TimetablLogo = ({
   color,
@@ -155,7 +154,7 @@ export const SettingsBTN = ({
   </Tooltip>
 );
 
-export default () => {
+export default function Nav() {
   const { toggleColorMode } = useColorMode();
   const logoColor = useColorModeValue("primary.700", "primary.200");
   const iconColor = useColorModeValue("black", "white");
@@ -163,7 +162,6 @@ export default () => {
 
   const loggedIn = useIsLoggedIn();
   const { logout } = authActions;
-  const queryClient = useQueryClient();
   const { pathname } = useLocation();
 
   return (
@@ -209,4 +207,4 @@ export default () => {
       </Flex>
     </Flex>
   );
-};
+}

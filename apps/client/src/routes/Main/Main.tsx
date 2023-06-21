@@ -5,7 +5,7 @@ import Sidebar from "../../components/Sidebar";
 import { BottomNavSheet } from "../../components/BottomNavSheet";
 import { useIsLoggedIn } from "../../stores/auth";
 
-export default () => {
+export default function Main() {
   const navigate = useNavigate();
   const loggedIn = useIsLoggedIn();
   const isLargerThanMd = useBreakpointValue({ base: false, md: true });
@@ -39,4 +39,4 @@ export default () => {
       </Flex>
     </Flex>
   );
-};
+}

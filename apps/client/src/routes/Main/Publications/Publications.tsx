@@ -1,7 +1,7 @@
 import { Heading } from "@chakra-ui/react";
 import PdfViewer from "../../../components/PdfViewer";
 
-export default () => {
+export default function Publications() {
   return (
     <>
       <Heading fontFamily="Poppins, sans-serif" size="md">
@@ -10,4 +10,4 @@ export default () => {
       <PdfViewer src="https://sbhs.co/hnpdf" />
     </>
   );
-};
+}

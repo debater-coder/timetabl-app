@@ -96,6 +96,7 @@ console.log(
   "SELF-XSS WARNING - PLEASE DON'T DO PASTE ANYTHING INTO HERE FROM PLACES YOU DON'T TRUST!!!"
 );
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 (window as any).timetabl = {
   useSettingsStore,
   sbhsAuthActions: authActions,

@@ -8,7 +8,7 @@ const queryFn = async (date?: string) => {
       "timetable/daytimetable.json",
       date
         ? {
-            date: date,
+            date,
           }
         : undefined
     )
@@ -19,9 +19,13 @@ const getQueryKey = sbhsKey("timetable/daytimetable.json");
 
 export const useDtt = (date?: string) => {
   return useQuery({
-    queryKey: getQueryKey({
-      date,
-    }),
+    queryKey: getQueryKey(
+      date
+        ? {
+            date,
+          }
+        : undefined
+    ),
     queryFn: () => queryFn(date),
   });
 };

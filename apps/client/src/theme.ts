@@ -2,7 +2,6 @@ import {
   extendTheme,
   StyleFunctionProps,
   theme,
-  useColorModeValue,
   withDefaultColorScheme,
 } from "@chakra-ui/react";
 import { withProse } from "@nikolovlazar/chakra-ui-prose";

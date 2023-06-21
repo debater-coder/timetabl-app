@@ -6,7 +6,6 @@ import {
   useToken,
   CardBody,
   Icon,
-  Badge,
 } from "@chakra-ui/react";
 import { House, Barcode, Megaphone, Calendar, Check } from "phosphor-react";
 

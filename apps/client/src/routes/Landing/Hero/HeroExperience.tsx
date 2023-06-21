@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unknown-property */
 import { useColorModeValue, Image } from "@chakra-ui/react";
 import {
   Stage,
@@ -11,6 +12,7 @@ import { Canvas } from "@react-three/fiber";
 import { Suspense } from "react";
 
 const Model = () => {
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   const { nodes, materials } = useGLTF("/iphone_14_pro.glb");
   return (
@@ -55,7 +57,7 @@ const Model = () => {
 useGLTF.preload("/iphone_14_pro.glb");
 
 // "Iphone 14 Pro" (https://skfb.ly/oyCED) by mister dude is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
-export default () => {
+export default function HeroExperience() {
   return (
     <>
       <Canvas shadows dpr={[1, 2]} camera={{ fov: 50 }}>
@@ -87,4 +89,4 @@ title: Iphone 14 Pro
       <Loader />
     </>
   );
-};
+}

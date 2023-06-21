@@ -4,7 +4,7 @@ import { CloudCheck, WifiX } from "phosphor-react";
 import { useState } from "react";
 import { log } from "../../utils/log";
 
-export default () => {
+export default function RefetchingIndicator() {
   const isFetching = useIsFetching();
   const [online, setOnline] = useState(true);
 
@@ -38,4 +38,4 @@ export default () => {
       )}
     </Flex>
   );
-};
+}

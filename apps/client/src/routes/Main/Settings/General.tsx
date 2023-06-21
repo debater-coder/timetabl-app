@@ -90,7 +90,7 @@ const ColourPicker = ({
   );
 };
 
-export default () => {
+export default function General() {
   const { colorMode, toggleColorMode } = useColorMode();
   const {
     primary,
@@ -220,4 +220,4 @@ export default () => {
       </FormControl>
     </>
   );
-};
+}

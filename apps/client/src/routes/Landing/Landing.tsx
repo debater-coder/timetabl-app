@@ -15,7 +15,7 @@ import { Hero } from "./Hero";
 import { Features } from "./Features";
 import { Footer } from "./Footer";
 
-export default () => {
+export default function Landing() {
   const navigate = useNavigate();
   const loggedIn = useIsLoggedIn();
 
@@ -58,4 +58,4 @@ export default () => {
       </Flex>
     </>
   );
-};
+}

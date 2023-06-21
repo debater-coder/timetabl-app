@@ -70,5 +70,3 @@ export const fetchAuthenticated = async <TSbhsApiData>(
   useAuthStore.setState({ status: AuthStatus.LOGGED_IN });
   return json as TSbhsApiData;
 };
-
-(window as any).sbhsFetchAuthenticated = fetchAuthenticated;

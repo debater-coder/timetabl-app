@@ -1,14 +1,12 @@
 import {
   Barcode,
   BookBookmark,
-  CalendarBlank,
   ChatsTeardrop,
   House,
   IconWeight,
   MapTrifold,
   Medal,
   Megaphone,
-  Palette,
 } from "phosphor-react";
 import React from "react";
 import SpinnerSuspense from "./components/SpinnerSuspense";

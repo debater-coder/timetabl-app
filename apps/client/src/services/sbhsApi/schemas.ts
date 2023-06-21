@@ -1,4 +1,3 @@
-import { DateTime } from "luxon";
 import { z } from "zod";
 
 /**
@@ -148,5 +147,5 @@ export const dttSchema = z.object({
 
 export const sbhsKey =
   (endpoint: SbhsApiEndpoint) =>
-  <T extends Record<string, any>>(options?: T) =>
+  <T extends Record<string, string>>(options?: T) =>
     [`/sbhs/${endpoint}`, options] as const;

@@ -9,7 +9,7 @@ import {
   Box,
 } from "@chakra-ui/react";
 
-export default () => {
+export default function Developers() {
   return (
     <>
       <Alert status="warning" rounded={10}>
@@ -44,4 +44,4 @@ export default () => {
       </FormControl>
     </>
   );
-};
+}

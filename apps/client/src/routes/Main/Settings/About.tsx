@@ -12,7 +12,7 @@ import {
 import { ExternalLinkIcon } from "@chakra-ui/icons";
 import { version } from "../../../../package.json";
 
-export default () => {
+export default function About() {
   return (
     <>
       <Heading size={"sm"} fontFamily="Poppins, sans-serif">
@@ -86,4 +86,4 @@ SOFTWARE.'
       </Accordion>
     </>
   );
-};
+}

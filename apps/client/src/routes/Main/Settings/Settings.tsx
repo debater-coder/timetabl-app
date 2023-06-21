@@ -39,7 +39,7 @@ const MenuEntry = ({
   );
 };
 
-export default () => {
+export default function Settings() {
   const { pathname } = useLocation();
   return (
     <Flex
@@ -87,4 +87,4 @@ export default () => {
       </Flex>
     </Flex>
   );
-};
+}

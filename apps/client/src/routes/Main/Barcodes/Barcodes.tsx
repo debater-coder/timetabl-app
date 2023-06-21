@@ -2,7 +2,7 @@ import { Flex, Heading, Skeleton } from "@chakra-ui/react";
 import Barcode from "../../../components/Barcode";
 import { useProfile } from "../../../services/sbhsApi/useProfile";
 
-export default () => {
+export default function Barcodes() {
   const { data } = useProfile();
 
   return (
@@ -19,4 +19,4 @@ export default () => {
       </Flex>
     </Flex>
   );
-};
+}

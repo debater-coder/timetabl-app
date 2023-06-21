@@ -4,7 +4,7 @@ import { Flex, useColorModeValue, useToken } from "@chakra-ui/react";
 import { Box } from "@chakra-ui/react";
 import { useSettingsStore } from "../../stores/settings";
 
-export default () => {
+export default function App() {
   const bgImage = useSettingsStore((state) => state.bgImage);
   const darkenBlur = useSettingsStore((state) => state.darkenBlur);
 
@@ -35,4 +35,4 @@ export default () => {
       </Flex>
     </Flex>
   );
-};
+}

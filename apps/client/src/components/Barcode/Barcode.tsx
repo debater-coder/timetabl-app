@@ -1,7 +1,7 @@
 import JsBarcode from "jsbarcode";
 import { chakra } from "@chakra-ui/react";
 
-export default ({ value }: { value: string }) => {
+export default function Barcode({ value }: { value: string }) {
   const barcodeCallback = (el: Element | null) => {
     if (el) {
       JsBarcode(el, value);
@@ -9,4 +9,4 @@ export default ({ value }: { value: string }) => {
   };
 
   return <chakra.svg shadow={"lg"} ref={barcodeCallback} rounded={10} />;
-};
+}

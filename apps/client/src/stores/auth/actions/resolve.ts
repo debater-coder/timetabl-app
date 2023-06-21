@@ -22,7 +22,7 @@ export const resolve = async () => {
   // If the server returned an authorization code, attempt to exchange it for an access token
   if (query.code) {
     const oauth2Token = await client.authorizationCode.getTokenFromCodeRedirect(
-      document.location as any,
+      document.location.toString(),
       {
         /**
          * The redirect URI is not actually used for any redirects, but MUST be the

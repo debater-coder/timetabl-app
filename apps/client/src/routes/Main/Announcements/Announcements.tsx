@@ -174,7 +174,7 @@ function DailyNotices({
                 query={query}
                 markdown={!!tab}
                 {...notice}
-                />
+              />
             );
           })
         ) : (

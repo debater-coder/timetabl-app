@@ -5,10 +5,11 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "format": "prettier . --write",
+    "format": "prettier --ignore-path .gitignore --write .",
     "check-format": "prettier . --list-different",
-    "lint": "tsc --pretty",
-    "validate": "npm-run-all --parallel check-types lint check-format"
+    "lint": "eslint . --ignore-path .gitignore",
+    "check-types": "tsc --pretty",
+    "validate": "npm-run-all --parallel check-types lint check-format build"
   },
   "dependencies": {
     "@badgateway/oauth2-client": "^2.0.18",
@@ -65,8 +66,13 @@
     "@types/dompurify": "^2.4.0",
     "@types/luxon": "^3.0.1",
     "@types/react": "^18.0.21",
+    "@typescript-eslint/eslint-plugin": "^5.60.0",
+    "@typescript-eslint/parser": "^5.60.0",
     "@vercel/node": "^2.6.3",
     "@vitejs/plugin-react": "^3.0.0",
+    "eslint": "^8.43.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-react": "^7.32.2",
     "husky": "^8.0.0",
     "npm-run-all": "^4.1.5",
     "prettier": "2.6.2",

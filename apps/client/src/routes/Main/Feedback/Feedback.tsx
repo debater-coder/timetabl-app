@@ -8,7 +8,7 @@ import {
 } from "@chakra-ui/react";
 import { useForm, ValidationError } from "@formspree/react";
 
-export default () => {
+export default function Feedback() {
   const [state, handleSubmit] = useForm("meqdbykn");
   if (state.succeeded) {
     return <p>Thanks for the feedback!</p>;
@@ -55,4 +55,4 @@ export default () => {
       </Button>
     </Flex>
   );
-};
+}

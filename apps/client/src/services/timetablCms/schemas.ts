@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { NoticeYear, TimetablNotice } from "../sbhsApi/schemas";
+import { NoticeYear } from "../sbhsApi/schemas";
 
 export const timetablNewsSchema = z
   .object({
