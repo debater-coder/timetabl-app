@@ -47,9 +47,15 @@ export const resolve = async () => {
     useAuthStore.setState({
       token: oauth2Token,
       status: AuthStatus.LOGGED_IN,
+      pkceState: "",
+      codeVerifier: "",
     });
   } else if (useAuthStore.getState().status === AuthStatus.PENDING) {
     // If the server did not return an authorization code, and we are still pending, set status to logged out
-    useAuthStore.setState({ status: AuthStatus.LOGGED_OUT });
+    useAuthStore.setState({
+      status: AuthStatus.LOGGED_OUT,
+      pkceState: "",
+      codeVerifier: "",
+    });
   }
 };

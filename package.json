@@ -20,6 +20,7 @@
     "dev": "turbo run dev",
     "lint": "turbo run lint",
     "format": "turbo run format",
-    "format:watch": "turbo run format:watch"
+    "format:watch": "turbo run format:watch",
+    "test": "turbo run test"
   }
 }

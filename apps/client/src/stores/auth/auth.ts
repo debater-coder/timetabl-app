@@ -46,22 +46,21 @@ type AuthState = {
   token: OAuth2Token | null;
 };
 
+const initialState: AuthState = {
+  status: AuthStatus.LOGGED_OUT,
+  pkceState: "",
+  codeVerifier: "",
+  token: null,
+};
+
 // Create the store with the initial state
 export const useAuthStore = create<AuthState>()(
   subscribeWithSelector(
     devtools(
-      persist(
-        (): AuthState => ({
-          status: AuthStatus.LOGGED_OUT,
-          pkceState: "",
-          codeVerifier: "",
-          token: null,
-        }),
-        {
-          name: "auth-storage",
-          version: 2,
-        }
-      )
+      persist((): AuthState => initialState, {
+        name: "auth-storage",
+        version: 2,
+      })
     )
   )
 );
@@ -76,3 +75,7 @@ export const useAuthStatus = () => useAuthStore((state) => state.status);
  */
 export const useIsLoggedIn = () =>
   useAuthStore((state) => logged_in_states.includes(state.status));
+
+export const resetAuthStore = () => {
+  useAuthStore.setState(initialState);
+};

@@ -5,5 +5,5 @@ export const client = new OAuth2Client({
   server: "https://student.sbhs.net.au",
   clientId: config.client_id,
   tokenEndpoint: "/api/token",
-  authorizationEndpoint: "/api/authorize",
+  authorizationEndpoint: config.authorization_endpoint,
 });

@@ -11,6 +11,7 @@
     },
     "lint": {},
     "format": {},
-    "format:watch": {}
+    "format:watch": {},
+    "test": {}
   }
 }

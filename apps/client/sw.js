@@ -6,6 +6,7 @@ if (typeof is_vite_preview === "undefined") {
   const handler = createHandlerBoundToURL("/index.html");
   const navigationRoute = new NavigationRoute(handler);
   registerRoute(navigationRoute);
+  console.log("Timetabl is now ready to be used offline.");
 }
 
 addEventListener("message", (event) => {
