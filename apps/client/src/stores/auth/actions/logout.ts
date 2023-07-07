@@ -8,6 +8,6 @@ export const logout = () => {
   // Reset query cache
   queryClient.clear();
 
-  // Set status to logged out
-  useAuthStore.setState({ status: AuthStatus.LOGGED_OUT });
+  // Set status to logged out and clear token
+  useAuthStore.setState({ status: AuthStatus.LOGGED_OUT, token: null });
 };
