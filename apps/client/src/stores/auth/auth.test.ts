@@ -8,57 +8,17 @@ import {
 } from "vitest";
 import { AuthStatus, resetAuthStore, useAuthStore } from ".";
 import { login } from "./actions/login";
-import { setupServer } from "msw/node";
-import { rest } from "msw";
-import config from "../../config";
 import { resolve } from "./actions/resolve";
+import { setupMockServer } from "sbhs-api";
+import config from "../../config";
 
-const server = setupServer(
-  rest.post("https://student.sbhs.net.au/api/token", async (req, res, ctx) => {
-    const payload = new URLSearchParams(await req.text());
-
-    if (payload.get("grant_type") !== "authorization_code") {
-      return res(
-        ctx.json({
-          error: "unsupported_grant_type",
-        }),
-        ctx.status(400)
-      );
-    }
-
-    if (payload.get("client_id") !== config.client_id) {
-      return res(
-        ctx.json({
-          error: "invalid_client",
-        }),
-        ctx.status(400)
-      );
-    }
-
-    if (
-      payload.get("code") !== "test_oauth_code" ||
-      payload.get("code_verifier") !==
-        "JZWfp9wbBrl2hN0uKfZbkEbHgrZPR9p1gohoMoX90F0"
-    ) {
-      return res(
-        ctx.json({
-          error: "invalid_grant",
-        }),
-        ctx.status(400)
-      );
-    }
-
-    return res(
-      ctx.json({
-        access_token: "test_access_token",
-        expires_in: 3600,
-        token_type: "Bearer",
-        scope: "all-ro",
-        refresh_token: "test_refresh_token",
-      })
-    );
-  })
-);
+const server = setupMockServer({
+  client_id: config.client_id,
+  code: "test_oauth_code",
+  code_verifier: "JZWfp9wbBrl2hN0uKfZbkEbHgrZPR9p1gohoMoX90F0",
+  access_token: "test_access_token",
+  refresh_token: "test_refresh_token",
+});
 
 beforeEach(() => {
   resetAuthStore();
