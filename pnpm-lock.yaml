@@ -15,8 +15,8 @@ importers:
   apps/client:
     dependencies:
       '@badgateway/oauth2-client':
-        specifier: ^2.2.1
-        version: 2.2.1
+        specifier: ^2.0.18
+        version: 2.0.18
       '@chakra-ui/icons':
         specifier: ^2.0.19
         version: 2.0.19(@chakra-ui/system@2.5.8)(react@18.2.0)
@@ -1363,8 +1363,8 @@ packages:
       '@babel/helper-validator-identifier': 7.19.1
       to-fast-properties: 2.0.0
 
-  /@badgateway/oauth2-client@2.2.1:
-    resolution: {integrity: sha512-V5bFl4bzdQDPDfy/55z19EJ6QsmZMVvrPB0389YZeX/dJd9VmcHZBN079TdRoQCH7VPMYYJWmG0NDQYpOTLJ2g==}
+  /@badgateway/oauth2-client@2.0.18:
+    resolution: {integrity: sha512-vAO/zglhSxp2BOZp+C6Jpym77qK2QQauChcOr6N18XVPikQN7FUzkhNzzhNlbMhpCElEB+K1k2DLyJ9VaFQ4AQ==}
     engines: {node: '>= 14'}
     dev: false
 
