@@ -5,24 +5,36 @@ import { SbhsApiEndpoint } from "../../../services/sbhsApi/schemas";
 import NetworkError from "../../../errors/NetworkError";
 import HTTPError from "../../../errors/HTTPError";
 
-const fetchWrapper = new OAuth2Fetch({
-  client,
+const initialiseFetchWrapper = () =>
+  new OAuth2Fetch({
+    client,
 
-  getNewToken: () => {
-    // Set the status to expired
-    useAuthStore.setState({ status: AuthStatus.EXPIRED });
+    getNewToken: () => {
+      // Set the status to expired
+      useAuthStore.setState({ status: AuthStatus.EXPIRED });
 
-    return null; // Fail this step, we don't want to log out until the user does so explicitly
-  },
+      return null; // Fail this step, we don't want to log out until the user does so explicitly
+    },
 
-  storeToken: (token) => {
-    useAuthStore.setState({
-      token,
-    });
-  },
+    storeToken: (token) => {
+      useAuthStore.setState({
+        token,
+      });
+    },
 
-  getStoredToken: () => useAuthStore.getState().token,
-});
+    getStoredToken: () => useAuthStore.getState().token,
+  });
+
+let _fetchWrapper: OAuth2Fetch | null = null;
+
+// We defer initialisation until the first call to fetchAuthenticated to ensure that initialisation has been completed
+const getFetchWrapper = () => {
+  if (!_fetchWrapper) {
+    _fetchWrapper = initialiseFetchWrapper();
+  }
+
+  return _fetchWrapper;
+};
 
 /**
  * Fetches from SBHS API
@@ -33,7 +45,7 @@ export const fetchAuthenticated = async <TSbhsApiData>(
 ) => {
   let res: Response;
   try {
-    res = await fetchWrapper.fetch(
+    res = await getFetchWrapper().fetch(
       "https://student.sbhs.net.au/api/" +
         endpoint +
         "?" +
