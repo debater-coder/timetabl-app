@@ -1,5 +1,5 @@
 import { OAuth2Fetch } from "@badgateway/oauth2-client";
-import { client } from "../../../createOAuth2Client";
+import { getClient } from "../../../createOAuth2Client";
 import { AuthStatus, useAuthStore } from "../auth";
 import { SbhsApiEndpoint } from "../../../services/sbhsApi/schemas";
 import NetworkError from "../../../errors/NetworkError";
@@ -7,7 +7,7 @@ import HTTPError from "../../../errors/HTTPError";
 
 const initialiseFetchWrapper = () =>
   new OAuth2Fetch({
-    client,
+    client: getClient(),
 
     getNewToken: () => {
       // Set the status to expired

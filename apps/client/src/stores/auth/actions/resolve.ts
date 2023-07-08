@@ -1,7 +1,7 @@
 import config from "../../../config";
 import { toast } from "../../../toast";
 import { useAuthStore, AuthStatus } from "../auth";
-import { client } from "../../../createOAuth2Client";
+import { getClient } from "../../../createOAuth2Client";
 import { OAuth2Token } from "@badgateway/oauth2-client";
 
 export const resolve = async () => {
@@ -30,25 +30,26 @@ export const resolve = async () => {
     let oauth2Token: OAuth2Token;
 
     try {
-      oauth2Token = await client.authorizationCode.getTokenFromCodeRedirect(
-        document.location.toString(),
-        {
-          /**
-           * The redirect URI is not actually used for any redirects, but MUST be the
-           * same as what you passed earlier to "authorizationCode"
-           */
-          redirectUri: config.redirect_uri,
+      oauth2Token =
+        await getClient().authorizationCode.getTokenFromCodeRedirect(
+          document.location.toString(),
+          {
+            /**
+             * The redirect URI is not actually used for any redirects, but MUST be the
+             * same as what you passed earlier to "authorizationCode"
+             */
+            redirectUri: config.redirect_uri,
 
-          /**
-           * This is optional, but if it's passed then it also MUST be the same as
-           * what you passed in the first step.
-           *
-           * If set, it will verify that the server sent the exact same state back.
-           */
-          state: useAuthStore.getState().pkceState,
-          codeVerifier: useAuthStore.getState().codeVerifier,
-        }
-      );
+            /**
+             * This is optional, but if it's passed then it also MUST be the same as
+             * what you passed in the first step.
+             *
+             * If set, it will verify that the server sent the exact same state back.
+             */
+            state: useAuthStore.getState().pkceState,
+            codeVerifier: useAuthStore.getState().codeVerifier,
+          }
+        );
     } catch (error) {
       if (error instanceof Error) {
         toast({

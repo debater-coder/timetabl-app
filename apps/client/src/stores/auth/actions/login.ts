@@ -1,6 +1,6 @@
 import { generateCodeVerifier } from "@badgateway/oauth2-client";
 import config from "../../../config";
-import { client } from "../../../createOAuth2Client";
+import { getClient } from "../../../createOAuth2Client";
 import { AuthStatus, generateRandomString, useAuthStore } from "../auth";
 
 export const login = async () => {
@@ -15,7 +15,7 @@ export const login = async () => {
   if (import.meta.env.MODE == "test") return;
 
   window.location.assign(
-    await client.authorizationCode.getAuthorizeUri({
+    await getClient().authorizationCode.getAuthorizeUri({
       redirectUri: config.redirect_uri,
       state: pkceState,
       codeVerifier,
