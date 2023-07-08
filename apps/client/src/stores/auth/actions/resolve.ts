@@ -12,16 +12,18 @@ export const resolve = async () => {
 
   // Error check
   if (query.error) {
-    toast({
-      title: "Error",
-      description: query.error_description,
-      status: "error",
-    });
     useAuthStore.setState({
       status: AuthStatus.LOGGED_OUT,
       pkceState: "",
       codeVerifier: "",
     });
+    toast({
+      title: "Error",
+      description: query.error_description,
+      status: "error",
+    });
+    // Clear query string
+    window.history.replaceState({}, "", location.pathname);
     return;
   }
 
@@ -62,11 +64,10 @@ export const resolve = async () => {
         pkceState: "",
         codeVerifier: "",
       });
+      // Clear query string
+      window.history.replaceState({}, "", location.pathname);
       return;
     }
-
-    // Clear query string
-    window.history.replaceState({}, "", location.pathname);
 
     useAuthStore.setState({
       token: oauth2Token,
@@ -82,4 +83,7 @@ export const resolve = async () => {
       codeVerifier: "",
     });
   }
+
+  // Clear query string
+  window.history.replaceState({}, "", location.pathname);
 };
