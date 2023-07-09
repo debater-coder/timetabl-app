@@ -78,6 +78,9 @@ inject({
   }),
 });
 
+// Resolve authentication
+authActions.resolve();
+
 // Render welcome message for devs
 log(
   "%cWelcome to Timetabl",
@@ -99,8 +102,3 @@ console.log(
   sbhsAuthActions: authActions,
   useSbhsAuthStore: useAuthStore,
 };
-
-// Resolve authentication
-addEventListener("load", () => {
-  authActions.resolve();
-});
