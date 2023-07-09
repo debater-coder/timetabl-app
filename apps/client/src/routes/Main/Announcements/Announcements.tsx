@@ -200,8 +200,6 @@ export default function Announcements() {
   const { data: dailyNotices, isLoading: dailyNoticesLoaded } =
     useDailyNotices();
 
-  console.log(dailyNotices);
-
   const [tabIndex, setTabIndex] = useState(0);
   const handleTabsChange = (index: number) => {
     setTabIndex(index);
