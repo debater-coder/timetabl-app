@@ -44,11 +44,17 @@ const initialiseFetchWrapper = async () => {
 
 let _fetchWrapper: OAuth2Fetch | null = null;
 
+export const resetFetchWrapper = () => {
+  _fetchWrapper = null;
+  initialiseFetchWrapper();
+};
+
 // We defer initialisation until the first call to fetchAuthenticated to ensure that initialisation has been completed
 const getFetchWrapper = async () => {
   if (!_fetchWrapper) {
     _fetchWrapper = await initialiseFetchWrapper();
   }
+  6;
 
   return _fetchWrapper;
 };

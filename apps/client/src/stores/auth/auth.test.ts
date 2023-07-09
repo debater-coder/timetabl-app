@@ -11,11 +11,14 @@ import {
 import { AuthStatus, resetAuthStore, useAuthStore } from ".";
 import { login } from "./actions/login";
 import { resolve } from "./actions/resolve";
-import { setupMockServer } from "sbhs-api";
+import { resetRefresh, setupMockServer } from "sbhs-api";
 import config from "../../config";
 import { logout } from "./actions/logout";
 import { toast } from "../../toast";
-import { fetchAuthenticated } from "./actions/fetchAuthenticated";
+import {
+  fetchAuthenticated,
+  resetFetchWrapper,
+} from "./actions/fetchAuthenticated";
 
 beforeEach(() => {
   resetAuthStore();
@@ -31,7 +34,10 @@ const server = setupMockServer({
 
 beforeAll(() => server.listen({ onUnhandledRequest: "error" }));
 afterAll(() => server.close());
-afterEach(() => server.resetHandlers());
+afterEach(() => {
+  resetRefresh();
+  return server.resetHandlers();
+});
 
 vi.mock("../../toast", () => ({
   toast: vi.fn(),
@@ -58,7 +64,7 @@ describe("logging out", () => {
       status: AuthStatus.LOGGED_IN,
       token: {
         accessToken: "test_access_token",
-        refreshToken: "test_refresh_token",
+        refreshToken: "test_refresh_token0",
         expiresAt: Date.now() + 1000,
       },
     });
@@ -101,7 +107,7 @@ describe("resolving", () => {
       "test_access_token"
     );
     expect(useAuthStore.getState().token?.refreshToken).toBe(
-      "test_refresh_token"
+      "test_refresh_token0"
     );
     expect(useAuthStore.getState().token?.expiresAt).toBeGreaterThan(
       Date.now()
@@ -187,12 +193,30 @@ describe("resolving", () => {
 });
 
 describe("fetching", () => {
+  afterEach(() => {
+    resetFetchWrapper();
+  });
+  test("with invalid access and refresh token sets state to expired", async () => {
+    useAuthStore.setState({
+      status: AuthStatus.LOGGED_IN,
+      token: {
+        accessToken: "invalid_access_token",
+        refreshToken: "invalid_refresh_token",
+        expiresAt: Date.now() + 1000,
+      },
+    });
+
+    await expect(fetchAuthenticated("details/userinfo.json")).rejects.toThrow();
+
+    expect(useAuthStore.getState().status).toBe(AuthStatus.EXPIRED);
+  });
+
   test("when logged in fetches with access token", async () => {
     useAuthStore.setState({
       status: AuthStatus.LOGGED_IN,
       token: {
         accessToken: "test_access_token",
-        refreshToken: "test_refresh_token",
+        refreshToken: "test_refresh_token0",
         expiresAt: Date.now() + 1000,
       },
     });
@@ -212,6 +236,43 @@ describe("fetching", () => {
       decEmail: "jcz@education.nsw.gov.au",
       groups: [],
     });
+  });
+
+  test("refreshes and stores token if access token is invalid", async () => {
+    useAuthStore.setState({
+      status: AuthStatus.LOGGED_IN,
+      token: {
+        accessToken: "invalid_access_token",
+        refreshToken: "test_refresh_token0",
+        expiresAt: Date.now() + 1000,
+      },
+    });
+
+    await expect(fetchAuthenticated("details/userinfo.json")).resolves.toEqual({
+      username: "436345789",
+      studentId: "436345789",
+      givenName: "John",
+      surname: "Citizen",
+      rollClass: "07E",
+      yearGroup: "7",
+      role: "Student",
+      department: "Year 7",
+      office: "7E",
+      email: "436345789@student.sbhs.nsw.edu.au",
+      emailAliases: ["john.citizen23@student.sbhs.nsw.edu.au"],
+      decEmail: "jcz@education.nsw.gov.au",
+      groups: [],
+    });
+
+    expect(useAuthStore.getState().token?.accessToken).toBe(
+      "test_access_token"
+    );
+    expect(useAuthStore.getState().token?.refreshToken).toBe(
+      "test_refresh_token1"
+    );
+    expect(useAuthStore.getState().token?.expiresAt).toBeGreaterThan(
+      Date.now() + 3590000
+    );
   });
 });
 

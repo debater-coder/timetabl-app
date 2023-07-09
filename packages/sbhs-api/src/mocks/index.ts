@@ -1,6 +1,12 @@
 import { setupServer as mswSetupServer } from "msw/node";
 import { rest } from "msw";
 
+let refresh = 0;
+
+export const resetRefresh = () => {
+  refresh = 0;
+};
+
 export const setupMockServer = (config: {
   client_id: string;
   code: string;
@@ -14,15 +20,6 @@ export const setupMockServer = (config: {
       async (req, res, ctx) => {
         const payload = new URLSearchParams(await req.text());
 
-        if (payload.get("grant_type") !== "authorization_code") {
-          return res(
-            ctx.json({
-              error: "unsupported_grant_type",
-            }),
-            ctx.status(400)
-          );
-        }
-
         if (payload.get("client_id") !== config.client_id) {
           return res(
             ctx.json({
@@ -32,27 +29,59 @@ export const setupMockServer = (config: {
           );
         }
 
-        if (
-          payload.get("code") !== config.code ||
-          payload.get("code_verifier") !== config.code_verifier
-        ) {
-          return res(
-            ctx.json({
-              error: "invalid_grant",
-            }),
-            ctx.status(400)
-          );
-        }
+        switch (payload.get("grant_type")) {
+          case "authorization_code":
+            if (
+              payload.get("code") !== config.code ||
+              payload.get("code_verifier") !== config.code_verifier
+            ) {
+              return res(
+                ctx.json({
+                  error: "invalid_grant",
+                }),
+                ctx.status(400)
+              );
+            }
 
-        return res(
-          ctx.json({
-            access_token: config.access_token,
-            expires_in: 3600,
-            token_type: "Bearer",
-            scope: "all-ro",
-            refresh_token: config.refresh_token,
-          })
-        );
+            return res(
+              ctx.json({
+                access_token: config.access_token,
+                expires_in: 3600,
+                token_type: "Bearer",
+                scope: "all-ro",
+                refresh_token: `${config.refresh_token}${refresh}`,
+              })
+            );
+          case "refresh_token":
+            if (
+              payload.get("refresh_token") !==
+              `${config.refresh_token}${refresh}`
+            ) {
+              return res(
+                ctx.json({
+                  error: "invalid_grant",
+                }),
+                ctx.status(400)
+              );
+            }
+
+            refresh++;
+
+            return res(
+              ctx.json({
+                access_token: config.access_token,
+                expires_in: 3600,
+                refresh_token: `${config.refresh_token}${refresh}`,
+              })
+            );
+          default:
+            return res(
+              ctx.json({
+                error: "unsupported_grant_type",
+              }),
+              ctx.status(400)
+            );
+        }
       }
     ),
     rest.get(
