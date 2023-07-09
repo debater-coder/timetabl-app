@@ -67,13 +67,7 @@ export const fetchAuthenticated = async <TSbhsApiData>(
       "https://student.sbhs.net.au/api/" +
         endpoint +
         "?" +
-        new URLSearchParams(options),
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
+        new URLSearchParams(options)
     );
   } catch (error) {
     if (error instanceof TypeError) {

@@ -15,6 +15,7 @@ import { setupMockServer } from "sbhs-api";
 import config from "../../config";
 import { logout } from "./actions/logout";
 import { toast } from "../../toast";
+import { fetchAuthenticated } from "./actions/fetchAuthenticated";
 
 beforeEach(() => {
   resetAuthStore();
@@ -182,6 +183,35 @@ describe("resolving", () => {
     expect(useAuthStore.getState().status).toBe(AuthStatus.LOGGED_OUT);
     expect(useAuthStore.getState().codeVerifier).toBe("");
     expect(useAuthStore.getState().pkceState).toBe("");
+  });
+});
+
+describe("fetching", () => {
+  test("when logged in fetches with access token", async () => {
+    useAuthStore.setState({
+      status: AuthStatus.LOGGED_IN,
+      token: {
+        accessToken: "test_access_token",
+        refreshToken: "test_refresh_token",
+        expiresAt: Date.now() + 1000,
+      },
+    });
+
+    await expect(fetchAuthenticated("details/userinfo.json")).resolves.toEqual({
+      username: "436345789",
+      studentId: "436345789",
+      givenName: "John",
+      surname: "Citizen",
+      rollClass: "07E",
+      yearGroup: "7",
+      role: "Student",
+      department: "Year 7",
+      office: "7E",
+      email: "436345789@student.sbhs.nsw.edu.au",
+      emailAliases: ["john.citizen23@student.sbhs.nsw.edu.au"],
+      decEmail: "jcz@education.nsw.gov.au",
+      groups: [],
+    });
   });
 });
 

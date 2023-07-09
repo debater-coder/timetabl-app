@@ -54,5 +54,37 @@ export const setupMockServer = (config: {
           })
         );
       }
+    ),
+    rest.get(
+      "https://student.sbhs.net.au/api/details/userinfo.json",
+      (req, res, ctx) => {
+        const authHeader = req.headers.get("Authorization");
+
+        if (authHeader !== `Bearer ${config.access_token}`) {
+          return res(
+            ctx.json({
+              error: "invalid_token",
+            }),
+            ctx.status(401)
+          );
+        }
+        return res(
+          ctx.json({
+            username: "436345789",
+            studentId: "436345789",
+            givenName: "John",
+            surname: "Citizen",
+            rollClass: "07E",
+            yearGroup: "7",
+            role: "Student",
+            department: "Year 7",
+            office: "7E",
+            email: "436345789@student.sbhs.nsw.edu.au",
+            emailAliases: ["john.citizen23@student.sbhs.nsw.edu.au"],
+            decEmail: "jcz@education.nsw.gov.au",
+            groups: [],
+          })
+        );
+      }
     )
   );
