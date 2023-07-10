@@ -1,3 +1,4 @@
+import { DateTime } from "luxon";
 import { z } from "zod";
 
 /**
@@ -115,35 +116,121 @@ export const subjectSchema = z.object({
 export const periodSchema = z.object({
   fullTeacher: z.string().nullish(),
   teacher: z.string().nullish(),
-  title: z.string(),
+  title: z.string().nullish(),
   year: z.string().nullish(),
   room: z.string().nullish(),
 });
 
-export const dttSchema = z.object({
-  bells: z.array(bellSchema),
-  timetable: z.object({
-    subjects: z.record(subjectSchema),
+const formatCasual = (casual?: string | null) => {
+  if (!casual) return null;
+  if (casual.length === 0) return casual;
+  if (casual.length === 1) return `${casual.toUpperCase()}.`;
+
+  return `${casual[
+    casual.length - 1
+  ]?.toUpperCase()} ${casual[0]?.toUpperCase()}${casual
+    .substring(1, casual.length - 1)
+    .toLowerCase()}.`;
+};
+
+export const dttSchema = z
+  .object({
+    bells: z.array(bellSchema),
     timetable: z.object({
-      periods: z.record(periodSchema),
+      subjects: z.record(subjectSchema),
+      timetable: z.object({
+        periods: z.record(periodSchema),
+      }),
     }),
-  }),
-  date: z.string(),
-  classVariations: z.object({
-    period: z.string().nullish(),
-    year: z.string().nullish(),
-    title: z.string().nullish(),
-    teacher: z.string().nullish(),
-    type: z.string(),
-    casual: z.string().nullish(),
-    casualSurname: z.string().nullish(),
-  }),
-  roomVariations: z.array(
-    z.object({
-      roomTo: z.string(),
-    })
-  ),
-});
+    date: z.string(),
+    classVariations: z.record(
+      z.object({
+        period: z.string().nullish(),
+        year: z.string().nullish(),
+        title: z.string().nullish(),
+        teacher: z.string().nullish(),
+        type: z.enum(["nocover", "replacement", "novariation"]),
+        casual: z.string().nullish(),
+        casualSurname: z.string().nullish(),
+      })
+    ),
+    roomVariations: z.record(
+      z.object({
+        roomTo: z.string(),
+      })
+    ),
+  })
+  .transform((data) => {
+    const classVariations = data.classVariations;
+    const roomVariations = data.roomVariations;
+
+    const result = {
+      periods: data.bells
+        .flatMap((bell, index, bells) => {
+          const timetable = data.timetable;
+          const subjects = timetable.subjects;
+          const period = timetable.timetable.periods?.[bell?.bell];
+
+          let subject = null;
+          let casual = null;
+          let roomTo = null;
+
+          let name = bell?.bellDisplay;
+          const teacher = period?.fullTeacher ?? period?.teacher;
+
+          if (period?.title) {
+            name = period?.title;
+
+            if (period?.year) {
+              name = period?.year + name;
+              subject = subjects?.[name] ?? subject;
+              name = subject?.title ?? name;
+            }
+          }
+
+          if (
+            classVariations?.[bell?.period] &&
+            classVariations?.[bell?.period]?.type !== "novariation"
+          ) {
+            casual =
+              classVariations?.[bell?.period]?.casualSurname ??
+              formatCasual(classVariations?.[bell?.period]?.casual) ??
+              "No one";
+          }
+
+          if (roomVariations?.[bell?.period]) {
+            roomTo = roomVariations?.[bell?.period]?.roomTo ?? "-";
+          }
+
+          return [
+            {
+              name: "Transition",
+              endTime: DateTime.fromISO(`${data?.date}T${bell?.startTime}`),
+              time: DateTime.fromISO(bells?.[index - 1]?.endTime ?? "00:00"),
+              date: data?.date,
+            },
+            {
+              name,
+              room: period?.room,
+              teacher,
+              time: DateTime.fromISO(`${data?.date}T${bell?.startTime}`),
+              endTime: DateTime.fromISO(`${data?.date}T${bell?.endTime}`),
+              colour:
+                subject?.colour && period?.room
+                  ? `#${subject?.colour}`
+                  : "transparent",
+              key: bell?.bell,
+              casual,
+              roomTo,
+              date: data?.date,
+            },
+          ];
+        })
+        .filter((period) => period?.time !== period?.endTime),
+      date: data?.date,
+    };
+    return result;
+  });
 
 export const sbhsKey =
   (endpoint: SbhsApiEndpoint) =>
