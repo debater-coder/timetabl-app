@@ -11,8 +11,10 @@ import {
   useToken,
   Grid,
   GridItem,
+  Text,
 } from "@chakra-ui/react";
-import { CalendarBlank, SquaresFour } from "phosphor-react";
+import { CalendarBlank, Rows, SquaresFour } from "phosphor-react";
+import React from "react";
 
 const DayTimetable = () => {
   return <>Day Timetable</>;
@@ -51,33 +53,42 @@ const CycleTimetable = () => {
   );
 };
 
+const ViewTab = (props: {
+  tabName: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  icon: React.ComponentType<any>;
+}) => (
+  <Tab
+    roundedTop={"lg"}
+    _hover={{
+      bg: useToken("colors", "primary.500") + "22",
+    }}
+  >
+    <Flex gap={2} align={"center"}>
+      <Icon as={props.icon} boxSize={4} />
+      {props.tabName}
+    </Flex>
+  </Tab>
+);
+
 export default function Home() {
   return (
     <Flex direction={"column"} gap={1.5} w={"50vw"} minW={"300px"}>
-      <Tabs variant={"unstyled"}>
+      <Flex
+        direction={"column"}
+        p={5}
+        bg={
+          useToken("colors", useColorModeValue("gray.300", "gray.700")) + "55"
+        }
+        rounded={"lg"}
+      >
+        Timer goes here
+      </Flex>
+      <Tabs variant={"unstyled"} size={{ base: "sm", md: "md" }}>
         <TabList>
-          <Tab
-            roundedTop={"lg"}
-            _hover={{
-              bg: useToken("colors", "primary.500") + "22",
-            }}
-          >
-            <Flex gap={2}>
-              <Icon as={CalendarBlank} boxSize={6} />
-              Day View
-            </Flex>
-          </Tab>
-          <Tab
-            roundedTop={"lg"}
-            _hover={{
-              bg: useToken("colors", "primary.500") + "22",
-            }}
-          >
-            <Flex gap={2}>
-              <Icon as={SquaresFour} boxSize={6} />
-              Cycle View
-            </Flex>
-          </Tab>
+          <ViewTab tabName={"Day"} icon={CalendarBlank} />
+          <ViewTab tabName={"Week"} icon={Rows} />
+          <ViewTab tabName={"Cycle"} icon={SquaresFour} />
         </TabList>
         <TabIndicator
           mt="-1.5px"
@@ -89,6 +100,7 @@ export default function Home() {
           <TabPanel>
             <DayTimetable />
           </TabPanel>
+          <TabPanel>Weekly view is coming soon™️</TabPanel>
           <TabPanel>
             <CycleTimetable />
           </TabPanel>
