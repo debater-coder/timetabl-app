@@ -11,7 +11,9 @@ import {
   useToken,
   Grid,
   GridItem,
-  Text,
+  useMultiStyleConfig,
+  useTab,
+  Button,
 } from "@chakra-ui/react";
 import { CalendarBlank, Rows, SquaresFour } from "phosphor-react";
 import React from "react";
@@ -53,22 +55,35 @@ const CycleTimetable = () => {
   );
 };
 
-const ViewTab = (props: {
-  tabName: string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  icon: React.ComponentType<any>;
-}) => (
-  <Tab
-    roundedTop={"lg"}
-    _hover={{
-      bg: useToken("colors", "primary.500") + "22",
-    }}
-  >
-    <Flex gap={2} align={"center"}>
-      <Icon as={props.icon} boxSize={4} />
-      {props.tabName}
-    </Flex>
-  </Tab>
+// eslint-disable-next-line react/display-name
+const ViewTab = React.forwardRef(
+  (
+    props: {
+      tabName: string;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      icon: React.ComponentType<any>;
+    },
+    ref: React.Ref<HTMLElement>
+  ) => {
+    const tabProps = useTab({ ...props, ref });
+    const styles = useMultiStyleConfig("Tabs", tabProps);
+
+    return (
+      <Button
+        __css={styles.tab}
+        {...tabProps}
+        roundedTop={"lg"}
+        _hover={{
+          bg: useToken("colors", "primary.500") + "22",
+        }}
+      >
+        <Flex gap={2} align={"center"}>
+          <Icon as={props.icon} boxSize={4} />
+          {props.tabName}
+        </Flex>
+      </Button>
+    );
+  }
 );
 
 export default function Home() {
@@ -90,12 +105,6 @@ export default function Home() {
           <ViewTab tabName={"Week"} icon={Rows} />
           <ViewTab tabName={"Cycle"} icon={SquaresFour} />
         </TabList>
-        <TabIndicator
-          mt="-1.5px"
-          height="2px"
-          bg="blue.500"
-          borderRadius="1px"
-        />
         <TabPanels borderTop={"2px solid"} borderColor={"gray.500"}>
           <TabPanel>
             <DayTimetable />
