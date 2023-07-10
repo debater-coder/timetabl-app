@@ -58,13 +58,23 @@ export default function Home() {
     <Flex direction={"column"} align="center" gap={1.5}>
       <Tabs variant={"unstyled"}>
         <TabList>
-          <Tab>
+          <Tab
+            roundedTop={"lg"}
+            _hover={{
+              bg: useToken("colors", "primary.500") + "22",
+            }}
+          >
             <Flex gap={2}>
               <Icon as={CalendarBlank} boxSize={6} />
               Day View
             </Flex>
           </Tab>
-          <Tab>
+          <Tab
+            roundedTop={"lg"}
+            _hover={{
+              bg: useToken("colors", "primary.500") + "22",
+            }}
+          >
             <Flex gap={2}>
               <Icon as={SquaresFour} boxSize={6} />
               Cycle View
