@@ -25,8 +25,6 @@ const CycleTimetable = () => {
       p={5}
       bg={useToken("colors", useColorModeValue("gray.300", "gray.700")) + "55"}
       rounded={"lg"}
-      w={"50vw"}
-      minW={"300px"}
     >
       <Grid
         templateColumns="repeat(5, 1fr)"
@@ -55,7 +53,7 @@ const CycleTimetable = () => {
 
 export default function Home() {
   return (
-    <Flex direction={"column"} align="center" gap={1.5}>
+    <Flex direction={"column"} gap={1.5} w={"50vw"} minW={"300px"}>
       <Tabs variant={"unstyled"}>
         <TabList>
           <Tab
