@@ -1,12 +1,9 @@
 import {
   TabList,
-  Tab,
   TabPanels,
   TabPanel,
   Tabs,
-  Flex,
   Icon,
-  TabIndicator,
   useColorModeValue,
   useToken,
   Grid,
@@ -14,6 +11,8 @@ import {
   useMultiStyleConfig,
   useTab,
   Button,
+  Flex,
+  Heading,
 } from "@chakra-ui/react";
 import { CalendarBlank, Rows, SquaresFour } from "phosphor-react";
 import React from "react";
@@ -96,8 +95,14 @@ export default function Home() {
           useToken("colors", useColorModeValue("gray.300", "gray.700")) + "55"
         }
         rounded={"lg"}
+        align={"center"}
       >
-        Timer goes here
+        <Heading size={"sm"} fontFamily={"Poppins, sans-serif"}>
+          Roll call in
+        </Heading>
+        <Heading size={"2xl"} fontWeight={"normal"}>
+          01:30:00
+        </Heading>
       </Flex>
       <Tabs variant={"unstyled"} size={{ base: "sm", md: "md" }}>
         <TabList>
