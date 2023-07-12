@@ -30,6 +30,7 @@ const weekdayNamesShort = ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"];
 export default function DatePicker(
   props: Omit<Props, "children" | "render"> & {
     onDone?: () => void;
+    focusRef?: React.RefObject<HTMLButtonElement>;
   }
 ) {
   const { calendars, getBackProps, getForwardProps, getDateProps } =
@@ -37,15 +38,7 @@ export default function DatePicker(
 
   if (calendars.length > 0) {
     return (
-      <Flex
-        maxW="300px"
-        direction={"column"}
-        bg={
-          useToken("colors", useColorModeValue("gray.300", "gray.700")) + "55"
-        }
-        p={4}
-        rounded={"lg"}
-      >
+      <Flex direction={"column"} p={4}>
         {calendars.map((calendar) => (
           <Flex key={`${calendar.month}${calendar.year}`} direction={"column"}>
             <Flex align="center">
@@ -111,7 +104,9 @@ export default function DatePicker(
           </Flex>
         ))}
         <Flex justify="end" gap={4}>
-          <Button onClick={props?.onDone}>Done</Button>
+          <Button onClick={props?.onDone} ref={props.focusRef}>
+            Done
+          </Button>
         </Flex>
       </Flex>
     );
