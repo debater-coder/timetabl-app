@@ -16,6 +16,7 @@ import {
 } from "@chakra-ui/react";
 import { CalendarBlank, Rows, SquaresFour } from "phosphor-react";
 import React from "react";
+import QuickLinks from "./QuickLinks";
 
 const DayTimetable = () => {
   return <>Day Timetable</>;
@@ -88,6 +89,7 @@ const ViewTab = React.forwardRef(
 export default function Home() {
   return (
     <Flex direction={"column"} gap={1.5} w={"50vw"} minW={"300px"}>
+      <QuickLinks />
       <Flex
         direction={"column"}
         p={5}

@@ -13,7 +13,7 @@ import Empty from "./components/Empty";
 import { SmileyXEyes } from "phosphor-react";
 import { lazy } from "react";
 import { pages } from "./pages";
-import ErrorAlert from "./components/ErrorAlert.tsx";
+import ErrorAlert from "./components/ErrorAlert";
 import SpinnerSuspense from "./components/SpinnerSuspense";
 
 const Main = lazy(() => import("./routes/Main"));
