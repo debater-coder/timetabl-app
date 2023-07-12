@@ -133,6 +133,23 @@ const formatCasual = (casual?: string | null) => {
     .toLowerCase()}.`;
 };
 
+type TimetablPeriod = {
+  name: string;
+  endTime: DateTime;
+  startTime: DateTime;
+  date: string;
+  room?: string;
+  teacher?: string;
+  colour?: string;
+  key?: string;
+  casual?: string;
+  roomTo?: string;
+};
+
+export type TimetablDtt = {
+  periods: TimetablPeriod[];
+};
+
 export const dttSchema = z
   .object({
     bells: z.array(bellSchema),
@@ -143,24 +160,32 @@ export const dttSchema = z
       }),
     }),
     date: z.string(),
-    classVariations: z.record(
-      z.object({
-        period: z.string().nullish(),
-        year: z.string().nullish(),
-        title: z.string().nullish(),
-        teacher: z.string().nullish(),
-        type: z.enum(["nocover", "replacement", "novariation"]),
-        casual: z.string().nullish(),
-        casualSurname: z.string().nullish(),
-      })
-    ),
-    roomVariations: z.record(
-      z.object({
-        roomTo: z.string(),
-      })
-    ),
+    classVariations: z.union([
+      z.record(
+        z.object({
+          period: z.string().nullish(),
+          year: z.string().nullish(),
+          title: z.string().nullish(),
+          teacher: z.string().nullish(),
+          type: z.enum(["nocover", "replacement", "novariation"]),
+          casual: z.string().nullish(),
+          casualSurname: z.string().nullish(),
+        })
+      ),
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      z.array(z.undefined()).max(0),
+    ]),
+    roomVariations: z.union([
+      z.record(
+        z.object({
+          roomTo: z.string(),
+        })
+      ),
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      z.array(z.undefined()).max(0),
+    ]),
   })
-  .transform((data) => {
+  .transform((data): TimetablDtt => {
     const classVariations = data.classVariations;
     const roomVariations = data.roomVariations;
 
@@ -171,12 +196,12 @@ export const dttSchema = z
           const subjects = timetable.subjects;
           const period = timetable.timetable.periods?.[bell?.bell];
 
-          let subject = null;
-          let casual = null;
-          let roomTo = null;
+          let subject;
+          let casual;
+          let roomTo;
 
           let name = bell?.bellDisplay;
-          const teacher = period?.fullTeacher ?? period?.teacher;
+          const teacher = period?.fullTeacher ?? period?.teacher ?? undefined;
 
           if (period?.title) {
             name = period?.title;
@@ -189,6 +214,7 @@ export const dttSchema = z
           }
 
           if (
+            !Array.isArray(classVariations) &&
             classVariations?.[bell?.period] &&
             classVariations?.[bell?.period]?.type !== "novariation"
           ) {
@@ -198,7 +224,10 @@ export const dttSchema = z
               "No one";
           }
 
-          if (roomVariations?.[bell?.period]) {
+          if (
+            !Array.isArray(roomVariations) &&
+            roomVariations?.[bell?.period]
+          ) {
             roomTo = roomVariations?.[bell?.period]?.roomTo ?? "-";
           }
 
@@ -206,14 +235,16 @@ export const dttSchema = z
             {
               name: "Transition",
               endTime: DateTime.fromISO(`${data?.date}T${bell?.startTime}`),
-              time: DateTime.fromISO(bells?.[index - 1]?.endTime ?? "00:00"),
+              startTime: DateTime.fromISO(
+                bells?.[index - 1]?.endTime ?? "00:00"
+              ),
               date: data?.date,
             },
             {
               name,
-              room: period?.room,
+              room: period?.room ?? undefined,
               teacher,
-              time: DateTime.fromISO(`${data?.date}T${bell?.startTime}`),
+              startTime: DateTime.fromISO(`${data?.date}T${bell?.startTime}`),
               endTime: DateTime.fromISO(`${data?.date}T${bell?.endTime}`),
               colour:
                 subject?.colour && period?.room
@@ -226,7 +257,7 @@ export const dttSchema = z
             },
           ];
         })
-        .filter((period) => period?.time !== period?.endTime),
+        .filter((period) => period?.startTime !== period?.endTime),
       date: data?.date,
     };
     return result;
