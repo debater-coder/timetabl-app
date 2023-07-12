@@ -7,7 +7,6 @@ import {
   Spacer,
   Text,
   useColorModeValue,
-  useToken,
 } from "@chakra-ui/react";
 import { Props, useDayzed } from "dayzed";
 

@@ -53,17 +53,17 @@ export default function Home() {
   const { data: dttNext } = useDtt();
 
   return (
-    <Flex direction={"column"} gap={1.5} w={"50vw"} minW={"300px"}>
+    <Flex direction={"column"} gap={1.5} w={"50vw"} minW={"300px"} h="full">
       <QuickLinks />
       <Countdown dtt={dttNext} />
-      <Tabs variant={"unstyled"} size={{ base: "sm", md: "md" }}>
+      <Tabs variant={"unstyled"} size={{ base: "sm", md: "md" }} h="full">
         <TabList>
           <ViewTab icon={CalendarBlank}>Day</ViewTab>
           <ViewTab icon={Rows}>Week</ViewTab>
           <ViewTab icon={SquaresFour}>Cycle</ViewTab>
         </TabList>
-        <TabPanels borderTop={"2px solid"} borderColor={"gray.500"}>
-          <TabPanel>
+        <TabPanels borderTop={"2px solid"} borderColor={"gray.500"} h="full">
+          <TabPanel h="full">
             <DayTimetable />
           </TabPanel>
           <TabPanel>Weekly view is coming soon™️</TabPanel>

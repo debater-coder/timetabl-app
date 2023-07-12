@@ -1,4 +1,4 @@
-import { Flex, Heading, Button } from "@chakra-ui/react";
+import { Flex, Button } from "@chakra-ui/react";
 import { GraduationCap, Envelope } from "phosphor-react";
 import CanvasIcon from "../../../components/CanvasIcon/CanvasIcon";
 import ClipboardIcon from "../../../components/ClipboardIcon/ClipboardIcon";
@@ -27,11 +27,8 @@ function QuickLink(props: {
 
 export default function QuickLinks() {
   return (
-    <Flex mb={2} gap={4} align={"center"}>
-      <Heading size={"xs"} fontFamily={"Poppins, sans-serif"}>
-        Quick Links:
-      </Heading>
-      <Flex overflowX="auto" gap={4}>
+    <Flex mb={2} gap={4} align={"center"} justify={"center"}>
+      <Flex overflowX="auto" gap={4} align={"center"}>
         <QuickLink
           to="https://canvas.sbhs.net.au/"
           icon={<CanvasIcon boxSize={4} />}
