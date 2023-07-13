@@ -25,7 +25,9 @@ export const BottomNav = () => {
       bottom={0}
       left={0}
       zIndex={100}
-      bg={useColorModeValue("gray.50", "gray.900")}
+      bg={useColorModeValue("whiteAlpha.600", "blackAlpha.600")}
+      backdropFilter="auto"
+      backdropBlur="36px"
       border={"1px"}
       borderBottom="none"
       borderColor={useColorModeValue("gray.200", "gray.700")}
