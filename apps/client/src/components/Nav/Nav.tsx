@@ -113,7 +113,7 @@ export const LogoutBTN = ({
 }) => {
   const [loggingOut, setLoggingOut] = useState(false);
   return (
-    <Tooltip label={"Logout"}>
+    <Tooltip label={"Logout"} placement="auto">
       <IconButton
         variant="outline"
         mr={1}
