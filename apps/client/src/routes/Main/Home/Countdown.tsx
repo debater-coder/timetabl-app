@@ -14,17 +14,17 @@ export default function Countdown(props: { dtt?: TimetablDtt }) {
     <Skeleton isLoaded={isLoaded}>
       <Flex
         direction={"column"}
-        p={5}
+        p={4}
         bg={
           useToken("colors", useColorModeValue("gray.300", "gray.700")) + "55"
         }
         rounded={"lg"}
         align={"center"}
       >
-        <Heading size={"sm"} fontFamily={"Poppins, sans-serif"}>
+        <Heading size={"xs"} fontFamily={"Poppins, sans-serif"}>
           Roll call in
         </Heading>
-        <Heading size={"2xl"} fontWeight={"normal"}>
+        <Heading size={"lg"} fontWeight={"normal"}>
           01:30:00
         </Heading>
       </Flex>

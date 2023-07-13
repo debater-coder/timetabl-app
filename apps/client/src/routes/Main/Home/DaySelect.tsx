@@ -28,11 +28,11 @@ export default function DaySelect() {
               <Button colorScheme="gray" variant={"outline"} w="full">
                 {selected
                   ? `${selected.toLocaleDateString(undefined, {
-                      weekday: "long",
+                      weekday: "short",
                       year: "numeric",
-                      month: "long",
+                      month: "numeric",
                       day: "numeric",
-                    })} Week 7`
+                    })} Wk 7`
                   : "Select date"}
               </Button>
             </PopoverTrigger>

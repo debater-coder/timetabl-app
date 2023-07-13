@@ -15,6 +15,7 @@ import Countdown from "./Countdown";
 import ViewTab from "./ViewTab";
 import { useDtt } from "../../../services/sbhsApi/useDtt";
 import DayTimetable from "./DayTimetable";
+import WeekTimetable from "./WeekTimetable";
 
 const CycleTimetable = () => {
   return (
@@ -53,10 +54,10 @@ export default function Home() {
   const { data: dttNext } = useDtt();
 
   return (
-    <Flex direction={"column"} gap={1.5} w={"50vw"} minW={"300px"} h="full">
+    <Flex direction={"column"} w={"50vw"} minW={"300px"} h="full">
       <QuickLinks />
       <Countdown dtt={dttNext} />
-      <Tabs variant={"unstyled"} size={{ base: "sm", md: "md" }} h="full">
+      <Tabs variant={"unstyled"} size={"sm"} h="full" mt={1}>
         <TabList>
           <ViewTab icon={CalendarBlank}>Day</ViewTab>
           <ViewTab icon={Rows}>Week</ViewTab>
@@ -66,7 +67,9 @@ export default function Home() {
           <TabPanel h="full">
             <DayTimetable />
           </TabPanel>
-          <TabPanel>Weekly view is coming soon™️</TabPanel>
+          <TabPanel>
+            <WeekTimetable />
+          </TabPanel>
           <TabPanel>
             <CycleTimetable />
           </TabPanel>
