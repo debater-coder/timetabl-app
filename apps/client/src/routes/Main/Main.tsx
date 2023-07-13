@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { Flex, useBreakpointValue } from "@chakra-ui/react";
 import Sidebar from "../../components/Sidebar";
-import { BottomNavSheet } from "../../components/BottomNavSheet";
+import { BottomNav } from "../../components/BottomNav";
 import { useIsLoggedIn } from "../../stores/auth";
 
 export default function Main() {
@@ -23,7 +23,7 @@ export default function Main() {
       height={"full"}
       direction={{ base: "column-reverse", md: "row" }}
     >
-      {isLargerThanMd ? <Sidebar /> : <BottomNavSheet />}
+      {isLargerThanMd ? <Sidebar /> : <BottomNav />}
       <Flex
         direction={"column"}
         align={"center"}

@@ -14,13 +14,13 @@ export default React.memo(function SidebarButton(props: {
     }>
   >;
   mirrored?: boolean;
-  to: string;
+  to?: string;
   onClick?: () => void;
 }) {
   const { name, icon: Icon, mirrored = false, to, onClick } = props;
   const hoverColor = useColorModeValue("gray.100", "gray.700");
   const [secondary] = useToken("colors", ["primary.300"]);
-  const active = Boolean(useMatch(to));
+  const active = to ? Boolean(useMatch(to)) : false;
 
   return (
     <Box as={RouterLink} w="full" to={to} onClick={onClick}>
