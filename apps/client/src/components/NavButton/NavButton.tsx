@@ -21,9 +21,11 @@ const InstallButton = () => {
         closeOnClick={false}
         label="Installing Timetabl takes up no extra storage and it allows for easier access."
       >
-        <Icon boxSize={5} mr={2} />
+        <Icon boxSize={4} mr={0.5} />
       </Tooltip>
       <Button
+        size="sm"
+        variant={"ghost"}
         mr={1}
         onClick={async () => {
           deferredPrompt.current?.prompt();

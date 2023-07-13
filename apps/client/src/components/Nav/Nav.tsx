@@ -76,6 +76,7 @@ export const TimetablLogo = ({
 const GithubBTN = ({ iconColor }: { iconColor: string }) => (
   <a href="https://github.com/debater-coder/timetabl-app">
     <IconButton
+      variant="outline"
       mr={1}
       color={iconColor}
       icon={<FaGithub />}
@@ -94,6 +95,7 @@ const DarkModeBTN = ({
   icon: React.ReactElement;
 }) => (
   <IconButton
+    variant="outline"
     onClick={toggleColorMode}
     aria-label="Dark mode"
     color={iconColor}
@@ -113,6 +115,7 @@ export const LogoutBTN = ({
   return (
     <Tooltip label={"Logout"}>
       <IconButton
+        variant="outline"
         mr={1}
         isLoading={loggingOut}
         onClick={() => {
@@ -142,6 +145,7 @@ export const SettingsBTN = ({
       to={pathname.startsWith("/app/settings") ? "/app" : "/app/settings"}
     >
       <IconButton
+        variant="outline"
         aria-label={"settings"}
         mr={1}
         icon={
@@ -170,11 +174,11 @@ export default function Nav() {
       align="center"
       wrap="wrap"
       w="100%"
-      h="80px"
-      maxH={"80px"}
+      h="50px"
+      maxH={"50px"}
       zIndex={"sticky"}
       flexWrap="nowrap"
-      p={4}
+      pl={3}
       pos="fixed"
       top={0}
       left={0}

@@ -7,10 +7,10 @@ export default function Sidebar() {
     <Flex
       w={"100px"}
       h={"full"}
-      maxH="calc(100% - 80px)"
+      maxH="calc(100% - 50px)"
       direction={"column"}
       position={"fixed"}
-      top={"80px"}
+      top={"50px"}
       bottom="auto"
       left={0}
       zIndex={100}

@@ -29,8 +29,8 @@ export default function App() {
         zIndex={-1}
       />
       <Nav />
-      <Box mt={"100px"} />
-      <Flex direction={"column"} w="full" h="full" maxH={"calc(100% - 100px)"}>
+      <Box mt={"60px"} />
+      <Flex direction={"column"} w="full" h="full" maxH={"calc(100% - 60px)"}>
         <Outlet />
       </Flex>
     </Flex>
