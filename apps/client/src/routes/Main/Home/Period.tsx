@@ -26,7 +26,7 @@ export default function Period() {
         gap={2}
       >
         <Text fontSize={"sm"} noOfLines={1}>
-          9 Geography A
+          9 D&T CZ
         </Text>
         <Spacer />
         <Text fontSize={"xs"} minW="fit-content">

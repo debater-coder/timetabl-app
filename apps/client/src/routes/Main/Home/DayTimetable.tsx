@@ -128,7 +128,7 @@ export default function DayTimetable() {
           </Box>
           <Box
             position={"absolute"}
-            top={"calc(100% / 7 + 100% / 14 + 100% / 35)"}
+            top={"calc(100% / 7 + 100% / 14 + 100% / 84)"}
             left={0}
             w="full"
             h={"calc(100% / 7)"}
