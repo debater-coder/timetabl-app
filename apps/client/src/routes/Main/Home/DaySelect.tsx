@@ -29,6 +29,11 @@ export default function DaySelect({
               variant="outline"
               aria-label="Previous day"
               size={"sm"}
+              onClick={() => {
+                setSelected(
+                  new Date((selected?.getTime() ?? Date.now()) - 86400000)
+                );
+              }}
             />
             <PopoverTrigger>
               <Button
@@ -52,6 +57,11 @@ export default function DaySelect({
               variant="outline"
               aria-label="Next day"
               size={"sm"}
+              onClick={() => {
+                setSelected(
+                  new Date((selected?.getTime() ?? Date.now()) + 86400000)
+                );
+              }}
             />
           </Flex>
           <PopoverContent border={"none"}>
