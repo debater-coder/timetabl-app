@@ -19,15 +19,17 @@ export default function Period({
   room?: string;
   colour?: string;
 }) {
+  const isBreak = !room;
+
   return (
     <Flex
       bg={
-        room &&
-        useToken("colors", useColorModeValue("gray.300", "gray.700")) + "55"
+        useToken("colors", useColorModeValue("gray.300", "gray.700")) +
+        (isBreak ? "cc" : "55")
       }
       rounded={"lg"}
       gap={1}
-      shadow={"xl"}
+      shadow={isBreak ? undefined : "xl"}
       h="full"
     >
       <Box w={2} minW={2} roundedLeft={"lg"} bg={`${colour}`} />
@@ -38,7 +40,15 @@ export default function Period({
         align="center"
         gap={2}
       >
-        <Text fontSize={"sm"} noOfLines={1}>
+        <Text
+          fontSize={isBreak ? "xs" : "sm"}
+          noOfLines={1}
+          color={
+            isBreak
+              ? useColorModeValue("blackAlpha.700", "whiteAlpha.700")
+              : undefined
+          }
+        >
           {name}
         </Text>
         <Spacer />

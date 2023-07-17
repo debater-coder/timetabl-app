@@ -23,9 +23,15 @@ export default function DaySelect() {
               icon={<ArrowLeft />}
               variant="outline"
               aria-label="Previous day"
+              size={"sm"}
             />
             <PopoverTrigger>
-              <Button colorScheme="gray" variant={"outline"} w="full">
+              <Button
+                colorScheme="gray"
+                variant={"outline"}
+                w="full"
+                size={"sm"}
+              >
                 {selected
                   ? `${selected.toLocaleDateString(undefined, {
                       weekday: "short",
@@ -40,6 +46,7 @@ export default function DaySelect() {
               icon={<ArrowRight />}
               variant="outline"
               aria-label="Next day"
+              size={"sm"}
             />
           </Flex>
           <PopoverContent border={"none"}>

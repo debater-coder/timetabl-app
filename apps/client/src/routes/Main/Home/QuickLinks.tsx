@@ -15,7 +15,7 @@ function QuickLink(props: {
       leftIcon={props.icon}
       colorScheme="gray"
       minW="min-content"
-      size="sm"
+      size="xs"
       as={"a"}
       href={props.to}
       target="_blank"
@@ -28,10 +28,10 @@ function QuickLink(props: {
 export default function QuickLinks() {
   return (
     <Flex mb={2} gap={4} align={"center"} justify={"center"}>
-      <Flex overflowX="auto" gap={4} align={"center"}>
+      <Flex overflowX="auto" gap={3} align={"center"}>
         <QuickLink
           to="https://canvas.sbhs.net.au/"
-          icon={<CanvasIcon boxSize={4} />}
+          icon={<CanvasIcon boxSize={3} />}
         >
           Canvas
         </QuickLink>
@@ -46,7 +46,7 @@ export default function QuickLinks() {
         </QuickLink>
         <QuickLink
           to="https://portal.clipboard.app/sbhs/calendar"
-          icon={<ClipboardIcon boxSize={4} />}
+          icon={<ClipboardIcon boxSize={3} />}
         >
           Clipboard
         </QuickLink>

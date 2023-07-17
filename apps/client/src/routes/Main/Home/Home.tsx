@@ -57,7 +57,7 @@ export default function Home() {
     <Flex direction={"column"} w={"50vw"} minW={"300px"} h="full">
       <QuickLinks />
       <Countdown dtt={dttNext} />
-      <Tabs variant={"unstyled"} size={"sm"} h="full" mt={1}>
+      <Tabs variant={"unstyled"} h="full" mt={1}>
         <TabList>
           <ViewTab icon={CalendarBlank}>Day</ViewTab>
           <ViewTab icon={Rows}>Week</ViewTab>

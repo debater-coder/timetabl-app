@@ -77,10 +77,6 @@ export default function Schedule({ dtt }: { dtt?: TimetablDtt }) {
               const startTime = DateTime.fromISO(period.startTime);
               const endTime = DateTime.fromISO(period.endTime);
 
-              if (startTime.hour < startHour || endTime.hour > endHour) {
-                return null;
-              }
-
               const duration = endTime.diff(startTime).as("minutes");
 
               if (duration <= 10) {
