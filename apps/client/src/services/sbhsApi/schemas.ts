@@ -135,19 +135,20 @@ const formatCasual = (casual?: string | null) => {
 
 type TimetablPeriod = {
   name: string;
-  endTime: DateTime;
-  startTime: DateTime;
+  endTime: string;
+  startTime: string;
   date: string;
   room?: string;
   teacher?: string;
   colour?: string;
-  key?: string;
+  key: string;
   casual?: string;
   roomTo?: string;
 };
 
 export type TimetablDtt = {
   periods: TimetablPeriod[];
+  date: string;
 };
 
 export const dttSchema = z
@@ -234,23 +235,30 @@ export const dttSchema = z
           return [
             {
               name: "Transition",
-              endTime: DateTime.fromISO(`${data?.date}T${bell?.startTime}`),
+              endTime: DateTime.fromISO(
+                `${data?.date}T${bell?.startTime}`
+              ).toISO(),
               startTime: DateTime.fromISO(
                 bells?.[index - 1]?.endTime ?? "00:00"
-              ),
+              ).toISO(),
               date: data?.date,
+              key: `${bell.bell}-transition`,
             },
             {
               name,
               room: period?.room ?? undefined,
               teacher,
-              startTime: DateTime.fromISO(`${data?.date}T${bell?.startTime}`),
-              endTime: DateTime.fromISO(`${data?.date}T${bell?.endTime}`),
+              startTime: DateTime.fromISO(
+                `${data?.date}T${bell?.startTime}`
+              ).toISO(),
+              endTime: DateTime.fromISO(
+                `${data?.date}T${bell?.endTime}`
+              ).toISO(),
               colour:
                 subject?.colour && period?.room
                   ? `#${subject?.colour}`
                   : "transparent",
-              key: bell?.bell,
+              key: bell.bell,
               casual,
               roomTo,
               date: data?.date,
@@ -258,8 +266,9 @@ export const dttSchema = z
           ];
         })
         .filter((period) => period?.startTime !== period?.endTime),
-      date: data?.date,
+      date: DateTime.fromISO(data?.date).toISO(),
     };
+
     return result;
   });
 

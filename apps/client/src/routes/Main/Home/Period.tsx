@@ -8,16 +8,29 @@ import {
   Text,
 } from "@chakra-ui/react";
 
-export default function Period() {
+export default function Period({
+  name,
+  teacher,
+  room,
+  colour,
+}: {
+  name: string;
+  teacher?: string;
+  room?: string;
+  colour?: string;
+}) {
   return (
     <Flex
-      bg={useToken("colors", useColorModeValue("gray.300", "gray.700")) + "55"}
+      bg={
+        room &&
+        useToken("colors", useColorModeValue("gray.300", "gray.700")) + "55"
+      }
       rounded={"lg"}
       gap={1}
       shadow={"xl"}
       h="full"
     >
-      <Box w={2} minW={2} roundedLeft={"lg"} bg={"primary.500"} />
+      <Box w={2} minW={2} roundedLeft={"lg"} bg={`${colour}`} />
       <Flex
         w="full"
         p={2}
@@ -26,14 +39,14 @@ export default function Period() {
         gap={2}
       >
         <Text fontSize={"sm"} noOfLines={1}>
-          9 D&T CZ
+          {name}
         </Text>
         <Spacer />
         <Text fontSize={"xs"} minW="fit-content">
-          R Gifford
+          {teacher}
         </Text>
         <chakra.span fontWeight={"bold"} fontSize={"sm"}>
-          506
+          {room}
         </chakra.span>
       </Flex>
     </Flex>

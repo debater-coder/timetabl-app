@@ -65,7 +65,7 @@ export default function Home() {
         </TabList>
         <TabPanels borderTop={"2px solid"} borderColor={"gray.500"} h="full">
           <TabPanel h="full">
-            <DayTimetable />
+            <DayTimetable dtt={dttNext} />
           </TabPanel>
           <TabPanel>
             <WeekTimetable />
