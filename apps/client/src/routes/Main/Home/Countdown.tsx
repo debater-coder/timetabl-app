@@ -5,10 +5,11 @@ import {
   Heading,
   Skeleton,
 } from "@chakra-ui/react";
-import { TimetablDtt } from "../../../services/sbhsApi/schemas";
+import { useDtt } from "../../../services/sbhsApi/useDtt";
 
-export default function Countdown(props: { dtt?: TimetablDtt }) {
-  const isLoaded = !!props.dtt;
+export default function Countdown() {
+  const { data: dtt } = useDtt();
+  const isLoaded = !!dtt;
 
   return (
     <Skeleton isLoaded={isLoaded}>

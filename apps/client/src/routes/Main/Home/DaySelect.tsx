@@ -8,10 +8,15 @@ import {
 } from "@chakra-ui/react";
 import { ArrowLeft, ArrowRight } from "phosphor-react";
 import DatePicker from "../../../components/DatePicker";
-import { useState, useRef } from "react";
+import { useRef } from "react";
 
-export default function DaySelect() {
-  const [selected, setSelected] = useState<Date | undefined>();
+export default function DaySelect({
+  selected,
+  setSelected,
+}: {
+  selected: Date | undefined;
+  setSelected: (date: Date) => void;
+}) {
   const initRef = useRef<HTMLButtonElement>(null);
 
   return (

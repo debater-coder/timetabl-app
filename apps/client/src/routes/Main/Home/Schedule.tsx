@@ -1,7 +1,7 @@
 import { Flex, useColorModeValue, Box, Skeleton } from "@chakra-ui/react";
 import Period from "./Period";
-import { TimetablDtt } from "../../../services/sbhsApi/schemas";
 import { DateTime } from "luxon";
+import { useDtt } from "../../../services/sbhsApi/useDtt";
 
 const startHour = 8;
 const endHour = 15;
@@ -31,7 +31,8 @@ function offsetMinutes(nMinutes: number) {
   return minutes(nMinutes + 30);
 }
 
-export default function Schedule({ dtt }: { dtt?: TimetablDtt }) {
+export default function Schedule({ date }: { date?: string }) {
+  const { data: dtt } = useDtt(date);
   const startDateTime =
     dtt && DateTime.fromISO(dtt?.date).set({ hour: startHour });
 
