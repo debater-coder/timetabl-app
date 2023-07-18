@@ -5,8 +5,10 @@ import {
   Spacer,
   Box,
   Text,
+  useBreakpointValue,
 } from "@chakra-ui/react";
 import { DateTime } from "luxon";
+import { TimetablPeriod } from "../../../services/sbhsApi/schemas";
 
 export default function Period({
   name,
@@ -15,14 +17,15 @@ export default function Period({
   colour,
   startTime,
   active,
-}: {
-  name: string;
-  teacher?: string;
-  room?: string;
-  colour?: string;
-  startTime: string;
+  shortName,
+}: TimetablPeriod & {
   active?: boolean;
 }) {
+  const shouldUseShortName = useBreakpointValue(
+    { base: true, md: false },
+    { ssr: false }
+  );
+
   const isBreak = !room;
 
   const bgColor =
@@ -60,7 +63,7 @@ export default function Period({
                 : undefined
             }
           >
-            {name}
+            {!isBreak && shouldUseShortName ? shortName : name}
           </Text>
           <Spacer />
           <Text fontSize={"xs"} minW="fit-content">

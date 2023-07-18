@@ -15,7 +15,7 @@ function QuickLink(props: {
       leftIcon={props.icon}
       colorScheme="gray"
       minW="min-content"
-      size="xs"
+      size="sm"
       as={"a"}
       href={props.to}
       target="_blank"

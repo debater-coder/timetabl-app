@@ -133,8 +133,9 @@ const formatCasual = (casual?: string | null) => {
     .toLowerCase()}.`;
 };
 
-type TimetablPeriod = {
+export type TimetablPeriod = {
   name: string;
+  shortName: string;
   endTime: string;
   startTime: string;
   date: string;
@@ -209,6 +210,7 @@ export const dttSchema = z
           let casual;
           let roomTo;
 
+          let shortName = bell.bell;
           let name = bell?.bellDisplay;
           const teacher = period?.fullTeacher ?? period?.teacher ?? undefined;
 
@@ -217,7 +219,9 @@ export const dttSchema = z
 
             if (period?.year) {
               name = period?.year + name;
+              shortName = name;
               subject = subjects?.[name] ?? subject;
+
               name = subject?.title ?? name;
             }
           }
@@ -251,6 +255,7 @@ export const dttSchema = z
               ).toISO(),
               date: data?.date,
               key: `${bell.bell}-transition`,
+              shortName: "transition",
             },
             {
               name,
@@ -270,6 +275,7 @@ export const dttSchema = z
               casual,
               roomTo,
               date: data?.date,
+              shortName,
             },
           ];
         })
