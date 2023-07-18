@@ -18,6 +18,8 @@ export default function Period({
   startTime,
   active,
   shortName,
+  roomTo,
+  casual,
 }: TimetablPeriod & {
   active?: boolean;
 }) {
@@ -66,11 +68,23 @@ export default function Period({
             {!isBreak && shouldUseShortName ? shortName : name}
           </Text>
           <Spacer />
-          <Text fontSize={"xs"} minW="fit-content">
-            {teacher}
+          <Text
+            fontSize={"xs"}
+            minW="fit-content"
+            bg={casual ? "primary.500" : "transparent"}
+            p={0.5}
+            rounded="md"
+          >
+            {casual ?? teacher}
           </Text>
-          <Text fontWeight={"bold"} fontSize={"sm"}>
-            {room}
+          <Text
+            fontWeight={"bold"}
+            fontSize={"sm"}
+            bg={roomTo ? "primary.500" : "transparent"}
+            p={0.5}
+            rounded="md"
+          >
+            {roomTo ?? room}
           </Text>
         </Flex>
       </Flex>
