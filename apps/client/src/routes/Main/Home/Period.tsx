@@ -3,39 +3,43 @@ import {
   useToken,
   useColorModeValue,
   Spacer,
-  chakra,
   Box,
   Text,
 } from "@chakra-ui/react";
+import { DateTime } from "luxon";
 
 export default function Period({
   name,
   teacher,
   room,
   colour,
+  startTime,
 }: {
   name: string;
   teacher?: string;
   room?: string;
   colour?: string;
+  startTime: string;
 }) {
   const isBreak = !room;
 
   return (
     <Flex
       bg={
-        useToken("colors", useColorModeValue("gray.300", "gray.700")) +
-        (isBreak ? "cc" : "55")
+        !isBreak
+          ? useToken("colors", useColorModeValue("gray.300", "gray.700")) + "55"
+          : undefined
       }
       rounded={"lg"}
-      gap={1}
       shadow={isBreak ? undefined : "xl"}
       h="full"
+      mb={!isBreak ? 1 : undefined}
     >
-      <Box w={2} minW={2} roundedLeft={"lg"} bg={`${colour}`} />
+      <Box w={2} minW={2} rounded={"lg"} bg={`${colour}`} />
       <Flex
         w="full"
-        p={2}
+        py={1.5}
+        px={2}
         fontFamily={"Poppins, sans-serifs"}
         align="center"
         gap={2}
@@ -53,11 +57,14 @@ export default function Period({
         </Text>
         <Spacer />
         <Text fontSize={"xs"} minW="fit-content">
+          {DateTime.fromISO(startTime).toFormat("h:mm a")}
+        </Text>
+        <Text fontSize={"xs"} minW="fit-content">
           {teacher}
         </Text>
-        <chakra.span fontWeight={"bold"} fontSize={"sm"}>
+        <Text fontWeight={"bold"} fontSize={"sm"}>
           {room}
-        </chakra.span>
+        </Text>
       </Flex>
     </Flex>
   );

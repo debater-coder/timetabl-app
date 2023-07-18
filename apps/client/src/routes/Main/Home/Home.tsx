@@ -9,7 +9,7 @@ import CycleTimetable from "./Cycle";
 
 export default function Home() {
   return (
-    <Flex direction={"column"} w={["full", "500px"]} h="full">
+    <Flex direction={"column"} w={"50vw"} minW="300px" h="full">
       <QuickLinks />
       <Countdown />
       <Tabs variant={"unstyled"} h="full" mt={1}>

@@ -9,6 +9,8 @@ import {
 import { ArrowLeft, ArrowRight } from "phosphor-react";
 import DatePicker from "../../../components/DatePicker";
 import { useRef } from "react";
+import { DateTime } from "luxon";
+import { useDtt } from "../../../services/sbhsApi/useDtt";
 
 export default function DaySelect({
   selected,
@@ -18,6 +20,7 @@ export default function DaySelect({
   setSelected: (date: Date) => void;
 }) {
   const initRef = useRef<HTMLButtonElement>(null);
+  const { data: dtt } = useDtt();
 
   return (
     <Popover closeOnBlur={false} initialFocusRef={initRef}>
@@ -52,6 +55,28 @@ export default function DaySelect({
                   : "Select date"}
               </Button>
             </PopoverTrigger>
+            {selected &&
+              dtt &&
+              !DateTime.fromISO(dtt?.date).hasSame(
+                DateTime.fromJSDate(selected),
+                "day"
+              ) && (
+                <Button
+                  size="sm"
+                  variant="outline"
+                  onClick={() => {
+                    console.log(
+                      DateTime.fromISO(dtt?.date),
+                      DateTime.fromJSDate(selected)
+                    );
+                    if (dtt) {
+                      setSelected(DateTime.fromISO(dtt.date).toJSDate());
+                    }
+                  }}
+                >
+                  Reset
+                </Button>
+              )}
             <IconButton
               icon={<ArrowRight />}
               variant="outline"
@@ -73,6 +98,16 @@ export default function DaySelect({
               firstDayOfWeek={1}
               onDone={onClose}
               focusRef={initRef}
+              minDate={DateTime.now()
+                .set({
+                  month: 0,
+                  day: 0,
+                  hour: 0,
+                  minute: 0,
+                  second: 0,
+                  millisecond: 0,
+                })
+                .toJSDate()}
             />
           </PopoverContent>
         </>
