@@ -6,10 +6,39 @@ import {
   Skeleton,
 } from "@chakra-ui/react";
 import { useDtt } from "../../../services/sbhsApi/useDtt";
+import { DateTime } from "luxon";
+import { useEffect } from "react";
 
-export default function Countdown() {
+export default function Countdown({
+  countdown,
+  setCountdown,
+}: {
+  countdown: string;
+  setCountdown: (countdown: string) => void;
+}) {
   const { data: dtt } = useDtt();
   const isLoaded = !!dtt;
+
+  const activeIndex = dtt?.periods.findIndex(
+    ({ startTime, endTime }) =>
+      DateTime.fromISO(startTime) < DateTime.now() &&
+      DateTime.now() < DateTime.fromISO(endTime)
+  );
+
+  const nextPeriod =
+    activeIndex && activeIndex > 0 ? dtt?.periods[activeIndex + 1] : undefined;
+
+  if (!nextPeriod) return null;
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCountdown(
+        DateTime.fromISO(nextPeriod.startTime).diffNow().toFormat("hh:mm:ss")
+      );
+    }, 500);
+
+    return () => clearInterval(timer);
+  });
 
   return (
     <Skeleton isLoaded={isLoaded}>
@@ -23,14 +52,14 @@ export default function Countdown() {
         align={"center"}
       >
         <Heading size={"xs"} fontFamily={"Poppins, sans-serif"}>
-          Roll call in
+          {nextPeriod.name}
         </Heading>
         <Heading
           size={"lg"}
           fontFamily={"Poppins, sans-serif"}
           fontWeight={"normal"}
         >
-          01:30:00
+          {countdown}
         </Heading>
       </Flex>
     </Skeleton>
