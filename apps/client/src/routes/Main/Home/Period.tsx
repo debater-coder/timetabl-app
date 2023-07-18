@@ -25,13 +25,12 @@ export default function Period({
 }) {
   const isBreak = !room;
 
+  const bgColor =
+    useToken("colors", useColorModeValue("gray.300", "gray.700")) + "55";
+
   return (
     <Flex
-      bg={
-        !isBreak
-          ? useToken("colors", useColorModeValue("gray.300", "gray.700")) + "55"
-          : undefined
-      }
+      bg={!isBreak ? bgColor : undefined}
       rounded={"lg"}
       h="full"
       shadow={active ? "outline" : "none"}
