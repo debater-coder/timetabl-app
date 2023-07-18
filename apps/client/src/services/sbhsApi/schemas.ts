@@ -153,13 +153,16 @@ export type TimetablDtt = {
 
 export const dttSchema = z
   .object({
-    bells: z.array(bellSchema),
-    timetable: z.object({
-      subjects: z.record(subjectSchema),
-      timetable: z.object({
-        periods: z.record(periodSchema),
+    bells: z.array(bellSchema).nullable(),
+    timetable: z.union([
+      z.object({
+        subjects: z.record(subjectSchema),
+        timetable: z.object({
+          periods: z.record(periodSchema),
+        }),
       }),
-    }),
+      z.literal(false),
+    ]),
     date: z.string(),
     classVariations: z.union([
       z.record(
@@ -191,9 +194,14 @@ export const dttSchema = z
     const roomVariations = data.roomVariations;
 
     const result = {
-      periods: data.bells
+      periods: (data.bells ?? [])
         .flatMap((bell, index, bells) => {
           const timetable = data.timetable;
+
+          if (timetable === false) {
+            throw Error("This situation should never happen");
+          }
+
           const subjects = timetable.subjects;
           const period = timetable.timetable.periods?.[bell?.bell];
 
