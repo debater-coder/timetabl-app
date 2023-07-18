@@ -14,12 +14,14 @@ export default function Period({
   room,
   colour,
   startTime,
+  active,
 }: {
   name: string;
   teacher?: string;
   room?: string;
   colour?: string;
   startTime: string;
+  active?: boolean;
 }) {
   const isBreak = !room;
 
@@ -31,9 +33,11 @@ export default function Period({
           : undefined
       }
       rounded={"lg"}
-      shadow={isBreak ? undefined : "xl"}
       h="full"
+      shadow={active ? "outline" : "none"}
       mb={!isBreak ? 1 : undefined}
+      w="full"
+      overflowX={"hidden"}
     >
       <Box w={2} minW={2} rounded={"lg"} bg={`${colour}`} />
       <Flex

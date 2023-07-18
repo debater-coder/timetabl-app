@@ -6,6 +6,12 @@ import { useDtt } from "../../../services/sbhsApi/useDtt";
 export default function Schedule({ date }: { date?: string }) {
   const { data: dtt } = useDtt(date);
 
+  const activeKey = dtt?.periods.find(
+    ({ startTime, endTime }) =>
+      DateTime.fromISO(startTime) < DateTime.now() &&
+      DateTime.now() < DateTime.fromISO(endTime)
+  )?.key;
+
   return (
     <Skeleton isLoaded={!!dtt}>
       <Flex direction={"column"}>
@@ -30,7 +36,7 @@ export default function Schedule({ date }: { date?: string }) {
             }
 
             // eslint-disable-next-line react/jsx-key -- because key is included in period
-            return <Period {...period} />;
+            return <Period {...period} active={period.key === activeKey} />;
           })}
       </Flex>
     </Skeleton>
