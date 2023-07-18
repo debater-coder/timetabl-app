@@ -33,7 +33,7 @@ export default function Period({
       <Text
         fontSize={"xs"}
         minW="fit-content"
-        w="8ch"
+        w="9ch"
         mr={2}
         textAlign={"right"}
         color={useColorModeValue("blackAlpha.700", "whiteAlpha.700")}
