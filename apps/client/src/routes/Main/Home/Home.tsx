@@ -12,17 +12,17 @@ export default function Home() {
   const [countdown, setCountdown] = useState("00:00:00");
 
   return (
-    <Flex direction={"column"} w={"50vw"} minW="320px" h="full">
+    <Flex direction={"column"} w={"50vw"} minW="320px">
       <QuickLinks />
       <Countdown countdown={countdown} setCountdown={setCountdown} />
-      <Tabs variant={"unstyled"} h="full" mt={1}>
+      <Tabs variant={"unstyled"} mt={1}>
         <TabList>
           <ViewTab icon={CalendarBlank}>Day</ViewTab>
           <ViewTab icon={Rows}>Week</ViewTab>
           <ViewTab icon={SquaresFour}>Cycle</ViewTab>
         </TabList>
-        <TabPanels borderTop={"2px solid"} borderColor={"gray.500"} h="full">
-          <TabPanel h="full">
+        <TabPanels borderTop={"2px solid"} borderColor={"gray.500"}>
+          <TabPanel>
             <DayTimetable />
           </TabPanel>
           <TabPanel>
