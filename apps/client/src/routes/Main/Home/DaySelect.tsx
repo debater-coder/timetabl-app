@@ -11,6 +11,7 @@ import DatePicker from "../../../components/DatePicker";
 import { useRef } from "react";
 import { DateTime } from "luxon";
 import { useDtt } from "../../../services/sbhsApi/useDtt";
+import { useDay } from "../../../services/sbhsApi/useDay";
 
 export default function DaySelect({
   selected,
@@ -20,7 +21,9 @@ export default function DaySelect({
   setSelected: (date: Date) => void;
 }) {
   const initRef = useRef<HTMLButtonElement>(null);
+  const date = selected ? DateTime.fromJSDate(selected).toISODate() : undefined;
   const { data: dtt } = useDtt();
+  const { data: day } = useDay(date, date);
 
   return (
     <Popover closeOnBlur={false} initialFocusRef={initRef}>
@@ -51,7 +54,9 @@ export default function DaySelect({
                       year: "numeric",
                       month: "numeric",
                       day: "numeric",
-                    })} Wk 7`
+                    })} Wk ${
+                      date ? `${day?.[date]?.week}${day?.[date]?.weekType}` : ""
+                    }`
                   : "Select date"}
               </Button>
             </PopoverTrigger>

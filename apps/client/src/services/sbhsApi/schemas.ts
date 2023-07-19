@@ -290,3 +290,13 @@ export const sbhsKey =
   (endpoint: SbhsApiEndpoint) =>
   <T extends Record<string, string>>(options?: T) =>
     [`/sbhs/${endpoint}`, options] as const;
+
+export const daySchema = z.record(
+  z.object({
+    date: z.coerce.string(),
+    term: z.coerce.string(),
+    week: z.coerce.string(),
+    weekType: z.coerce.string(),
+    dayNumber: z.coerce.string(),
+  })
+);
