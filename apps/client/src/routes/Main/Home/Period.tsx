@@ -6,6 +6,7 @@ import {
   Box,
   Text,
   useBreakpointValue,
+  Skeleton,
 } from "@chakra-ui/react";
 import { DateTime } from "luxon";
 import { TimetablPeriod } from "../../../services/sbhsApi/schemas";
@@ -20,8 +21,10 @@ export default function Period({
   shortName,
   roomTo,
   casual,
+  isLoaded,
 }: TimetablPeriod & {
   active?: boolean;
+  isLoaded?: boolean;
 }) {
   const shouldUseShortName = useBreakpointValue(
     { base: true, md: false },
@@ -33,15 +36,22 @@ export default function Period({
   const bgColor =
     useToken("colors", useColorModeValue("gray.300", "gray.700")) + "55";
 
+  const fadedOut = useColorModeValue("blackAlpha.700", "whiteAlpha.700");
+
   return (
-    <Flex align={"center"} fontFamily={"Poppins, sans-serifs"}>
+    <Skeleton
+      display="flex"
+      fontFamily={"Poppins, sans-serifs"}
+      isLoaded={isLoaded}
+      mb={!isBreak || !isLoaded ? 1 : undefined}
+    >
       <Text
         fontSize={"xs"}
         minW="fit-content"
         w="9ch"
         mr={2}
         textAlign={"right"}
-        color={useColorModeValue("blackAlpha.700", "whiteAlpha.700")}
+        color={fadedOut}
       >
         {DateTime.fromISO(startTime).toFormat("h:mm a")}
       </Text>
@@ -50,7 +60,6 @@ export default function Period({
         rounded={"lg"}
         h="full"
         shadow={active ? "outline" : "none"}
-        mb={!isBreak ? 1 : undefined}
         w="full"
         overflowX={"hidden"}
       >
@@ -59,11 +68,7 @@ export default function Period({
           <Text
             fontSize={isBreak ? "xs" : "sm"}
             noOfLines={1}
-            color={
-              isBreak
-                ? useColorModeValue("blackAlpha.700", "whiteAlpha.700")
-                : undefined
-            }
+            color={isBreak ? fadedOut : undefined}
           >
             {!isBreak && shouldUseShortName ? shortName : name}
           </Text>
@@ -88,6 +93,6 @@ export default function Period({
           </Text>
         </Flex>
       </Flex>
-    </Flex>
+    </Skeleton>
   );
 }
