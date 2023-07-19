@@ -25,10 +25,6 @@ export default function Schedule({ date }: { date?: string }) {
       {periods
         .filter((period) => period.name !== "Transition")
         .map((period) => {
-          if (period.endTime === null) {
-            return null;
-          }
-
           const startTime = DateTime.fromISO(period.startTime);
           const endTime = DateTime.fromISO(period.endTime);
 
