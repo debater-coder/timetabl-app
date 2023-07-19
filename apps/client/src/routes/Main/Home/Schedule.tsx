@@ -23,7 +23,7 @@ export default function Schedule({ date }: { date?: string }) {
   return (
     <Flex direction={"column"}>
       {periods
-        .filter((period) => period.name !== "Transition")
+        .filter((period) => !period.name.startsWith("Transition"))
         .map((period) => {
           const startTime = DateTime.fromISO(period.startTime);
           const endTime = DateTime.fromISO(period.endTime);
