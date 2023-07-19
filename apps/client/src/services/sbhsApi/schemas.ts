@@ -246,7 +246,7 @@ export const dttSchema = z
 
           return [
             {
-              name: "Transition",
+              name: "Transition to " + name,
               endTime: DateTime.fromISO(
                 `${data?.date}T${bell?.startTime}`
               ).toISO(),
