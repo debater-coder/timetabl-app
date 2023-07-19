@@ -3,6 +3,8 @@ import Period from "./Period";
 import { DateTime } from "luxon";
 import { useDtt } from "../../../services/sbhsApi/useDtt";
 import { TimetablPeriod } from "../../../services/sbhsApi/schemas";
+import Empty from "../../../components/Empty";
+import { GiFrenchFries } from "react-icons/gi";
 
 export default function Schedule({ date }: { date?: string }) {
   const { data: dtt } = useDtt(date);
@@ -22,27 +24,37 @@ export default function Schedule({ date }: { date?: string }) {
 
   return (
     <Flex direction={"column"}>
-      {periods
-        .filter((period) => !period.name.startsWith("Transition"))
-        .map((period) => {
-          const startTime = DateTime.fromISO(period.startTime);
-          const endTime = DateTime.fromISO(period.endTime);
+      {periods.length ? (
+        periods
+          .filter((period) => !period.name.startsWith("Transition"))
+          .map((period) => {
+            const startTime = DateTime.fromISO(period.startTime);
+            const endTime = DateTime.fromISO(period.endTime);
 
-          const duration = endTime.diff(startTime).as("minutes");
+            const duration = endTime.diff(startTime).as("minutes");
 
-          if (duration <= 10) {
-            return null;
-          }
+            if (duration <= 10) {
+              return null;
+            }
 
-          return (
-            // eslint-disable-next-line react/jsx-key -- because key is included in period
-            <Period
-              isLoaded={!!dtt}
-              {...period}
-              active={period.key === activeKey}
-            />
-          );
-        })}
+            return (
+              // eslint-disable-next-line react/jsx-key -- because key is included in period
+              <Period
+                isLoaded={!!dtt}
+                {...period}
+                active={period.key === activeKey}
+              />
+            );
+          })
+      ) : (
+        <Empty
+          icon={GiFrenchFries}
+          colour="yellow.500"
+          size="lg"
+          heading="No periods on this day"
+          text="Chill out, grab some snacks, and enjoy your day off!"
+        />
+      )}
     </Flex>
   );
 }
