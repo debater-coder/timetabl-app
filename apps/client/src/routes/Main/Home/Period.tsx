@@ -52,6 +52,7 @@ export default function Period({
         mr={2}
         textAlign={"right"}
         color={fadedOut}
+        alignSelf={"center"}
       >
         {DateTime.fromISO(startTime).toFormat("h:mm a")}
       </Text>
