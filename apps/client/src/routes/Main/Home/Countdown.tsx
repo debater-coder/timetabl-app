@@ -52,7 +52,7 @@ export default function Countdown({
         align={"center"}
       >
         <Heading size={"xs"} fontFamily={"Poppins, sans-serif"}>
-          {nextPeriod.name}
+          {nextPeriod.name} in
         </Heading>
         <Heading
           size={"lg"}
