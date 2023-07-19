@@ -34,10 +34,6 @@ export default function Schedule({ date }: { date?: string }) {
             return null;
           }
 
-          if (period.name === "RC 9E") {
-            console.log(period);
-          }
-
           return (
             // eslint-disable-next-line react/jsx-key -- because key is included in period
             <Period
