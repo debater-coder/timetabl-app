@@ -54,8 +54,10 @@ export default function DaySelect({
                       year: "numeric",
                       month: "numeric",
                       day: "numeric",
-                    })} Wk ${
-                      date ? `${day?.[date]?.week}${day?.[date]?.weekType}` : ""
+                    })} ${
+                      date && day?.[date]?.week && day?.[date]?.weekType
+                        ? `Wk ${day?.[date]?.week}${day?.[date]?.weekType}`
+                        : ""
                     }`
                   : "Select date"}
               </Button>
