@@ -3,8 +3,8 @@
   "tasks": [
     {
       "type": "npm",
-      "script": "vdev",
-      "label": "Start vercel dev server",
+      "script": "dev",
+      "label": "Start dev server",
       "group": "none",
       "presentation": {
         "reveal": "always",
