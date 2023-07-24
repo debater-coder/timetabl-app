@@ -46,6 +46,8 @@ export default function Period({
     none: "transparent",
   }[periodColours];
 
+  const showTimes = useSettingsStore((state) => state.showTimes);
+
   return (
     <Skeleton
       display="flex"
@@ -53,17 +55,19 @@ export default function Period({
       isLoaded={isLoaded}
       mb={!isBreak || !isLoaded ? 1 : undefined}
     >
-      <Text
-        fontSize={"xs"}
-        minW="fit-content"
-        w="9ch"
-        mr={2}
-        textAlign={"right"}
-        color={fadedOut}
-        alignSelf={"center"}
-      >
-        {DateTime.fromISO(startTime).toFormat("h:mm a")}
-      </Text>
+      {showTimes && (
+        <Text
+          fontSize={"xs"}
+          minW="fit-content"
+          w="9ch"
+          mr={2}
+          textAlign={"right"}
+          color={fadedOut}
+          alignSelf={"center"}
+        >
+          {DateTime.fromISO(startTime).toFormat("h:mm a")}
+        </Text>
+      )}
       <Flex
         bg={!isBreak ? bgColor : undefined}
         rounded={"lg"}

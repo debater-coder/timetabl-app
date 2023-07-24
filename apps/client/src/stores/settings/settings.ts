@@ -8,6 +8,7 @@ export type Actions = {
   reset: () => void;
   setBgImage: (bgImage: string) => void;
   setDarkenBlur: (darkenBlur: boolean) => void;
+  setShowTimes: (showTimes: boolean) => void;
 };
 
 export type SettingsState = {
@@ -15,6 +16,7 @@ export type SettingsState = {
   periodColours: "default" | "primary" | "none";
   bgImage: string;
   darkenBlur: boolean;
+  showTimes: boolean;
 };
 
 export const initialState: SettingsState = {
@@ -22,6 +24,7 @@ export const initialState: SettingsState = {
   periodColours: "default",
   bgImage: "",
   darkenBlur: true,
+  showTimes: true,
 };
 
 export const useSettingsStore = create<SettingsState & Actions>()(
@@ -33,6 +36,7 @@ export const useSettingsStore = create<SettingsState & Actions>()(
         setPeriodColours: (periodColours) => set({ periodColours }),
         setBgImage: (bgImage) => set({ bgImage }),
         setDarkenBlur: (darkenBlur) => set({ darkenBlur }),
+        setShowTimes: (showTimes) => set({ showTimes }),
         reset: () => set(initialState),
       }),
       {

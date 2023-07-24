@@ -102,6 +102,8 @@ export default function General() {
     setBgImage,
     darkenBlur,
     setDarkenBlur,
+    setShowTimes,
+    showTimes,
   } = useSettingsStore();
 
   const [deleting, setDeleting] = useState(false);
@@ -128,6 +130,14 @@ export default function General() {
             <Radio value="none">No colour coding</Radio>
           </VStack>
         </RadioGroup>
+      </FormControl>
+
+      <FormControl display="flex" alignItems="center">
+        <FormLabel mb="0">Show Times</FormLabel>
+        <Switch
+          onChange={() => setShowTimes(!showTimes)}
+          isChecked={showTimes}
+        />
       </FormControl>
 
       <FormControl display="flex" alignItems="center">
