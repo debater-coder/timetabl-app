@@ -36,7 +36,7 @@ export default function QuickLinks() {
           Canvas
         </QuickLink>
         <QuickLink to="https://student.sbhs.net.au/" icon={<GraduationCap />}>
-          Student Portal
+          Portal
         </QuickLink>
         <QuickLink
           to="https://mail.google.com/a/student.sbhs.nsw.edu.au"

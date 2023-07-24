@@ -95,14 +95,8 @@ export default function General() {
   const {
     primary,
     periodColours,
-    expanded,
-    hoverExpand,
-    showTimesInsteadOfRooms,
     setPrimary,
-    setExpanded,
     setPeriodColours,
-    setHoverExpand,
-    setShowTimesInsteadOfRooms,
     reset,
     bgImage,
     setBgImage,
@@ -115,7 +109,7 @@ export default function General() {
   return (
     <>
       <Heading size={"md"} fontFamily={"Poppins, sans-serif"}>
-        Colours
+        Appearance
       </Heading>
       <FormControl display="flex" alignItems="center">
         <FormLabel mb="0">Dark mode</FormLabel>
@@ -135,38 +129,7 @@ export default function General() {
           </VStack>
         </RadioGroup>
       </FormControl>
-      <Heading size={"md"} fontFamily={"Poppins, sans-serif"}>
-        Period Behaviour
-      </Heading>
-      <FormControl display="flex" alignItems="center">
-        <FormLabel mb="0">Expand periods by default</FormLabel>
-        <Switch
-          onChange={() => {
-            if (expanded) setHoverExpand(false);
-            setExpanded(!expanded);
-          }}
-          isChecked={expanded}
-        />
-      </FormControl>
-      <FormControl display="flex" alignItems="center">
-        <FormLabel mb="0">Hover to expand</FormLabel>
-        <Switch
-          isChecked={hoverExpand}
-          onChange={() => {
-            setHoverExpand(!hoverExpand);
-          }}
-          disabled={expanded}
-        />
-      </FormControl>
-      <FormControl display="flex" alignItems="center">
-        <FormLabel mb="0">Show times instead of rooms</FormLabel>
-        <Switch
-          isChecked={showTimesInsteadOfRooms}
-          onChange={() => {
-            setShowTimesInsteadOfRooms(!showTimesInsteadOfRooms);
-          }}
-        />
-      </FormControl>
+
       <FormControl display="flex" alignItems="center">
         <FormLabel mb="0">Background Image</FormLabel>
         <Input

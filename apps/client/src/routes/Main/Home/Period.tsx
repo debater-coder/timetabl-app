@@ -10,6 +10,7 @@ import {
 } from "@chakra-ui/react";
 import { DateTime } from "luxon";
 import { TimetablPeriod } from "../../../services/sbhsApi/schemas";
+import { useSettingsStore } from "../../../stores/settings";
 
 export default function Period({
   name,
@@ -38,6 +39,13 @@ export default function Period({
 
   const fadedOut = useColorModeValue("blackAlpha.700", "whiteAlpha.700");
 
+  const periodColours = useSettingsStore((state) => state.periodColours);
+  const periodColorCode = {
+    primary: !isBreak ? "primary.500" : undefined,
+    default: colour,
+    none: "transparent",
+  }[periodColours];
+
   return (
     <Skeleton
       display="flex"
@@ -64,7 +72,9 @@ export default function Period({
         w="full"
         overflowX={"hidden"}
       >
-        <Box w={2} minW={2} rounded={"lg"} bg={`${colour}`} />
+        {periodColours !== "none" && (
+          <Box w={2} minW={2} rounded={"lg"} bg={periodColorCode} />
+        )}
         <Flex w="full" py={1.5} px={2} align="center" gap={2}>
           <Text
             fontSize={isBreak ? "xs" : "sm"}
