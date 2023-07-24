@@ -30,17 +30,21 @@ export default function Countdown({
   const nextPeriod =
     activeIndex && activeIndex > 0 ? dtt?.periods[activeIndex + 1] : undefined;
 
-  if (!nextPeriod) return null;
-
   useEffect(() => {
+    if (!nextPeriod) return;
+
+    const duration = DateTime.fromISO(nextPeriod.startTime).diffNow();
+
     const timer = setInterval(() => {
       setCountdown(
-        DateTime.fromISO(nextPeriod.startTime).diffNow().toFormat("hh:mm:ss")
+        duration.milliseconds > 0 ? duration.toFormat("hh:mm:ss") : "Now"
       );
     }, 500);
 
     return () => clearInterval(timer);
   });
+
+  if (!nextPeriod) return null;
 
   return (
     <Skeleton isLoaded={isLoaded}>
