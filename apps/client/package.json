@@ -1,11 +1,11 @@
 {
   "name": "client",
-  "version": "1.5.4-beta",
+  "version": "1.5.5-beta",
   "scripts": {
     "dev": "npm-run-all --parallel dev:*",
     "dev:run": "FORCE_COLOR=1 vite",
     "dev:test": "FORCE_COLOR=1 vitest watch --ui --coverage",
-    "build": "vite build",
+    "build": "FORCE_COLOR=1 vite build",
     "preview": "vite preview",
     "format": "prettier --ignore-path .gitignore --write .",
     "check-format": "prettier . --list-different",
