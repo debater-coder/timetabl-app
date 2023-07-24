@@ -18,6 +18,8 @@ export default function Countdown({
 }) {
   const { data: dtt } = useDtt();
   const isLoaded = !!dtt;
+  const bgColor =
+    useToken("colors", useColorModeValue("gray.300", "gray.700")) + "55";
 
   const activeIndex = dtt?.periods.findIndex(
     ({ startTime, endTime }) =>
@@ -45,9 +47,7 @@ export default function Countdown({
       <Flex
         direction={"column"}
         p={3}
-        bg={
-          useToken("colors", useColorModeValue("gray.300", "gray.700")) + "55"
-        }
+        bg={bgColor}
         rounded={"lg"}
         align={"center"}
       >
