@@ -33,9 +33,9 @@ export default function Countdown({
   useEffect(() => {
     if (!nextPeriod) return;
 
-    const duration = DateTime.fromISO(nextPeriod.startTime).diffNow();
-
     const timer = setInterval(() => {
+      const duration = DateTime.fromISO(nextPeriod.startTime).diffNow();
+
       setCountdown(
         duration.milliseconds > 0 ? duration.toFormat("hh:mm:ss") : "Now"
       );
