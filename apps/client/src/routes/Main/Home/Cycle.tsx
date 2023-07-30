@@ -13,14 +13,17 @@ function Period() {
       direction={["column", "column", "row"]}
       bg={useToken("colors", useColorModeValue("gray.300", "gray.700")) + "55"}
       rounded={"lg"}
-      gap={[0, 0, 1]}
+      gap={1}
       align="center"
       pr={[0, 0, 2]}
+      fontFamily={"Poppins, sans-serif"}
     >
       <Text fontSize={"sm"} bg="blue.500" p={2} rounded="lg">
         D&T
       </Text>
-      <Text fontSize={"sm"}>506</Text>
+      <Text fontSize={"sm"} fontWeight={"bold"}>
+        506
+      </Text>
     </Flex>
   );
 }
