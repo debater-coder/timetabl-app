@@ -338,30 +338,30 @@ const timetableSchema = z.object({
   ),
   subjects: z.record(
     z.object({
-      title: "8 Maths 1", // title of the class
-      shortTitle: "Ma1", // corresponds to period.title
-      subject: "Mathematics", // full name of the subject
-      teacher: "DW", // teacher code for the class teacher
-      fullTeacher: "Mr R Dow", // full name of the teacher
-      year: "8", // year for the class (Note [1])
+      title: z.string(), // title of the class
+      shortTitle: z.string(), // corresponds to period.title
+      subject: z.string(), // full name of the subject
+      teacher: z.string(), // teacher code for the class teacher
+      fullTeacher: z.string(), // full name of the teacher
+      year: z.coerce.string(), // year for the class (Note [1])
     })
   ),
-  extraSubjects: {
-    // collection of extra subjects
-    "1": {
+  extraSubjects: z.record(
+    z.object({
       // these subjects have no timetable classes
-      title: "Student Advis", // title of the class
-      shortTitle: "SA7", // corresponds to period.title
-      teacher: "DW", // teacher code for the class teacher
-      fullTeacher: "Mr R Dow", // full name of the teacher
-    },
-  },
-  rollcall: {
+      title: z.string(), // title of the class
+      shortTitle: z.string(), // corresponds to period.title
+      teacher: z.string(), // teacher code for the class teacher
+      fullTeacher: z.string(), // full name of the teacher
+    })
+  ),
+
+  rollcall: z.object({
     // roll class details
-    title: "08M", // title of the class
-    teacher: "DW", // teacher code for the teacher
-    fullTeacher: "Mr R Dow", // full name of the teacher
-    room: "   ", // roll class room
-  },
-  advisor: "Mr R Dowdell", // year adviser
+    title: z.string(), // title of the class
+    teacher: z.string(), // teacher code for the teacher
+    fullTeacher: z.string(), // full name of the teacher
+    room: z.string().nullish(), // roll class room
+  }),
+  advisor: z.string(), // year adviser
 });
