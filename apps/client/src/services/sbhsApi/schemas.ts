@@ -301,15 +301,15 @@ export const daySchema = z.record(
   })
 );
 
-const timetableSchema = z.object({
+export const timetableSchema = z.object({
   student: z.object({
     surname: z.string(),
     givenname: z.string(),
-    sex: z.string(), // "M"/"B" for male
-    DOB: z.string(), // date of birth. Unix timestamp
-    roll: z.coerce.number(), // index of roll class
-    lines: z.record(z.coerce.number()),
-    extraLines: z.record(z.coerce.number()),
+    sex: z.string().nullish(), // "M"/"B" for male
+    DOB: z.string().nullish(), // date of birth. Unix timestamp
+    roll: z.coerce.string().nullish(), // index of roll class
+    lines: z.record(z.coerce.number()).nullish(),
+    extraLines: z.record(z.coerce.number()).nullish(),
     BoSNumber: z.coerce.number(), // Board of Studies number. 0 if not available
     studentId: z.string(), // Student ID number
     year: z.string(), // student's [primary] year group
@@ -322,39 +322,41 @@ const timetableSchema = z.object({
       rollcall: z.object({
         // roll call info for this day
         title: z.string(), // name of roll class
-        teacher: z.string(), // teacher code for roll class
-        room: z.string(), // room for roll call
+        teacher: z.string().nullish(), // teacher code for roll class
+        room: z.string().nullish(), // room for roll call
       }),
       periods: z.record(
         z.object({
           // corresponds to routine
           title: z.string(), // short name for class
-          teacher: z.string(), // teacher code for class
-          room: z.string(), // room for class
-          year: z.string(), // year for class (Note [1])
+          teacher: z.string().nullish(), // teacher code for class
+          room: z.string().nullish(), // room for class
+          year: z.string().nullish(), // year for class (Note [1])
         })
       ),
     })
   ),
-  subjects: z.record(
+  subjects: z.array(
     z.object({
       title: z.string(), // title of the class
       shortTitle: z.string(), // corresponds to period.title
       subject: z.string(), // full name of the subject
-      teacher: z.string(), // teacher code for the class teacher
-      fullTeacher: z.string(), // full name of the teacher
-      year: z.coerce.string(), // year for the class (Note [1])
+      teacher: z.string().nullish(), // teacher code for the class teacher
+      fullTeacher: z.string().nullish(), // full name of the teacher
+      year: z.coerce.string().nullish(), // year for the class (Note [1])
     })
   ),
-  extraSubjects: z.record(
-    z.object({
-      // these subjects have no timetable classes
-      title: z.string(), // title of the class
-      shortTitle: z.string(), // corresponds to period.title
-      teacher: z.string(), // teacher code for the class teacher
-      fullTeacher: z.string(), // full name of the teacher
-    })
-  ),
+  extraSubjects: z
+    .record(
+      z.object({
+        // these subjects have no timetable classes
+        title: z.string(), // title of the class
+        shortTitle: z.string(), // corresponds to period.title
+        teacher: z.string().nullish(), // teacher code for the class teacher
+        fullTeacher: z.string().nullish(), // full name of the teacher
+      })
+    )
+    .nullish(),
 
   rollcall: z.object({
     // roll class details

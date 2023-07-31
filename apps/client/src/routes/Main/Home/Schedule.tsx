@@ -6,6 +6,15 @@ import { TimetablPeriod } from "../../../services/sbhsApi/schemas";
 import Empty from "../../../components/Empty";
 import { GiFrenchFries } from "react-icons/gi";
 
+function generateLoadingPeriods() {
+  return Array(7)
+    .fill({
+      name: "Loading... Loading... Loading",
+      room: 605,
+    })
+    .map((period, i) => ({ ...period, key: `loading ${i}` }));
+}
+
 export default function Schedule({ date }: { date?: string }) {
   const { data: dtt } = useDtt(date);
 
@@ -15,12 +24,7 @@ export default function Schedule({ date }: { date?: string }) {
       DateTime.now() < DateTime.fromISO(endTime)
   )?.key;
 
-  const periods: TimetablPeriod[] =
-    dtt?.periods ??
-    Array(7).fill({
-      name: "Loading... Loading... Loading",
-      room: 605,
-    });
+  const periods: TimetablPeriod[] = dtt?.periods ?? generateLoadingPeriods();
 
   return (
     <Flex direction={"column"}>

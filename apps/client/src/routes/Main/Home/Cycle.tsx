@@ -6,6 +6,7 @@ import {
   GridItem,
   Text,
 } from "@chakra-ui/react";
+import { useTimetable } from "../../../services/sbhsApi/useTimetable";
 
 function Period() {
   return (
@@ -44,6 +45,10 @@ function Day() {
 }
 
 export default function CycleTimetable() {
+  const { data } = useTimetable();
+
+  console.log(data);
+
   return (
     <Flex direction={"column"}>
       <Grid
