@@ -5,10 +5,14 @@ import {
   Grid,
   GridItem,
   Text,
+  Center,
+  Spinner,
+  Spacer,
 } from "@chakra-ui/react";
 import { useTimetable } from "../../../services/sbhsApi/useTimetable";
+import { TimetableDay } from "../../../services/sbhsApi/schemas";
 
-function Period() {
+function Period(props: TimetableDay["periods"][number]) {
   return (
     <Flex
       direction={["column", "column", "row"]}
@@ -16,30 +20,40 @@ function Period() {
       rounded={"lg"}
       gap={1}
       align="center"
-      pr={[0, 0, 2]}
       fontFamily={"Poppins, sans-serif"}
     >
-      <Text fontSize={"sm"} bg="blue.500" p={2} rounded="lg">
-        D&T
+      <Text
+        fontSize={"sm"}
+        bg={props.room ? "primary.500" : undefined}
+        p={2}
+        rounded="lg"
+        minW={["full", "full", "5ch"]}
+        textAlign="center"
+      >
+        {props.title.split(" ")[0]}
       </Text>
-      <Text fontSize={"sm"} fontWeight={"bold"}>
-        506
+      <Spacer />
+      <Text fontSize={"sm"} fontWeight={"bold"} pr={[0, 0, 2]}>
+        {props.room}
       </Text>
     </Flex>
   );
 }
 
-function Day() {
+function Day(props: TimetableDay) {
   return (
-    <Flex direction={"column"} align={"center"} gap={1}>
-      <Text color={"gray.500"} fontWeight={"semibold"} fontSize={"sm"}>
-        Mon A
+    <Flex direction={"column"} gap={1}>
+      <Text
+        color={"gray.500"}
+        fontWeight={"semibold"}
+        alignSelf="center"
+        fontSize={"sm"}
+      >
+        {props.dayname}
       </Text>
-      <Period />
-      <Period />
-      <Period />
-      <Period />
-      <Period />
+      {Object.values(props.periods).map((period, index) => (
+        <Period key={index} {...period} />
+      ))}
     </Flex>
   );
 }
@@ -47,7 +61,13 @@ function Day() {
 export default function CycleTimetable() {
   const { data } = useTimetable();
 
-  console.log(data);
+  if (!data) {
+    return (
+      <Center>
+        <Spinner />
+      </Center>
+    );
+  }
 
   return (
     <Flex direction={"column"}>
@@ -56,51 +76,11 @@ export default function CycleTimetable() {
         templateRows="repeat(3, 1fr)"
         gap={3}
       >
-        <GridItem w="100%">
-          <Day />
-        </GridItem>
-        <GridItem w="100%">
-          <Day />
-        </GridItem>
-        <GridItem w="100%">
-          <Day />
-        </GridItem>
-        <GridItem w="100%">
-          <Day />
-        </GridItem>
-        <GridItem w="100%">
-          <Day />
-        </GridItem>
-        <GridItem w="100%">
-          <Day />
-        </GridItem>
-        <GridItem w="100%">
-          <Day />
-        </GridItem>
-        <GridItem w="100%">
-          <Day />
-        </GridItem>
-        <GridItem w="100%">
-          <Day />
-        </GridItem>
-        <GridItem w="100%">
-          <Day />
-        </GridItem>
-        <GridItem w="100%">
-          <Day />
-        </GridItem>
-        <GridItem w="100%">
-          <Day />
-        </GridItem>
-        <GridItem w="100%">
-          <Day />
-        </GridItem>
-        <GridItem w="100%">
-          <Day />
-        </GridItem>
-        <GridItem w="100%">
-          <Day />
-        </GridItem>
+        {data?.map((day, index) => (
+          <GridItem w="100%" key={index}>
+            <Day {...day} />
+          </GridItem>
+        ))}
       </Grid>
     </Flex>
   );
