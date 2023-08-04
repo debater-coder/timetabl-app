@@ -3,6 +3,8 @@ import { authActions } from "../../stores/auth";
 import { timetableSchema, sbhsKey } from "./schemas";
 
 const queryFn = async () => {
+  throw new Error("L morning periods");
+
   return timetableSchema.parse(
     await authActions.fetchAuthenticated("timetable/timetable.json")
   );

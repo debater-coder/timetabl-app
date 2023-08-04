@@ -7,6 +7,8 @@ import DayTimetable from "./DayTimetable";
 import WeekTimetable from "./WeekTimetable";
 import CycleTimetable from "./Cycle";
 import { useState } from "react";
+import { ErrorBoundary } from "react-error-boundary";
+import ErrorAlert from "../../../components/ErrorAlert";
 
 export default function Home() {
   const [countdown, setCountdown] = useState("00:00:00");
@@ -23,13 +25,19 @@ export default function Home() {
         </TabList>
         <TabPanels borderTop={"2px solid"} borderColor={"gray.500"}>
           <TabPanel>
-            <DayTimetable />
+            <ErrorBoundary fallback={<ErrorAlert />}>
+              <DayTimetable />
+            </ErrorBoundary>
           </TabPanel>
           <TabPanel>
-            <WeekTimetable />
+            <ErrorBoundary fallback={<ErrorAlert />}>
+              <WeekTimetable />
+            </ErrorBoundary>
           </TabPanel>
           <TabPanel>
-            <CycleTimetable />
+            <ErrorBoundary fallback={<ErrorAlert />}>
+              <CycleTimetable />
+            </ErrorBoundary>
           </TabPanel>
         </TabPanels>
       </Tabs>
