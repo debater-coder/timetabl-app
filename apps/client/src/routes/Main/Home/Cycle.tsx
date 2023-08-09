@@ -11,8 +11,15 @@ import {
 } from "@chakra-ui/react";
 import { useTimetable } from "../../../services/sbhsApi/useTimetable";
 import { TimetableDay } from "../../../services/sbhsApi/schemas";
+import { useState } from "react";
 
-function Period(props: TimetableDay["periods"][number]) {
+function Period(props: {
+  period: TimetableDay["periods"][number];
+  setActiveSubject: (subject: string | null) => void;
+  activeSubject: string | null;
+}) {
+  const isActive = props.activeSubject === props.period.title;
+
   return (
     <Flex
       direction={["column", "column", "row"]}
@@ -21,26 +28,38 @@ function Period(props: TimetableDay["periods"][number]) {
       gap={1}
       align="center"
       fontFamily={"Poppins, sans-serif"}
+      onClick={() =>
+        props.setActiveSubject(isActive ? null : props.period.title)
+      }
+      shadow={isActive ? "outline" : undefined}
     >
       <Text
         fontSize={"sm"}
-        bg={props.room ? "primary.500" : undefined}
+        bg={
+          props.period.room && (isActive || props.activeSubject === null)
+            ? "primary.500"
+            : undefined
+        }
         p={2}
         rounded="lg"
         minW={["full", "full", "5ch"]}
         textAlign="center"
       >
-        {props.title.split(" ")[0]}
+        {props.period.title.split(" ")[0]}
       </Text>
       <Spacer />
       <Text fontSize={"sm"} fontWeight={"bold"} pr={[0, 0, 2]}>
-        {props.room}
+        {props.period.room}
       </Text>
     </Flex>
   );
 }
 
-function Day(props: TimetableDay) {
+function Day(props: {
+  day: TimetableDay;
+  setActiveSubject: (subject: string | null) => void;
+  activeSubject: string | null;
+}) {
   return (
     <Flex direction={"column"} gap={1}>
       <Text
@@ -49,10 +68,15 @@ function Day(props: TimetableDay) {
         alignSelf="center"
         fontSize={"sm"}
       >
-        {props.dayname}
+        {props.day.dayname}
       </Text>
-      {Object.values(props.periods).map((period, index) => (
-        <Period key={index} {...period} />
+      {Object.values(props.day.periods).map((period, index) => (
+        <Period
+          key={index}
+          period={period}
+          setActiveSubject={props.setActiveSubject}
+          activeSubject={props.activeSubject}
+        />
       ))}
     </Flex>
   );
@@ -60,6 +84,7 @@ function Day(props: TimetableDay) {
 
 export default function CycleTimetable() {
   const { data } = useTimetable();
+  const [activeSubject, setActiveSubject] = useState<string | null>(null);
 
   if (!data) {
     return (
@@ -78,7 +103,11 @@ export default function CycleTimetable() {
       >
         {data?.map((day, index) => (
           <GridItem w="100%" key={index}>
-            <Day {...day} />
+            <Day
+              day={day}
+              setActiveSubject={setActiveSubject}
+              activeSubject={activeSubject}
+            />
           </GridItem>
         ))}
       </Grid>
