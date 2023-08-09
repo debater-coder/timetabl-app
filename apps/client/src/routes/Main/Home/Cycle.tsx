@@ -8,6 +8,7 @@ import {
   Center,
   Spinner,
   Spacer,
+  Button,
 } from "@chakra-ui/react";
 import { useTimetable } from "../../../services/sbhsApi/useTimetable";
 import { TimetableDay } from "../../../services/sbhsApi/schemas";
@@ -19,25 +20,33 @@ function Period(props: {
   activeSubject: string | null;
 }) {
   const isActive = props.activeSubject === props.period.title;
+  const highlightColor = useColorModeValue("primary.300", "primary.600");
 
   return (
-    <Flex
-      direction={["column", "column", "row"]}
+    <Button
+      display="flex"
+      flexDirection={["column", "column", "row"]}
       bg={useToken("colors", useColorModeValue("gray.300", "gray.700")) + "55"}
       rounded={"lg"}
       gap={1}
-      align="center"
+      alignItems="center"
       fontFamily={"Poppins, sans-serif"}
+      variant="unstyled"
+      _hover={{
+        bg:
+          useToken("colors", useColorModeValue("gray.300", "gray.700")) + "ff",
+      }}
       onClick={() =>
         props.setActiveSubject(isActive ? null : props.period.title)
       }
       shadow={isActive ? "outline" : undefined}
+      height="auto"
     >
       <Text
         fontSize={"sm"}
         bg={
           props.period.room && (isActive || props.activeSubject === null)
-            ? "primary.500"
+            ? highlightColor
             : undefined
         }
         p={2}
@@ -51,7 +60,7 @@ function Period(props: {
       <Text fontSize={"sm"} fontWeight={"bold"} pr={[0, 0, 2]}>
         {props.period.room}
       </Text>
-    </Flex>
+    </Button>
   );
 }
 

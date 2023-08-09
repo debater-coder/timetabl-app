@@ -5,10 +5,8 @@ import { SbhsApiEndpoint } from "../../../services/sbhsApi/schemas";
 import NetworkError from "../../../errors/NetworkError";
 import HTTPError from "../../../errors/HTTPError";
 
-let ready = false;
-
-const initialiseFetchWrapper = async () => {
-  const fetchWrapper = new OAuth2Fetch({
+const initialiseFetchWrapper = () =>
+  new OAuth2Fetch({
     client: getClient(),
 
     getNewToken: () => {
@@ -26,21 +24,11 @@ const initialiseFetchWrapper = async () => {
     },
 
     onError: (error) => {
-      if (ready) {
-        // Set the status to expired
-        useAuthStore.setState({ status: AuthStatus.EXPIRED });
-        console.error(error);
-      }
+      // Set the status to expired
+      useAuthStore.setState({ status: AuthStatus.EXPIRED });
+      console.error(error);
     },
   });
-  try {
-    await fetchWrapper.getToken();
-  } catch {
-    // Ignore we expect this to error because the library has a bug
-  }
-  ready = true;
-  return fetchWrapper;
-};
 
 let _fetchWrapper: OAuth2Fetch | null = null;
 
@@ -49,12 +37,11 @@ export const resetFetchWrapper = () => {
   initialiseFetchWrapper();
 };
 
-// We defer initialisation until the first call to fetchAuthenticated to ensure that initialisation has been completed
-const getFetchWrapper = async () => {
+// We defer initialisation until the first call to fetchAuthenticated to ensure that any mocks have been set up
+const getFetchWrapper = () => {
   if (!_fetchWrapper) {
-    _fetchWrapper = await initialiseFetchWrapper();
+    _fetchWrapper = initialiseFetchWrapper();
   }
-  6;
 
   return _fetchWrapper;
 };
@@ -68,7 +55,7 @@ export const fetchAuthenticated = async <TSbhsApiData>(
 ) => {
   let res: Response;
   try {
-    const fetchWrapper = await getFetchWrapper();
+    const fetchWrapper = getFetchWrapper();
     res = await fetchWrapper.fetch(
       "https://student.sbhs.net.au/api/" +
         endpoint +
