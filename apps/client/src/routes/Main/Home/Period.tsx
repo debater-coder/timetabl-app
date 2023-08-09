@@ -51,7 +51,6 @@ export default function Period({
   return (
     <Skeleton
       display="flex"
-      fontFamily={"Poppins, sans-serifs"}
       isLoaded={isLoaded}
       mb={!isBreak || !isLoaded ? 1 : undefined}
     >
@@ -59,7 +58,7 @@ export default function Period({
         <Text
           fontSize={"xs"}
           minW="fit-content"
-          w="9ch"
+          w="10ch"
           mr={2}
           textAlign={"right"}
           color={fadedOut}
@@ -75,11 +74,12 @@ export default function Period({
         shadow={active ? "outline" : "none"}
         w="full"
         overflowX={"hidden"}
+        fontFamily={"Poppins, sans-serifs"}
       >
         {periodColours !== "none" && (
           <Box w={2} minW={2} rounded={"lg"} bg={periodColorCode} />
         )}
-        <Flex w="full" py={1.5} px={2} align="center" gap={2}>
+        <Flex w="full" py={[1.5, 2]} px={2} align="center" gap={2}>
           <Text
             fontSize={isBreak ? "xs" : "sm"}
             noOfLines={1}

@@ -14,7 +14,7 @@ export default function Home() {
   const [countdown, setCountdown] = useState("00:00:00");
 
   return (
-    <Flex direction={"column"} w={"50vw"} minW="320px">
+    <Flex direction={"column"} w={"full"} px={2} maxW={"1000px"}>
       <QuickLinks />
       <Countdown countdown={countdown} setCountdown={setCountdown} />
       <Tabs variant={"unstyled"} mt={1}>
