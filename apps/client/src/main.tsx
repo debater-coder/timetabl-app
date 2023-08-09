@@ -8,7 +8,6 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { PersistQueryClientProvider } from "@tanstack/react-query-persist-client";
 import reportWebVitals from "./reportWebVitals";
 import { sendToVercelAnalytics } from "./vitals";
-import { inject } from "@vercel/analytics";
 import { log } from "./utils/log";
 import { ToastContainer } from "./toast";
 import "@fontsource/poppins";
@@ -69,14 +68,6 @@ registerSW();
 // Report web vitals
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 (reportWebVitals as any)(sendToVercelAnalytics);
-
-// Inject analytics
-inject({
-  beforeSend: (event) => ({
-    ...event,
-    url: window.location.origin + window.location.pathname,
-  }),
-});
 
 // Render welcome message for devs
 log(
