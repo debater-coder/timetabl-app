@@ -15,10 +15,20 @@ import { createRouter } from "./createRouter";
 import { persister, queryClient } from "./createQueryClient";
 import { authActions, useAuthStore } from "./stores/auth";
 import { useSettingsStore } from "./stores/settings";
+import { H } from "highlight.run";
+import { version } from "../package.json";
 
 // Redirect to new domain if using old domain
 if (window.location.host === "timetabl.vercel.app") {
   window.location.href = "https://www.timetabl.app";
+}
+
+// Initialise analytics if consented
+if (localStorage.getItem("consentedToWelcomeMessage")) {
+  H.init("zg092lg9", {
+    enableStrictPrivacy: true,
+    version,
+  });
 }
 
 // ===========
