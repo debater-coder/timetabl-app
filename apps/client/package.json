@@ -1,6 +1,6 @@
 {
   "name": "client",
-  "version": "1.7.2-beta",
+  "version": "1.7.3-beta",
   "scripts": {
     "dev": "npm-run-all --parallel dev:*",
     "dev:run": "FORCE_COLOR=1 vite",

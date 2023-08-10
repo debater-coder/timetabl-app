@@ -28,6 +28,8 @@ if (localStorage.getItem("consentedToWelcomeMessage")) {
   H.init("zg092lg9", {
     enableStrictPrivacy: true,
     version,
+    reportConsoleErrors: true,
+    environment: import.meta.env.MODE
   });
 }
 
