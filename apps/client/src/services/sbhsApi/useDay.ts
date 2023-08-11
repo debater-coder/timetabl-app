@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { authActions } from "../../stores/auth";
-import { daySchema, sbhsKey } from "./schemas";
+import { sbhsKey } from "./schemas";
+import { daySchema } from "./schemas/day";
 
 const queryFn = async (from?: string, to?: string) => {
   return daySchema.parse(

@@ -1,10 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import { authActions } from "../../stores/auth";
-import { timetableSchema, sbhsKey } from "./schemas";
+import { sbhsKey } from "./schemas";
+import { timetableSchema } from "./schemas/timetable";
 
 const queryFn = async () => {
-
-
   return timetableSchema.parse(
     await authActions.fetchAuthenticated("timetable/timetable.json")
   );

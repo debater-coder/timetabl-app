@@ -2,7 +2,7 @@ import { Flex } from "@chakra-ui/react";
 import Period from "./Period";
 import { DateTime } from "luxon";
 import { useDtt } from "../../../services/sbhsApi/useDtt";
-import { TimetablPeriod } from "../../../services/sbhsApi/schemas";
+import { TimetablPeriod } from "../../../services/sbhsApi/schemas/dtt";
 import Empty from "../../../components/Empty";
 import { GiFrenchFries } from "react-icons/gi";
 

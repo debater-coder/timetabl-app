@@ -28,7 +28,10 @@ import { useState } from "react";
 import { DateTime } from "luxon";
 import { Search2Icon } from "@chakra-ui/icons";
 import { micromark } from "micromark";
-import { NoticeYear, TimetablNotice } from "../../../services/sbhsApi/schemas";
+import {
+  NoticeYear,
+  TimetablNotice,
+} from "../../../services/sbhsApi/schemas/notices";
 import { useTimetablNews } from "../../../services/timetablCms/useTimetablNews";
 import { useDailyNotices } from "../../../services/sbhsApi/useDailyNotices";
 import Empty from "../../../components/Empty";

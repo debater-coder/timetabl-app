@@ -1,7 +1,7 @@
-import { Heading, Button, Flex, Stack, Text } from "@chakra-ui/react";
+import { Heading, Button, Stack, Text } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import { SignIn } from "phosphor-react";
-import { lazy, useState } from "react";
+import { useState } from "react";
 import { authActions } from "../../../stores/auth";
 
 export const Hero = () => {

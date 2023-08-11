@@ -11,7 +11,7 @@ import {
   Button,
 } from "@chakra-ui/react";
 import { useTimetable } from "../../../services/sbhsApi/useTimetable";
-import { TimetableDay } from "../../../services/sbhsApi/schemas";
+import { TimetableDay } from "../../../services/sbhsApi/schemas/timetable";
 import { useState } from "react";
 
 function Period(props: {

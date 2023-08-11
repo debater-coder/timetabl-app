@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { authActions } from "../../stores/auth";
-import { dttSchema, sbhsKey } from "./schemas";
+import { sbhsKey } from "./schemas";
+import { dttSchema } from "./schemas/dtt";
 
 const queryFn = async (date?: string) => {
   return dttSchema.parse(
