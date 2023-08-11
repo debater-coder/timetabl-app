@@ -10,6 +10,9 @@ const initialiseFetchWrapper = () =>
     client: getClient(),
 
     getNewToken: () => {
+      // Set the status to expired
+      useAuthStore.setState({ status: AuthStatus.EXPIRED });
+
       return null; // Fail this step, we don't want to log out until the user does so explicitly
     },
 
@@ -21,12 +24,6 @@ const initialiseFetchWrapper = () =>
 
     getStoredToken: () => {
       return useAuthStore.getState().token;
-    },
-
-    onError: (error) => {
-      // Set the status to expired
-      useAuthStore.setState({ status: AuthStatus.EXPIRED });
-      console.error(error);
     },
   });
 
