@@ -29,7 +29,7 @@ import { DateTime } from "luxon";
 import { Search2Icon } from "@chakra-ui/icons";
 import { micromark } from "micromark";
 import { NoticeYear, TimetablNotice } from "../../../services/sbhsApi/schemas";
-import { useTimetablNews } from "../../../services/timetablCms/useTimetablNews";
+// import { useTimetablNews } from "../../../services/timetablCms/useTimetablNews";
 import { useDailyNotices } from "../../../services/sbhsApi/useDailyNotices";
 import Empty from "../../../components/Empty";
 import { MegaphoneSimple } from "phosphor-react";
@@ -139,16 +139,16 @@ function DailyNotices({
   filter,
   query,
   tab,
-  dailyNoticesLoaded,
-  timetablNewsLoaded,
+  dailyNoticesLoading,
+  timetablNewsLoading,
   dailyNotices,
   timetablNews,
 }: {
   filter: NoticeYear;
   query: string;
   tab: number;
-  timetablNewsLoaded: boolean;
-  dailyNoticesLoaded: boolean;
+  timetablNewsLoading: boolean;
+  dailyNoticesLoading: boolean;
   dailyNotices?: TimetablNotice[];
   timetablNews?: TimetablNotice[];
 }) {
@@ -160,7 +160,7 @@ function DailyNotices({
 
   return (
     <Skeleton
-      isLoaded={tab ? !timetablNewsLoaded : !dailyNoticesLoaded}
+      isLoaded={tab ? !timetablNewsLoading : !dailyNoticesLoading}
       rounded={5}
       minH={10}
       minW={40}
@@ -194,10 +194,10 @@ function DailyNotices({
 export default function Announcements() {
   const { year, setYear } = useAnnouncementStore();
 
-  const { data: timetablNews, isLoading: timetablNewsLoaded } =
-    useTimetablNews();
+  const timetablNews = undefined;
+  const timetablNewsLoaded = false;
 
-  const { data: dailyNotices, isLoading: dailyNoticesLoaded } =
+  const { data: dailyNotices, isLoading: dailyNoticesLoading } =
     useDailyNotices();
 
   const [tabIndex, setTabIndex] = useState(0);
@@ -266,8 +266,8 @@ export default function Announcements() {
                 tab={tab}
                 timetablNews={timetablNews}
                 dailyNotices={dailyNotices}
-                timetablNewsLoaded={timetablNewsLoaded}
-                dailyNoticesLoaded={dailyNoticesLoaded}
+                timetablNewsLoading={timetablNewsLoaded}
+                dailyNoticesLoading={dailyNoticesLoading}
               />
             </TabPanel>
           ))}
