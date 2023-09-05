@@ -3,8 +3,6 @@ import { authActions } from "../../stores/auth";
 import { timetableSchema, sbhsKey } from "./schemas";
 
 const queryFn = async () => {
-
-
   return timetableSchema.parse(
     await authActions.fetchAuthenticated("timetable/timetable.json")
   );
