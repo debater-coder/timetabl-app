@@ -838,7 +838,7 @@ describe("the schema", () => {
     expect(timetableSchema.parse(timetable)).toMatchSnapshot();
   });
 
-  test("parses a schema with schema", () => {
+  test("parses a schema with morning periods", () => {
     const timetable = {
       student: {
         surname: "DOE",
