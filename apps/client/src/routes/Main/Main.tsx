@@ -3,38 +3,30 @@ import { Outlet, useNavigate } from "react-router-dom";
 import {
   Flex,
   useBreakpointValue,
-  useDisclosure,
   Modal,
   ModalOverlay,
   ModalContent,
   ModalHeader,
   ModalFooter,
   ModalBody,
-  ModalCloseButton,
   Button,
   Heading,
 } from "@chakra-ui/react";
 import Sidebar from "../../components/Sidebar";
 import { BottomNav } from "../../components/BottomNav";
-import { useIsLoggedIn } from "../../stores/auth";
+import { authActions, useIsLoggedIn } from "../../stores/auth";
 
 export default function Main() {
   const navigate = useNavigate();
   const loggedIn = useIsLoggedIn();
+  const { logout } = authActions;
   const isLargerThanMd = useBreakpointValue({ base: false, md: true });
-  const { isOpen, onOpen } = useDisclosure();
 
   useEffect(() => {
     if (!loggedIn) {
       navigate("/");
     }
   }, [loggedIn, navigate]);
-
-  useEffect(() => {
-    if (!localStorage.getItem("consentedToWelcomeMessage")) {
-      onOpen();
-    }
-  });
 
   const consent = () => {
     localStorage.setItem("consentedToWelcomeMessage", "true");
@@ -63,13 +55,18 @@ export default function Main() {
         >
           <Outlet />
         </Flex>
-        <Modal closeOnOverlayClick={false} isOpen={isOpen} onClose={consent}>
+        <Modal
+          closeOnOverlayClick={false}
+          isOpen={localStorage.getItem("consentedToWelcomeMessage") !== "true"}
+          onClose={() => {
+            /** void */
+          }}
+        >
           <ModalOverlay />
           <ModalContent>
             <ModalHeader fontFamily="Poppins, sans-serif">
               Welcome to Timetabl!
             </ModalHeader>
-            <ModalCloseButton />
             <ModalBody pb={6}>
               <Heading size="xs" pb={4} fontWeight="regular">
                 By continuing, you consent to Timetabl sending anonymous error
@@ -85,8 +82,11 @@ export default function Main() {
               desktop or by clicking on More {">"} Feedback on mobile.
             </ModalBody>
 
-            <ModalFooter>
-              <Button onClick={consent}>Continue</Button>
+            <ModalFooter gap={2}>
+              <Button onClick={logout} colorScheme="red" variant={"outline"}>
+                {"Don't accept"}
+              </Button>
+              <Button onClick={consent}>Accept and continue</Button>
             </ModalFooter>
           </ModalContent>
         </Modal>
