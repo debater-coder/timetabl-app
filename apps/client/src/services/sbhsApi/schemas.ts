@@ -330,10 +330,10 @@ export const timetableSchema = z
       roll: z.coerce.string().nullish(), // index of roll class
       lines: z.record(z.coerce.number()).nullish(),
       extraLines: z.record(z.coerce.number()).nullish(),
-      BoSNumber: z.coerce.number(), // Board of Studies number. 0 if not available
-      studentId: z.string(), // Student ID number
-      year: z.string(), // student's [primary] year group
-      years: z.string().array(), // array of years the student is in
+      BoSNumber: z.coerce.number().nullish(), // Board of Studies number. 0 if not available
+      studentId: z.string().nullish(), // Student ID number
+      year: z.string().nullish(), // student's [primary] year group
+      years: z.string().array().nullish(), // array of years the student is in
     }),
     days: z.record(timetableDaySchema),
     subjects: z.array(
