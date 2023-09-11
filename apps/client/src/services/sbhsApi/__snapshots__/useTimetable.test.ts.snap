@@ -1,5 +1,643 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
+exports[`the schema > parses a schema with morning periods 1`] = `
+[
+  {
+    "dayname": "MonA",
+    "periods": {
+      "1": {
+        "room": "403",
+        "teacher": "GENM",
+        "title": "HIS CY",
+        "year": "9",
+      },
+      "2": {
+        "room": "506",
+        "teacher": "STEH",
+        "title": "GEO A",
+        "year": "9",
+      },
+      "3": {
+        "room": "507",
+        "teacher": "ROWJ",
+        "title": "COM CX",
+        "year": "9",
+      },
+      "4": {
+        "room": "102",
+        "teacher": "ZHEM",
+        "title": "MAT B",
+        "year": "9",
+      },
+      "5": {
+        "room": "507",
+        "teacher": "ROWJ",
+        "title": "COM CX",
+        "year": "9",
+      },
+    },
+    "rollcall": {
+      "room": null,
+      "teacher": "STEL",
+      "title": "RC 9S",
+    },
+    "routine": "0,RC,1,2,R,3,4,MTL1,MTL2,5",
+  },
+  {
+    "dayname": "TueA",
+    "periods": {
+      "1": {
+        "room": "902",
+        "teacher": "HAYB",
+        "title": "PDH A",
+        "year": "9",
+      },
+      "2": {
+        "room": "403",
+        "teacher": "GENM",
+        "title": "HIS CY",
+        "year": "9",
+      },
+      "3": {
+        "room": "702",
+        "teacher": "THEO",
+        "title": "SCI A",
+        "year": "9",
+      },
+      "4": {
+        "room": "611",
+        "teacher": "STEL",
+        "title": "PDM CZ",
+        "year": "9",
+      },
+      "5": {
+        "room": "506",
+        "teacher": "STEH",
+        "title": "GEO A",
+        "year": "9",
+      },
+    },
+    "rollcall": {
+      "room": null,
+      "teacher": "STEL",
+      "title": "RC 9S",
+    },
+    "routine": "0,RC,1,2,R,3,4,MTL1,MTL2,5",
+  },
+  {
+    "dayname": "WedA",
+    "periods": {
+      "1": {
+        "room": "202",
+        "teacher": "LAUN",
+        "title": "ENG A",
+        "year": "9",
+      },
+      "2": {
+        "room": "202",
+        "teacher": "HAYB",
+        "title": "PDH A",
+        "year": "9",
+      },
+      "3": {
+        "room": "403",
+        "teacher": "GENM",
+        "title": "HIS CY",
+        "year": "9",
+      },
+      "4": {
+        "room": "506",
+        "teacher": "STEH",
+        "title": "GEO A",
+        "year": "9",
+      },
+      "5": {
+        "room": "702",
+        "teacher": "THEO",
+        "title": "SCI A",
+        "year": "9",
+      },
+    },
+    "rollcall": {
+      "room": null,
+      "teacher": "STEL",
+      "title": "RC 9S",
+    },
+    "routine": "0,RC,1,2,R,3,WFL1,WFL2,4,5",
+  },
+  {
+    "dayname": "ThuA",
+    "periods": {
+      "1": {
+        "room": "102",
+        "teacher": "ZHEM",
+        "title": "MAT B",
+        "year": "9",
+      },
+      "2": {
+        "room": "611",
+        "teacher": "STEL",
+        "title": "PDM CZ",
+        "year": "9",
+      },
+      "3": {
+        "room": "506",
+        "teacher": "MARD",
+        "title": "COM CX",
+        "year": "9",
+      },
+      "4": {
+        "room": null,
+        "teacher": null,
+        "title": "SP 9",
+        "year": "9",
+      },
+      "5": {
+        "room": null,
+        "teacher": null,
+        "title": "SP 9",
+        "year": "9",
+      },
+    },
+    "rollcall": {
+      "room": null,
+      "teacher": "STEL",
+      "title": "RC 9S",
+    },
+    "routine": "0,RC,1,2,R,3,WFL1,WFL2,4,5",
+  },
+  {
+    "dayname": "FriA",
+    "periods": {
+      "0": {
+        "room": null,
+        "teacher": "KAYJ",
+        "title": "Scripture 9",
+        "year": "9",
+      },
+      "1": {
+        "room": "702",
+        "teacher": "THEO",
+        "title": "SCI A",
+        "year": "9",
+      },
+      "2": {
+        "room": "208",
+        "teacher": "LAUN",
+        "title": "ENG A",
+        "year": "9",
+      },
+      "3": {
+        "room": "102",
+        "teacher": "ZHEM",
+        "title": "MAT B",
+        "year": "9",
+      },
+      "4": {
+        "room": "213",
+        "teacher": "LAUN",
+        "title": "ENG A",
+        "year": "9",
+      },
+      "5": {
+        "room": "205",
+        "teacher": "PAUV",
+        "title": "VED A",
+        "year": "9",
+      },
+    },
+    "rollcall": {
+      "room": null,
+      "teacher": "STEL",
+      "title": "RC 9S",
+    },
+    "routine": "0,RC,1,2,R,3,WFL1,WFL2,4,5",
+  },
+  {
+    "dayname": "MonB",
+    "periods": {
+      "1": {
+        "room": "507",
+        "teacher": "ROWJ",
+        "title": "COM CX",
+        "year": "9",
+      },
+      "2": {
+        "room": "611",
+        "teacher": "STEL",
+        "title": "PDM CZ",
+        "year": "9",
+      },
+      "3": {
+        "room": "102",
+        "teacher": "ZHEM",
+        "title": "MAT B",
+        "year": "9",
+      },
+      "4": {
+        "room": "403",
+        "teacher": "GENM",
+        "title": "HIS CY",
+        "year": "9",
+      },
+      "5": {
+        "room": "202",
+        "teacher": "LAUN",
+        "title": "ENG A",
+        "year": "9",
+      },
+    },
+    "rollcall": {
+      "room": null,
+      "teacher": "STEL",
+      "title": "RC 9S",
+    },
+    "routine": "0,RC,1,2,R,3,4,MTL1,MTL2,5",
+  },
+  {
+    "dayname": "TueB",
+    "periods": {
+      "1": {
+        "room": "611",
+        "teacher": "STEL",
+        "title": "PDM CZ",
+        "year": "9",
+      },
+      "2": {
+        "room": "702",
+        "teacher": "THEO",
+        "title": "SCI A",
+        "year": "9",
+      },
+      "3": {
+        "room": "203",
+        "teacher": "THEO",
+        "title": "SCI A",
+        "year": "9",
+      },
+      "4": {
+        "room": "102",
+        "teacher": "ZHEM",
+        "title": "MAT B",
+        "year": "9",
+      },
+      "5": {
+        "room": "403",
+        "teacher": "GENM",
+        "title": "HIS CY",
+        "year": "9",
+      },
+    },
+    "rollcall": {
+      "room": null,
+      "teacher": "STEL",
+      "title": "RC 9S",
+    },
+    "routine": "0,RC,1,2,R,3,4,MTL1,MTL2,5",
+  },
+  {
+    "dayname": "WedB",
+    "periods": {
+      "1": {
+        "room": "205",
+        "teacher": "PAUV",
+        "title": "VED A",
+        "year": "9",
+      },
+      "2": {
+        "room": "202",
+        "teacher": "LAUN",
+        "title": "ENG A",
+        "year": "9",
+      },
+      "3": {
+        "room": "403",
+        "teacher": "GENM",
+        "title": "HIS CY",
+        "year": "9",
+      },
+      "4": {
+        "room": "702",
+        "teacher": "THEO",
+        "title": "SCI A",
+        "year": "9",
+      },
+      "5": {
+        "room": "506",
+        "teacher": "STEH",
+        "title": "GEO A",
+        "year": "9",
+      },
+    },
+    "rollcall": {
+      "room": null,
+      "teacher": "STEL",
+      "title": "RC 9S",
+    },
+    "routine": "0,RC,1,2,R,3,WFL1,WFL2,4,5",
+  },
+  {
+    "dayname": "ThuB",
+    "periods": {
+      "1": {
+        "room": "102",
+        "teacher": "ZHEM",
+        "title": "MAT B",
+        "year": "9",
+      },
+      "2": {
+        "room": "301",
+        "teacher": "THEO",
+        "title": "SCI A",
+        "year": "9",
+      },
+      "3": {
+        "room": "506",
+        "teacher": "MARD",
+        "title": "COM CX",
+        "year": "9",
+      },
+      "4": {
+        "room": null,
+        "teacher": null,
+        "title": "SP 9",
+        "year": "9",
+      },
+      "5": {
+        "room": null,
+        "teacher": null,
+        "title": "SP 9",
+        "year": "9",
+      },
+    },
+    "rollcall": {
+      "room": null,
+      "teacher": "STEL",
+      "title": "RC 9S",
+    },
+    "routine": "0,RC,1,2,R,3,WFL1,WFL2,4,5",
+  },
+  {
+    "dayname": "FriB",
+    "periods": {
+      "0": {
+        "room": null,
+        "teacher": "KAYJ",
+        "title": "Scripture 9",
+        "year": "9",
+      },
+      "1": {
+        "room": "902",
+        "teacher": "HAYB",
+        "title": "PDH A",
+        "year": "9",
+      },
+      "2": {
+        "room": "506",
+        "teacher": "STEH",
+        "title": "GEO A",
+        "year": "9",
+      },
+      "3": {
+        "room": "702",
+        "teacher": "THEO",
+        "title": "SCI A",
+        "year": "9",
+      },
+      "4": {
+        "room": "213",
+        "teacher": "LAUN",
+        "title": "ENG A",
+        "year": "9",
+      },
+      "5": {
+        "room": "102",
+        "teacher": "ZHEM",
+        "title": "MAT B",
+        "year": "9",
+      },
+    },
+    "rollcall": {
+      "room": null,
+      "teacher": "STEL",
+      "title": "RC 9S",
+    },
+    "routine": "0,RC,1,2,R,3,WFL1,WFL2,4,5",
+  },
+  {
+    "dayname": "MonC",
+    "periods": {
+      "1": {
+        "room": "608",
+        "teacher": "ROWJ",
+        "title": "COM CX",
+        "year": "9",
+      },
+      "2": {
+        "room": "611",
+        "teacher": "STEL",
+        "title": "PDM CZ",
+        "year": "9",
+      },
+      "3": {
+        "room": "506",
+        "teacher": "STEH",
+        "title": "GEO A",
+        "year": "9",
+      },
+      "4": {
+        "room": "102",
+        "teacher": "ZHEM",
+        "title": "MAT B",
+        "year": "9",
+      },
+      "5": {
+        "room": "202",
+        "teacher": "LAUN",
+        "title": "ENG A",
+        "year": "9",
+      },
+    },
+    "rollcall": {
+      "room": null,
+      "teacher": "STEL",
+      "title": "RC 9S",
+    },
+    "routine": "0,RC,1,2,R,3,4,MTL1,MTL2,5",
+  },
+  {
+    "dayname": "TueC",
+    "periods": {
+      "1": {
+        "room": "611",
+        "teacher": "STEL",
+        "title": "PDM CZ",
+        "year": "9",
+      },
+      "2": {
+        "room": "902",
+        "teacher": "HAYB",
+        "title": "PDH A",
+        "year": "9",
+      },
+      "3": {
+        "room": "507",
+        "teacher": "ROWJ",
+        "title": "COM CX",
+        "year": "9",
+      },
+      "4": {
+        "room": "403",
+        "teacher": "GENM",
+        "title": "HIS CY",
+        "year": "9",
+      },
+      "5": {
+        "room": "202",
+        "teacher": "LAUN",
+        "title": "ENG A",
+        "year": "9",
+      },
+    },
+    "rollcall": {
+      "room": null,
+      "teacher": "STEL",
+      "title": "RC 9S",
+    },
+    "routine": "0,RC,1,2,R,3,4,MTL1,MTL2,5",
+  },
+  {
+    "dayname": "WedC",
+    "periods": {
+      "1": {
+        "room": "902",
+        "teacher": "HAYB",
+        "title": "PDH A",
+        "year": "9",
+      },
+      "2": {
+        "room": "213",
+        "teacher": "LAUN",
+        "title": "ENG A",
+        "year": "9",
+      },
+      "3": {
+        "room": "102",
+        "teacher": "ZHEM",
+        "title": "MAT B",
+        "year": "9",
+      },
+      "4": {
+        "room": "702",
+        "teacher": "THEO",
+        "title": "SCI A",
+        "year": "9",
+      },
+      "5": {
+        "room": "202",
+        "teacher": "LAUN",
+        "title": "ENG A",
+        "year": "9",
+      },
+    },
+    "rollcall": {
+      "room": null,
+      "teacher": "STEL",
+      "title": "RC 9S",
+    },
+    "routine": "0,RC,1,2,R,3,WFL1,WFL2,4,5",
+  },
+  {
+    "dayname": "ThuC",
+    "periods": {
+      "1": {
+        "room": "102",
+        "teacher": "ZHEM",
+        "title": "MAT B",
+        "year": "9",
+      },
+      "2": {
+        "room": "611",
+        "teacher": "STEL",
+        "title": "PDM CZ",
+        "year": "9",
+      },
+      "3": {
+        "room": "702",
+        "teacher": "THEO",
+        "title": "SCI A",
+        "year": "9",
+      },
+      "4": {
+        "room": null,
+        "teacher": null,
+        "title": "SP 9",
+        "year": "9",
+      },
+      "5": {
+        "room": null,
+        "teacher": null,
+        "title": "SP 9",
+        "year": "9",
+      },
+    },
+    "rollcall": {
+      "room": null,
+      "teacher": "STEL",
+      "title": "RC 9S",
+    },
+    "routine": "0,RC,1,2,R,3,WFL1,WFL2,4,5",
+  },
+  {
+    "dayname": "FriC",
+    "periods": {
+      "0": {
+        "room": null,
+        "teacher": "KAYJ",
+        "title": "Scripture 9",
+        "year": "9",
+      },
+      "1": {
+        "room": "213",
+        "teacher": "LAUN",
+        "title": "ENG A",
+        "year": "9",
+      },
+      "2": {
+        "room": "102",
+        "teacher": "ZHEM",
+        "title": "MAT B",
+        "year": "9",
+      },
+      "3": {
+        "room": "702",
+        "teacher": "THEO",
+        "title": "SCI A",
+        "year": "9",
+      },
+      "4": {
+        "room": "506",
+        "teacher": "STEH",
+        "title": "GEO A",
+        "year": "9",
+      },
+      "5": {
+        "room": "205",
+        "teacher": "PAUV",
+        "title": "VED A",
+        "year": "9",
+      },
+    },
+    "rollcall": {
+      "room": null,
+      "teacher": "STEL",
+      "title": "RC 9S",
+    },
+    "routine": "0,RC,1,2,R,3,WFL1,WFL2,4,5",
+  },
+]
+`;
+
 exports[`the schema > parses a timetable with no morning periods 1`] = `
 [
   {

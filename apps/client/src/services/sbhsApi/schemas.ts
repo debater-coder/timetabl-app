@@ -299,6 +299,14 @@ export const daySchema = z.record(
   })
 );
 
+const timetablePeriodSchema = z.object({
+  // corresponds to routine
+  title: z.string(), // short name for class
+  teacher: z.string().nullish(), // teacher code for class
+  room: z.string().nullish(), // room for class
+  year: z.string().nullish(), // year for class (Note [1])
+});
+
 const timetableDaySchema = z.object({
   dayname: z.string(), // name of the day
   routine: z.string(), // routine (see timetable/daytimetable()
@@ -308,15 +316,18 @@ const timetableDaySchema = z.object({
     teacher: z.string().nullish(), // teacher code for roll class
     room: z.string().nullish(), // room for roll call
   }),
-  periods: z.record(
-    z.object({
-      // corresponds to routine
-      title: z.string(), // short name for class
-      teacher: z.string().nullish(), // teacher code for class
-      room: z.string().nullish(), // room for class
-      year: z.string().nullish(), // year for class (Note [1])
-    })
-  ),
+  periods: z.union([
+    z.record(timetablePeriodSchema),
+    z.array(timetablePeriodSchema).transform((periods) => {
+      return periods.reduce(
+        (acc: Record<number, typeof periods[number]>, curr, index) => {
+          acc[index] = curr;
+          return acc;
+        },
+        {}
+      );
+    }),
+  ]),
 });
 
 export type TimetableDay = z.infer<typeof timetableDaySchema>;
