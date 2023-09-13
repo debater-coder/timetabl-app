@@ -306,6 +306,7 @@ const timetablePeriodSchema = z.object({
   room: z.string().nullish(), // room for class
   year: z.string().nullish(), // year for class (Note [1])
 });
+export type TimetablePeriod = z.output<typeof timetablePeriodSchema>;
 
 const timetableDaySchema = z.object({
   dayname: z.string(), // name of the day
@@ -331,6 +332,18 @@ const timetableDaySchema = z.object({
 });
 
 export type TimetableDay = z.infer<typeof timetableDaySchema>;
+
+const timetableSubjectSchema = z.object({
+  title: z.string(),
+  shortTitle: z.string(),
+  subject: z.string(),
+  teacher: z.string().nullish(),
+  fullTeacher: z.string().nullish(),
+  year: z.coerce.string().nullish(),
+  colour: z.string(),
+});
+export type TimetableSubject = z.infer<typeof timetableSubjectSchema>;
+
 export const timetableSchema = z
   .object({
     student: z.object({
@@ -347,16 +360,7 @@ export const timetableSchema = z
       years: z.string().array().nullish(), // array of years the student is in
     }),
     days: z.record(timetableDaySchema),
-    subjects: z.array(
-      z.object({
-        title: z.string(), // title of the class
-        shortTitle: z.string(), // corresponds to period.title
-        subject: z.string(), // full name of the subject
-        teacher: z.string().nullish(), // teacher code for the class teacher
-        fullTeacher: z.string().nullish(), // full name of the teacher
-        year: z.coerce.string().nullish(), // year for the class (Note [1])
-      })
-    ),
+    subjects: z.array(timetableSubjectSchema),
     extraSubjects: z
       .record(
         z.object({
@@ -379,5 +383,5 @@ export const timetableSchema = z
     advisor: z.string(), // year adviser
   })
   .transform((data) => {
-    return Object.values(data.days);
+    return { days: Object.values(data.days), subjects: data.subjects };
   });

@@ -11,16 +11,20 @@ import {
   Button,
 } from "@chakra-ui/react";
 import { useTimetable } from "../../../services/sbhsApi/useTimetable";
-import { TimetableDay } from "../../../services/sbhsApi/schemas";
 import { useState } from "react";
+import {
+  TimetablePeriod,
+  TimetableDay,
+  TimetableSubject,
+} from "../../../services/sbhsApi/schemas";
 
 function Period(props: {
-  period: TimetableDay["periods"][number];
+  period: TimetablePeriod;
   setActiveSubject: (subject: string | null) => void;
   activeSubject: string | null;
+  color: string;
 }) {
   const isActive = props.activeSubject === props.period.title;
-  const highlightColor = useColorModeValue("primary.300", "primary.600");
 
   return (
     <Button
@@ -46,7 +50,7 @@ function Period(props: {
         fontSize={"sm"}
         bg={
           props.period.room && (isActive || props.activeSubject === null)
-            ? highlightColor
+            ? props.color + "99"
             : undefined
         }
         p={2}
@@ -68,6 +72,7 @@ function Day(props: {
   day: TimetableDay;
   setActiveSubject: (subject: string | null) => void;
   activeSubject: string | null;
+  subjects: TimetableSubject[];
 }) {
   return (
     <Flex direction={"column"} gap={1}>
@@ -81,6 +86,13 @@ function Day(props: {
       </Text>
       {Object.values(props.day.periods).map((period, index) => (
         <Period
+          color={
+            "#" +
+              props.subjects.find((subject) => {
+                console.log(subject, period);
+                return subject.shortTitle === period.title;
+              })?.colour || ""
+          }
           key={index}
           period={period}
           setActiveSubject={props.setActiveSubject}
@@ -110,9 +122,10 @@ export default function CycleTimetable() {
         templateRows="repeat(3, 1fr)"
         gap={3}
       >
-        {data?.map((day, index) => (
+        {data?.days.map((day, index) => (
           <GridItem w="100%" key={index}>
             <Day
+              subjects={data?.subjects}
               day={day}
               setActiveSubject={setActiveSubject}
               activeSubject={activeSubject}
