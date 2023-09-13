@@ -88,10 +88,9 @@ function Day(props: {
         <Period
           color={
             "#" +
-              props.subjects.find((subject) => {
-                console.log(subject, period);
-                return subject.shortTitle === period.title;
-              })?.colour || ""
+              props.subjects.find(
+                (subject) => subject.shortTitle === period.title
+              )?.colour || ""
           }
           key={index}
           period={period}
