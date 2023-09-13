@@ -296,6 +296,7 @@ export const daySchema = z.record(
     week: z.coerce.number().nullish(),
     weekType: z.string().length(1).nullish(),
     dayNumber: z.coerce.number().nullish(),
+    dayName: z.string().nullish(),
   })
 );
 

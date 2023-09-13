@@ -17,6 +17,8 @@ import {
   TimetableDay,
   TimetableSubject,
 } from "../../../services/sbhsApi/schemas";
+import { useDay } from "../../../services/sbhsApi/useDay";
+import { DateTime } from "luxon";
 
 function Period(props: {
   period: TimetablePeriod;
@@ -74,10 +76,20 @@ function Day(props: {
   activeSubject: string | null;
   subjects: TimetableSubject[];
 }) {
+  const today = DateTime.now().toISODate();
+  const { data } = useDay(today, today);
+  const highlightColor = useColorModeValue("primary.500", "primary.300");
+
+  let daynameColor = "gray.500";
+
+  if (data && data[today]?.dayName === props.day.dayname) {
+    daynameColor = highlightColor;
+  }
+
   return (
     <Flex direction={"column"} gap={1}>
       <Text
-        color={"gray.500"}
+        color={daynameColor}
         fontWeight={"semibold"}
         alignSelf="center"
         fontSize={"sm"}
