@@ -9,16 +9,9 @@ import {
   vi,
 } from "vitest";
 import { AuthStatus, resetAuthStore, useAuthStore } from ".";
-import { login } from "./actions/login";
-import { resolve } from "./actions/resolve";
 import { resetRefresh, setupMockServer } from "sbhs-api";
 import config from "../../config";
-import { logout } from "./actions/logout";
 import { toast } from "../../toast";
-import {
-  fetchAuthenticated,
-  resetFetchWrapper,
-} from "./actions/fetchAuthenticated";
 
 beforeEach(() => {
   resetAuthStore();

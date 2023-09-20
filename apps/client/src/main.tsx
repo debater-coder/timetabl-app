@@ -29,7 +29,7 @@ if (localStorage.getItem("consentedToWelcomeMessage")) {
     enableStrictPrivacy: true,
     version,
     reportConsoleErrors: true,
-    environment: import.meta.env.MODE
+    environment: import.meta.env.MODE,
   });
 }
 
