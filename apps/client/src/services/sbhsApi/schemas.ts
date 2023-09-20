@@ -155,15 +155,18 @@ export type TimetablDtt = {
 export const dttSchema = z
   .object({
     bells: z.array(bellSchema).nullable(),
-    timetable: z.union([
-      z.object({
-        subjects: z.record(subjectSchema),
-        timetable: z.object({
-          periods: z.record(periodSchema),
-        }),
+    timetable: z.object({
+      subjects: z.union([
+        z.record(subjectSchema),
+        z.array(z.undefined()).max(0),
+      ]),
+      timetable: z.object({
+        periods: z.union([
+          z.record(periodSchema),
+          z.array(z.undefined()).max(0),
+        ]),
       }),
-      z.literal(false),
-    ]),
+    }),
     date: z.string(),
     classVariations: z.union([
       z.record(
@@ -177,7 +180,6 @@ export const dttSchema = z
           casualSurname: z.string().nullish(),
         })
       ),
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       z.array(z.undefined()).max(0),
     ]),
     roomVariations: z.union([
@@ -199,12 +201,10 @@ export const dttSchema = z
         .flatMap((bell, index, bells) => {
           const timetable = data.timetable;
 
-          if (timetable === false) {
-            throw Error("This situation should never happen");
-          }
-
           const subjects = timetable.subjects;
-          const period = timetable.timetable.periods?.[bell?.bell];
+          const period = !Array.isArray(timetable.timetable.periods)
+            ? timetable.timetable.periods?.[bell?.bell]
+            : undefined;
 
           let subject;
           let casual;
@@ -220,7 +220,9 @@ export const dttSchema = z
             if (period?.year) {
               name = period?.year + name;
               shortName = name;
-              subject = subjects?.[name] ?? subject;
+              subject =
+                (!Array.isArray(subjects) ? subjects?.[name] : undefined) ??
+                subject;
 
               name = subject?.title ?? name;
             }
