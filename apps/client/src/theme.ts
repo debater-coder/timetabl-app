@@ -7,7 +7,7 @@ import {
 import { withProse } from "@nikolovlazar/chakra-ui-prose";
 import { mode } from "@chakra-ui/theme-tools";
 
-export const config = {
+export const themeConfig = {
   initialColorMode: "system",
   useSystemColorMode: false,
 } as const;

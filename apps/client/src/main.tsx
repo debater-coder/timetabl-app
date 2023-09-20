@@ -2,21 +2,23 @@ import { StrictMode } from "react";
 import ReactDOM from "react-dom/client";
 import { RouterProvider } from "react-router-dom";
 import { ChakraProvider, ColorModeScript } from "@chakra-ui/react";
-import themeGen, { config } from "./theme";
+import themeGen, { themeConfig } from "./theme";
 import registerSW from "./registerSW";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { PersistQueryClientProvider } from "@tanstack/react-query-persist-client";
 import reportWebVitals from "./reportWebVitals";
 import { sendToVercelAnalytics } from "./vitals";
 import { log } from "./utils/log";
-import { ToastContainer } from "./toast";
+import { ToastContainer, toast } from "./toast";
 import "@fontsource/poppins";
 import { createRouter } from "./createRouter";
 import { persister, queryClient } from "./createQueryClient";
-import { authActions, useAuthStore } from "./stores/auth";
+import { AuthActions, AuthStatus, useAuthStore } from "./stores/auth";
 import { useSettingsStore } from "./stores/settings";
 import { H } from "highlight.run";
 import { version } from "../package.json";
+import { OAuth2Client, OAuth2Fetch } from "@badgateway/oauth2-client";
+import config from "./config";
 
 // Redirect to new domain if using old domain
 if (window.location.host === "timetabl.vercel.app") {
@@ -36,6 +38,42 @@ if (localStorage.getItem("consentedToWelcomeMessage")) {
 // ===========
 // RENDER ROOT
 // ===========
+
+const oauthClient = new OAuth2Client({
+  server: "https://student.sbhs.net.au",
+  clientId: config.client_id,
+  tokenEndpoint: "/api/token",
+  authorizationEndpoint: config.authorization_endpoint,
+});
+
+const fetchWrapper = new OAuth2Fetch({
+  client: oauthClient,
+
+  getNewToken: () => {
+    // Set the status to expired
+    useAuthStore.setState({ status: AuthStatus.EXPIRED });
+
+    return null; // Fail this step, we don't want to log out until the user does so explicitly
+  },
+
+  storeToken: (token) => {
+    useAuthStore.setState({
+      token,
+    });
+  },
+
+  getStoredToken: () => {
+    return useAuthStore.getState().token;
+  },
+});
+
+const authActions = new AuthActions(
+  useAuthStore,
+  queryClient,
+  oauthClient,
+  fetchWrapper,
+  toast
+);
 
 /**
  * A wrapper around the `ChakraProvider` component which generates the theme from settings and passes it to the the `ChakraProvider`.
@@ -61,7 +99,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
       }}
     >
       <ChakraWrapper>
-        <ColorModeScript initialColorMode={config.initialColorMode} />
+        <ColorModeScript initialColorMode={themeConfig.initialColorMode} />
         <RouterProvider router={createRouter()} />
         <ToastContainer />
         <ReactQueryDevtools initialIsOpen={false} />
@@ -95,16 +133,7 @@ log(
 console.log(
   "SELF-XSS WARNING - PLEASE DON'T DO PASTE ANYTHING INTO HERE FROM PLACES YOU DON'T TRUST!!!"
 );
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-(window as any).timetabl = {
-  useSettingsStore,
-  sbhsAuthActions: authActions,
-  useSbhsAuthStore: useAuthStore,
-};
-
 // Initialise authentication
 addEventListener("load", () => {
-  // Resolve authentication
   authActions.resolve();
 });
