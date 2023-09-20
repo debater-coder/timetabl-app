@@ -12,7 +12,7 @@ import { log } from "./utils/log";
 import { ToastContainer } from "./toast";
 import "@fontsource/poppins";
 import { createRouter } from "./createRouter";
-import { createQueryClient } from "./createQueryClient";
+import { persister, queryClient } from "./createQueryClient";
 import { authActions, useAuthStore } from "./stores/auth";
 import { useSettingsStore } from "./stores/settings";
 import { H } from "highlight.run";
@@ -29,7 +29,7 @@ if (localStorage.getItem("consentedToWelcomeMessage")) {
     enableStrictPrivacy: true,
     version,
     reportConsoleErrors: true,
-    environment: import.meta.env.MODE,
+    environment: import.meta.env.MODE
   });
 }
 
@@ -47,8 +47,6 @@ const ChakraWrapper = ({ ...props }) => {
 
   return <ChakraProvider theme={theme} {...props} />;
 };
-
-const [queryClient, persister] = createQueryClient();
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <StrictMode>
