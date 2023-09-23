@@ -1,24 +1,19 @@
-import { StrictMode } from "react";
-import ReactDOM from "react-dom/client";
-import { RouterProvider } from "react-router-dom";
-import { ChakraProvider, ColorModeScript } from "@chakra-ui/react";
-import themeGen, { themeConfig } from "./theme";
-import registerSW from "./registerSW";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { PersistQueryClientProvider } from "@tanstack/react-query-persist-client";
+import { createStandaloneToast } from "@chakra-ui/react";
+import SWRegistration from "./SWRegistration";
 import reportWebVitals from "./reportWebVitals";
 import { sendToVercelAnalytics } from "./vitals";
 import { log } from "./utils/log";
-import { ToastContainer, toast } from "./toast";
 import "@fontsource/poppins";
-import { createRouter } from "./createRouter";
-import { persister, queryClient } from "./createQueryClient";
 import { AuthActions, AuthStatus, useAuthStore } from "./stores/auth";
-import { useSettingsStore } from "./stores/settings";
 import { H } from "highlight.run";
 import { version } from "../package.json";
 import { OAuth2Client, OAuth2Fetch } from "@badgateway/oauth2-client";
 import config from "./config";
+import { QueryCache, QueryClient } from "@tanstack/react-query";
+import { createSyncStoragePersister } from "@tanstack/query-sync-storage-persister";
+import NetworkError from "./errors/NetworkError";
+import { UnauthorizedError } from "./errors/UnauthorisedError";
+import UserInterface from "./UserInterface";
 
 // Redirect to new domain if using old domain
 if (window.location.host === "timetabl.vercel.app") {
@@ -38,6 +33,44 @@ if (localStorage.getItem("consentedToWelcomeMessage")) {
 // ===========
 // RENDER ROOT
 // ===========
+
+const { ToastContainer, toast } = createStandaloneToast();
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      cacheTime: Infinity,
+      refetchInterval: 5 * 60 * 1000, // 5 minutes
+      refetchIntervalInBackground: true,
+      networkMode: "always",
+      useErrorBoundary: (error, query) =>
+        !(error instanceof UnauthorizedError) &&
+        !(error instanceof NetworkError) &&
+        !query.state.data,
+    },
+  },
+  queryCache: new QueryCache({
+    onError: (error) => {
+      if (
+        error instanceof Error &&
+        !(error instanceof UnauthorizedError) &&
+        !(error instanceof NetworkError)
+      ) {
+        toast({
+          title:
+            "Something went wrong, try logging in and out if the issue persists.",
+          description: error.message,
+          status: "error",
+          isClosable: true,
+        });
+      }
+    },
+  }),
+});
+
+const persister = createSyncStoragePersister({
+  storage: window.localStorage,
+});
 
 const oauthClient = new OAuth2Client({
   server: "https://student.sbhs.net.au",
@@ -75,45 +108,24 @@ const authActions = new AuthActions(
   toast
 );
 
-/**
- * A wrapper around the `ChakraProvider` component which generates the theme from settings and passes it to the the `ChakraProvider`.
- */
-const ChakraWrapper = ({ ...props }) => {
-  const primary = useSettingsStore((state) => state.primary);
+const swRegistration = new SWRegistration(toast);
 
-  const theme = themeGen(primary);
-
-  return <ChakraProvider theme={theme} {...props} />;
-};
-
-ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
-  <StrictMode>
-    <PersistQueryClientProvider
-      client={queryClient}
-      persistOptions={{
-        persister,
-        maxAge: Infinity,
-        dehydrateOptions: {
-          shouldDehydrateQuery: () => true,
-        },
-      }}
-    >
-      <ChakraWrapper>
-        <ColorModeScript initialColorMode={themeConfig.initialColorMode} />
-        <RouterProvider router={createRouter()} />
-        <ToastContainer />
-        <ReactQueryDevtools initialIsOpen={false} />
-      </ChakraWrapper>
-    </PersistQueryClientProvider>
-  </StrictMode>
+const userInterface = new UserInterface(
+  queryClient,
+  ToastContainer,
+  persister,
+  document.getElementById("root") as HTMLElement
 );
 
-// =================
-// POST RENDER TASKS
-// =================
+// =======
+// EXECUTE
+// =======
+
+// Render root
+userInterface.render();
 
 // Register service worker
-registerSW();
+swRegistration.registerSW();
 
 // Report web vitals
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

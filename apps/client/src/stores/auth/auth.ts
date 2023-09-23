@@ -8,10 +8,10 @@ import {
 } from "@badgateway/oauth2-client";
 import { QueryClient } from "@tanstack/react-query";
 import config from "../../config";
-import { Toast } from "../../toast";
 import HTTPError from "../../errors/HTTPError";
 import NetworkError from "../../errors/NetworkError";
 import { SbhsApiEndpoint } from "../../services/sbhsApi/schemas";
+import { createStandaloneToast } from "@chakra-ui/react";
 
 // ========================
 // Browser Crypto Functions
@@ -97,7 +97,7 @@ export class AuthActions<T extends UseBoundStore<StoreApi<AuthState>>> {
     private queryClient: QueryClient,
     private oauthClient: OAuth2Client,
     private fetchWrapper: OAuth2Fetch,
-    private toast: Toast
+    private toast: ReturnType<typeof createStandaloneToast>["toast"]
   ) {}
 
   public async login() {

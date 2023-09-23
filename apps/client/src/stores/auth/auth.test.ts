@@ -25,6 +25,44 @@ const server = setupMockServer({
   refresh_token: "test_refresh_token",
 });
 
+const createAuthActions = () => {
+  const oauthClient = new OAuth2Client({
+    server: "https://student.sbhs.net.au",
+    clientId: config.client_id,
+    tokenEndpoint: "/api/token",
+    authorizationEndpoint: config.authorization_endpoint,
+  });
+
+  const fetchWrapper = new OAuth2Fetch({
+    client: oauthClient,
+
+    getNewToken: () => {
+      // Set the status to expired
+      useAuthStore.setState({ status: AuthStatus.EXPIRED });
+
+      return null; // Fail this step, we don't want to log out until the user does so explicitly
+    },
+
+    storeToken: (token) => {
+      useAuthStore.setState({
+        token,
+      });
+    },
+
+    getStoredToken: () => {
+      return useAuthStore.getState().token;
+    },
+  });
+
+  return new AuthActions(
+    useAuthStore,
+    queryClient,
+    oauthClient,
+    fetchWrapper,
+    toast
+  );
+};
+
 beforeAll(() => server.listen({ onUnhandledRequest: "error" }));
 afterAll(() => server.close());
 afterEach(() => {

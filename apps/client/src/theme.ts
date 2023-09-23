@@ -17,7 +17,7 @@ export type ColourScheme = keyof typeof theme.colors;
 const themeGen = (primary: ColourScheme) =>
   extendTheme(
     {
-      config,
+      themeConfig,
       colors: {
         primary: theme.colors[primary],
       },
