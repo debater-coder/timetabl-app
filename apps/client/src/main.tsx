@@ -14,7 +14,7 @@ import { createSyncStoragePersister } from "@tanstack/query-sync-storage-persist
 import NetworkError from "./errors/NetworkError";
 import { UnauthorizedError } from "./errors/UnauthorisedError";
 import UserInterface from "./UserInterface";
-import { createRouter } from "./createRouter";
+import AppRouter from "./AppRouter";
 
 // Redirect to new domain if using old domain
 if (window.location.host === "timetabl.vercel.app") {
@@ -111,13 +111,15 @@ const authActions = new AuthActions(
 
 const swRegistration = new SWRegistration(toast);
 
+const router = new AppRouter();
+
 const userInterface = new UserInterface(
   queryClient,
   ToastContainer,
   persister,
   document.getElementById("root") as HTMLElement,
   authActions,
-  createRouter()
+  router
 );
 
 // =======

@@ -13,7 +13,6 @@ import {
   PersistQueryClientProvider,
   Persister,
 } from "@tanstack/react-query-persist-client";
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { AuthActions } from "./stores/auth";
 
 const AuthActionsContext = createContext<AuthActions | null>(null);
@@ -35,6 +34,10 @@ const ChakraWrapper = ({ children }: { children: React.ReactNode }) => {
   return <ChakraProvider theme={theme}>{children}</ChakraProvider>;
 };
 
+export interface Router {
+  getElement: () => JSX.Element;
+}
+
 class UserInterface {
   constructor(
     private queryClient: QueryClient,
@@ -44,7 +47,7 @@ class UserInterface {
     private persister: Persister,
     private rootElement: HTMLElement,
     private actions: AuthActions,
-    private router: ReturnType<typeof createBrowserRouter>
+    private router: Router
   ) {}
 
   public render = () => {
@@ -63,7 +66,7 @@ class UserInterface {
           <ChakraWrapper>
             <ColorModeScript initialColorMode={themeConfig.initialColorMode} />
             <AuthActionsContext.Provider value={this.actions}>
-              <RouterProvider router={this.router} />
+              {this.router.getElement()}
             </AuthActionsContext.Provider>
             <this.toastContainer />
             <ReactQueryDevtools initialIsOpen={false} />
