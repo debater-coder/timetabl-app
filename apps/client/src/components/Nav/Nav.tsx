@@ -15,7 +15,8 @@ import RefetchingIndicator from "../RefetchingIndicator";
 import { NavButton } from "../NavButton";
 import React, { useState } from "react";
 import { CloseIcon } from "@chakra-ui/icons";
-import { authActions, useIsLoggedIn } from "../../stores/auth";
+import { useIsLoggedIn } from "../../stores/auth";
+import { useAuthActions } from "../../UserInterface";
 
 export const TimetablLogo = ({
   color,
@@ -165,7 +166,7 @@ export default function Nav() {
   const colorModeIcon = useColorModeValue(<FaMoon />, <FaSun />);
 
   const loggedIn = useIsLoggedIn();
-  const { logout } = authActions;
+  const { logout } = useAuthActions();
   const { pathname } = useLocation();
 
   return (

@@ -91,16 +91,16 @@ export const resetAuthStore = () => {
   useAuthStore.setState(initialState);
 };
 
-export class AuthActions<T extends UseBoundStore<StoreApi<AuthState>>> {
+export class AuthActions {
   constructor(
-    private authStore: T,
+    private authStore: UseBoundStore<StoreApi<AuthState>>,
     private queryClient: QueryClient,
     private oauthClient: OAuth2Client,
     private fetchWrapper: OAuth2Fetch,
     private toast: ReturnType<typeof createStandaloneToast>["toast"]
   ) {}
 
-  public async login() {
+  public login = async () => {
     const codeVerifier = await generateCodeVerifier();
     const pkceState = generateRandomString();
 
@@ -109,6 +109,7 @@ export class AuthActions<T extends UseBoundStore<StoreApi<AuthState>>> {
       pkceState,
       status: AuthStatus.PENDING,
     });
+
     if (import.meta.env.MODE == "test") return;
 
     window.location.assign(
@@ -119,9 +120,9 @@ export class AuthActions<T extends UseBoundStore<StoreApi<AuthState>>> {
         scope: ["all-ro"],
       })
     );
-  }
+  };
 
-  public async resolve() {
+  public resolve = async () => {
     // Get query string
     const query = Object.fromEntries(
       new URLSearchParams(window.location.search).entries()
@@ -200,9 +201,9 @@ export class AuthActions<T extends UseBoundStore<StoreApi<AuthState>>> {
         codeVerifier: "",
       });
     }
-  }
+  };
 
-  public logout() {
+  public logout = () => {
     // Clear localstorage
     localStorage.clear();
 
@@ -211,12 +212,12 @@ export class AuthActions<T extends UseBoundStore<StoreApi<AuthState>>> {
 
     // Set status to logged out and clear token
     this.authStore.setState({ status: AuthStatus.LOGGED_OUT, token: null });
-  }
+  };
 
-  public async fetchAuthenticated<TSbhsApiData>(
+  public fetchAuthenticated = async <TSbhsApiData>(
     endpoint: SbhsApiEndpoint,
     options?: Record<string, string>
-  ) {
+  ) => {
     let res: Response;
     try {
       res = await this.fetchWrapper.fetch(
@@ -247,7 +248,7 @@ export class AuthActions<T extends UseBoundStore<StoreApi<AuthState>>> {
     document.dispatchEvent(
       new CustomEvent("onlinechange", { detail: { online: true } })
     );
-    useAuthStore.setState({ status: AuthStatus.LOGGED_IN });
+    this.authStore.setState({ status: AuthStatus.LOGGED_IN });
     return json as TSbhsApiData;
-  }
+  };
 }

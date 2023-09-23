@@ -1,8 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
-import { authActions } from "../../stores/auth";
 import { daySchema, sbhsKey } from "./schemas";
+import { AuthActions } from "../../stores/auth";
+import { useAuthActions } from "../../UserInterface";
 
-const queryFn = async (from?: string, to?: string) => {
+const queryFn = async (
+  authActions: AuthActions,
+  from?: string,
+  to?: string
+) => {
   return daySchema.parse(
     await authActions.fetchAuthenticated(
       "calendar/days.json",
@@ -19,6 +24,8 @@ const queryFn = async (from?: string, to?: string) => {
 const getQueryKey = sbhsKey("calendar/days.json");
 
 export const useDay = (from?: string, to?: string) => {
+  const authActions = useAuthActions();
+
   return useQuery({
     queryKey: getQueryKey(
       from && to
@@ -28,7 +35,7 @@ export const useDay = (from?: string, to?: string) => {
           }
         : undefined
     ),
-    queryFn: () => queryFn(from, to),
+    queryFn: () => queryFn(authActions, from, to),
     enabled: !!from && !!to,
   });
 };

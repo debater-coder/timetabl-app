@@ -1,8 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
-import { authActions } from "../../stores/auth";
 import { noticesSchema, sbhsKey } from "./schemas";
+import { AuthActions } from "../../stores/auth";
+import { useAuthActions } from "../../UserInterface";
 
-const queryFn = async () => {
+const queryFn = async (authActions: AuthActions) => {
   return noticesSchema.parse(
     await authActions.fetchAuthenticated("dailynews/list.json")
   );
@@ -11,9 +12,11 @@ const queryFn = async () => {
 const getQueryKey = sbhsKey("dailynews/list.json");
 
 export const useDailyNotices = () => {
+  const authActions = useAuthActions();
+
   return useQuery({
     queryKey: getQueryKey(),
-    queryFn,
+    queryFn: () => queryFn(authActions),
   });
 };
 

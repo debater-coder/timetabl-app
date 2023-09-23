@@ -1,11 +1,11 @@
-import { Heading, Button, Flex, Stack, Text } from "@chakra-ui/react";
+import { Heading, Button, Stack, Text } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import { SignIn } from "phosphor-react";
-import { lazy, useState } from "react";
-import { authActions } from "../../../stores/auth";
+import { useState } from "react";
+import { useAuthActions } from "../../../UserInterface";
 
 export const Hero = () => {
-  const { login } = authActions;
+  const { login } = useAuthActions();
   const [loggingIn, setLoggingIn] = useState(false);
 
   const gradients = [

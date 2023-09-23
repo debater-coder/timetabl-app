@@ -14,12 +14,13 @@ import {
 } from "@chakra-ui/react";
 import Sidebar from "../../components/Sidebar";
 import { BottomNav } from "../../components/BottomNav";
-import { authActions, useIsLoggedIn } from "../../stores/auth";
+import { useIsLoggedIn } from "../../stores/auth";
+import { useAuthActions } from "../../UserInterface";
 
 export default function Main() {
   const navigate = useNavigate();
   const loggedIn = useIsLoggedIn();
-  const { logout } = authActions;
+  const { logout } = useAuthActions();
   const isLargerThanMd = useBreakpointValue({ base: false, md: true });
 
   useEffect(() => {
