@@ -10,14 +10,14 @@ import {
   Spacer,
   Button,
 } from "@chakra-ui/react";
-import { useTimetable } from "../../../services/sbhsApi/useTimetable";
+import { useTimetable } from "../../../consumers/sbhsApi/useTimetable";
 import { useState } from "react";
 import {
   TimetablePeriod,
   TimetableDay,
   TimetableSubject,
-} from "../../../services/sbhsApi/schemas";
-import { useDay } from "../../../services/sbhsApi/useDay";
+} from "../../../consumers/sbhsApi/schemas";
+import { useDay } from "../../../consumers/sbhsApi/useDay";
 import { DateTime } from "luxon";
 
 function Period(props: {

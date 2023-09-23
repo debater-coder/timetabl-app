@@ -10,8 +10,8 @@ import { ArrowLeft, ArrowRight } from "phosphor-react";
 import DatePicker from "../../../components/DatePicker";
 import { useRef } from "react";
 import { DateTime } from "luxon";
-import { useDtt } from "../../../services/sbhsApi/useDtt";
-import { useDay } from "../../../services/sbhsApi/useDay";
+import { useDtt } from "../../../consumers/sbhsApi/useDtt";
+import { useDay } from "../../../consumers/sbhsApi/useDay";
 
 export default function DaySelect({
   selected,

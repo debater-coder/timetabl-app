@@ -8,7 +8,7 @@ import {
   Spacer,
   Box,
 } from "@chakra-ui/react";
-import { useDtt } from "../../../services/sbhsApi/useDtt";
+import { useDtt } from "../../../consumers/sbhsApi/useDtt";
 import { DateTime } from "luxon";
 import { useEffect, useRef, useState } from "react";
 import { PictureInPicture } from "phosphor-react";

@@ -9,7 +9,7 @@ import {
   Skeleton,
 } from "@chakra-ui/react";
 import { DateTime } from "luxon";
-import { TimetablPeriod } from "../../../services/sbhsApi/schemas";
+import { TimetablPeriod } from "../../../consumers/sbhsApi/schemas";
 import { useSettingsStore } from "../../../stores/settings";
 
 export default function Period({

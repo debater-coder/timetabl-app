@@ -10,7 +10,7 @@ import { QueryClient } from "@tanstack/react-query";
 import config from "../../config";
 import HTTPError from "../../errors/HTTPError";
 import NetworkError from "../../errors/NetworkError";
-import { SbhsApiEndpoint } from "../../services/sbhsApi/schemas";
+import { SbhsApiEndpoint } from "../../consumers/sbhsApi/schemas";
 import { createStandaloneToast } from "@chakra-ui/react";
 
 // ========================
