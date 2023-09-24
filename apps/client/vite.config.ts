@@ -1,7 +1,7 @@
 import replace from "@rollup/plugin-replace";
+import react from "@vitejs/plugin-react";
 import { injectManifest } from "rollup-plugin-workbox";
 import { defineConfig } from "vitest/config";
-import react from "@vitejs/plugin-react";
 
 export default defineConfig({
   plugins: [

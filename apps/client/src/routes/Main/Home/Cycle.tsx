@@ -1,4 +1,11 @@
 import {
+  TimetablePeriod,
+  TimetableDay,
+  TimetableSubject,
+} from "../../../consumers/sbhsApi/schemas";
+import { useDay } from "../../../consumers/sbhsApi/useDay";
+import { useTimetable } from "../../../consumers/sbhsApi/useTimetable";
+import {
   Flex,
   useToken,
   useColorModeValue,
@@ -10,15 +17,8 @@ import {
   Spacer,
   Button,
 } from "@chakra-ui/react";
-import { useTimetable } from "../../../consumers/sbhsApi/useTimetable";
-import { useState } from "react";
-import {
-  TimetablePeriod,
-  TimetableDay,
-  TimetableSubject,
-} from "../../../consumers/sbhsApi/schemas";
-import { useDay } from "../../../consumers/sbhsApi/useDay";
 import { DateTime } from "luxon";
+import { useState } from "react";
 
 function Period(props: {
   period: TimetablePeriod;

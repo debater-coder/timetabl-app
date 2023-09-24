@@ -1,3 +1,5 @@
+import { version } from "../../../../package.json";
+import { ExternalLinkIcon } from "@chakra-ui/icons";
 import {
   Accordion,
   AccordionButton,
@@ -9,8 +11,6 @@ import {
   Link,
   Text,
 } from "@chakra-ui/react";
-import { ExternalLinkIcon } from "@chakra-ui/icons";
-import { version } from "../../../../package.json";
 
 export default function About() {
   return (

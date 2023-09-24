@@ -1,5 +1,5 @@
-import { Heading } from "@chakra-ui/react";
 import PdfViewer from "../../../components/PdfViewer";
+import { Heading } from "@chakra-ui/react";
 
 export default function Publications() {
   return (

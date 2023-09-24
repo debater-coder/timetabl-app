@@ -1,13 +1,13 @@
+import ErrorAlert from "../../../components/ErrorAlert";
+import Countdown from "./Countdown";
+import CycleTimetable from "./Cycle";
+import DayTimetable from "./DayTimetable";
+import QuickLinks from "./QuickLinks";
+import ViewTab from "./ViewTab";
 import { TabList, TabPanels, TabPanel, Tabs, Flex } from "@chakra-ui/react";
 import { CalendarBlank, SquaresFour } from "phosphor-react";
-import QuickLinks from "./QuickLinks";
-import Countdown from "./Countdown";
-import ViewTab from "./ViewTab";
-import DayTimetable from "./DayTimetable";
-import CycleTimetable from "./Cycle";
 import { useState } from "react";
 import { ErrorBoundary } from "react-error-boundary";
-import ErrorAlert from "../../../components/ErrorAlert";
 
 export default function Home() {
   const [countdown, setCountdown] = useState("00:00:00");

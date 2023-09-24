@@ -1,3 +1,5 @@
+import { pages } from "../../services/AppRouter/pages";
+import SidebarButton from "../Sidebar/SidebarButton";
 import {
   Drawer,
   DrawerCloseButton,
@@ -9,8 +11,6 @@ import {
   useColorModeValue,
   useDisclosure,
 } from "@chakra-ui/react";
-import SidebarButton from "../Sidebar/SidebarButton";
-import { pages } from "../../pages";
 import { DotsThree } from "phosphor-react";
 
 export const BottomNav = () => {

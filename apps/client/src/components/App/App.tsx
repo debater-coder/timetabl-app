@@ -1,8 +1,8 @@
+import { useSettingsStore } from "../../stores/settings";
 import Nav from "../Nav";
-import { Outlet } from "react-router-dom";
 import { Flex, useColorModeValue, useToken } from "@chakra-ui/react";
 import { Box } from "@chakra-ui/react";
-import { useSettingsStore } from "../../stores/settings";
+import { Outlet } from "react-router-dom";
 
 export default function App() {
   const bgImage = useSettingsStore((state) => state.bgImage);

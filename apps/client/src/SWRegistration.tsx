@@ -1,31 +1,23 @@
-import { Alert, AlertTitle, Button } from "@chakra-ui/react";
-import { Workbox } from "workbox-window";
+import { Notifier } from "./interfaces/Notifier";
 import { log } from "./utils/log";
-import { createStandaloneToast } from "@chakra-ui/react";
+import { Workbox } from "workbox-window";
 
 class SWRegistration {
-  constructor(
-    private toast: ReturnType<typeof createStandaloneToast>["toast"]
-  ) {}
+  constructor(private toast: Notifier) {}
 
   private promptForUpdate = (skipWaiting: () => void) => {
-    this.toast({
-      position: "bottom-left",
-      duration: 9000,
-      render: () => (
-        <Alert status="info" variant={"solid"} rounded="md">
-          <AlertTitle> A new version is available! </AlertTitle>
-          <Button
-            onClick={() => {
-              log("update accepted");
-              skipWaiting();
-            }}
-            colorScheme="green"
-          >
-            Reload
-          </Button>
-        </Alert>
-      ),
+    this.toast.notify({
+      title: "A new version is available!",
+      status: "info",
+      actions: [
+        {
+          label: "Update",
+          onClick: () => {
+            log("User accepted update prompt");
+            skipWaiting();
+          },
+        },
+      ],
     });
   };
 

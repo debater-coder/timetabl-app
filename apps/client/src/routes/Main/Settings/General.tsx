@@ -1,3 +1,5 @@
+import { useSettingsStore } from "../../../stores/settings";
+import { ColourScheme } from "../../../theme";
 import {
   FormControl,
   FormLabel,
@@ -21,8 +23,6 @@ import {
 } from "@chakra-ui/react";
 import { Check } from "phosphor-react";
 import { useState } from "react";
-import { useSettingsStore } from "../../../stores/settings";
-import { ColourScheme } from "../../../theme";
 
 const PrimaryColour = (props: UseRadioProps) => {
   const { state, getInputProps, getCheckboxProps } = useRadio(props);

@@ -1,6 +1,6 @@
+import { pages } from "../../services/AppRouter/pages";
 import SidebarButton from "./SidebarButton";
 import { Flex, useColorModeValue } from "@chakra-ui/react";
-import { pages } from "../../pages";
 
 export default function Sidebar() {
   return (

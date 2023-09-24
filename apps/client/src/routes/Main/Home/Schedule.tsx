@@ -1,9 +1,9 @@
-import { Flex } from "@chakra-ui/react";
-import Period from "./Period";
-import { DateTime } from "luxon";
-import { useDtt } from "../../../consumers/sbhsApi/useDtt";
-import { TimetablPeriod } from "../../../consumers/sbhsApi/schemas";
 import Empty from "../../../components/Empty";
+import { TimetablPeriod } from "../../../consumers/sbhsApi/schemas";
+import { useDtt } from "../../../consumers/sbhsApi/useDtt";
+import Period from "./Period";
+import { Flex } from "@chakra-ui/react";
+import { DateTime } from "luxon";
 import { GiFrenchFries } from "react-icons/gi";
 
 function generateLoadingPeriods() {

@@ -1,8 +1,8 @@
+import { log } from "../../utils/log";
 import { Flex, Spinner, Icon, Tooltip } from "@chakra-ui/react";
 import { useIsFetching } from "@tanstack/react-query";
 import { CloudCheck, WifiX } from "phosphor-react";
 import { useState } from "react";
-import { log } from "../../utils/log";
 
 export default function RefetchingIndicator() {
   const isFetching = useIsFetching();

@@ -1,5 +1,8 @@
-import { StoreApi, UseBoundStore, create } from "zustand";
-import { persist, devtools, subscribeWithSelector } from "zustand/middleware";
+import config from "../../config";
+import { SbhsApiEndpoint } from "../../consumers/sbhsApi/schemas";
+import HTTPError from "../../errors/HTTPError";
+import NetworkError from "../../errors/NetworkError";
+import { Notifier } from "../../interfaces/Notifier";
 import {
   OAuth2Client,
   OAuth2Fetch,
@@ -7,11 +10,8 @@ import {
   generateCodeVerifier,
 } from "@badgateway/oauth2-client";
 import { QueryClient } from "@tanstack/react-query";
-import config from "../../config";
-import HTTPError from "../../errors/HTTPError";
-import NetworkError from "../../errors/NetworkError";
-import { SbhsApiEndpoint } from "../../consumers/sbhsApi/schemas";
-import { createStandaloneToast } from "@chakra-ui/react";
+import { StoreApi, UseBoundStore, create } from "zustand";
+import { persist, devtools, subscribeWithSelector } from "zustand/middleware";
 
 // ========================
 // Browser Crypto Functions
@@ -97,7 +97,7 @@ export class AuthActions {
     private queryClient: QueryClient,
     private oauthClient: OAuth2Client,
     private fetchWrapper: OAuth2Fetch,
-    private toast: ReturnType<typeof createStandaloneToast>["toast"]
+    private toast: Notifier
   ) {}
 
   public login = async () => {
@@ -130,9 +130,9 @@ export class AuthActions {
 
     // Error check
     if (query.error) {
-      this.toast({
+      this.toast.notify({
         title: "Error",
-        description: query.error_description,
+        message: query.error_description,
         status: "error",
       });
       this.authStore.setState({
@@ -170,9 +170,9 @@ export class AuthActions {
           );
       } catch (error) {
         if (error instanceof Error) {
-          this.toast({
+          this.toast.notify({
             title: "Error",
-            description: error?.message,
+            message: error?.message,
             status: "error",
           });
         }

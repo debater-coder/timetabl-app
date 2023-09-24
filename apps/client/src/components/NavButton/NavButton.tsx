@@ -1,7 +1,7 @@
+import { useAuthActions } from "../../services/UserInterface";
+import { AuthStatus, useAuthStatus } from "../../stores/auth";
 import { Button, Icon, Tooltip } from "@chakra-ui/react";
 import { useRef, useState } from "react";
-import { AuthStatus, useAuthStatus } from "../../stores/auth";
-import { useAuthActions } from "../../UserInterface";
 
 const InstallButton = () => {
   const deferredPrompt = useRef<BeforeInstallPromptEvent | null>(null);

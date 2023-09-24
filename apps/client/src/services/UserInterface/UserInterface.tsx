@@ -1,19 +1,17 @@
+import { Notifier } from "../../interfaces/Notifier";
+import { Router } from "../../interfaces/Router";
+import { AuthActions } from "../../stores/auth";
+import { useSettingsStore } from "../../stores/settings";
+import themeGen, { themeConfig } from "../../theme";
+import { ChakraProvider, ColorModeScript } from "@chakra-ui/react";
 import { QueryClient } from "@tanstack/react-query";
-import { useSettingsStore } from "./stores/settings";
-import themeGen, { themeConfig } from "./theme";
-import ReactDOM from "react-dom/client";
-import { StrictMode, createContext, useContext } from "react";
-import {
-  ChakraProvider,
-  ColorModeScript,
-  createStandaloneToast,
-} from "@chakra-ui/react";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import {
   PersistQueryClientProvider,
   Persister,
 } from "@tanstack/react-query-persist-client";
-import { AuthActions } from "./stores/auth";
+import { StrictMode, createContext, useContext } from "react";
+import ReactDOM from "react-dom/client";
 
 const AuthActionsContext = createContext<AuthActions | null>(null);
 
@@ -34,16 +32,10 @@ const ChakraWrapper = ({ children }: { children: React.ReactNode }) => {
   return <ChakraProvider theme={theme}>{children}</ChakraProvider>;
 };
 
-export interface Router {
-  getElement: () => JSX.Element;
-}
-
 class UserInterface {
   constructor(
     private queryClient: QueryClient,
-    private toastContainer: ReturnType<
-      typeof createStandaloneToast
-    >["ToastContainer"],
+    private notifier: Notifier,
     private persister: Persister,
     private rootElement: HTMLElement,
     private actions: AuthActions,
@@ -51,6 +43,8 @@ class UserInterface {
   ) {}
 
   public render = () => {
+    const NotifyContainer = this.notifier.getContainer();
+
     ReactDOM.createRoot(this.rootElement).render(
       <StrictMode>
         <PersistQueryClientProvider
@@ -68,7 +62,7 @@ class UserInterface {
             <AuthActionsContext.Provider value={this.actions}>
               {this.router.getElement()}
             </AuthActionsContext.Provider>
-            <this.toastContainer />
+            <NotifyContainer />
             <ReactQueryDevtools initialIsOpen={false} />
           </ChakraWrapper>
         </PersistQueryClientProvider>

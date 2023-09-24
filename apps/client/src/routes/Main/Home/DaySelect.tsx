@@ -1,3 +1,6 @@
+import DatePicker from "../../../components/DatePicker";
+import { useDay } from "../../../consumers/sbhsApi/useDay";
+import { useDtt } from "../../../consumers/sbhsApi/useDtt";
 import {
   Popover,
   Flex,
@@ -6,12 +9,9 @@ import {
   Button,
   PopoverContent,
 } from "@chakra-ui/react";
-import { ArrowLeft, ArrowRight } from "phosphor-react";
-import DatePicker from "../../../components/DatePicker";
-import { useRef } from "react";
 import { DateTime } from "luxon";
-import { useDtt } from "../../../consumers/sbhsApi/useDtt";
-import { useDay } from "../../../consumers/sbhsApi/useDay";
+import { ArrowLeft, ArrowRight } from "phosphor-react";
+import { useRef } from "react";
 
 export default function DaySelect({
   selected,

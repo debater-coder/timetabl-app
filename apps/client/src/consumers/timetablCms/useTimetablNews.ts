@@ -1,7 +1,7 @@
-import { useQuery } from "@tanstack/react-query";
 import HTTPError from "../../errors/HTTPError";
 import NetworkError from "../../errors/NetworkError";
 import { timetablNewsSchema } from "./schemas";
+import { useQuery } from "@tanstack/react-query";
 
 export const fetchTimetablNews = async () => {
   let res;

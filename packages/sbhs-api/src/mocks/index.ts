@@ -1,5 +1,5 @@
-import { setupServer as mswSetupServer } from "msw/node";
 import { rest } from "msw";
+import { setupServer as mswSetupServer } from "msw/node";
 
 let refresh = 0;
 

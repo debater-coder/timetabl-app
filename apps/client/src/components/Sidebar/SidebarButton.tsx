@@ -1,8 +1,8 @@
 import { Box, Flex, Text, useColorModeValue, useToken } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import { IconWeight } from "phosphor-react";
-import { Link as RouterLink, useMatch } from "react-router-dom";
 import React from "react";
+import { Link as RouterLink, useMatch } from "react-router-dom";
 
 export default React.memo(function SidebarButton(props: {
   name: string;

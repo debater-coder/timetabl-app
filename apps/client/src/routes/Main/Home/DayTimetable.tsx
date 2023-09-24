@@ -1,9 +1,9 @@
-import { Flex } from "@chakra-ui/react";
+import { useDtt } from "../../../consumers/sbhsApi/useDtt";
 import DaySelect from "./DaySelect";
 import Schedule from "./Schedule";
-import { useEffect, useState } from "react";
-import { useDtt } from "../../../consumers/sbhsApi/useDtt";
+import { Flex } from "@chakra-ui/react";
 import { DateTime } from "luxon";
+import { useEffect, useState } from "react";
 
 export default function DayTimetable() {
   const [selectedDate, setSelectedDate] = useState<Date | undefined>();

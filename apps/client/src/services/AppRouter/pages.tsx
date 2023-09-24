@@ -1,3 +1,4 @@
+import SpinnerSuspense from "../../components/SpinnerSuspense";
 import {
   Barcode,
   BookBookmark,
@@ -9,7 +10,6 @@ import {
   Megaphone,
 } from "phosphor-react";
 import React from "react";
-import SpinnerSuspense from "./components/SpinnerSuspense";
 
 const ComingSoon = () => <>Coming soon...</>;
 
@@ -45,7 +45,7 @@ export const pages: { pinned: TimetablPage[]; unpinned: TimetablPage[] } = {
       icon: House,
       mirrored: false,
       element: (
-        <Page component={React.lazy(() => import("./routes/Main/Home/"))} />
+        <Page component={React.lazy(() => import("../../routes/Main/Home"))} />
       ),
     },
     {
@@ -54,7 +54,9 @@ export const pages: { pinned: TimetablPage[]; unpinned: TimetablPage[] } = {
       icon: Barcode,
       mirrored: false,
       element: (
-        <Page component={React.lazy(() => import("./routes/Main/Barcodes/"))} />
+        <Page
+          component={React.lazy(() => import("../../routes/Main/Barcodes"))}
+        />
       ),
     },
     {
@@ -64,7 +66,9 @@ export const pages: { pinned: TimetablPage[]; unpinned: TimetablPage[] } = {
       mirrored: true,
       element: (
         <Page
-          component={React.lazy(() => import("./routes/Main/Announcements/"))}
+          component={React.lazy(
+            () => import("../../routes/Main/Announcements")
+          )}
         />
       ),
     },
@@ -91,7 +95,7 @@ export const pages: { pinned: TimetablPage[]; unpinned: TimetablPage[] } = {
       mirrored: false,
       element: (
         <Page
-          component={React.lazy(() => import("./routes/Main/Publications/"))}
+          component={React.lazy(() => import("../../routes/Main/Publications"))}
         />
       ),
     },
@@ -101,7 +105,9 @@ export const pages: { pinned: TimetablPage[]; unpinned: TimetablPage[] } = {
       icon: ChatsTeardrop,
       mirrored: false,
       element: (
-        <Page component={React.lazy(() => import("./routes/Main/Feedback/"))} />
+        <Page
+          component={React.lazy(() => import("../../routes/Main/Feedback"))}
+        />
       ),
     },
   ],

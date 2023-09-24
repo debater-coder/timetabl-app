@@ -1,8 +1,8 @@
+import { useAuthActions } from "../../../services/UserInterface";
 import { Heading, Button, Stack, Text } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import { SignIn } from "phosphor-react";
 import { useState } from "react";
-import { useAuthActions } from "../../../UserInterface";
 
 export const Hero = () => {
   const { login } = useAuthActions();

@@ -1,3 +1,15 @@
+import App from "../../components/App/App";
+import Empty from "../../components/Empty";
+import ErrorAlert from "../../components/ErrorAlert";
+import SpinnerSuspense from "../../components/SpinnerSuspense";
+import { Router } from "../../interfaces/Router";
+import Settings from "../../routes/Main/Settings";
+import About from "../../routes/Main/Settings/About";
+import Developers from "../../routes/Main/Settings/Developers";
+import General from "../../routes/Main/Settings/General";
+import { pages } from "./pages";
+import { SmileyXEyes } from "phosphor-react";
+import { lazy } from "react";
 import {
   Route,
   Navigate,
@@ -5,21 +17,9 @@ import {
   createRoutesFromElements,
   RouterProvider,
 } from "react-router-dom";
-import App from "./components/App/App";
-import Settings from "./routes/Main/Settings";
-import General from "./routes/Main/Settings/General";
-import Developers from "./routes/Main/Settings/Developers";
-import About from "./routes/Main/Settings/About";
-import Empty from "./components/Empty";
-import { SmileyXEyes } from "phosphor-react";
-import { lazy } from "react";
-import { pages } from "./pages";
-import ErrorAlert from "./components/ErrorAlert";
-import SpinnerSuspense from "./components/SpinnerSuspense";
-import { Router } from "./UserInterface";
 
-const Main = lazy(() => import("./routes/Main"));
-const Landing = lazy(() => import("./routes/Landing"));
+const Main = lazy(() => import("../../routes/Main"));
+const Landing = lazy(() => import("../../routes/Landing"));
 
 const PageNotFound = () => (
   <Empty

@@ -1,3 +1,8 @@
+import Empty from "../../../components/Empty";
+import { NoticeYear, TimetablNotice } from "../../../consumers/sbhsApi/schemas";
+// import { useTimetablNews } from "../../../services/timetablCms/useTimetablNews";
+import { useDailyNotices } from "../../../consumers/sbhsApi/useDailyNotices";
+import { Search2Icon } from "@chakra-ui/icons";
 import {
   Avatar,
   Button,
@@ -24,15 +29,10 @@ import {
 import { Prose } from "@nikolovlazar/chakra-ui-prose";
 import DOMPurify from "dompurify";
 import linkifyHtml from "linkify-html";
-import { useState } from "react";
 import { DateTime } from "luxon";
-import { Search2Icon } from "@chakra-ui/icons";
 import { micromark } from "micromark";
-import { NoticeYear, TimetablNotice } from "../../../consumers/sbhsApi/schemas";
-// import { useTimetablNews } from "../../../services/timetablCms/useTimetablNews";
-import { useDailyNotices } from "../../../consumers/sbhsApi/useDailyNotices";
-import Empty from "../../../components/Empty";
 import { MegaphoneSimple } from "phosphor-react";
+import { useState } from "react";
 import { create } from "zustand";
 import { devtools, persist } from "zustand/middleware";
 

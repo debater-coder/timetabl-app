@@ -1,3 +1,4 @@
+import { useDtt } from "../../../consumers/sbhsApi/useDtt";
 import {
   Flex,
   useToken,
@@ -8,10 +9,9 @@ import {
   Spacer,
   Box,
 } from "@chakra-ui/react";
-import { useDtt } from "../../../consumers/sbhsApi/useDtt";
 import { DateTime } from "luxon";
-import { useEffect, useRef, useState } from "react";
 import { PictureInPicture } from "phosphor-react";
+import { useEffect, useRef, useState } from "react";
 
 declare const documentPictureInPicture: any;
 

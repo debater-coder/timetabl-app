@@ -1,6 +1,6 @@
-import { devtools, persist } from "zustand/middleware";
-import { create } from "zustand";
 import { ColourScheme } from "../../theme";
+import { create } from "zustand";
+import { devtools, persist } from "zustand/middleware";
 
 export type Actions = {
   setPrimary: (primary: ColourScheme) => void;

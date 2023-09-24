@@ -1,3 +1,8 @@
+import { useAuthActions } from "../../services/UserInterface";
+import { useIsLoggedIn } from "../../stores/auth";
+import { NavButton } from "../NavButton";
+import RefetchingIndicator from "../RefetchingIndicator";
+import { CloseIcon } from "@chakra-ui/icons";
 import {
   Flex,
   Heading,
@@ -9,14 +14,9 @@ import {
   Icon,
   useToken,
 } from "@chakra-ui/react";
+import React, { useState } from "react";
 import { FaGithub, FaMoon, FaSun, MdLogout, MdSettings } from "react-icons/all";
 import { Link as RouterLink, useLocation } from "react-router-dom";
-import RefetchingIndicator from "../RefetchingIndicator";
-import { NavButton } from "../NavButton";
-import React, { useState } from "react";
-import { CloseIcon } from "@chakra-ui/icons";
-import { useIsLoggedIn } from "../../stores/auth";
-import { useAuthActions } from "../../UserInterface";
 
 export const TimetablLogo = ({
   color,

@@ -1,3 +1,4 @@
+import { TimetablLogo } from "../../components/Nav/Nav";
 import {
   Text,
   Stack,
@@ -7,9 +8,8 @@ import {
   Link,
   Box,
 } from "@chakra-ui/react";
-import { TimetablLogo } from "../../components/Nav/Nav";
-import { FaGithub } from "react-icons/fa";
 import { Envelope } from "phosphor-react";
+import { FaGithub } from "react-icons/fa";
 
 export const Footer = () => {
   return (

@@ -1,3 +1,7 @@
+import { useIsLoggedIn } from "../../stores/auth";
+import { Features } from "./Features";
+import { Footer } from "./Footer";
+import { Hero } from "./Hero";
 import {
   Alert,
   AlertDescription,
@@ -9,11 +13,7 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import { useEffect } from "react";
-import { useIsLoggedIn } from "../../stores/auth";
 import { useNavigate } from "react-router-dom";
-import { Hero } from "./Hero";
-import { Features } from "./Features";
-import { Footer } from "./Footer";
 
 export default function Landing() {
   const navigate = useNavigate();

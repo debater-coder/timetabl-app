@@ -4,8 +4,8 @@ import {
   theme,
   withDefaultColorScheme,
 } from "@chakra-ui/react";
-import { withProse } from "@nikolovlazar/chakra-ui-prose";
 import { mode } from "@chakra-ui/theme-tools";
+import { withProse } from "@nikolovlazar/chakra-ui-prose";
 
 export const themeConfig = {
   initialColorMode: "system",

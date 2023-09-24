@@ -1,5 +1,7 @@
-import { useEffect } from "react";
-import { Outlet, useNavigate } from "react-router-dom";
+import { BottomNav } from "../../components/BottomNav";
+import Sidebar from "../../components/Sidebar";
+import { useAuthActions } from "../../services/UserInterface";
+import { useIsLoggedIn } from "../../stores/auth";
 import {
   Flex,
   useBreakpointValue,
@@ -12,10 +14,8 @@ import {
   Button,
   Heading,
 } from "@chakra-ui/react";
-import Sidebar from "../../components/Sidebar";
-import { BottomNav } from "../../components/BottomNav";
-import { useIsLoggedIn } from "../../stores/auth";
-import { useAuthActions } from "../../UserInterface";
+import { useEffect } from "react";
+import { Outlet, useNavigate } from "react-router-dom";
 
 export default function Main() {
   const navigate = useNavigate();

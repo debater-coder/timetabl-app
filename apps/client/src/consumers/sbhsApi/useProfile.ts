@@ -1,7 +1,7 @@
-import { useQuery } from "@tanstack/react-query";
-import { profileSchema, sbhsKey } from "./schemas";
+import { useAuthActions } from "../../services/UserInterface";
 import { AuthActions } from "../../stores/auth";
-import { useAuthActions } from "../../UserInterface";
+import { profileSchema, sbhsKey } from "./schemas";
+import { useQuery } from "@tanstack/react-query";
 
 const queryFn = async (authActions: AuthActions) =>
   profileSchema.parse(

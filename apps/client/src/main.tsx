@@ -1,20 +1,20 @@
-import { createStandaloneToast } from "@chakra-ui/react";
-import SWRegistration from "./SWRegistration";
-import reportWebVitals from "./reportWebVitals";
-import { sendToVercelAnalytics } from "./vitals";
-import { log } from "./utils/log";
-import "@fontsource/poppins";
-import { AuthActions, AuthStatus, useAuthStore } from "./stores/auth";
-import { H } from "highlight.run";
 import { version } from "../package.json";
-import { OAuth2Client, OAuth2Fetch } from "@badgateway/oauth2-client";
+import SWRegistration from "./SWRegistration";
 import config from "./config";
-import { QueryCache, QueryClient } from "@tanstack/react-query";
-import { createSyncStoragePersister } from "@tanstack/query-sync-storage-persister";
 import NetworkError from "./errors/NetworkError";
 import { UnauthorizedError } from "./errors/UnauthorisedError";
-import UserInterface from "./UserInterface";
-import AppRouter from "./AppRouter";
+import reportWebVitals from "./reportWebVitals";
+import AppRouter from "./services/AppRouter/";
+import Toast from "./services/Toast/";
+import UserInterface from "./services/UserInterface";
+import { AuthActions, AuthStatus, useAuthStore } from "./stores/auth";
+import { log } from "./utils/log";
+import { sendToVercelAnalytics } from "./vitals";
+import { OAuth2Client, OAuth2Fetch } from "@badgateway/oauth2-client";
+import "@fontsource/poppins";
+import { createSyncStoragePersister } from "@tanstack/query-sync-storage-persister";
+import { QueryCache, QueryClient } from "@tanstack/react-query";
+import { H } from "highlight.run";
 
 // Redirect to new domain if using old domain
 if (window.location.host === "timetabl.vercel.app") {
@@ -31,11 +31,11 @@ if (localStorage.getItem("consentedToWelcomeMessage")) {
   });
 }
 
-// ===========
-// RENDER ROOT
-// ===========
+// ================
+// COMPOSITION ROOT
+// ================
 
-const { ToastContainer, toast } = createStandaloneToast();
+const toast = new Toast();
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -57,12 +57,11 @@ const queryClient = new QueryClient({
         !(error instanceof UnauthorizedError) &&
         !(error instanceof NetworkError)
       ) {
-        toast({
+        toast.notify({
           title:
             "Something went wrong, try logging in and out if the issue persists.",
-          description: error.message,
+          message: error.message,
           status: "error",
-          isClosable: true,
         });
       }
     },
@@ -115,7 +114,7 @@ const router = new AppRouter();
 
 const userInterface = new UserInterface(
   queryClient,
-  ToastContainer,
+  toast,
   persister,
   document.getElementById("root") as HTMLElement,
   authActions,
