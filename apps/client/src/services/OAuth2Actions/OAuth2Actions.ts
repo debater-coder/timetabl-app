@@ -12,7 +12,6 @@ import {
   OAuth2Token,
 } from "@badgateway/oauth2-client";
 import { QueryClient } from "@tanstack/react-query";
-import { UseBoundStore, StoreApi } from "zustand";
 
 const generateRandomString = () => {
   const array = new Uint32Array(28);
@@ -22,9 +21,14 @@ const generateRandomString = () => {
   );
 };
 
+export interface AuthStore {
+  setState: (state: Partial<AuthState>) => void;
+  getState: () => AuthState;
+}
+
 class OAuth2Actions implements AuthActions {
   constructor(
-    private authStore: UseBoundStore<StoreApi<AuthState>>,
+    private authStore: AuthStore,
     private queryClient: QueryClient,
     private oauthClient: OAuth2Client,
     private fetchWrapper: FetchWrapper,

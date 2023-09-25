@@ -155,18 +155,21 @@ export type TimetablDtt = {
 export const dttSchema = z
   .object({
     bells: z.array(bellSchema).nullable(),
-    timetable: z.object({
-      subjects: z.union([
-        z.record(subjectSchema),
-        z.array(z.undefined()).max(0),
-      ]),
-      timetable: z.object({
-        periods: z.union([
-          z.record(periodSchema),
+    timetable: z.union([
+      z.object({
+        subjects: z.union([
+          z.record(subjectSchema),
           z.array(z.undefined()).max(0),
         ]),
+        timetable: z.object({
+          periods: z.union([
+            z.record(periodSchema),
+            z.array(z.undefined()).max(0),
+          ]),
+        }),
       }),
-    }),
+      z.boolean(),
+    ]),
     date: z.string(),
     classVariations: z.union([
       z.record(
