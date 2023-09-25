@@ -1,5 +1,5 @@
-import { Notifier } from "./interfaces/Notifier";
-import { log } from "./utils/log";
+import { Notifier } from "../../interfaces/Notifier";
+import { log } from "../../utils/log";
 import { Workbox } from "workbox-window";
 
 class SWRegistration {

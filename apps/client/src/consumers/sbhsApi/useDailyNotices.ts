@@ -1,9 +1,9 @@
+import OAuth2Actions from "../../services/OAuth2Actions";
 import { useAuthActions } from "../../services/UserInterface";
-import { AuthActions } from "../../stores/auth";
 import { noticesSchema, sbhsKey } from "./schemas";
 import { useQuery } from "@tanstack/react-query";
 
-const queryFn = async (authActions: AuthActions) => {
+const queryFn = async (authActions: OAuth2Actions) => {
   return noticesSchema.parse(
     await authActions.fetchAuthenticated("dailynews/list.json")
   );

@@ -1,13 +1,14 @@
 import { version } from "../package.json";
-import SWRegistration from "./SWRegistration";
 import config from "./config";
 import NetworkError from "./errors/NetworkError";
 import { UnauthorizedError } from "./errors/UnauthorisedError";
 import reportWebVitals from "./reportWebVitals";
 import AppRouter from "./services/AppRouter/";
+import OAuth2Actions from "./services/OAuth2Actions";
+import SWRegistration from "./services/SWRegistration";
 import Toast from "./services/Toast/";
 import UserInterface from "./services/UserInterface";
-import { AuthActions, AuthStatus, useAuthStore } from "./stores/auth";
+import { AuthStatus, useAuthStore } from "./stores/auth";
 import { log } from "./utils/log";
 import { sendToVercelAnalytics } from "./vitals";
 import { OAuth2Client, OAuth2Fetch } from "@badgateway/oauth2-client";
@@ -100,7 +101,7 @@ const fetchWrapper = new OAuth2Fetch({
   },
 });
 
-const authActions = new AuthActions(
+const authActions = new OAuth2Actions(
   useAuthStore,
   queryClient,
   oauthClient,

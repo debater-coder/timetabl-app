@@ -1,8 +1,8 @@
 import { Notifier } from "../../interfaces/Notifier";
 import { Router } from "../../interfaces/Router";
-import { AuthActions } from "../../stores/auth";
 import { useSettingsStore } from "../../stores/settings";
 import themeGen, { themeConfig } from "../../theme";
+import OAuth2Actions from "../OAuth2Actions";
 import { ChakraProvider, ColorModeScript } from "@chakra-ui/react";
 import { QueryClient } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
@@ -13,7 +13,7 @@ import {
 import { StrictMode, createContext, useContext } from "react";
 import ReactDOM from "react-dom/client";
 
-const AuthActionsContext = createContext<AuthActions | null>(null);
+const AuthActionsContext = createContext<OAuth2Actions | null>(null);
 
 export const useAuthActions = () => {
   const actions = useContext(AuthActionsContext);
@@ -38,7 +38,7 @@ class UserInterface {
     private notifier: Notifier,
     private persister: Persister,
     private rootElement: HTMLElement,
-    private actions: AuthActions,
+    private actions: OAuth2Actions,
     private router: Router
   ) {}
 
