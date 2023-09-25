@@ -1,6 +1,5 @@
 import Empty from "../../../components/Empty";
 import { NoticeYear, TimetablNotice } from "../../../consumers/sbhsApi/schemas";
-// import { useTimetablNews } from "../../../services/timetablCms/useTimetablNews";
 import { useDailyNotices } from "../../../consumers/sbhsApi/useDailyNotices";
 import { Search2Icon } from "@chakra-ui/icons";
 import {
@@ -10,11 +9,6 @@ import {
   Flex,
   Heading,
   Skeleton,
-  Tab,
-  TabList,
-  TabPanel,
-  TabPanels,
-  Tabs,
   useDisclosure,
   Text,
   Input,
@@ -25,12 +19,15 @@ import {
   FormLabel,
   Highlight,
   FormControl,
+  Alert,
+  AlertDescription,
+  AlertTitle,
+  Box,
 } from "@chakra-ui/react";
 import { Prose } from "@nikolovlazar/chakra-ui-prose";
 import DOMPurify from "dompurify";
 import linkifyHtml from "linkify-html";
 import { DateTime } from "luxon";
-import { micromark } from "micromark";
 import { MegaphoneSimple } from "phosphor-react";
 import { useState } from "react";
 import { create } from "zustand";
@@ -74,14 +71,12 @@ function Announcement({
   authorName,
   date,
   query,
-  markdown,
 }: {
   title: string;
   content: string;
   authorName?: string;
   date?: string;
   query: string;
-  markdown?: boolean;
 }) {
   const { isOpen, onToggle } = useDisclosure();
   const [showShowMoreBtn, setShowShowMoreBtn] = useState(true);
@@ -100,15 +95,12 @@ function Announcement({
         <Prose>
           <div
             ref={(content) =>
-              setShowShowMoreBtn((content?.offsetHeight ?? 0 / 24) > 1)
+              setShowShowMoreBtn((content?.offsetHeight ?? 0) / 24 > 1)
             }
             dangerouslySetInnerHTML={{
-              __html: linkifyHtml(
-                DOMPurify.sanitize(markdown ? micromark(content) : content),
-                {
-                  defaultProtocol: "https",
-                }
-              ),
+              __html: linkifyHtml(DOMPurify.sanitize(content), {
+                defaultProtocol: "https",
+              }),
             }}
           />
         </Prose>
@@ -138,44 +130,22 @@ function Announcement({
 function DailyNotices({
   filter,
   query,
-  tab,
   dailyNoticesLoading,
-  timetablNewsLoading,
   dailyNotices,
-  timetablNews,
 }: {
   filter: NoticeYear;
   query: string;
-  tab: number;
-  timetablNewsLoading: boolean;
   dailyNoticesLoading: boolean;
   dailyNotices?: TimetablNotice[];
-  timetablNews?: TimetablNotice[];
 }) {
-  const notices = filterNotices(
-    tab ? timetablNews : dailyNotices,
-    filter,
-    query
-  );
+  const notices = filterNotices(dailyNotices, filter, query);
 
   return (
-    <Skeleton
-      isLoaded={tab ? !timetablNewsLoading : !dailyNoticesLoading}
-      rounded={5}
-      minH={10}
-      minW={40}
-    >
+    <Skeleton isLoaded={!dailyNoticesLoading} rounded={5} minH={10} minW={40}>
       <Flex direction={"column"} align="center" gap={8}>
         {notices?.length ? (
           notices?.map((notice, index) => {
-            return (
-              <Announcement
-                key={index}
-                query={query}
-                markdown={!!tab}
-                {...notice}
-              />
-            );
+            return <Announcement key={index} query={query} {...notice} />;
           })
         ) : (
           <Empty
@@ -194,30 +164,39 @@ function DailyNotices({
 export default function Announcements() {
   const { year, setYear } = useAnnouncementStore();
 
-  const timetablNews = undefined;
-  const timetablNewsLoaded = false;
-
   const { data: dailyNotices, isLoading: dailyNoticesLoading } =
     useDailyNotices();
 
-  const [tabIndex, setTabIndex] = useState(0);
-  const handleTabsChange = (index: number) => {
-    setTabIndex(index);
-  };
-
   const [query, setQuery] = useState("");
+  const [isDownloading, setIsDownloading] = useState(false);
 
   return (
-    <Flex w="full" direction={"column"}>
-      <Flex align="left" w="full" zIndex={1} p={"5px"}>
+    <Flex w="full" direction={"column"} px={"30px"} gap={"20px"}>
+      <Alert status="info" rounded={"md"}>
+        <Box>
+          <AlertTitle mb={2} fontFamily={"Poppins, sans-serif"}>
+            Read the latest edition of the High Notes
+          </AlertTitle>
+          <AlertDescription>
+            <Button
+              as="a"
+              href="https://sbhs.co/hnpdf"
+              onClick={() => setIsDownloading(true)}
+              isLoading={isDownloading}
+              loadingText="Downloading PDF..."
+            >
+              Download High Notes PDF
+            </Button>
+          </AlertDescription>
+        </Box>
+      </Alert>
+      <Flex align="" w="full" zIndex={1}>
         <InputGroup maxW="fit-content">
           <InputLeftElement pointerEvents="none">
             <Search2Icon color="gray.300" />
           </InputLeftElement>
           <Input
-            placeholder={`Search ${
-              tabIndex ? "Timetabl News" : "Daily Notices"
-            }`}
+            placeholder={"Search Daily Notices"}
             value={query}
             variant="filled"
             onChange={(event) => setQuery(event.target.value)}
@@ -247,32 +226,12 @@ export default function Announcements() {
           </Select>
         </FormControl>
       </Flex>
-      <Tabs
-        variant="solid-rounded"
-        mt={"10px"}
-        index={tabIndex}
-        onChange={handleTabsChange}
-      >
-        <TabList>
-          <Tab>Daily Notices</Tab>
-          <Tab>Timetabl News</Tab>
-        </TabList>
-        <TabPanels>
-          {[0, 1].map((tab) => (
-            <TabPanel key={tab}>
-              <DailyNotices
-                filter={year}
-                query={query}
-                tab={tab}
-                timetablNews={timetablNews}
-                dailyNotices={dailyNotices}
-                timetablNewsLoading={timetablNewsLoaded}
-                dailyNoticesLoading={dailyNoticesLoading}
-              />
-            </TabPanel>
-          ))}
-        </TabPanels>
-      </Tabs>
+      <DailyNotices
+        filter={year}
+        query={query}
+        dailyNotices={dailyNotices}
+        dailyNoticesLoading={dailyNoticesLoading}
+      />
     </Flex>
   );
 }

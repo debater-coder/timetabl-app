@@ -1,7 +1,6 @@
 import SpinnerSuspense from "../../components/SpinnerSuspense";
 import {
   Barcode,
-  BookBookmark,
   ChatsTeardrop,
   House,
   IconWeight,
@@ -88,17 +87,7 @@ export const pages: { pinned: TimetablPage[]; unpinned: TimetablPage[] } = {
       mirrored: false,
       element: <ComingSoon />,
     },
-    {
-      path: "publications",
-      name: "Publications",
-      icon: BookBookmark,
-      mirrored: false,
-      element: (
-        <Page
-          component={React.lazy(() => import("../../routes/Main/Publications"))}
-        />
-      ),
-    },
+
     {
       path: "feedback",
       name: "Feedback",
