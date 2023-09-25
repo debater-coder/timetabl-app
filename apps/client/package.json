@@ -52,7 +52,6 @@
     "react-icons": "^4.4.0",
     "react-router-dom": "^6.5.0",
     "rollup-plugin-workbox": "^6.2.0",
-    "sbhs-api": "workspace:*",
     "typescript": "^5.1.6",
     "web-vitals": "^3.0.1",
     "workbox-precaching": "^6.5.3",
