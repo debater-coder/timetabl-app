@@ -147,6 +147,7 @@ log(
   "font-size: 1rem"
 );
 
+// eslint-disable-next-line no-console
 console.log(
   "SELF-XSS WARNING - PLEASE DON'T DO PASTE ANYTHING INTO HERE FROM PLACES YOU DON'T TRUST!!!"
 );

@@ -72,10 +72,6 @@ export default function DaySelect({
                   size="sm"
                   variant="outline"
                   onClick={() => {
-                    console.log(
-                      DateTime.fromISO(dtt?.date),
-                      DateTime.fromJSDate(selected)
-                    );
                     if (dtt) {
                       setSelected(DateTime.fromISO(dtt.date).toJSDate());
                     }
