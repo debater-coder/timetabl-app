@@ -204,6 +204,10 @@ export const dttSchema = z
         .flatMap((bell, index, bells) => {
           const timetable = data.timetable;
 
+          if (typeof timetable === "boolean") {
+            return [];
+          }
+
           const subjects = timetable.subjects;
           const period = !Array.isArray(timetable.timetable.periods)
             ? timetable.timetable.periods?.[bell?.bell]
