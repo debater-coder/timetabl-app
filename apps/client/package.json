@@ -57,7 +57,7 @@
     "workbox-precaching": "^6.5.3",
     "workbox-routing": "^6.5.3",
     "workbox-window": "^6.5.3",
-    "zod": "^3.21.4",
+    "zod": "^3.22.3",
     "zustand": "^4.3.2"
   },
   "devDependencies": {
