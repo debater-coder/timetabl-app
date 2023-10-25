@@ -13,6 +13,12 @@ import { DateTime } from "luxon";
 import { ArrowLeft, ArrowRight } from "phosphor-react";
 import { useRef } from "react";
 
+/**
+ * This component displays the current date shown and allows the user to select
+ * a different one. If `selected` is undefined, then the button will display the
+ * date from the active DTT. When a user selects a date, the `setSelected`
+ * callback will be called with the selected date.
+ */
 export default function DaySelect({
   selected,
   setSelected,
@@ -21,9 +27,23 @@ export default function DaySelect({
   setSelected: (date: Date) => void;
 }) {
   const initRef = useRef<HTMLButtonElement>(null);
-  const date = selected ? DateTime.fromJSDate(selected).toISODate() : undefined;
   const { data: dtt } = useDtt();
+
+  const date = selected
+    ? DateTime.fromJSDate(selected).toISODate()
+    : dtt?.date
+    ? DateTime.fromISO(dtt?.date).toISODate()
+    : undefined;
+
   const { data: day } = useDay(date, date);
+
+  const moveDay = (amount: number) =>
+    setSelected(
+      new Date(
+        (date ? DateTime.fromISO(date).toUnixInteger() * 1000 : Date.now()) +
+          86400000 * amount
+      )
+    );
 
   return (
     <Popover closeOnBlur={false} initialFocusRef={initRef}>
@@ -35,11 +55,7 @@ export default function DaySelect({
               variant="outline"
               aria-label="Previous day"
               size={"sm"}
-              onClick={() => {
-                setSelected(
-                  new Date((selected?.getTime() ?? Date.now()) - 86400000)
-                );
-              }}
+              onClick={() => moveDay(-1)}
             />
             <PopoverTrigger>
               <Button
@@ -48,14 +64,14 @@ export default function DaySelect({
                 w="full"
                 size={"sm"}
               >
-                {selected
-                  ? `${selected.toLocaleDateString(undefined, {
+                {date
+                  ? `${DateTime.fromISO(date).toLocaleString({
                       weekday: "short",
                       year: "numeric",
                       month: "numeric",
                       day: "numeric",
                     })} ${
-                      date && day?.[date]?.week && day?.[date]?.weekType
+                      day && day?.[date]?.week && day?.[date]?.weekType
                         ? `Wk ${day?.[date]?.week}${day?.[date]?.weekType}`
                         : ""
                     }`
@@ -85,11 +101,7 @@ export default function DaySelect({
               variant="outline"
               aria-label="Next day"
               size={"sm"}
-              onClick={() => {
-                setSelected(
-                  new Date((selected?.getTime() ?? Date.now()) + 86400000)
-                );
-              }}
+              onClick={() => moveDay(1)}
             />
           </Flex>
           <PopoverContent border={"none"}>
