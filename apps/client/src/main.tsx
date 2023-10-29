@@ -1,4 +1,3 @@
-import { version } from "../package.json";
 import config from "./config";
 import NetworkError from "./errors/NetworkError";
 import { UnauthorizedError } from "./errors/UnauthorisedError";
@@ -13,9 +12,9 @@ import { log } from "./utils/log";
 import { sendToVercelAnalytics } from "./vitals";
 import { OAuth2Client, OAuth2Fetch } from "@badgateway/oauth2-client";
 import "@fontsource/poppins";
+import * as Sentry from "@sentry/react";
 import { createSyncStoragePersister } from "@tanstack/query-sync-storage-persister";
 import { QueryCache, QueryClient } from "@tanstack/react-query";
-import { H } from "highlight.run";
 
 // Redirect to new domain if using old domain
 if (window.location.host === "timetabl.vercel.app") {
@@ -24,11 +23,23 @@ if (window.location.host === "timetabl.vercel.app") {
 
 // Initialise analytics if consented
 if (localStorage.getItem("consentedToWelcomeMessage")) {
-  H.init("zg092lg9", {
-    enableStrictPrivacy: true,
-    version,
-    reportConsoleErrors: true,
-    environment: import.meta.env.MODE,
+  Sentry.init({
+    dsn: "https://3eaf1d52758e5e86de9d4d6a4958a5e3@o4506133038301184.ingest.sentry.io/4506133044723712",
+    integrations: [
+      new Sentry.BrowserTracing({
+        // Set 'tracePropagationTargets' to control for which URLs distributed tracing should be enabled
+        tracePropagationTargets: [
+          "localhost",
+          /^https:\/\/yourserver\.io\/api/,
+        ],
+      }),
+      new Sentry.Replay(),
+    ],
+    // Performance Monitoring
+    tracesSampleRate: 1.0, // Capture 100% of the transactions
+    // Session Replay
+    replaysSessionSampleRate: 0.1, // This sets the sample rate at 10%. You may want to change it to 100% while in development and then sample at a lower rate in production.
+    replaysOnErrorSampleRate: 1.0, // If you're not already sampling the entire session, change the sample rate to 100% when sampling sessions where errors occur.
   });
 }
 
