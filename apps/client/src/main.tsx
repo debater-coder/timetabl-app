@@ -25,16 +25,7 @@ if (window.location.host === "timetabl.vercel.app") {
 if (localStorage.getItem("consentedToWelcomeMessage")) {
   Sentry.init({
     dsn: "https://3eaf1d52758e5e86de9d4d6a4958a5e3@o4506133038301184.ingest.sentry.io/4506133044723712",
-    integrations: [
-      new Sentry.BrowserTracing({
-        // Set 'tracePropagationTargets' to control for which URLs distributed tracing should be enabled
-        tracePropagationTargets: [
-          "localhost",
-          /^https:\/\/yourserver\.io\/api/,
-        ],
-      }),
-      new Sentry.Replay(),
-    ],
+    integrations: [new Sentry.BrowserTracing(), new Sentry.Replay()],
     // Performance Monitoring
     tracesSampleRate: 1.0, // Capture 100% of the transactions
     // Session Replay

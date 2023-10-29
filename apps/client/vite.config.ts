@@ -1,4 +1,5 @@
 import replace from "@rollup/plugin-replace";
+import { sentryVitePlugin } from "@sentry/vite-plugin";
 import react from "@vitejs/plugin-react";
 import { injectManifest } from "rollup-plugin-workbox";
 import { defineConfig } from "vitest/config";
@@ -30,6 +31,10 @@ export default defineConfig({
       preventAssignment: true,
     }),
     react(),
+    sentryVitePlugin({
+      org: "hamzah-lc",
+      project: "timetabl",
+    }),
   ],
   build: { sourcemap: true },
   server: {
