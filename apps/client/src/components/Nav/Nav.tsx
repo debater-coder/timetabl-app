@@ -17,6 +17,7 @@ import {
 import React, { useState } from "react";
 import { FaGithub, FaMoon, FaSun, MdLogout, MdSettings } from "react-icons/all";
 import { Link as RouterLink, useLocation } from "react-router-dom";
+import { Statsig } from "statsig-react";
 
 export const TimetablLogo = ({
   color,
@@ -145,6 +146,11 @@ export const SettingsBTN = ({
     <RouterLink
       to={pathname.startsWith("/app/settings") ? "/app" : "/app/settings"}
       unstable_viewTransition
+      onClick={() => {
+        if (localStorage.getItem("consentedToWelcomeMessage")) {
+          Statsig.logEvent("settings_opened");
+        }
+      }}
     >
       <IconButton
         variant="outline"

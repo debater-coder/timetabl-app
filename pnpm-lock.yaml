@@ -122,6 +122,9 @@ importers:
       rollup-plugin-workbox:
         specifier: ^6.2.0
         version: 6.2.0(rollup@2.79.1)
+      statsig-react:
+        specifier: ^1.33.0
+        version: 1.33.0(react@18.2.0)
       typescript:
         specifier: ^5.1.6
         version: 5.1.6
@@ -5151,6 +5154,10 @@ packages:
       supports-color: 7.2.0
     dev: false
 
+  /js-sha256@0.10.1:
+    resolution: {integrity: sha512-5obBtsz9301ULlsgggLg542s/jqtddfOpV5KJc4hajc9JV8GeY2gZHSVpYBn4nWqAUTJ9v+xwtbJ1mIBgIH5Vw==}
+    dev: false
+
   /js-string-escape@1.0.1:
     resolution: {integrity: sha512-Smw4xcfIQ5LVjAOuJCvN/zIodzA/BBSsluuoSykP+lUvScIi4U6RJLfwHet5cxFnCswUjISV8oAXaqaJDY3chg==}
     engines: {node: '>= 0.8'}
@@ -6500,6 +6507,22 @@ packages:
     resolution: {integrity: sha512-1XMJE5fQo1jGH6Y/7ebnwPOBEkIEnT4QF32d5R1+VXdXveM0IBMJt8zfaxX1P3QhVwrYe+576+jkANtSS2mBbw==}
     dev: true
 
+  /statsig-js@4.43.0:
+    resolution: {integrity: sha512-eMumxjOapvqBI9YzMtJyAVjL467m6R3KXJVUMBucajisowLEzK7VC7jKz4k3Dba3lIVz7FEsdxIFnwcxwwsvQA==}
+    dependencies:
+      js-sha256: 0.10.1
+      uuid: 8.3.2
+    dev: false
+
+  /statsig-react@1.33.0(react@18.2.0):
+    resolution: {integrity: sha512-nFI2YmCfdFlLYyguS9ifdGw0pkYSq3BVDN+ymNSk69x3CMOLytWHC1G32/2vS8IXXuMUMG0VxIDMeaKiP1A9Tw==}
+    peerDependencies:
+      react: ^16.6.3 || ^17.0.0 || ^18.0.0
+    dependencies:
+      react: 18.2.0
+      statsig-js: 4.43.0
+    dev: false
+
   /std-env@3.3.3:
     resolution: {integrity: sha512-Rz6yejtVyWnVjC1RFvNmYL10kgjC49EOghxWn0RFqlCHGFpQx+Xe7yW3I4ceK1SGrWIGMjD5Kbue8W/udkbMJg==}
     dev: true
@@ -6908,6 +6931,11 @@ packages:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
     dependencies:
       react: 18.2.0
+    dev: false
+
+  /uuid@8.3.2:
+    resolution: {integrity: sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==}
+    hasBin: true
     dev: false
 
   /uvu@0.5.6:

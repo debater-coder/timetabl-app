@@ -12,6 +12,7 @@ import {
 } from "@tanstack/react-query-persist-client";
 import { StrictMode, createContext, useContext } from "react";
 import ReactDOM from "react-dom/client";
+import { StatsigProvider } from "statsig-react";
 
 const AuthActionsContext = createContext<OAuth2Actions | null>(null);
 
@@ -32,6 +33,22 @@ const ChakraWrapper = ({ children }: { children: React.ReactNode }) => {
   return <ChakraProvider theme={theme}>{children}</ChakraProvider>;
 };
 
+const StatsigWrapper = ({ children }: { children: React.ReactNode }) => {
+  const consented = localStorage.getItem("consentedToWelcomeMessage");
+
+  if (!consented) return <>{children}</>;
+
+  return (
+    <StatsigProvider
+      sdkKey="client-l2xQg1ZmyZxdQROd01wYZRipYaxpHkR83Ms6gCpJaA6"
+      waitForInitialization={true}
+      user={{}}
+    >
+      {children}
+    </StatsigProvider>
+  );
+};
+
 class UserInterface {
   constructor(
     private queryClient: QueryClient,
@@ -47,25 +64,29 @@ class UserInterface {
 
     ReactDOM.createRoot(this.rootElement).render(
       <StrictMode>
-        <PersistQueryClientProvider
-          client={this.queryClient}
-          persistOptions={{
-            persister: this.persister,
-            maxAge: Infinity,
-            dehydrateOptions: {
-              shouldDehydrateQuery: () => true,
-            },
-          }}
-        >
-          <ChakraWrapper>
-            <ColorModeScript initialColorMode={themeConfig.initialColorMode} />
-            <AuthActionsContext.Provider value={this.actions}>
-              {this.router.getElement()}
-            </AuthActionsContext.Provider>
-            <NotifyContainer />
-            <ReactQueryDevtools initialIsOpen={false} />
-          </ChakraWrapper>
-        </PersistQueryClientProvider>
+        <StatsigWrapper>
+          <PersistQueryClientProvider
+            client={this.queryClient}
+            persistOptions={{
+              persister: this.persister,
+              maxAge: Infinity,
+              dehydrateOptions: {
+                shouldDehydrateQuery: () => true,
+              },
+            }}
+          >
+            <ChakraWrapper>
+              <ColorModeScript
+                initialColorMode={themeConfig.initialColorMode}
+              />
+              <AuthActionsContext.Provider value={this.actions}>
+                {this.router.getElement()}
+              </AuthActionsContext.Provider>
+              <NotifyContainer />
+              <ReactQueryDevtools initialIsOpen={false} />
+            </ChakraWrapper>
+          </PersistQueryClientProvider>
+        </StatsigWrapper>
       </StrictMode>
     );
   };
