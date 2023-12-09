@@ -1,5 +1,5 @@
 import { dttSchema } from "./schemas";
-import { describe, expect, test } from "vitest";
+import { describe, expect, test, vi } from "vitest";
 
 describe("the schema", () => {
   test("parses a day timetable with no periods", () => {
@@ -118,6 +118,8 @@ describe("the schema", () => {
       serverTimezone: "36000",
       shouldDisplayVariations: true,
     };
+
+    vi.setSystemTime(new Date("2023-09-20T08:00:00.000Z"));
 
     expect(dttSchema.parse(dtt)).toMatchSnapshot();
   });
