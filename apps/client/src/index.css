@@ -1,0 +1,60 @@
+/* Main contents */
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes fade-out {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes slide-from-bottom {
+  from {
+    transform: translateY(50px);
+  }
+}
+
+@keyframes slide-to-top {
+  to {
+    transform: translateY(-50px);
+  }
+}
+
+::view-transition-old(root) {
+  animation: 90ms cubic-bezier(0.4, 0, 1, 1) both fade-out,
+    300ms cubic-bezier(0.4, 0, 0.2, 1) both slide-to-top;
+}
+
+::view-transition-new(root) {
+  animation: 210ms cubic-bezier(0, 0, 0.2, 1) 90ms both fade-in,
+    300ms cubic-bezier(0.4, 0, 0.2, 1) both slide-from-bottom;
+}
+
+/* Static Navigation */
+.main-nav {
+  view-transition-name: main-nav;
+}
+
+.sidebar {
+  view-transition-name: sidebar;
+}
+
+.bottom-nav {
+  view-transition-name: bottom-nav;
+}
+
+.bottom-nav-drawer {
+  view-transition-name: bottom-nav-drawer;
+}
+
+.bottom-nav-drawer-overlay {
+  view-transition-name: bottom-nav-drawer-overlay;
+}
+
+.settings-nav {
+  view-transition-name: settings-nav;
+}

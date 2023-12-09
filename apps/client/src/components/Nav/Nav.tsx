@@ -144,6 +144,7 @@ export const SettingsBTN = ({
   >
     <RouterLink
       to={pathname.startsWith("/app/settings") ? "/app" : "/app/settings"}
+      unstable_viewTransition
     >
       <IconButton
         variant="outline"
@@ -188,6 +189,7 @@ export default function Nav() {
       backdropBlur="36px"
       border={"1px"}
       borderColor={useColorModeValue("gray.200", "gray.700")}
+      className="main-nav"
     >
       <TimetablLogo color={logoColor} loggedIn={loggedIn} />
       {loggedIn && <RefetchingIndicator />}

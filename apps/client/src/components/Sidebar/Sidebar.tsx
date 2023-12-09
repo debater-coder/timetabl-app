@@ -20,6 +20,7 @@ export default function Sidebar() {
       border={"1px"}
       borderTop={"none"}
       borderColor={useColorModeValue("gray.200", "gray.700")}
+      className="sidebar"
     >
       {pages.pinned.map((routes) => (
         <SidebarButton

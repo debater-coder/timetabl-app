@@ -31,6 +31,7 @@ export const BottomNav = () => {
       border={"1px"}
       borderBottom="none"
       borderColor={useColorModeValue("gray.200", "gray.700")}
+      className="bottom-nav"
     >
       {pages.pinned.map((routes) => (
         <SidebarButton
@@ -43,7 +44,7 @@ export const BottomNav = () => {
       ))}
       <SidebarButton name={"More"} icon={DotsThree} onClick={onOpen} />
       <Drawer isOpen={isOpen} placement="bottom" onClose={onClose}>
-        <DrawerOverlay />
+        <DrawerOverlay className="bottom-nav-drawer-overlay" />
         <DrawerContent
           bg={useColorModeValue("whiteAlpha.600", "blackAlpha.600")}
           backdropFilter="auto"
@@ -51,6 +52,7 @@ export const BottomNav = () => {
           roundedTop="2xl"
           border={"1px"}
           borderColor={useColorModeValue("gray.200", "gray.700")}
+          className="bottom-nav-drawer"
         >
           <DrawerCloseButton />
           <DrawerHeader fontFamily={"Poppins, sans-serif"}>

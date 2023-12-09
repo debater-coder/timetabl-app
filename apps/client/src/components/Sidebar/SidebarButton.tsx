@@ -22,37 +22,47 @@ export default React.memo(function SidebarButton(props: {
   const [secondary] = useToken("colors", ["primary.300"]);
   const active = to ? Boolean(useMatch(to)) : false;
 
-  return (
-    <Box as={RouterLink} w="full" to={to} onClick={onClick}>
+  const linkContents = (
+    <Flex
+      _hover={{ bg: hoverColor }}
+      p={"12px"}
+      h={"64px"}
+      w="100%"
+      direction={"column"}
+      align={"center"}
+    >
       <Flex
-        _hover={{ bg: hoverColor }}
-        p={"12px"}
-        h={"64px"}
-        w="100%"
-        direction={"column"}
+        as={motion.div}
+        justify={"center"}
+        bg={active ? secondary + "40" : undefined}
+        animate={{ width: active ? "56px" : "0px" }}
         align={"center"}
+        borderRadius={"16px"}
+        h={"32px"}
       >
-        <Flex
-          as={motion.div}
-          justify={"center"}
-          bg={active ? secondary + "40" : undefined}
-          animate={{ width: active ? "56px" : "0px" }}
-          align={"center"}
-          borderRadius={"16px"}
-          h={"32px"}
-        >
-          <Box minH={"24px"}>
-            <Icon
-              size="24px"
-              mirrored={mirrored}
-              weight={active ? "fill" : "duotone"}
-            />
-          </Box>
-        </Flex>
-        <Text as={active ? "b" : "label"} fontSize={"xs"} mt="4px">
-          {name}
-        </Text>
+        <Box minH={"24px"}>
+          <Icon
+            size="24px"
+            mirrored={mirrored}
+            weight={active ? "fill" : "duotone"}
+          />
+        </Box>
       </Flex>
+      <Text as={active ? "b" : "label"} fontSize={"xs"} mt="4px">
+        {name}
+      </Text>
+    </Flex>
+  );
+
+  return (
+    <Box w="full" onClick={onClick}>
+      {to ? (
+        <RouterLink unstable_viewTransition to={to}>
+          {linkContents}
+        </RouterLink>
+      ) : (
+        linkContents
+      )}
     </Box>
   );
 });

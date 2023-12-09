@@ -1,6 +1,7 @@
 import config from "./config";
 import NetworkError from "./errors/NetworkError";
 import { UnauthorizedError } from "./errors/UnauthorisedError";
+import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 import AppRouter from "./services/AppRouter/";
 import OAuth2Actions from "./services/OAuth2Actions";

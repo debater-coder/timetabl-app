@@ -21,7 +21,7 @@ const MenuEntry = ({
 }) => {
   const highlightColor = useToken("colors", "primary.400") + "aa";
   return (
-    <Link to={to}>
+    <Link to={to} unstable_viewTransition>
       <Flex
         bg={active ? highlightColor : undefined}
         p={3}
@@ -49,7 +49,7 @@ export default function Settings() {
       gap={3}
       h="full"
     >
-      <Flex direction="column" minW={"20vw"}>
+      <Flex direction="column" minW={"20vw"} className="settings-nav">
         <MenuEntry
           to="general"
           name="General"
