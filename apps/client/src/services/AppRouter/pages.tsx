@@ -22,7 +22,7 @@ const Page = ({ component }: { component: ReturnType<typeof React.lazy> }) => {
   );
 };
 
-export type TimetablPage = {
+type TimetablPage = {
   path: string;
   name: string;
   icon: React.JSXElementConstructor<

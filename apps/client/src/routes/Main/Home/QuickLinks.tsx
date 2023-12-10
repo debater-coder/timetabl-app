@@ -1,5 +1,5 @@
-import CanvasIcon from "../../../components/CanvasIcon/CanvasIcon";
-import ClipboardIcon from "../../../components/ClipboardIcon/ClipboardIcon";
+import CanvasIcon from "../../../components/CanvasIcon";
+import ClipboardIcon from "../../../components/ClipboardIcon";
 import { Flex, Button } from "@chakra-ui/react";
 import { GraduationCap, Envelope } from "phosphor-react";
 import { JSXElementConstructor, ReactElement, ReactNode } from "react";

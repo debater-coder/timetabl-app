@@ -21,7 +21,7 @@ const generateRandomString = () => {
   );
 };
 
-export interface AuthStore {
+interface AuthStore {
   setState: (state: Partial<AuthState>) => void;
   getState: () => AuthState;
 }

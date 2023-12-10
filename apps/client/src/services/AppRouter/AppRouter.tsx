@@ -1,4 +1,4 @@
-import App from "../../components/App/App";
+import App from "../../components/App";
 import Empty from "../../components/Empty";
 import ErrorAlert from "../../components/ErrorAlert";
 import SpinnerSuspense from "../../components/SpinnerSuspense";

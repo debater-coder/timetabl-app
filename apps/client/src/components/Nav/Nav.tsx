@@ -106,7 +106,7 @@ const DarkModeBTN = ({
     colorScheme={"gray"}
   />
 );
-export const LogoutBTN = ({
+const LogoutBTN = ({
   logout,
   iconColor,
 }: {
@@ -133,7 +133,7 @@ export const LogoutBTN = ({
   );
 };
 
-export const SettingsBTN = ({
+const SettingsBTN = ({
   iconColor,
   pathname,
 }: {

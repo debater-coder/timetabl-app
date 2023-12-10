@@ -2,7 +2,7 @@ import { ColourScheme } from "../../theme";
 import { create } from "zustand";
 import { devtools, persist } from "zustand/middleware";
 
-export type Actions = {
+type Actions = {
   setPrimary: (primary: ColourScheme) => void;
   setPeriodColours: (periodColours: "default" | "primary" | "none") => void;
   reset: () => void;
@@ -11,7 +11,7 @@ export type Actions = {
   setShowTimes: (showTimes: boolean) => void;
 };
 
-export type SettingsState = {
+type SettingsState = {
   primary: ColourScheme;
   periodColours: "default" | "primary" | "none";
   bgImage: string;
@@ -19,7 +19,7 @@ export type SettingsState = {
   showTimes: boolean;
 };
 
-export const initialState: SettingsState = {
+const initialState: SettingsState = {
   primary: "blue",
   periodColours: "default",
   bgImage: "",

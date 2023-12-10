@@ -42,7 +42,7 @@ export enum NoticeYear {
   UNKNOWN,
 }
 
-export const yearMapping: Record<string, NoticeYear> = {
+const yearMapping: Record<string, NoticeYear> = {
   "7": NoticeYear.YEAR7,
   "8": NoticeYear.YEAR8,
   "9": NoticeYear.YEAR9,
@@ -97,7 +97,7 @@ export const noticesSchema = z
 
 export type TimetablNotice = z.output<typeof noticesSchema>[0];
 
-export const bellSchema = z.object({
+const bellSchema = z.object({
   time: z.string(),
   startTime: z.string(),
   endTime: z.string().nullish(),
@@ -106,14 +106,14 @@ export const bellSchema = z.object({
   period: z.string(),
 });
 
-export const subjectSchema = z.object({
+const subjectSchema = z.object({
   colour: z.string(),
   fullTeacher: z.string(),
   subject: z.string(),
   title: z.string(),
 });
 
-export const periodSchema = z.object({
+const periodSchema = z.object({
   fullTeacher: z.string().nullish(),
   teacher: z.string().nullish(),
   title: z.string().nullish(),
@@ -147,7 +147,7 @@ export type TimetablPeriod = {
   roomTo?: string;
 };
 
-export type TimetablDtt = {
+type TimetablDtt = {
   periods: TimetablPeriod[];
   date: string;
 };

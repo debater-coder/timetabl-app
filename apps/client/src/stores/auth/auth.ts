@@ -20,7 +20,7 @@ export enum AuthStatus {
 /**
  * The possible authentication statuses that are considered logged in.
  */
-export const logged_in_states = [AuthStatus.LOGGED_IN, AuthStatus.EXPIRED];
+const logged_in_states = [AuthStatus.LOGGED_IN, AuthStatus.EXPIRED];
 
 /**
  * The authentication store state.
@@ -62,6 +62,6 @@ export const useAuthStatus = () => useAuthStore((state) => state.status);
 export const useIsLoggedIn = () =>
   useAuthStore((state) => logged_in_states.includes(state.status));
 
-export const resetAuthStore = () => {
+const resetAuthStore = () => {
   useAuthStore.setState(initialState);
 };

@@ -13,7 +13,8 @@
   },
   "devDependencies": {
     "@trivago/prettier-plugin-sort-imports": "^4.2.0",
-    "typescript": "^5.1.6"
+    "typescript": "^5.1.6",
+    "knip": "^3.7.0"
   },
   "packageManager": "pnpm@7.28.0",
   "scripts": {
@@ -22,6 +23,8 @@
     "lint": "turbo run lint",
     "format": "turbo run format",
     "format:watch": "turbo run format:watch",
-    "test": "turbo run test"
+    "test": "turbo run test",
+    "knip": "knip",
+    "knip:fix": "knip --fix"
   }
 }
