@@ -1,4 +1,5 @@
 import { version } from "../../../../package.json";
+import ReleaseNotes from "../../../components/ReleaseNotes/ReleaseNotes";
 import { ExternalLinkIcon } from "@chakra-ui/icons";
 import {
   Accordion,
@@ -7,12 +8,16 @@ import {
   AccordionItem,
   AccordionPanel,
   Box,
+  Button,
   Heading,
   Link,
   Text,
+  useDisclosure,
 } from "@chakra-ui/react";
 
 export default function About() {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
   return (
     <>
       <Heading size={"sm"} fontFamily="Poppins, sans-serif">
@@ -22,6 +27,10 @@ export default function About() {
         Timetabl is a blazing fast, offline-enabled, installable timetable app
         for SBHS.
       </Text>
+      <Button variant={"outline"} alignSelf={"flex-start"} onClick={onOpen}>
+        Release notes
+      </Button>
+      <ReleaseNotes isOpen={isOpen} onClose={onClose} />
       <Text>
         Source code can be found on Github{" "}
         <Link
@@ -57,9 +66,7 @@ export default function About() {
           </AccordionButton>
           <AccordionPanel>
             <Text whiteSpace="pre-line">
-              {
-                'Copyright (c) 2022 Hamzah Ahmed'
-              }
+              {"Copyright (c) 2022 Hamzah Ahmed"}
             </Text>
           </AccordionPanel>
         </AccordionItem>

@@ -1,4 +1,6 @@
+import { version } from "../../../package.json";
 import { BottomNav } from "../../components/BottomNav";
+import ReleaseNotes from "../../components/ReleaseNotes/ReleaseNotes";
 import Sidebar from "../../components/Sidebar";
 import { useAuthActions } from "../../services/UserInterface";
 import { useIsLoggedIn } from "../../stores/auth";
@@ -13,6 +15,7 @@ import {
   ModalBody,
   Button,
   Heading,
+  useDisclosure,
 } from "@chakra-ui/react";
 import { useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
@@ -22,6 +25,19 @@ export default function Main() {
   const loggedIn = useIsLoggedIn();
   const { logout } = useAuthActions();
   const isLargerThanMd = useBreakpointValue({ base: false, md: true });
+  const { onOpen, isOpen, onClose } = useDisclosure();
+
+  useEffect(() => {
+    const storedVersion = localStorage.getItem("appVersion");
+
+    if (
+      storedVersion !== version &&
+      localStorage.getItem("consentedToWelcomeMessage")
+    ) {
+      onOpen();
+      localStorage.setItem("appVersion", version);
+    }
+  });
 
   useEffect(() => {
     if (!loggedIn) {
@@ -92,6 +108,7 @@ export default function Main() {
           </ModalContent>
         </Modal>
       </Flex>
+      <ReleaseNotes onClose={onClose} isOpen={isOpen} />
     </>
   );
 }
