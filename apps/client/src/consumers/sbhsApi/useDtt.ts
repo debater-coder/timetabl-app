@@ -4,15 +4,13 @@ import { dttSchema, sbhsKey } from "./schemas";
 import { useQuery } from "@tanstack/react-query";
 
 const queryFn = async (authActions: OAuth2Actions, date?: string) => {
-  return dttSchema.parse(
-    await authActions.fetchAuthenticated(
-      "timetable/daytimetable.json",
-      date
-        ? {
-            date,
-          }
-        : undefined
-    )
+  return await authActions.fetchAuthenticated(
+    "timetable/daytimetable.json",
+    date
+      ? {
+          date,
+        }
+      : undefined
   );
 };
 
@@ -30,6 +28,7 @@ export const useDtt = (date?: string) => {
         : undefined
     ),
     queryFn: () => queryFn(authActions, date),
+    select: (data) => dttSchema.parse(data),
   });
 };
 

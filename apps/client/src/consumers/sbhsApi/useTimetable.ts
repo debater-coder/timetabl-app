@@ -4,9 +4,7 @@ import { timetableSchema, sbhsKey } from "./schemas";
 import { useQuery } from "@tanstack/react-query";
 
 const queryFn = async (authActions: OAuth2Actions) => {
-  return timetableSchema.parse(
-    await authActions.fetchAuthenticated("timetable/timetable.json")
-  );
+  return await authActions.fetchAuthenticated("timetable/timetable.json");
 };
 
 const getQueryKey = sbhsKey("timetable/timetable.json");
@@ -17,6 +15,7 @@ export const useTimetable = () => {
   return useQuery({
     queryKey: getQueryKey(),
     queryFn: () => queryFn(authActions),
+    select: (data) => timetableSchema.parse(data),
   });
 };
 

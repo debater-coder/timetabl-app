@@ -8,16 +8,14 @@ const queryFn = async (
   from?: string,
   to?: string
 ) => {
-  return daySchema.parse(
-    await authActions.fetchAuthenticated(
-      "calendar/days.json",
-      from && to
-        ? {
-            from,
-            to,
-          }
-        : undefined
-    )
+  return await authActions.fetchAuthenticated(
+    "calendar/days.json",
+    from && to
+      ? {
+          from,
+          to,
+        }
+      : undefined
   );
 };
 
@@ -36,7 +34,7 @@ export const useDay = (from?: string, to?: string) => {
         : undefined
     ),
     queryFn: () => queryFn(authActions, from, to),
-    enabled: !!from && !!to,
+    select: (data) => daySchema.parse(data),
   });
 };
 

@@ -4,9 +4,7 @@ import { noticesSchema, sbhsKey } from "./schemas";
 import { useQuery } from "@tanstack/react-query";
 
 const queryFn = async (authActions: OAuth2Actions) => {
-  return noticesSchema.parse(
-    await authActions.fetchAuthenticated("dailynews/list.json")
-  );
+  return await authActions.fetchAuthenticated("dailynews/list.json");
 };
 
 const getQueryKey = sbhsKey("dailynews/list.json");
@@ -17,6 +15,7 @@ export const useDailyNotices = () => {
   return useQuery({
     queryKey: getQueryKey(),
     queryFn: () => queryFn(authActions),
+    select: (data) => noticesSchema.parse(data),
   });
 };
 
