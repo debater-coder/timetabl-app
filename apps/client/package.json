@@ -1,6 +1,6 @@
 {
   "name": "client",
-  "version": "1.9.7-beta",
+  "version": "1.9.8-beta",
   "scripts": {
     "dev": "npm-run-all --parallel dev:*",
     "dev:run": "FORCE_COLOR=1 vite",
@@ -34,6 +34,7 @@
     "@tanstack/react-query-devtools": "^4.0.10",
     "@tanstack/react-query-persist-client": "^4.0.10",
     "@types/react-dom": "^18.0.9",
+    "@vercel/analytics": "^1.1.1",
     "dayzed": "^3.2.3",
     "dompurify": "^2.4.0",
     "framer-motion": "^10.12.18",

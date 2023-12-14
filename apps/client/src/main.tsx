@@ -16,6 +16,7 @@ import "@fontsource/poppins";
 import * as Sentry from "@sentry/react";
 import { createSyncStoragePersister } from "@tanstack/query-sync-storage-persister";
 import { QueryCache, QueryClient } from "@tanstack/react-query";
+import { inject } from "@vercel/analytics";
 
 // Redirect to new domain if using old domain
 if (window.location.host === "timetabl.vercel.app") {
@@ -128,6 +129,9 @@ const userInterface = new UserInterface(
 // =======
 // EXECUTE
 // =======
+
+// Initialise analytics
+inject();
 
 // Render root
 userInterface.render();
