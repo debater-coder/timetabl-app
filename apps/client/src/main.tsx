@@ -84,34 +84,35 @@ const oauthClient = new OAuth2Client({
   authorizationEndpoint: config.authorization_endpoint,
 });
 
-const fetchWrapper = new OAuth2Fetch({
-  client: oauthClient,
+const fetchWrapperInjector = () =>
+  new OAuth2Fetch({
+    client: oauthClient,
 
-  getNewToken: () => {
-    log("getNewToken invoked");
+    getNewToken: () => {
+      log("getNewToken invoked");
 
-    // Set the status to expired
-    useAuthStore.setState({ status: AuthStatus.EXPIRED });
+      // Set the status to expired
+      useAuthStore.setState({ status: AuthStatus.EXPIRED });
 
-    return null; // Fail this step, we don't want to log out until the user does so explicitly
-  },
+      return null; // Fail this step, we don't want to log out until the user does so explicitly
+    },
 
-  storeToken: (token) => {
-    useAuthStore.setState({
-      token,
-    });
-  },
+    storeToken: (token) => {
+      useAuthStore.setState({
+        token,
+      });
+    },
 
-  getStoredToken: () => {
-    return useAuthStore.getState().token;
-  },
-});
+    getStoredToken: () => {
+      return useAuthStore.getState().token;
+    },
+  });
 
 const authActions = new OAuth2Actions(
   useAuthStore,
   queryClient,
   oauthClient,
-  fetchWrapper,
+  fetchWrapperInjector,
   toast
 );
 

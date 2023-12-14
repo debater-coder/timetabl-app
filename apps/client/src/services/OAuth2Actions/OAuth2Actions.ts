@@ -27,11 +27,13 @@ interface AuthStore {
 }
 
 class OAuth2Actions implements AuthActions {
+  private fetchWrapper?: FetchWrapper;
+
   constructor(
     private authStore: AuthStore,
     private queryClient: QueryClient,
     private oauthClient: OAuth2Client,
-    private fetchWrapper: FetchWrapper,
+    private fetchWrapperInject: () => FetchWrapper,
     private toast: Notifier
   ) {}
 
@@ -135,7 +137,15 @@ class OAuth2Actions implements AuthActions {
         pkceState: "",
         codeVerifier: "",
       });
+      return;
     }
+
+    if (!this.authStore.getState().token) {
+      return;
+    }
+
+    // Inject fetch wrapper
+    this.fetchWrapper = this.fetchWrapperInject();
   };
 
   public logout = async () => {
@@ -160,6 +170,10 @@ class OAuth2Actions implements AuthActions {
     endpoint: SbhsApiEndpoint,
     options?: Record<string, string>
   ) => {
+    if (!this.fetchWrapper) {
+      throw new Error("Fetch wrapper not set");
+    }
+
     let res: Response;
     try {
       res = await this.fetchWrapper.fetch(
