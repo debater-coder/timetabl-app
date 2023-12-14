@@ -1,5 +1,6 @@
 import OAuth2Actions from "../../services/OAuth2Actions";
 import { useAuthActions } from "../../services/UserInterface";
+import { log } from "../../utils/log";
 import { dttSchema, sbhsKey } from "./schemas";
 import { useQuery } from "@tanstack/react-query";
 
@@ -17,6 +18,7 @@ const queryFn = async (authActions: OAuth2Actions, date?: string) => {
 const getQueryKey = sbhsKey("timetable/daytimetable.json");
 
 export const useDtt = (date?: string) => {
+  log("useDtt hook mounted");
   const authActions = useAuthActions();
 
   return useQuery({

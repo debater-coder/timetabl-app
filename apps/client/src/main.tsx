@@ -88,6 +88,8 @@ const fetchWrapper = new OAuth2Fetch({
   client: oauthClient,
 
   getNewToken: () => {
+    log("getNewToken invoked");
+
     // Set the status to expired
     useAuthStore.setState({ status: AuthStatus.EXPIRED });
 
@@ -133,6 +135,8 @@ const userInterface = new UserInterface(
 // Initialise analytics
 inject();
 
+authActions.resolve();
+
 // Render root
 userInterface.render();
 
@@ -158,7 +162,3 @@ log(
 console.log(
   "SELF-XSS WARNING - PLEASE DON'T DO PASTE ANYTHING INTO HERE FROM PLACES YOU DON'T TRUST!!!"
 );
-// Initialise authentication
-addEventListener("load", () => {
-  authActions.resolve();
-});

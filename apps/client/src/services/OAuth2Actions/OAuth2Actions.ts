@@ -139,8 +139,15 @@ class OAuth2Actions implements AuthActions {
   };
 
   public logout = async () => {
+    const debugMode = localStorage.getItem("debug") === "true";
+
     // Clear localstorage
     localStorage.clear();
+
+    // Persist debug mode
+    if (debugMode) {
+      localStorage.setItem("debug", "true");
+    }
 
     // Reset query cache
     this.queryClient.clear();
