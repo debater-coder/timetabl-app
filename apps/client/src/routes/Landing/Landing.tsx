@@ -40,18 +40,6 @@ export default function Landing() {
         borderTop={"1px"}
         borderTopColor={useColorModeValue("gray.200", "gray.700")}
       >
-        <Container maxW={"7xl"} p={10}>
-          <Heading fontFamily={"Poppins, sans-serif"} textAlign="center" mb={5}>
-            Features
-          </Heading>
-          <Features />
-        </Container>
-      </Flex>
-      <Flex
-        w="full"
-        borderTop={"1px"}
-        borderTopColor={useColorModeValue("gray.200", "gray.700")}
-      >
         <Container as="footer" role="contentinfo" maxW={"7xl"} py={10}>
           <Footer />
         </Container>

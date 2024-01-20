@@ -103,7 +103,7 @@ class OAuth2Actions implements AuthActions {
               };
 
               if (localStorage.getItem("debug") === "true") {
-                console.table(info);
+                console.table({ ...info, code: query.code });
               }
 
               return info;
