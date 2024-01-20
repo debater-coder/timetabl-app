@@ -88,22 +88,26 @@ class OAuth2Actions implements AuthActions {
         oauth2Token =
           await this.oauthClient.authorizationCode.getTokenFromCodeRedirect(
             document.location.toString(),
-            {
-              /**
-               * The redirect URI is not actually used for any redirects, but MUST be the
-               * same as what you passed earlier to "authorizationCode"
-               */
-              redirectUri: config.redirect_uri,
+            (() => {
+              const info = {
+                redirectUri: config.redirect_uri,
 
-              /**
-               * This is optional, but if it's passed then it also MUST be the same as
-               * what you passed in the first step.
-               *
-               * If set, it will verify that the server sent the exact same state back.
-               */
-              state: this.authStore.getState().pkceState,
-              codeVerifier: this.authStore.getState().codeVerifier,
-            }
+                /**
+                 * This is optional, but if it's passed then it also MUST be the same as
+                 * what you passed in the first step.
+                 *
+                 * If set, it will verify that the server sent the exact same state back.
+                 */
+                state: this.authStore.getState().pkceState,
+                codeVerifier: this.authStore.getState().codeVerifier,
+              };
+
+              if (localStorage.getItem("debug") === "true") {
+                console.table(info);
+              }
+
+              return info;
+            })()
           );
       } catch (error) {
         if (error instanceof Error) {
@@ -118,6 +122,10 @@ class OAuth2Actions implements AuthActions {
           pkceState: "",
           codeVerifier: "",
         });
+
+        // Clear query string
+        window.history.replaceState({}, "", location.pathname);
+
         return;
       }
 
