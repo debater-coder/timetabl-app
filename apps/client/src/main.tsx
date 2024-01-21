@@ -45,14 +45,10 @@ const toast = new Toast();
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      cacheTime: Infinity,
+      gcTime: Infinity,
       refetchInterval: 5 * 60 * 1000, // 5 minutes
       refetchIntervalInBackground: true,
       networkMode: "always",
-      useErrorBoundary: (error, query) =>
-        !(error instanceof UnauthorizedError) &&
-        !(error instanceof NetworkError) &&
-        !query.state.data,
     },
   },
   queryCache: new QueryCache({
@@ -78,9 +74,8 @@ const persister = createSyncStoragePersister({
 });
 
 const oauthClient = new OAuth2Client({
-  server: "https://student.sbhs.net.au",
+  server: "https://auth.sbhs.net.au/",
   clientId: config.client_id,
-  tokenEndpoint: "/api/token",
   authorizationEndpoint: config.authorization_endpoint,
 });
 
@@ -134,7 +129,14 @@ const userInterface = new UserInterface(
 // =======
 
 // Initialise analytics
-inject();
+inject({
+  beforeSend: (event) => {
+    if (event.type === "pageview") {
+      event.url = event.url.split("?")[0] ?? event.url;
+    }
+    return event;
+  },
+});
 
 authActions.resolve();
 

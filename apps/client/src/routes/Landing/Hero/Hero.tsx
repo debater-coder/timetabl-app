@@ -47,7 +47,7 @@ export const Hero = () => {
         initial={"hidden"}
         animate={"visible"}
       >
-        Your school life, organised
+        Never be late again
       </Heading>
       <Text fontSize={"xl"} color="gray.500">
         Timetabl is a fast and reliable timetable app for Sydney Boys High

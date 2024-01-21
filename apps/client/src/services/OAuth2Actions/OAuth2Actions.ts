@@ -65,6 +65,10 @@ class OAuth2Actions implements AuthActions {
       new URLSearchParams(window.location.search).entries()
     );
 
+    if (localStorage.getItem("debug") === "true") {
+      console.table(query);
+    }
+
     // Error check
     if (query.error) {
       this.toast.notify({
