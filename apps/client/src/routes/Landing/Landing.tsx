@@ -1,5 +1,4 @@
 import { useIsLoggedIn } from "../../stores/auth";
-import { Features } from "./Features";
 import { Footer } from "./Footer";
 import { Hero } from "./Hero";
 import {
@@ -9,7 +8,6 @@ import {
   AlertTitle,
   Container,
   Flex,
-  Heading,
   useColorModeValue,
 } from "@chakra-ui/react";
 import { useEffect } from "react";
