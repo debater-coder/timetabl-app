@@ -50,7 +50,7 @@ export const Hero = () => {
         Your school life, organised
       </Heading>
       <Text fontSize={"xl"} color="gray.500">
-        Timetabl is a fast and reliable, timetable app for Sydney Boys High
+        Timetabl is a fast and reliable timetable app for Sydney Boys High
         School students.
       </Text>
       <Button
