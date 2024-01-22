@@ -26,14 +26,14 @@ export type Notice<TAudience> = {
 };
 
 // Fetch output must be serialisable to JSON
-export interface DataProvider<TAudience> {
+export interface DataProvider<TAudience = never> {
   activate(): void;
   deactivate(): void;
   isActivated(): boolean;
 
   config: {
     name: LongOrShortString;
-    description: LongOrShortString;
+    description: string;
   };
 
   barcode?: {
@@ -58,6 +58,7 @@ export interface DataProvider<TAudience> {
   };
 
   newsletter?: {
-    newsletterDownloadUrl: string;
+    downloadUrl: string;
+    name: string;
   };
 }
