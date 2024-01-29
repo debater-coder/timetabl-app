@@ -4,7 +4,6 @@ import { UnauthorizedError } from "./errors/UnauthorisedError";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 import AppRouter from "./services/AppRouter/";
-import OAuth2Actions from "./services/OAuth2Actions";
 import SWRegistration from "./services/SWRegistration";
 import Toast from "./services/Toast/";
 import UserInterface from "./services/UserInterface";

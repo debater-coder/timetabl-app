@@ -14,8 +14,8 @@ export type Period = {
   color?: string;
 };
 
-export const ContentEncodings = ["html", "markdown"] as const;
-export type ContentEncoding = typeof ContentEncodings[number];
+export const contentEncodings = ["html", "markdown"] as const;
+export type ContentEncoding = typeof contentEncodings[number];
 
 export type Notice<TAudience> = {
   date: DateTime;

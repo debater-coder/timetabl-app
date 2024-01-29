@@ -9,10 +9,11 @@
     "build": "FORCE_COLOR=1 vite build",
     "preview": "vite preview",
     "format": "prettier --ignore-path .gitignore --write .",
+    "test": "vitest run",
     "check-format": "prettier . --list-different",
     "lint": "eslint . --ignore-path .gitignore",
     "check-types": "tsc --pretty",
-    "validate": "npm-run-all --parallel check-types lint check-format build",
+    "validate": "npm-run-all --parallel check-types lint check-format build test",
     "setup": "pnpm install && pnpm validate"
   },
   "dependencies": {

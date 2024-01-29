@@ -1,5 +1,4 @@
 import Barcode from "../../../components/Barcode";
-import { useProfile } from "../../../consumers/sbhsApi/useProfile";
 import { Flex, Heading, Skeleton } from "@chakra-ui/react";
 
 export default function Barcodes() {

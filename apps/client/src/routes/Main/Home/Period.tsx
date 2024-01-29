@@ -1,4 +1,3 @@
-import { TimetablPeriod } from "../../../consumers/sbhsApi/schemas";
 import { useSettingsStore } from "../../../stores/settings";
 import {
   Flex,

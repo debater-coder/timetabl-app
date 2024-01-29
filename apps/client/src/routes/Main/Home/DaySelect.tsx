@@ -1,6 +1,4 @@
 import DatePicker from "../../../components/DatePicker";
-import { useDay } from "../../../consumers/sbhsApi/useDay";
-import { useDtt } from "../../../consumers/sbhsApi/useDtt";
 import {
   Popover,
   Flex,

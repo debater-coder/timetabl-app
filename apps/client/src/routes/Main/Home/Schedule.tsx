@@ -1,6 +1,4 @@
 import Empty from "../../../components/Empty";
-import { TimetablPeriod } from "../../../consumers/sbhsApi/schemas";
-import { useDtt } from "../../../consumers/sbhsApi/useDtt";
 import Period from "./Period";
 import { Flex } from "@chakra-ui/react";
 import { DateTime } from "luxon";

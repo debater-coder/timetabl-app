@@ -2,7 +2,6 @@ import { Notifier } from "../../interfaces/Notifier";
 import { Router } from "../../interfaces/Router";
 import { useSettingsStore } from "../../stores/settings";
 import themeGen, { themeConfig } from "../../theme";
-import OAuth2Actions from "../OAuth2Actions";
 import { ChakraProvider, ColorModeScript } from "@chakra-ui/react";
 import { QueryClient } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";

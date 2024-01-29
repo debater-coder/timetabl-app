@@ -1,11 +1,4 @@
 import {
-  TimetablePeriod,
-  TimetableDay,
-  TimetableSubject,
-} from "../../../consumers/sbhsApi/schemas";
-import { useDay } from "../../../consumers/sbhsApi/useDay";
-import { useTimetable } from "../../../consumers/sbhsApi/useTimetable";
-import {
   Flex,
   useToken,
   useColorModeValue,

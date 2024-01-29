@@ -1,6 +1,4 @@
 import Empty from "../../../components/Empty";
-import { NoticeYear, TimetablNotice } from "../../../consumers/sbhsApi/schemas";
-import { useDailyNotices } from "../../../consumers/sbhsApi/useDailyNotices";
 import { Search2Icon } from "@chakra-ui/icons";
 import {
   Avatar,
