@@ -2,7 +2,8 @@ import replace from "@rollup/plugin-replace";
 import { sentryVitePlugin } from "@sentry/vite-plugin";
 import react from "@vitejs/plugin-react";
 import { injectManifest } from "rollup-plugin-workbox";
-import { defineConfig } from "vitest/config";
+/// <reference types="vitest" />
+import { defineConfig } from "vite";
 
 export default defineConfig({
   plugins: [
@@ -40,9 +41,6 @@ export default defineConfig({
   server: {
     port: 3000,
     strictPort: true,
-  },
-  test: {
-    environment: "jsdom",
   },
   preview: {
     port: 3000,

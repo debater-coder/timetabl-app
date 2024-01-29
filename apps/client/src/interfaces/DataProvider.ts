@@ -8,9 +8,10 @@ export type LongOrShortString = {
 export type Period = {
   start: DateTime;
   end: DateTime;
+  name: LongOrShortString;
   teacher?: LongOrShortString;
-  name?: LongOrShortString;
   location?: LongOrShortString;
+  color?: string;
 };
 
 export const ContentEncodings = ["html", "markdown"] as const;
