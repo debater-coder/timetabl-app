@@ -1,13 +1,11 @@
-import { DateTime } from "luxon";
-
 export type LongOrShortString = {
   short: string;
   long?: string;
 };
 
 export type Period = {
-  start: DateTime;
-  end: DateTime;
+  start: Date;
+  end: Date;
   name: LongOrShortString;
   teacher?: LongOrShortString;
   location?: LongOrShortString;
@@ -17,8 +15,18 @@ export type Period = {
 export const contentEncodings = ["html", "markdown"] as const;
 export type ContentEncoding = typeof contentEncodings[number];
 
+export const dataProviderQueries = [
+  "barcode",
+  "dtt",
+  "cycle",
+  "notices",
+  "nextSchoolDay",
+] as const;
+
+export type DataProviderQuery = typeof dataProviderQueries[number];
+
 export type Notice<TAudience> = {
-  date: DateTime;
+  date: Date;
   title: string;
   content: string;
   content_encoding: ContentEncoding;
@@ -26,11 +34,12 @@ export type Notice<TAudience> = {
   author: string;
 };
 
-// Fetch output must be serialisable to JSON
 export interface DataProvider<TAudience = never> {
   activate(): void;
   deactivate(): void;
   isActivated(): boolean;
+
+  id: string;
 
   config: {
     name: LongOrShortString;
@@ -38,24 +47,34 @@ export interface DataProvider<TAudience = never> {
   };
 
   barcode?: {
-    fetch: () => Promise<unknown>;
-    parse: (data: unknown) => string;
+    queryFn: () => Promise<string>;
+    gcTime: number;
+    id: string;
   };
 
   // Day Timetable
   dtt?: {
-    fetch: (date: DateTime) => Promise<unknown>;
-    parse: (data: unknown) => Period[];
+    queryFn: (date: string) => Promise<Period[]>;
+    gcTime: number;
+    id: string;
   };
 
   cycle?: {
-    fetch: () => Promise<unknown>;
-    parse: (data: unknown) => Period[];
+    queryFn: () => Promise<Period[]>;
+    gcTime: number;
+    id: string;
   };
 
   notices?: {
-    fetch: () => Promise<unknown>;
-    parse: (data: unknown) => Notice<TAudience>[];
+    queryFn: () => Promise<Notice<TAudience>[]>;
+    gcTime: number;
+    id: string;
+  };
+
+  nextSchoolDay?: {
+    queryFn: () => Promise<string | null>;
+    gcTime: number;
+    id: string;
   };
 
   newsletter?: {

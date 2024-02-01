@@ -1,11 +1,14 @@
+/// <reference types="vitest" />
 import replace from "@rollup/plugin-replace";
 import { sentryVitePlugin } from "@sentry/vite-plugin";
 import react from "@vitejs/plugin-react";
 import { injectManifest } from "rollup-plugin-workbox";
-/// <reference types="vitest" />
 import { defineConfig } from "vite";
 
 export default defineConfig({
+  test: {
+    open: false,
+  },
   plugins: [
     // This makes typescript angry but it works (I don't want to mess with build files)
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment

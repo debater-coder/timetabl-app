@@ -16,6 +16,7 @@ import * as Sentry from "@sentry/react";
 import { createSyncStoragePersister } from "@tanstack/query-sync-storage-persister";
 import { QueryCache, QueryClient } from "@tanstack/react-query";
 import { inject } from "@vercel/analytics";
+import superjson from "superjson";
 
 // Redirect to new domain if using old domain
 if (window.location.host === "timetabl.vercel.app") {
@@ -44,10 +45,8 @@ const toast = new Toast();
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      gcTime: Infinity,
       refetchInterval: 5 * 60 * 1000, // 5 minutes
       refetchIntervalInBackground: true,
-      networkMode: "always",
     },
   },
   queryCache: new QueryCache({
@@ -70,6 +69,8 @@ const queryClient = new QueryClient({
 
 const persister = createSyncStoragePersister({
   storage: window.localStorage,
+  serialize: (data) => superjson.stringify(data),
+  deserialize: (data) => superjson.parse(data),
 });
 
 const oauthClient = new OAuth2Client({
