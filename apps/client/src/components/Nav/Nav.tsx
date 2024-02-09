@@ -1,5 +1,4 @@
-import { useAuthActions } from "../../services/UserInterface";
-import { useIsLoggedIn } from "../../stores/auth";
+import { useDataAmalgamator } from "../../services/UserInterface";
 import { NavButton } from "../NavButton";
 import RefetchingIndicator from "../RefetchingIndicator";
 import { CloseIcon } from "@chakra-ui/icons";
@@ -173,7 +172,7 @@ export default function Nav() {
   const colorModeIcon = useColorModeValue(<FaMoon />, <FaSun />);
 
   const loggedIn = useIsLoggedIn();
-  const { logout } = useAuthActions();
+  const { logout } = useDataAmalgamator();
   const { pathname } = useLocation();
 
   return (

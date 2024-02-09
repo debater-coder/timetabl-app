@@ -1,5 +1,4 @@
-import { useAuthActions } from "../../services/UserInterface";
-import { AuthStatus, useAuthStatus } from "../../stores/auth";
+import { useDataAmalgamator } from "../../services/UserInterface";
 import { Button, Icon, Tooltip } from "@chakra-ui/react";
 import { useRef, useState } from "react";
 
@@ -44,7 +43,7 @@ const InstallButton = () => {
 export const NavButton = () => {
   const shouldLogin = useAuthStatus() === AuthStatus.EXPIRED;
 
-  const { login } = useAuthActions();
+  const { login } = useDataAmalgamator();
   return shouldLogin ? (
     <Button size="xs" mr={2} colorScheme="orange" onClick={login}>
       Log in for the latest info

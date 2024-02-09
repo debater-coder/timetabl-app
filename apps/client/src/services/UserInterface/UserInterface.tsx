@@ -2,6 +2,7 @@ import { Notifier } from "../../interfaces/Notifier";
 import { Router } from "../../interfaces/Router";
 import { useSettingsStore } from "../../stores/settings";
 import themeGen, { themeConfig } from "../../theme";
+import { DataAmalgamator } from "../DataAmalgamator";
 import { ChakraProvider, ColorModeScript } from "@chakra-ui/react";
 import { QueryClient } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
@@ -13,16 +14,16 @@ import { StrictMode, createContext, useContext } from "react";
 import ReactDOM from "react-dom/client";
 import { StatsigProvider } from "statsig-react";
 
-const AuthActionsContext = createContext<OAuth2Actions | null>(null);
+const DataAmalgamatorContext = createContext<DataAmalgamator | null>(null);
 
-export const useAuthActions = () => {
-  const actions = useContext(AuthActionsContext);
-  if (actions === null) {
+export const useDataAmalgamator = () => {
+  const dataAmalgamator = useContext(DataAmalgamatorContext);
+  if (dataAmalgamator === null) {
     throw new Error(
-      "useAuthActions must be used within an AuthActionsProvider"
+      "useDataAmalgamator must be used within a DataAmalgamatorContext.Provider"
     );
   }
-  return actions;
+  return dataAmalgamator;
 };
 
 const ChakraWrapper = ({ children }: { children: React.ReactNode }) => {
@@ -54,8 +55,8 @@ class UserInterface {
     private notifier: Notifier,
     private persister: Persister,
     private rootElement: HTMLElement,
-    private actions: OAuth2Actions,
-    private router: Router
+    private router: Router,
+    private dataAmalgamator: DataAmalgamator
   ) {}
 
   public render = () => {
@@ -78,9 +79,9 @@ class UserInterface {
               <ColorModeScript
                 initialColorMode={themeConfig.initialColorMode}
               />
-              <AuthActionsContext.Provider value={this.actions}>
+              <DataAmalgamatorContext.Provider value={this.dataAmalgamator}>
                 {this.router.getElement()}
-              </AuthActionsContext.Provider>
+              </DataAmalgamatorContext.Provider>
               <NotifyContainer />
               <ReactQueryDevtools initialIsOpen={false} />
             </ChakraWrapper>

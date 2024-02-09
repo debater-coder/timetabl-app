@@ -4,9 +4,11 @@ import { UnauthorizedError } from "./errors/UnauthorisedError";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 import AppRouter from "./services/AppRouter/";
+import { DataAmalgamator } from "./services/DataAmalgamator";
 import SWRegistration from "./services/SWRegistration";
 import Toast from "./services/Toast/";
 import UserInterface from "./services/UserInterface";
+import { TestDataProvider } from "./services/dataProviders/TestDataProvider/TestDataProvider";
 import { AuthStatus, useAuthStore } from "./stores/auth";
 import { log } from "./utils/log";
 import { sendToVercelAnalytics } from "./vitals";
@@ -103,25 +105,24 @@ const fetchWrapperInjector = () =>
     },
   });
 
-const authActions = new OAuth2Actions(
-  useAuthStore,
-  queryClient,
-  oauthClient,
-  fetchWrapperInjector,
-  toast
-);
-
 const swRegistration = new SWRegistration(toast);
 
 const router = new AppRouter();
+
+const dataAmalgamator = new DataAmalgamator();
+
+const dataProvider = new TestDataProvider("test");
+
+dataAmalgamator.addDataProvider(dataProvider);
+dataAmalgamator.setIdentityProvider("test");
 
 const userInterface = new UserInterface(
   queryClient,
   toast,
   persister,
   document.getElementById("root") as HTMLElement,
-  authActions,
-  router
+  router,
+  dataAmalgamator
 );
 
 // =======
@@ -137,8 +138,6 @@ inject({
     return event;
   },
 });
-
-authActions.resolve();
 
 // Render root
 userInterface.render();

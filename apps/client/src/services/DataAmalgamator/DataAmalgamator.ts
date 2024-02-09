@@ -16,11 +16,45 @@ export class DataAmalgamator {
     return this.dataProviders;
   };
 
+  // Usage:
+  // ```
+  //  const [_, loginError] = dataAmalgamator.login();
+  // ```
+  login = () => {
+    const identityProvider = this.dataProviders.find(
+      (dataProvider) => dataProvider.id === this.identityProviderId
+    );
+
+    if (identityProvider) {
+      identityProvider.activate();
+      return [null, null];
+    }
+
+    return [null, new Error("Identity provider not found")];
+  };
+
+  logout = () => {
+    const identityProvider = this.dataProviders.find(
+      (dataProvider) => dataProvider.id === this.identityProviderId
+    );
+
+    if (identityProvider) {
+      identityProvider.deactivate();
+    }
+  };
+
+  identityProviderId: string | null = null;
+
+  setIdentityProvider = (identityProviderId: string) => {
+    this.identityProviderId = identityProviderId;
+  };
+
   generateQueryOptions = <T>(
     queryType: DataProviderQuery,
     queryFnGenerator: (dataProvider: DataProvider) => () => T
   ) =>
     this.dataProviders
+      .filter((dataProvider) => dataProvider.isActivated)
       .filter((dataProvider) => dataProvider[queryType])
       .map((dataProvider) =>
         queryOptions({

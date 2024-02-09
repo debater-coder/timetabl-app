@@ -2,8 +2,7 @@ import { version } from "../../../package.json";
 import { BottomNav } from "../../components/BottomNav";
 import ReleaseNotes from "../../components/ReleaseNotes/ReleaseNotes";
 import Sidebar from "../../components/Sidebar";
-import { useAuthActions } from "../../services/UserInterface";
-import { useIsLoggedIn } from "../../stores/auth";
+import { useDataAmalgamator } from "../../services/UserInterface";
 import {
   Flex,
   useBreakpointValue,
@@ -23,7 +22,7 @@ import { Outlet, useNavigate } from "react-router-dom";
 export default function Main() {
   const navigate = useNavigate();
   const loggedIn = useIsLoggedIn();
-  const { logout } = useAuthActions();
+  const { logout } = useDataAmalgamator();
   const isLargerThanMd = useBreakpointValue({ base: false, md: true });
   const { onOpen, isOpen, onClose } = useDisclosure();
 

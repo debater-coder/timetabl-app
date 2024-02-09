@@ -1,3 +1,5 @@
+// Result of QueryFn should be superjson-serializable
+
 export type LongOrShortString = {
   short: string;
   long?: string;
