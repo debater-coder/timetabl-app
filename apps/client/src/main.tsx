@@ -17,6 +17,7 @@ import * as Sentry from "@sentry/react";
 import { createSyncStoragePersister } from "@tanstack/query-sync-storage-persister";
 import { QueryCache, QueryClient } from "@tanstack/react-query";
 import { inject } from "@vercel/analytics";
+import mixpanel from "mixpanel-browser";
 
 // Redirect to new domain if using old domain
 if (window.location.host === "timetabl.vercel.app") {
@@ -129,6 +130,11 @@ const userInterface = new UserInterface(
 // =======
 
 // Initialise analytics
+mixpanel.init("bdeb697218eafcf9988cf7dfa37f9250", {
+  track_pageview: true,
+  persistence: "localStorage",
+});
+
 inject({
   beforeSend: (event) => {
     if (event.type === "pageview") {
