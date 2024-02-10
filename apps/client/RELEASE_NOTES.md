@@ -1,5 +1,9 @@
 You can open release notes by going to Settings -> About -> Release notes.
 
+## 1.9.11-beta
+
+- Hotfix: don't rely on SBHS OAuth discovery endpoint (which is currently dead)
+
 ## 1.9.10-beta
 
 - Added more analytics

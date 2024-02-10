@@ -78,6 +78,7 @@ const oauthClient = new OAuth2Client({
   server: "https://auth.sbhs.net.au/",
   clientId: config.client_id,
   authorizationEndpoint: config.authorization_endpoint,
+  tokenEndpoint: "https://auth.sbhs.net.au/token",
 });
 
 const fetchWrapperInjector = () =>
