@@ -21,8 +21,8 @@ import { Outlet, useNavigate } from "react-router-dom";
 
 export default function Main() {
   const navigate = useNavigate();
-  const loggedIn = useIsLoggedIn();
-  const { logout } = useDataAmalgamator();
+  const { logout, isLoggedIn } = useDataAmalgamator();
+  const loggedIn = isLoggedIn();
   const isLargerThanMd = useBreakpointValue({ base: false, md: true });
   const { onOpen, isOpen, onClose } = useDisclosure();
 

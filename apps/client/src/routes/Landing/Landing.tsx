@@ -1,4 +1,4 @@
-import { useIsLoggedIn } from "../../stores/auth";
+import { useDataAmalgamator } from "../../services/UserInterface";
 import { Footer } from "./Footer";
 import { Hero } from "./Hero";
 import {
@@ -15,7 +15,8 @@ import { useNavigate } from "react-router-dom";
 
 export default function Landing() {
   const navigate = useNavigate();
-  const loggedIn = useIsLoggedIn();
+  const { isLoggedIn } = useDataAmalgamator();
+  const loggedIn = isLoggedIn();
 
   useEffect(() => {
     if (loggedIn) {

@@ -1,11 +1,11 @@
-import { useAuthActions } from "../../../services/UserInterface";
+import { useDataAmalgamator } from "../../../services/UserInterface";
 import { Heading, Button, Stack, Text } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import { SignIn } from "phosphor-react";
 import { useState } from "react";
 
 export const Hero = () => {
-  const { login } = useAuthActions();
+  const { login } = useDataAmalgamator();
   const [loggingIn, setLoggingIn] = useState(false);
 
   const gradients = [

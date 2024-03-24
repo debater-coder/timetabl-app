@@ -4,17 +4,18 @@ import { DateTime } from "luxon";
 export class TestDataProvider implements DataProvider {
   constructor(public id: string) {}
 
-  private activated = false;
-
   activate = () => {
-    this.activated = true;
+    localStorage.setItem("TestDataProviderActivated", "true");
+    window.location.reload();
   };
 
   deactivate = () => {
-    this.activated = false;
+    localStorage.setItem("TestDataProviderActivated", "false");
+    window.location.reload();
   };
 
-  isActivated = () => this.activated;
+  isActivated = () =>
+    localStorage.getItem("TestDataProviderActivated") === "true";
 
   config = {
     name: { short: "Test" },

@@ -1,6 +1,3 @@
-import config from "./config";
-import NetworkError from "./errors/NetworkError";
-import { UnauthorizedError } from "./errors/UnauthorisedError";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 import AppRouter from "./services/AppRouter/";
@@ -9,14 +6,12 @@ import SWRegistration from "./services/SWRegistration";
 import Toast from "./services/Toast/";
 import UserInterface from "./services/UserInterface";
 import { TestDataProvider } from "./services/dataProviders/TestDataProvider/TestDataProvider";
-import { AuthStatus, useAuthStore } from "./stores/auth";
 import { log } from "./utils/log";
 import { sendToVercelAnalytics } from "./vitals";
-import { OAuth2Client, OAuth2Fetch } from "@badgateway/oauth2-client";
 import "@fontsource/poppins";
 import * as Sentry from "@sentry/react";
 import { createSyncStoragePersister } from "@tanstack/query-sync-storage-persister";
-import { QueryCache, QueryClient } from "@tanstack/react-query";
+import { QueryClient } from "@tanstack/react-query";
 import { inject } from "@vercel/analytics";
 import superjson from "superjson";
 
@@ -51,22 +46,6 @@ const queryClient = new QueryClient({
       refetchIntervalInBackground: true,
     },
   },
-  queryCache: new QueryCache({
-    onError: (error) => {
-      if (
-        error instanceof Error &&
-        !(error instanceof UnauthorizedError) &&
-        !(error instanceof NetworkError)
-      ) {
-        toast.notify({
-          title:
-            "Something went wrong, try logging in and out if the issue persists.",
-          message: error.message,
-          status: "error",
-        });
-      }
-    },
-  }),
 });
 
 const persister = createSyncStoragePersister({
@@ -74,36 +53,6 @@ const persister = createSyncStoragePersister({
   serialize: (data) => superjson.stringify(data),
   deserialize: (data) => superjson.parse(data),
 });
-
-const oauthClient = new OAuth2Client({
-  server: "https://auth.sbhs.net.au/",
-  clientId: config.client_id,
-  authorizationEndpoint: config.authorization_endpoint,
-});
-
-const fetchWrapperInjector = () =>
-  new OAuth2Fetch({
-    client: oauthClient,
-
-    getNewToken: () => {
-      log("getNewToken invoked");
-
-      // Set the status to expired
-      useAuthStore.setState({ status: AuthStatus.EXPIRED });
-
-      return null; // Fail this step, we don't want to log out until the user does so explicitly
-    },
-
-    storeToken: (token) => {
-      useAuthStore.setState({
-        token,
-      });
-    },
-
-    getStoredToken: () => {
-      return useAuthStore.getState().token;
-    },
-  });
 
 const swRegistration = new SWRegistration(toast);
 

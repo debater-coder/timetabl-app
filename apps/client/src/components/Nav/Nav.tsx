@@ -171,7 +171,7 @@ export default function Nav() {
   const iconColor = useColorModeValue("black", "white");
   const colorModeIcon = useColorModeValue(<FaMoon />, <FaSun />);
 
-  const loggedIn = useIsLoggedIn();
+  const loggedIn = useDataAmalgamator().isLoggedIn();
   const { logout } = useDataAmalgamator();
   const { pathname } = useLocation();
 
@@ -202,7 +202,7 @@ export default function Nav() {
       <Flex align="center">
         {loggedIn ? (
           <>
-            <NavButton />
+            {/* <NavButton /> */}
             <SettingsBTN iconColor={iconColor} pathname={pathname} />
             <LogoutBTN logout={() => logout()} iconColor={iconColor} />
           </>

@@ -43,6 +43,11 @@ export class DataAmalgamator {
     }
   };
 
+  isLoggedIn = () =>
+    this.dataProviders
+      .find((dataProvider) => dataProvider.id === this.identityProviderId)
+      ?.isActivated() ?? false;
+
   identityProviderId: string | null = null;
 
   setIdentityProvider = (identityProviderId: string) => {
@@ -58,18 +63,26 @@ export class DataAmalgamator {
       .filter((dataProvider) => dataProvider[queryType])
       .map((dataProvider) =>
         queryOptions({
-          queryKey: [queryType, dataProvider.id, dataProvider[queryType]?.id],
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+          queryKey: [queryType, dataProvider.id, dataProvider[queryType]!.id],
           queryFn: queryFnGenerator(dataProvider),
           gcTime: dataProvider[queryType]?.gcTime,
         })
       );
 
   barcodeQueries = () =>
-    this.generateQueryOptions(
-      "barcode",
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      (dataProvider) => dataProvider.barcode!.queryFn
-    );
+    this.dataProviders
+      .filter((dataProvider) => dataProvider.isActivated)
+      .filter((dataProvider) => dataProvider.barcode)
+      .map((dataProvider) =>
+        queryOptions({
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+          queryKey: ["barcode", dataProvider.id, dataProvider.barcode!.id],
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+          queryFn: dataProvider.barcode!.queryFn,
+          gcTime: dataProvider.barcode?.gcTime,
+        })
+      );
 
   dttQueries = (date: string) =>
     this.generateQueryOptions(

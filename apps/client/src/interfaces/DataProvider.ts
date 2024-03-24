@@ -39,7 +39,7 @@ export type Notice<TAudience> = {
 export interface DataProvider<TAudience = never> {
   activate(): void;
   deactivate(): void;
-  isActivated(): boolean;
+  isActivated(): boolean; // activated state cannot change without a refresh
 
   id: string;
 
