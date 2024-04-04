@@ -35,14 +35,7 @@ export const Footer = () => {
         </ButtonGroup>
       </Stack>
       <Text fontSize="sm" color="subtle">
-        &copy; {new Date().getFullYear()}, Hamzah Ahmed under{" "}
-        <Link
-          href="https://github.com/debater-coder/timetabl-app/blob/main/LICENSE"
-          color={"primary.500"}
-          isExternal
-        >
-          MIT License.
-        </Link>
+        &copy; {new Date().getFullYear()}, Hamzah Ahmed
       </Text>
       <Box
         mt="6"
