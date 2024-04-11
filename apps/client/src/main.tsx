@@ -21,7 +21,7 @@ if (window.location.host === "timetabl.vercel.app") {
 }
 
 // Initialise analytics if consented
-if (localStorage.getItem("consentedToWelcomeMessage")) {
+if (localStorage.getItem("consentedToWelcomeMessage") && import.meta.env.PROD) {
   Sentry.init({
     dsn: "https://3eaf1d52758e5e86de9d4d6a4958a5e3@o4506133038301184.ingest.sentry.io/4506133044723712",
     integrations: [new Sentry.BrowserTracing(), new Sentry.Replay()],
