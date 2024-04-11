@@ -23,7 +23,9 @@ export class TestDataProvider implements DataProvider {
   };
 
   barcode = {
-    queryFn: async () => "1234567890",
+    queryFn: async () => {
+      return "1234567890";
+    },
     gcTime: Infinity,
     id: "barcode",
   };

@@ -35,9 +35,11 @@ class AppRouter implements Router {
   private router: ReturnType<typeof createBrowserRouter>;
 
   constructor() {
+    const errorElement = <ErrorAlert type="client" enabled />;
+
     this.router = createBrowserRouter(
       createRoutesFromElements(
-        <Route path={"/"} element={<App />} errorElement={<ErrorAlert />}>
+        <Route path={"/"} element={<App />} errorElement={errorElement}>
           <Route
             index
             element={
@@ -53,7 +55,7 @@ class AppRouter implements Router {
                 <Main />
               </SpinnerSuspense>
             }
-            errorElement={<ErrorAlert />}
+            errorElement={errorElement}
           >
             <Route index element={<Navigate to="home" replace={true} />} />
             {[...pages.pinned, ...pages.unpinned].map((route) => (
@@ -61,33 +63,33 @@ class AppRouter implements Router {
                 key={route.path}
                 path={route.path}
                 element={route.element}
-                errorElement={<ErrorAlert />}
+                errorElement={errorElement}
               />
             ))}
             <Route
               path={"settings/*"}
               element={<Settings />}
-              errorElement={<ErrorAlert />}
+              errorElement={errorElement}
             >
               <Route
                 path={"general"}
                 element={<General />}
-                errorElement={<ErrorAlert />}
+                errorElement={errorElement}
               />
               <Route
                 path={"developers"}
                 element={<Developers />}
-                errorElement={<ErrorAlert />}
+                errorElement={errorElement}
               />
               <Route
                 path={"about"}
                 element={<About />}
-                errorElement={<ErrorAlert />}
+                errorElement={errorElement}
               />
               <Route
                 index
                 element={<Navigate to="general" replace={true} />}
-                errorElement={<ErrorAlert />}
+                errorElement={errorElement}
               />
             </Route>
             <Route path="*" element={<PageNotFound />} />
