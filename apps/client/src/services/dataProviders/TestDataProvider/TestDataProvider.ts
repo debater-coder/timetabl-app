@@ -59,4 +59,38 @@ export class TestDataProvider implements DataProvider {
     gcTime: 1000 * 60 * 60 * 24 * 7,
     id: "dtt",
   };
+
+  notices = {
+    queryFn: async () => [
+      {
+        date: DateTime.fromISO("2023-09-20T00:00:00.000Z").toJSDate(),
+        title: "Test Notice",
+        content: "This is a test notice.",
+        content_encoding: "markdown" as const,
+        audiences: ["ALL" as const],
+        author: "Test Author",
+      },
+      {
+        date: DateTime.fromISO("2024-04-01T00:00:00.000Z").toJSDate(),
+        title: "Test Notice 2",
+        content: `Certainly! Let's delve into the arcane and invent some truly one-of-a-kind Latin species names for these tech errors:
+
+        Bugus Clientus Crypticus: A client-side bug that materializes only when the moon is in retrograde, whispering secrets to ancient compilers.
+        Errorus Serverus Enigmatica: A spectral server error that manifests as a riddle in forgotten dialects, challenging sysadmins to decipher its cryptic runes.
+        Offlineus WiFicus: A reclusive species dwelling in the shadowy realms of Wi-Fi dead zones, communicating via carrier pigeons and smoke signals.
+        Authorizatus Rebellica: An audacious error that defies authentication protocols, wearing sunglasses indoors and sipping unauthorized access like a forbidden elixir.
+        Remember, these species exist solely in the whimsical corridors of our imagination! 🌟🦄`,
+        content_encoding: "markdown" as const,
+        audiences: ["ALL" as const],
+        author: "GPT-4",
+      },
+    ],
+    gcTime: 1000 * 60 * 60 * 24 * 7,
+    id: "notices",
+  };
+
+  newsletter = {
+    downloadUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+    name: "Rickroll Notes",
+  };
 }

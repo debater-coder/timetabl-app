@@ -13,12 +13,16 @@ export const detectErrorType = (
   if (isError) {
     return "server";
   }
+
+  return null;
 };
 
 export default function ErrorAlert({
   type,
+  full,
 }: {
-  type?: "offline" | "authorization" | "server" | "client";
+  type: "offline" | "authorization" | "server" | "client" | null;
+  full?: boolean;
 }) {
   if (!type) {
     return null;
@@ -27,14 +31,22 @@ export default function ErrorAlert({
   switch (type) {
     case "offline":
       return (
-        <Alert status="info" rounded={5} maxW={"fit-content"}>
+        <Alert
+          status="info"
+          rounded={5}
+          maxW={!full ? "fit-content" : undefined}
+        >
           <AlertIcon />
           <AlertTitle>You are offline.</AlertTitle>
         </Alert>
       );
     case "authorization":
       return (
-        <Alert status="warning" rounded={5} maxW={"fit-content"}>
+        <Alert
+          status="warning"
+          rounded={5}
+          maxW={!full ? "fit-content" : undefined}
+        >
           <AlertIcon />
           <AlertTitle>Log in for the latest data</AlertTitle>
           <Button size="sm" colorScheme="orange" ml={6}>
@@ -44,7 +56,11 @@ export default function ErrorAlert({
       );
     case "server":
       return (
-        <Alert status="error" rounded={5} maxW={"fit-content"}>
+        <Alert
+          status="error"
+          rounded={5}
+          maxW={!full ? "fit-content" : undefined}
+        >
           <AlertIcon />
           <AlertTitle>
             An error occured while fetching the latest data.
@@ -53,7 +69,11 @@ export default function ErrorAlert({
       );
     case "client":
       return (
-        <Alert status="error" rounded={5} maxW={"fit-content"}>
+        <Alert
+          status="error"
+          rounded={5}
+          maxW={!full ? "fit-content" : undefined}
+        >
           <AlertIcon />
           <AlertTitle>Something went wrong.</AlertTitle>
           <Button size="sm" colorScheme="red" ml={6}>

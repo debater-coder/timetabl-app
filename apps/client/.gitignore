@@ -111,3 +111,5 @@ cypress/videos
 cypress/screenshots
 # Sentry Config File
 .env.sentry-build-plugin
+
+*storybook.log

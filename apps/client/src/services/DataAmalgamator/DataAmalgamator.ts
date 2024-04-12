@@ -54,21 +54,11 @@ export class DataAmalgamator {
     this.identityProviderId = identityProviderId;
   };
 
-  generateQueryOptions = <T>(
-    queryType: DataProviderQuery,
-    queryFnGenerator: (dataProvider: DataProvider) => () => T
-  ) =>
+  newsletters = () =>
     this.dataProviders
       .filter((dataProvider) => dataProvider.isActivated)
-      .filter((dataProvider) => dataProvider[queryType])
-      .map((dataProvider) =>
-        queryOptions({
-          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-          queryKey: [queryType, dataProvider.id, dataProvider[queryType]!.id],
-          queryFn: queryFnGenerator(dataProvider),
-          gcTime: dataProvider[queryType]?.gcTime,
-        })
-      );
+      .filter((dataProvider) => dataProvider.newsletter)
+      .map((dataProvider) => dataProvider.newsletter);
 
   barcodeQueries = () =>
     this.dataProviders
@@ -85,30 +75,62 @@ export class DataAmalgamator {
       );
 
   dttQueries = (date: string) =>
-    this.generateQueryOptions(
-      "dtt",
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      (dataProvider) => () => dataProvider.dtt!.queryFn(date)
-    );
+    this.dataProviders
+      .filter((dataProvider) => dataProvider.isActivated)
+      .filter((dataProvider) => dataProvider.dtt)
+      .map((dataProvider) =>
+        queryOptions({
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+          queryKey: ["dtt", dataProvider.id, dataProvider.dtt!.id],
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+          queryFn: () => dataProvider.dtt!.queryFn(date),
+          gcTime: dataProvider.dtt?.gcTime,
+        })
+      );
 
   cycleQueries = () =>
-    this.generateQueryOptions(
-      "cycle",
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      (dataProvider) => dataProvider.cycle!.queryFn
-    );
+    this.dataProviders
+      .filter((dataProvider) => dataProvider.isActivated)
+      .filter((dataProvider) => dataProvider.cycle)
+      .map((dataProvider) =>
+        queryOptions({
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+          queryKey: ["cycle", dataProvider.id, dataProvider.cycle!.id],
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+          queryFn: dataProvider.cycle!.queryFn,
+          gcTime: dataProvider.cycle?.gcTime,
+        })
+      );
 
   noticesQueries = () =>
-    this.generateQueryOptions(
-      "notices",
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      (dataProvider) => dataProvider.notices!.queryFn
-    );
+    this.dataProviders
+      .filter((dataProvider) => dataProvider.isActivated)
+      .filter((dataProvider) => dataProvider.notices)
+      .map((dataProvider) =>
+        queryOptions({
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+          queryKey: ["notices", dataProvider.id, dataProvider.notices!.id],
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+          queryFn: dataProvider.notices!.queryFn,
+          gcTime: dataProvider.notices?.gcTime,
+        })
+      );
 
   nextSchoolDayQueries = () =>
-    this.generateQueryOptions(
-      "nextSchoolDay",
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      (dataProvider) => dataProvider.nextSchoolDay!.queryFn
-    );
+    this.dataProviders
+      .filter((dataProvider) => dataProvider.isActivated)
+      .filter((dataProvider) => dataProvider.nextSchoolDay)
+      .map((dataProvider) =>
+        queryOptions({
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+          queryKey: [
+            "nextSchoolDay",
+            dataProvider.id,
+            dataProvider.nextSchoolDay!.id,
+          ],
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+          queryFn: dataProvider.nextSchoolDay!.queryFn,
+          gcTime: dataProvider.nextSchoolDay?.gcTime,
+        })
+      );
 }

@@ -23,12 +23,12 @@ export default function Home() {
         </TabList>
         <TabPanels borderTop={"2px solid"} borderColor={"gray.500"}>
           <TabPanel>
-            <ErrorBoundary fallback={<ErrorAlert type="client" enabled />}>
+            <ErrorBoundary fallback={<ErrorAlert type="client" />}>
               <DayTimetable />
             </ErrorBoundary>
           </TabPanel>
           <TabPanel>
-            <ErrorBoundary fallback={<ErrorAlert type="client" enabled />}>
+            <ErrorBoundary fallback={<ErrorAlert type="client" />}>
               <CycleTimetable />
             </ErrorBoundary>
           </TabPanel>

@@ -1,4 +1,10 @@
 import Empty from "../../../components/Empty";
+import ErrorAlert, {
+  detectErrorType,
+} from "../../../components/ErrorAlert/ErrorAlert";
+import NotAvailable from "../../../components/NotAvailable/NotAvailable";
+import { Notice, type NoticeYear } from "../../../interfaces/DataProvider";
+import { useDataAmalgamator } from "../../../services/UserInterface";
 import { Search2Icon } from "@chakra-ui/icons";
 import {
   Avatar,
@@ -23,6 +29,7 @@ import {
   Box,
 } from "@chakra-ui/react";
 import { Prose } from "@nikolovlazar/chakra-ui-prose";
+import { useQueries } from "@tanstack/react-query";
 import DOMPurify from "dompurify";
 import linkifyHtml from "linkify-html";
 import { DateTime } from "luxon";
@@ -40,7 +47,7 @@ const useAnnouncementStore = create<AnnouncementState>()(
   devtools(
     persist(
       (set): AnnouncementState => ({
-        year: NoticeYear.ALL,
+        year: "ALL",
         setYear: (year) => set({ year }),
       }),
       {
@@ -51,16 +58,16 @@ const useAnnouncementStore = create<AnnouncementState>()(
 );
 
 const filterNotices = (
-  notices: TimetablNotice[] | undefined,
+  notices: Notice[] | undefined,
   filter: NoticeYear,
   query: string
 ) =>
   notices?.filter(
     (notice) =>
-      [...(notice?.years ?? []), NoticeYear.ALL].includes(filter) &&
+      [...(notice?.audiences ?? []), "ALL"].includes(filter) &&
       (notice?.content?.toLowerCase().includes(query.toLowerCase()) ||
         notice?.title?.toLowerCase().includes(query.toLowerCase()) ||
-        notice?.authorName?.toLowerCase().includes(query.toLowerCase()))
+        notice?.author?.toLowerCase().includes(query.toLowerCase()))
   );
 
 function Announcement({
@@ -73,7 +80,7 @@ function Announcement({
   title: string;
   content: string;
   authorName?: string;
-  date?: string;
+  date?: Date;
   query: string;
 }) {
   const { isOpen, onToggle } = useDisclosure();
@@ -119,7 +126,7 @@ function Announcement({
           </Highlight>
         </Heading>
         <Text>
-          {date && DateTime.fromISO(date).toLocaleString(DateTime.DATE_FULL)}
+          {date && DateTime.fromJSDate(date).toLocaleString(DateTime.DATE_FULL)}
         </Text>
       </Flex>
     </Flex>
@@ -134,7 +141,7 @@ function DailyNotices({
   filter: NoticeYear;
   query: string;
   dailyNoticesLoading: boolean;
-  dailyNotices?: TimetablNotice[];
+  dailyNotices?: Notice[];
 }) {
   const notices = filterNotices(dailyNotices, filter, query);
 
@@ -162,32 +169,57 @@ function DailyNotices({
 export default function Announcements() {
   const { year, setYear } = useAnnouncementStore();
 
-  const { data: dailyNotices, isLoading: dailyNoticesLoading } =
-    useDailyNotices();
-
   const [query, setQuery] = useState("");
   const [isDownloading, setIsDownloading] = useState(false);
 
+  const newsletters = useDataAmalgamator().newsletters();
+
+  const noticeQueries = useQueries({
+    queries: useDataAmalgamator().noticesQueries(),
+  });
+
+  if (!newsletters.length && !noticeQueries.length) {
+    return <NotAvailable />;
+  }
+
+  const data = noticeQueries
+    .filter((query) => query.data)
+    .flatMap((query) => query.data as Notice[]);
+
+  const errorTypes = noticeQueries.map((query) =>
+    detectErrorType(!!query.data, query.isError, query.isPaused)
+  );
+
+  const errorType = errorTypes.find((type) => type == "offline")
+    ? ("offline" as const)
+    : errorTypes.find((type) => type == "server")
+    ? ("server" as const)
+    : null;
+
+  console.log(errorType);
+
   return (
     <Flex w="full" direction={"column"} px={"30px"} gap={"20px"}>
-      <Alert status="info" rounded={"md"}>
-        <Box>
-          <AlertTitle mb={2} fontFamily={"Poppins, sans-serif"}>
-            Read the latest edition of the High Notes
-          </AlertTitle>
-          <AlertDescription>
-            <Button
-              as="a"
-              href="https://sbhs.co/hnpdf"
-              onClick={() => setIsDownloading(true)}
-              isLoading={isDownloading}
-              loadingText="Downloading PDF..."
-            >
-              Download High Notes PDF
-            </Button>
-          </AlertDescription>
-        </Box>
-      </Alert>
+      {newsletters.map((newsletter) => (
+        <Alert status="info" rounded={"md"}>
+          <Box>
+            <AlertTitle mb={2} fontFamily={"Poppins, sans-serif"}>
+              Read the latest edition of the {newsletter?.name}
+            </AlertTitle>
+            <AlertDescription>
+              <Button
+                as="a"
+                href={newsletter?.downloadUrl}
+                onClick={() => setIsDownloading(true)}
+                isLoading={isDownloading}
+                loadingText="Downloading PDF..."
+              >
+                Download {newsletter?.name} PDF
+              </Button>
+            </AlertDescription>
+          </Box>
+        </Alert>
+      ))}
       <Flex align="" w="full" zIndex={1}>
         <InputGroup maxW="fit-content">
           <InputLeftElement pointerEvents="none">
@@ -209,27 +241,30 @@ export default function Announcements() {
         >
           <FormLabel mb="0">Filter</FormLabel>
           <Select
-            onChange={(event) => setYear(parseInt(event.target.value))}
+            onChange={(event) => setYear(event.target.value as NoticeYear)}
             value={year}
             variant="filled"
           >
-            <option value={NoticeYear.ALL}>All</option>
-            <option value={NoticeYear.YEAR7}>Year 7</option>
-            <option value={NoticeYear.YEAR8}>Year 8</option>
-            <option value={NoticeYear.YEAR9}>Year 9</option>
-            <option value={NoticeYear.YEAR10}>Year 10</option>
-            <option value={NoticeYear.YEAR11}>Year 11</option>
-            <option value={NoticeYear.YEAR12}>Year 12</option>
-            <option value={NoticeYear.STAFF}>Staff</option>
+            <option value={"ALL"}>All</option>
+            <option value={"YEAR7"}>Year 7</option>
+            <option value={"YEAR8"}>Year 8</option>
+            <option value={"YEAR9"}>Year 9</option>
+            <option value={"YEAR10"}>Year 10</option>
+            <option value={"YEAR11"}>Year 11</option>
+            <option value={"YEAR12"}>Year 12</option>
+            <option value={"STAFF"}>Staff</option>
           </Select>
         </FormControl>
       </Flex>
-      <DailyNotices
-        filter={year}
-        query={query}
-        dailyNotices={dailyNotices}
-        dailyNoticesLoading={dailyNoticesLoading}
-      />
+      <ErrorAlert type={errorType} full />
+      {(!errorType || !!data.length) && (
+        <DailyNotices
+          filter={year}
+          query={query}
+          dailyNotices={data}
+          dailyNoticesLoading={!data.length}
+        />
+      )}
     </Flex>
   );
 }

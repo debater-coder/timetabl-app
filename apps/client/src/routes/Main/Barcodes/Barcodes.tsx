@@ -1,19 +1,21 @@
 import Barcode from "../../../components/Barcode";
+import Empty from "../../../components/Empty/Empty";
 import ErrorAlert, {
   detectErrorType,
 } from "../../../components/ErrorAlert/ErrorAlert";
+import NotAvailable from "../../../components/NotAvailable/NotAvailable";
 import { useDataAmalgamator } from "../../../services/UserInterface";
 import { Flex, Heading, Skeleton } from "@chakra-ui/react";
 import { useQueries } from "@tanstack/react-query";
-import invariant from "tiny-invariant";
 
 export default function Barcodes() {
   const barcodeQueries = useQueries({
     queries: useDataAmalgamator().barcodeQueries(),
   });
 
-  invariant(barcodeQueries.length == 1, "Expected exactly barcode query");
-  invariant(barcodeQueries?.[0], "Expected barcode query to be defined");
+  if (barcodeQueries.length != 1 || !barcodeQueries?.[0]) {
+    return <NotAvailable />;
+  }
 
   const { data, isError, isPaused } = barcodeQueries[0];
 
@@ -26,7 +28,7 @@ export default function Barcodes() {
       </Heading>
 
       {/** Error state */}
-      <ErrorAlert type={errorType} />
+      <ErrorAlert type={errorType} full />
 
       {/** Happy path */}
       {(!errorType || data) && (

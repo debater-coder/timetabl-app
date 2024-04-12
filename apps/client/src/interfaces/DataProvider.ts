@@ -27,16 +27,29 @@ export const dataProviderQueries = [
 
 export type DataProviderQuery = typeof dataProviderQueries[number];
 
-export type Notice<TAudience> = {
+export const noticeYears = [
+  "ALL",
+  "YEAR7",
+  "YEAR8",
+  "YEAR9",
+  "YEAR10",
+  "YEAR11",
+  "YEAR12",
+  "STAFF",
+] as const;
+
+export type NoticeYear = typeof noticeYears[number];
+
+export type Notice = {
   date: Date;
   title: string;
   content: string;
   content_encoding: ContentEncoding;
-  audiences: TAudience[];
+  audiences: NoticeYear[];
   author: string;
 };
 
-export interface DataProvider<TAudience = never> {
+export interface DataProvider {
   activate(): void;
   deactivate(): void;
   isActivated(): boolean; // activated state cannot change without a refresh
@@ -68,7 +81,7 @@ export interface DataProvider<TAudience = never> {
   };
 
   notices?: {
-    queryFn: () => Promise<Notice<TAudience>[]>;
+    queryFn: () => Promise<Notice[]>;
     gcTime: number;
     id: string;
   };

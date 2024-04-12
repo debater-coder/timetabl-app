@@ -1,20 +1,8 @@
-import { DataProvider, Notice, Period } from "../../../interfaces/DataProvider";
-import { DateTime } from "luxon";
+import { DataProvider } from "../../../interfaces/DataProvider";
 
-export const noticeYears = [
-  "ALL",
-  "YEAR7",
-  "YEAR8",
-  "YEAR9",
-  "YEAR10",
-  "YEAR11",
-  "YEAR12",
-  "STAFF",
-] as const;
+export class SbhsDataProvider implements DataProvider {
+  constructor(public id: string) {}
 
-export type NoticeYear = typeof noticeYears[number];
-
-export class SbhsDataProvider implements DataProvider<NoticeYear> {
   activate(): void {
     throw new Error("Method not implemented.");
   }
