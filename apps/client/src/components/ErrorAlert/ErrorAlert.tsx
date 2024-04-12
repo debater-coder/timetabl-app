@@ -1,4 +1,5 @@
 import { Alert, AlertIcon, AlertTitle, Button } from "@chakra-ui/react";
+import * as Sentry from "@sentry/react";
 import invariant from "tiny-invariant";
 
 export const detectErrorType = (
@@ -76,7 +77,12 @@ export default function ErrorAlert({
         >
           <AlertIcon />
           <AlertTitle>Something went wrong.</AlertTitle>
-          <Button size="sm" colorScheme="red" ml={6}>
+          <Button
+            size="sm"
+            colorScheme="red"
+            ml={6}
+            onClick={() => Sentry.showReportDialog()}
+          >
             Send feedback
           </Button>
         </Alert>
