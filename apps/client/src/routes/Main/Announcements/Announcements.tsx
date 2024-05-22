@@ -73,13 +73,13 @@ const filterNotices = (
 function Announcement({
   title,
   content,
-  authorName,
+  author,
   date,
   query,
 }: {
   title: string;
   content: string;
-  authorName?: string;
+  author?: string;
   date?: Date;
   query: string;
 }) {
@@ -116,13 +116,13 @@ function Announcement({
             Show {isOpen ? "less" : "more"}
           </Button>
         )}
-        <Avatar size="sm" name={authorName} />
+        <Avatar size="sm" name={author} />
         <Heading size="sm">
           <Highlight
             query={query}
             styles={{ bg: "primary.100", rounded: "5px", p: 1 }}
           >
-            {authorName ?? ""}
+            {author ?? ""}
           </Highlight>
         </Heading>
         <Text>
@@ -196,12 +196,10 @@ export default function Announcements() {
     ? ("server" as const)
     : null;
 
-  console.log(errorType);
-
   return (
     <Flex w="full" direction={"column"} px={"30px"} gap={"20px"}>
-      {newsletters.map((newsletter) => (
-        <Alert status="info" rounded={"md"}>
+      {newsletters.map((newsletter, index) => (
+        <Alert status="info" rounded={"md"} key={index}>
           <Box>
             <AlertTitle mb={2} fontFamily={"Poppins, sans-serif"}>
               Read the latest edition of the {newsletter?.name}
