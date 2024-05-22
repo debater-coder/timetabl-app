@@ -1,5 +1,4 @@
 import Barcode from "../../../components/Barcode";
-import Empty from "../../../components/Empty/Empty";
 import ErrorAlert, {
   detectErrorType,
 } from "../../../components/ErrorAlert/ErrorAlert";
