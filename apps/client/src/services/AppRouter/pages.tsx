@@ -74,21 +74,6 @@ export const pages: { pinned: TimetablPage[]; unpinned: TimetablPage[] } = {
   ],
   unpinned: [
     {
-      path: "maps",
-      name: "Maps",
-      icon: MapTrifold,
-      mirrored: false,
-      element: <ComingSoon />,
-    },
-    {
-      path: "points",
-      name: "Points",
-      icon: Medal,
-      mirrored: false,
-      element: <ComingSoon />,
-    },
-
-    {
       path: "feedback",
       name: "Feedback",
       icon: ChatsTeardrop,
