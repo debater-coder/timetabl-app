@@ -9,8 +9,8 @@ export type Period = {
   start: Date;
   end: Date;
   name: LongOrShortString;
-  teacher?: LongOrShortString;
-  location?: LongOrShortString;
+  teacher?: LongOrShortString[];
+  location?: LongOrShortString[];
   color?: string;
 };
 
