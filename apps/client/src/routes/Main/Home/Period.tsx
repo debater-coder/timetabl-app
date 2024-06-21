@@ -21,7 +21,7 @@ export default function Period({
   isLoaded?: boolean;
   period: PeriodInterface
 }) {
-  const {start, end, name, color, location, teacher} = period
+  const {start, name, color, location, teacher} = period
 
   const regularTeacher = teacher?.[0]
   const casual = teacher && (teacher?.length > 1) ? teacher[teacher?.length - 1] : undefined
@@ -106,7 +106,7 @@ export default function Period({
             p={0.5}
             rounded="md"
           >
-            {roomTo?.long ?? roomFrom?.long}
+            {roomTo?.short ?? roomFrom?.short}
           </Text>
         </Flex>
       </Flex>

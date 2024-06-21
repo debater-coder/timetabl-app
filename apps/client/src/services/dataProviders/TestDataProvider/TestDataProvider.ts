@@ -89,6 +89,12 @@ export class TestDataProvider implements DataProvider {
     id: "notices",
   };
 
+  nextSchoolDay = {
+    queryFn: async () => "2024-06-21",
+    gcTime: 1000 * 60 * 60 * 24,
+    id: "nextSchoolDay"
+  };
+
   newsletter = {
     downloadUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
     name: "Rickroll Notes",
