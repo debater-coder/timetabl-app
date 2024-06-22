@@ -1,4 +1,4 @@
-import { Button, Flex, IconButton, Select, Spacer } from "@chakra-ui/react";
+import {  Box, Button, Flex, IconButton, Select, Spacer, useBreakpointValue } from "@chakra-ui/react";
 import { useQueries } from "@tanstack/react-query";
 import { useDataAmalgamator } from "../../../services/UserInterface";
 import ErrorAlert from "../../../components/ErrorAlert";
@@ -6,6 +6,9 @@ import { detectErrorType } from "../../../components/ErrorAlert/ErrorAlert";
 import NotAvailable from "../../../components/NotAvailable";
 import Period from "./Period";
 import { ArrowLeft, ArrowRight } from "phosphor-react";
+
+
+const DateSelector = () => <Button size="sm" colorScheme="gray">Mon, 24/06/2024, Wk 9B</Button>;
 
 export default function Home() {
   const dttQueries = useQueries({
@@ -19,6 +22,11 @@ export default function Home() {
   const { data, isError, isPaused } = dttQueries[0];
 
   const errorType = detectErrorType(!!data, isError, isPaused);
+
+  const shouldBreakLine = useBreakpointValue(
+    { base: true, md: false },
+    { ssr: false }
+  );
 
   return (
     <Flex direction={"column"} w={"full"} px={2} maxW={"1000px"} gap={4}>
@@ -40,15 +48,15 @@ export default function Home() {
               aria-label="Previous day"
               size={"sm"}
             />
-            <Button size="sm" colorScheme="gray">Mon, 24/06/2024, Wk 9B</Button>
+            {!shouldBreakLine && <DateSelector />}
             <Spacer />
             <Select w="fit-content" variant={"filled"} rounded="lg" size="sm">
               <option value='option1'>Day</option>
               <option value='option2'>Week</option>
               <option value='option3'>Cycle</option>
-          </Select>
-            
+            </Select>
       </Flex>
+      {shouldBreakLine && <DateSelector />}
       {/** Error state */}
       <ErrorAlert type={errorType} full />
       {/** Happy path */}
