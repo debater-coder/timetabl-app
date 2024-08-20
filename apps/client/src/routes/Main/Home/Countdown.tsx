@@ -25,7 +25,7 @@ export default function Countdown() {
         </Heading>
       </Flex>
       <Spacer />
-      ere u go
+      icons go here
     </Flex>
   );
 }

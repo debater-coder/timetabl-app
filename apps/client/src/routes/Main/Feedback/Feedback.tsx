@@ -16,6 +16,7 @@ export default function Feedback() {
   return (
     <Flex
       as="form"
+      // @ts-ignore
       onSubmit={handleSubmit}
       w="full"
       p={8}

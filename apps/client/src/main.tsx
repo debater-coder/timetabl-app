@@ -1,5 +1,4 @@
 import "./index.css";
-import reportWebVitals from "./reportWebVitals";
 import AppRouter from "./services/AppRouter/";
 import { DataAmalgamator } from "./services/DataAmalgamator";
 import SWRegistration from "./services/SWRegistration";
@@ -93,10 +92,6 @@ userInterface.render();
 
 // Register service worker
 swRegistration.registerSW();
-
-// Report web vitals
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-(reportWebVitals as any)(sendToVercelAnalytics);
 
 // Render welcome message for devs
 log(
