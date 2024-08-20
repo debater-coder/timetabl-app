@@ -6,6 +6,7 @@ import { detectErrorType } from "../../../components/ErrorAlert/ErrorAlert";
 import NotAvailable from "../../../components/NotAvailable";
 import Period from "./Period";
 import { ArrowLeft, ArrowRight } from "phosphor-react";
+import Countdown from "./Countdown";
 
 
 const DateSelector = () => <Button size="sm" colorScheme="gray">Mon, 24/06/2024, Wk 9B</Button>;
@@ -30,6 +31,7 @@ export default function Home() {
 
   return (
     <Flex direction={"column"} w={"full"} px={2} maxW={"1000px"} gap={4}>
+      <Countdown />
       <Flex align="center" gap={2} w="full">
         <Button size="sm" variant={"outline"} colorScheme="gray">Today</Button>
         <IconButton
