@@ -15,7 +15,13 @@ export const useTimetable = () => {
   return useQuery({
     queryKey: getQueryKey(),
     queryFn: () => queryFn(authActions),
-    select: (data) => timetableSchema.parse(data),
+    select: (data) => {
+      try {
+        return timetableSchema.parse(data);
+      } catch (error) {
+        console.error(error);
+      }
+    },
   });
 };
 

@@ -107,7 +107,7 @@ const bellSchema = z.object({
 });
 
 const subjectSchema = z.object({
-  colour: z.string(),
+  colour: z.string().nullish(),
   fullTeacher: z.string(),
   subject: z.string(),
   title: z.string(),
@@ -350,7 +350,7 @@ const timetableSubjectSchema = z.object({
   teacher: z.string().nullish(),
   fullTeacher: z.string().nullish(),
   year: z.coerce.string().nullish(),
-  colour: z.string(),
+  colour: z.string().nullish(),
 });
 export type TimetableSubject = z.infer<typeof timetableSubjectSchema>;
 

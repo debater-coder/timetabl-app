@@ -17,7 +17,7 @@ function generateLoadingPeriods() {
 
 export default function Schedule({ date }: { date?: string }) {
   const { data: dtt } = useDtt(date);
-
+  console.log(dtt);
   const activeKey = dtt?.periods.find(
     ({ startTime, endTime }) =>
       DateTime.fromISO(startTime) < DateTime.now() &&

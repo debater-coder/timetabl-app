@@ -1,5 +1,10 @@
 You can open release notes by going to Settings -> About -> Release notes.
 
+## 1.9.13-beta
+
+- Hotfix: Fix zod schema to fix strange loading state
+- TODO: solve this problem properly in the data-providers branch
+
 ## 1.9.11-beta
 
 - Hotfix: don't rely on SBHS OAuth discovery endpoint (which is currently dead)

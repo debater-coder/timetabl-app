@@ -30,7 +30,13 @@ export const useDtt = (date?: string) => {
         : undefined
     ),
     queryFn: () => queryFn(authActions, date),
-    select: (data) => dttSchema.parse(data),
+    select: (data) => {
+      try {
+        return dttSchema.parse(data);
+      } catch (error) {
+        console.error(error);
+      }
+    },
   });
 };
 
