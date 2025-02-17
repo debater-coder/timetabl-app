@@ -4,7 +4,6 @@ import {
   ChatsTeardrop,
   House,
   IconWeight,
-  MapTrifold,
   Medal,
   Megaphone,
 } from "phosphor-react";
