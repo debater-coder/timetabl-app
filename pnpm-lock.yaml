@@ -84,8 +84,8 @@ importers:
         specifier: ^3.2.3
         version: 3.2.3(prop-types@15.8.1)(react@18.3.1)
       dompurify:
-        specifier: ^2.4.0
-        version: 2.5.8
+        specifier: ^3.2.4
+        version: 3.2.4
       framer-motion:
         specifier: ^10.12.18
         version: 10.18.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -2178,8 +2178,8 @@ packages:
     engines: {node: '>=12'}
     deprecated: Use your platform's native DOMException instead
 
-  dompurify@2.5.8:
-    resolution: {integrity: sha512-o1vSNgrmYMQObbSSvF/1brBYEQPHhV1+gsmrusO7/GXtp1T9rCS8cXFqVxK/9crT1jA6Ccv+5MTSjBNqr7Sovw==}
+  dompurify@3.2.4:
+    resolution: {integrity: sha512-ysFSFEDVduQpyhzAob/kkuJjf5zWkZD8/A9ywSp1byueyuCfHamrCBa14/Oc2iiB0e51B+NpxSl5gmzn+Ms/mg==}
 
   dotenv@16.4.7:
     resolution: {integrity: sha512-47qPchRCykZC03FhkYAhrvwU4xDBFIj1QPqaarj6mdM/hgUzfPHcpkHJOn3mJAufFeeAxAzeGsr5X0M4k6fLZQ==}
@@ -6829,7 +6829,9 @@ snapshots:
     dependencies:
       webidl-conversions: 7.0.0
 
-  dompurify@2.5.8: {}
+  dompurify@3.2.4:
+    optionalDependencies:
+      '@types/trusted-types': 2.0.7
 
   dotenv@16.4.7: {}
 
