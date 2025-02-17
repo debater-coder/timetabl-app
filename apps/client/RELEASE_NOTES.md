@@ -1,5 +1,10 @@
 You can open release notes by going to Settings -> About -> Release notes.
 
+## 1.19.14-beta
+
+- Add maps to quick links (someone asked in feedback) 
+
+
 ## 1.9.13-beta
 
 - Hotfix: Fix zod schema to fix strange loading state
