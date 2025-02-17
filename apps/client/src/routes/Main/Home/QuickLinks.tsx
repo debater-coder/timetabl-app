@@ -50,7 +50,7 @@ export default function QuickLinks() {
         >
           Clipboard
         </QuickLink>
-        <QuickLink to="https://sydneyhigh.school/publications/document-library/doc_view/7752-school-map" icon={MapTrifold}>School Map</QuickLink>
+        <QuickLink to="https://sydneyhigh.school/publications/document-library/doc_view/7752-school-map" icon={<MapTrifold />}>School Map</QuickLink>
       </Flex>
     </Flex>
   );
