@@ -1,5 +1,6 @@
 {
   "name": "timetabl",
+  "packageManager": "pnpm@10.4.1",
   "version": "1.0.0",
   "author": "Hamzah Ahmed",
   "license": "MIT",
