@@ -1,7 +1,7 @@
 import CanvasIcon from "../../../components/CanvasIcon";
 import ClipboardIcon from "../../../components/ClipboardIcon";
 import { Flex, Button } from "@chakra-ui/react";
-import { GraduationCap, Envelope } from "phosphor-react";
+import { GraduationCap, Envelope, MapTrifold} from "phosphor-react";
 import { JSXElementConstructor, ReactElement, ReactNode } from "react";
 
 function QuickLink(props: {
@@ -50,7 +50,7 @@ export default function QuickLinks() {
         >
           Clipboard
         </QuickLink>
-        <QuickLink to="https://sydneyhigh.school/publications/document-library/doc_view/7752-school-map" >School Map</QuickLink>
+        <QuickLink to="https://sydneyhigh.school/publications/document-library/doc_view/7752-school-map" icon={MapTrifold}>School Map</QuickLink>
       </Flex>
     </Flex>
   );
