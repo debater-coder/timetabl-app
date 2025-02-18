@@ -17,6 +17,7 @@
     "knip": "^3.7.0",
     "typescript": "^5.1.6"
   },
+  "packageManager": "pnpm@7.28.0",
   "scripts": {
     "build": "turbo run build",
     "kill-ports": "kill-port 51204 && kill-port 3000",
