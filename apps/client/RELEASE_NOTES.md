@@ -1,6 +1,6 @@
 You can open release notes by going to Settings -> About -> Release notes.
 
-## 1.9.14-beta
+## 1.19.14-beta
 
 - Add maps to quick links (someone asked in feedback) 
 
